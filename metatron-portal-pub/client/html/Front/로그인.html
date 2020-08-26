@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+    <!-- LOGIN WRAP -->
+    <div class="dtp-login-wrap">
+
+        <!-- 로그인 영역 -->
+        <div class="section-login">
+            <h1 class="logo"><span class="blind">DT Portal</span></h1>
+
+            <!-- 로그인 -->
+            <div class="login-area">
+                <input type="text" class="input-login" placeholder="ID" />
+                <input type="password" class="input-login" placeholder="pw" />
+
+				<!-- 로그인 오류 메세지 -->
+				<!--
+					[D] 오류 메세지 노출할 경우 is_activated 클래스 추가
+				-->
+				<div class="alert-block is_activated">
+					비밀번호 5회 이상 잘못 입력하여 본인인증이 필요합니다.<br>
+					TANGO에서 확인해 주세요.
+				</div>
+				<!-- //로그인 오류 메세지 -->
+
+                <!-- 로그인 ID 저장 -->
+                <div class="save-block">
+                    <input type="checkbox" id="save-id" class="input-checkbox" />
+                    <label for="save-id" class="label">ID 기억하기</label>
+                </div>
+                <!-- //로그인 ID 저장 -->
+
+                <button type="button" class="btn-login">로그인</button>
+            </div>
+            <!-- 로그인 -->
+
+            <!-- 로그인 문의, TANGO -->
+            <div class="info-area" style="display:none;">
+                <span class="txt-login">로그인 문의 : <a href="javascript:;">tango@sk.com</a></span>
+                <a href="javascript:;" class="link-tango">TANGO 바로가기 &gt;</a>
+            </div>
+            <!-- //로그인 문의, TANGO -->
+        </div>
+        <!-- //로그인 영역 -->
+
+        <!-- COPYRIGHT -->
+        <div class="section-copy">
+            Copyright &copy; SK Telecom Co., Ltd. All rights reserved.
+        </div>
+        <!-- //COPYRIGHT -->
+
+    </div>
+    <!-- //LOGIN WRAP -->
+
+</body>
+</html>

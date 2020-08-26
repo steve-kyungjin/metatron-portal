@@ -1,0 +1,207 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   COMPONENT : SELECT BOX
+***************************************************************************************/
+.component-select {
+	position:relative;
+	height:36px;
+	border:1px solid #eaeaea;
+	background-color:#fff;
+	cursor:pointer;
+
+	@include radius(2px);
+	@extend %box-sizing;
+
+	&:after {
+		display:block;
+		position:absolute;
+		right:9px;
+		top:50%;
+		margin:-2px 0 0;
+		content:'';
+
+		@include get-sprite($arrow_selectbox);
+	}
+	&:hover {
+		border-color:#808080;
+
+		&:after {
+			@include get-sprite($arrow_selectbox_on);
+		}
+	}
+
+	// 비활성
+	&[aria-disabled="true"] {
+		cursor:default;
+		border-color:#f3f3f3;
+		background-color:#f3f3f3;
+
+		&:before {
+			display:block;
+			position:absolute;
+			left:0;
+			right:0;
+			top:0;
+			bottom:0;
+			content:'';
+		}
+		&:after {
+			@include get-sprite($arrow_selectbox);
+		}
+		&:hover {
+			border-color:#f3f3f3;
+		}
+
+		.label {
+			color:#aaa;
+		}
+	}
+
+	.label {
+		display:block;
+		height:100%;
+		padding:0 26px 0 9px;
+		line-height:36px;
+		font-size:12px;
+		color:#333;
+		text-align:left;
+
+		@extend %ellipsis;
+	}
+
+	&.type-filter.type-top .layer-select {
+		top:auto !important;
+		bottom:29px;
+	}
+
+	// 레이어 목록
+	.layer-select {
+		display:none;
+		overflow-y:auto;
+		overflow-x:hidden;
+		position:absolute;
+		left:0;
+		top:37px;
+		z-index:10;
+		width:100%;
+		max-height:160px;
+		padding:4px 0;
+		border:1px solid #808080;
+		background-color:#fff;
+
+		@include radius(2px);
+		@extend %box-sizing;
+
+		&[aria-expanded="true"] {
+			display:block;
+		}
+
+		.list-options > li {
+			position:relative;
+		}
+
+		.input-radio,
+		.input-checkbox {
+			@extend %hide-input;
+		}
+
+		.item-option {
+			display:block;
+			position:relative;
+			padding:7px 8px 7px 20px;
+			text-align:left;
+			line-height:16px;
+			font-size:12px;
+			color:#333;
+			cursor:pointer;
+
+			@extend %break;
+
+			&:before {
+				display:none;
+				position:absolute;
+				left:8px;
+				top:10px;
+				content:'';
+
+				@include get-sprite($icon_selectbox);
+			}
+
+			&:hover {
+				background-color:#e5f1f3;
+				color:#0c869b;
+
+				&:before {
+					display:block;
+					opacity:0.3;
+				}
+			}
+		}
+
+		.input-radio:checked + .item-option,
+		.input-checkbox:checked + .item-option {
+			color:#0c869b;
+
+			&:before {
+				display:block;
+				opacity:1;
+			}
+		}
+
+		// Loading
+		.loading-area {
+			height:50px;
+
+			&[aria-hidden="true"] {
+				display:none;
+			}
+
+			.component-loading .bar {
+				width:20px;
+				height:20px;
+				margin:-10px 0 0 -10px;
+				border-width:2px;
+			}
+		}
+	}
+
+}
+
+/***************************************************************************************
+   COMPONENT : SELECT BOX (TYPE FILTER)
+***************************************************************************************/
+.component-select.type-filter {
+	height:28px;
+
+	@include radius(3px);
+
+	&:after {
+		right:5px;
+		top:14px;
+
+		@include get-sprite($arrow_filter_selectbox);
+	}
+	&:hover:after {
+		@include get-sprite($arrow_filter_selectbox_on);
+	}
+
+	.label {
+		padding-right:16px;
+		line-height:28px;
+		font-size:11px;
+	}
+	.txt-filter {
+		display:inline-block;
+		margin:0 8px 0 0;
+		color:#aaa;
+	}
+
+	// 레이어 목록
+	.layer-select {
+		top:29px;
+	}
+	.layer-select .item-option {
+		font-size:11px;
+	}
+}

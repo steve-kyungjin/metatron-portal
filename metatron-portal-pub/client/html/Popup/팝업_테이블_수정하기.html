@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<link rel="stylesheet" href="http://idangero.us/swiper/dist/css/swiper.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- LAYER POPUP -->
+	<div class="layout-popup">
+		<div class="layer-popup">
+			<div class="popup">
+				<!-- Popup Content -->
+				<div class="popup-content">
+					<!-- 상단 버튼 영역 -->
+					<div class="section-button">
+						<a href="javascript:;" class="btn-basic">취소</a>
+						<a href="javascript:;" class="btn-action">저장</a>
+					</div>
+					<!-- //상단 버튼 영역 -->
+
+					<!-- 타이틀 영역 -->
+					<div class="section-title">
+						<h1 class="txt-title">테이블 수정하기</h1>
+					</div>
+					<!-- //타이틀 영역 -->
+
+					<!-- 테이블 수정하기 -->
+					<div class="section-metadata type-modify">
+						<div class="main-area">
+							<table class="table-data">
+								<colgroup>
+									<col width="150" />
+									<col width="*" />
+								</colgroup>
+								<tbody>
+								<tr>
+									<th><label class="label">테이블 논리명</label></th>
+									<td>
+										<input type="text" class="input-text" placeholder="테이블 논리명을 입력하세요.">
+									</td>
+								</tr>
+								<tr>
+									<th><label class="label">테이블 물리명</label></th>
+									<td>
+										<input type="text" class="input-text" placeholder="테이블 물리명을 입력하세요.">
+									</td>
+								</tr>
+								<tr>
+									<th class="align-top"><label class="label">테이블 설명</label></th>
+									<td>
+										<textarea class="textarea" placeholder="테이블 설명을 입력하세요."></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th class="align-top"><label class="label">주제영역</label></th>
+									<td>
+										<div class="form-subject">
+											<a href="javascript:;" class="btn-basic">설정하기</a>
+											<ul class="list-subject">
+												<li>
+													<span class="txt-subject">DT추진단 DT추진단 DT추진단 DT추진단 DT추진단 DT추진단 DT추진단 DT추진단 DT추진단</span>
+													<a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+												</li>
+												<li>
+													<span class="txt-subject">DT추진단</span>
+													<a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+												</li>
+												<li>
+													<span class="txt-subject">DT추진단</span>
+													<a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+												</li>
+												<li>
+													<span class="txt-subject">DT추진단</span>
+													<a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+												</li>
+												<li>
+													<span class="txt-subject">DT추진단</span>
+													<a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+												</li>
+												<li>
+													<span class="txt-subject">DT추진단</span>
+													<a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="sub-area">
+							<table class="table-data">
+								<colgroup>
+									<col width="150" />
+									<col width="*" />
+								</colgroup>
+								<tbody>
+								<tr>
+									<th class="align-top"><label class="label">데이터베이스 명</label></th>
+									<td>
+										<div class="form-database">
+											<a href="javascript:;" class="btn-basic">설정하기</a>
+											<div class="box-database">
+												<span class="txt-database">O_TANGO_I</span>
+												<a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th class="align-top"><label class="label">관리 담당자</label></th>
+									<td>
+										<div class="form-member">
+											<a href="javascript:;" class="btn-basic">설정하기</a>
+											<ul class="list-member">
+												<li>
+													<span class="bg-member" style="background-image:url(../../images/sample_profile.png);"></span>
+													<span class="txt-member">홍태희(Core Infra 솔루션)</span>
+													<a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th><label class="label">관리상태</label></th>
+									<td>
+										<!-- Select Box -->
+										<div class="component-select">
+											<span class="label">선택하세요.</span>
+											<!-- [D] 셀렉트 박스 선택 시 aria-expanded 값 true로 변경 -->
+											<div class="layer-select" aria-expanded="false">
+												<ul class="list-options">
+													<li>
+														<input type="radio" id="radio1" class="input-radio" name="selectoption" checked>
+														<label for="radio1" class="item-option">전체</label>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<!-- //Select Box -->
+									</td>
+								</tr>
+								<tr>
+									<th><label class="label">데이터 생성 특성 분류</label></th>
+									<td>
+										<!-- Select Box -->
+										<div class="component-select">
+											<span class="label">선택하세요.</span>
+											<!-- [D] 셀렉트 박스 선택 시 aria-expanded 값 true로 변경 -->
+											<div class="layer-select" aria-expanded="false">
+												<ul class="list-options">
+													<li>
+														<input type="radio" id="radio1" class="input-radio" name="selectoption" checked>
+														<label for="radio1" class="item-option">전체</label>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<!-- //Select Box -->
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- //테이블 수정하기 -->
+				</div>
+				<!-- //Popup Content -->
+			</div>
+		</div>
+	</div>
+	<!-- //LAYER POPUP -->
+
+</body>
+</html>

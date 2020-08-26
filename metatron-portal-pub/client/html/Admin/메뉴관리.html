@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- Wrap -->
+	<div class="dtp-wrap">
+
+		<!-- HEADER -->
+		<div class="layout-header">
+			<div class="section-search"></div>
+		</div>
+		<!-- //HEADER -->
+
+		<!-- TITLE,LOCATION,SEARCH RESULT -->
+		<div class="layout-top">
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<div class="title-area">
+					<!-- Location -->
+					<div class="location">
+						<em class="item">홈</em>
+						<em class="item">분석앱</em>
+						<em class="item">앱플레이스</em>
+					</div>
+					<!-- //Location -->
+
+					<!-- Title -->
+					<div class="title">
+						<h2 class="txt-title">앱플레이스</h2>
+						<p class="txt-desc">
+							앱플레이스 소갯말이 들어가는 곳입니다.
+						</p>
+					</div>
+					<!-- //Title -->
+				</div>
+			</div>
+			<!-- //타이틀 영역 -->
+		</div>
+		<!-- //TITLE,LOCATION,SEARCH RESULT -->
+
+		<!-- LNB -->
+		<div class="layout-lnb">
+
+		</div>
+		<!-- //LNB -->
+
+		<!-- QUICK COMM. -->
+		<div class="layout-quick">
+
+		</div>
+		<!-- //QUICK COMM. -->
+
+		<!-- CONTENT -->
+		<div class="layout-content">
+			<!-- 메뉴 관리 -->
+			<div class="page-management-menu">
+				<!-- 메뉴 -->
+				<div class="section-menu">
+					<div class="title-area">
+						<h3 class="txt-title">메뉴</h3>
+						<button class="btn-action type-add" disabled>하위메뉴 추가</button>
+					</div>
+
+					<div class="tree-area">
+						<!-- Loading -->
+						<div class="component-loading type-sub" aria-hidden="true">
+							<span class="bar"></span>
+						</div>
+						<!-- //Loading -->
+
+						<div class="scroll">
+							<!-- 트리 메뉴 -->
+							<div class="component-tree">
+								<ul class="list-tree">
+									<!--
+                                        [D] 접힌 경우 : is-collpsed
+                                        [D] 펼친 경우 : is-expanded
+                                    -->
+									<li>
+										<span class="tree-item is-expanded"><label class="label">메뉴명01</label></span>
+									</li>
+									<li style="padding-left:15px;">
+										<span class="tree-item is-collapsed"><label class="label">메뉴명01-1</label></span>
+									</li>
+									<li style="padding-left:15px;">
+										<span class="tree-item is-collapsed"><label class="label">메뉴명01-2</label></span>
+									</li>
+									<li>
+										<span class="tree-item is-expanded"><label class="label">메뉴명02</label></span>
+									</li>
+									<li style="padding-left:15px;">
+										<span class="tree-item"><label class="label">메뉴명02-1</label></span>
+									</li>
+									<li style="padding-left:15px;">
+										<span class="tree-item is-expanded"><label class="label">메뉴명02-2</label></span>
+									</li>
+									<li style="padding-left:30px;">
+										<span class="tree-item"><label class="label">메뉴명02-2-1</label></span>
+									</li>
+									<li style="padding-left:30px;">
+										<span class="tree-item"><label class="label">메뉴명02-2-2</label></span>
+									</li>
+								</ul>
+							</div>
+							<!-- //트리 메뉴 -->
+						</div>
+					</div>
+				</div>
+				<!-- //메뉴 -->
+
+				<!-- 메뉴 생성 폼 -->
+				<div class="section-form">
+					<!-- Title -->
+					<div class="title-area">
+						<h3 class="txt-title">기본정보</h3>
+					</div>
+					<!-- //Title -->
+					<!-- 기본정보 폼 -->
+					<table class="table-register">
+						<colgroup>
+							<col width="100" />
+							<col width="*" />
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>
+									<label class="label">메뉴명</label>
+								</th>
+								<td>
+									<ul class="list-depth type-none">
+										<li>커뮤니케이션 &gt; DT매거진 &gt;</li>
+										<li><input type="text" class="input-text" placeholder="메뉴명을 입력하세요."></li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="label">메뉴설명</label>
+								</th>
+								<td>
+									<input type="text" class="input-text" placeholder="메뉴에 대한 간략한 설명을 입력하세요.">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- //기본정보 폼 -->
+
+					<!-- Title -->
+					<div class="title-area">
+						<h3 class="txt-title">메뉴속성</h3>
+					</div>
+					<!-- //Title -->
+					<!-- 메뉴 속성 폼 -->
+					<table class="table-register">
+						<colgroup>
+							<col width="100" />
+							<col width="*" />
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>
+									<label class="label">메뉴 유형</label>
+								</th>
+								<td>
+									<ul class="list-option">
+										<li>
+											<input type="radio" id="radio1" class="input-radio" name="radio01" checked>
+											<label class="label" for="radio1">새로운 페이지 생성</label>
+										</li>
+										<li>
+											<input type="radio" id="radio2" class="input-radio" name="radio01">
+											<label class="label" for="radio2">페이지 없음(하위메뉴로 자동이동)</label>
+										</li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="label">페이지 유형</label>
+								</th>
+								<td>
+									<ul class="list-option">
+										<li>
+											<input type="radio" id="radio3" class="input-radio" name="radio02" disabled>
+											<label class="label" for="radio3">내부</label>
+										</li>
+										<li>
+											<input type="radio" id="radio4" class="input-radio" name="radio02" disabled>
+											<label class="label" for="radio4">외부</label>
+										</li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="label">페이지 경로</label>
+								</th>
+								<td>
+									<input type="text" class="input-text" placeholder="페이지 URL를 입력하세요." disabled>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="label">메뉴 순서</label>
+								</th>
+								<td>
+									<input type="text" class="input-text type-order">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- //메뉴 속성 폼 -->
+
+					<!-- 버튼 영역 -->
+					<div class="button-area">
+						<div class="left-block">
+							<button type="button" class="btn-action">저장</button>
+						</div>
+						<div class="right-block">
+							<button type="button" class="btn-basic">삭제</button>
+						</div>
+					</div>
+					<!-- //버튼 영역 -->
+
+					<!-- No Data -->
+					<div class="nodata">
+						관리할 메뉴를 선택하거나<br>2,3depth 메뉴를 추가할 수 있습니다.
+					</div>
+					<!-- //No Data -->
+				</div>
+				<!-- //메뉴 생성 폼 -->
+			</div>
+			<!-- //메뉴 관리 -->
+		</div>
+		<!-- //CONTENT -->
+
+	</div>
+	<!-- //Wrap -->
+
+</body>
+</html>

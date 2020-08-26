@@ -1,0 +1,130 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   COMPONENT : TOAST CUSTOM
+***************************************************************************************/
+.toast-top-right {
+	margin:0;
+}
+
+#toast-container {
+	.toast {
+		padding:0;
+		border:1px solid transparent;
+		opacity:1;
+
+		@include box-shadow(none);
+		@extend %box-sizing;
+
+		&:hover {
+			@include box-shadow(none);
+		}
+	}
+
+	> [class*="toast-"] {
+		background-position:-100%;
+	}
+
+	> .toast-success {
+		border-color:#81e46a;
+		background-color:#dcffd8;
+		color:#198800;
+
+		&:hover {
+			background-color:#b1ffa8;
+		}
+
+		.toast-message:before {
+			margin-top:-9px;
+
+			@include get-sprite($icon_toast_success);
+		}
+		.toast-close-button {
+			@include get-sprite($icon_close_success);
+		}
+	}
+	> .toast-info {
+		border-color:#83ceff;
+		background-color:#e0f2ff;
+		color:#009cff;
+
+		&:hover {
+			background-color:#b6e1ff;
+		}
+
+		.toast-message:before {
+			margin-top:-12px;
+
+			@include get-sprite($icon_toast_info);
+		}
+		.toast-close-button {
+			@include get-sprite($icon_close_info);
+		}
+	}
+	> .toast-warning {
+		border-color:#f1d683;
+		background-color:#fffbe6;
+		color:#c99e1c;
+
+		&:hover {
+			background-color:#fff1a6;
+		}
+
+		.toast-message:before {
+			margin-top:-11px;
+
+			@include get-sprite($icon_toast_warning);
+		}
+		.toast-close-button {
+			@include get-sprite($icon_close_warning);
+		}
+	}
+	> .toast-error {
+		border-color:#ffa1bb;
+		background-color:#ffe6ed;
+		color:#ff0048;
+
+		&:hover {
+			background-color:#ffcbda;
+		}
+
+		.toast-message:before {
+			margin-top:-12px;
+
+			@include get-sprite($icon_toast_error);
+		}
+		.toast-close-button {
+			@include get-sprite($icon_close_error);
+		}
+	}
+
+	// 메세지 영역
+	.toast-message {
+		position:relative;
+		min-width:300px;
+		height:100%;
+		padding:19px 18px 19px 47px;
+		font-size:12px;
+
+		&:before {
+			position:absolute;
+			left:18px;
+			top:50%;
+			content:'';
+		}
+	}
+
+	// 닫기 버튼
+	.toast-close-button {
+		position:absolute;
+		right:7px;
+		top:7px;
+		float:none;
+		text-shadow:none;
+		font-size:0;
+
+		&:hover {
+			opacity:1;
+		}
+	}
+}

@@ -1,0 +1,84 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   App 새창 레이아웃
+***************************************************************************************/
+.dtp-blank-wrap {
+	position:relative;
+	min-height:100%;
+
+	// Title
+	> .section-title {
+		position:fixed;
+		left:27px;
+		right:27px;
+		top:0;
+		background-color:#fff;
+
+		@extend %box-sizing;
+
+		.title-area {
+			height:46px;
+			border-bottom:1px solid #e9e9e9;
+
+			@extend %box-sizing;
+
+			&:after {
+				@extend %clear;
+			}
+
+			.title {
+				height:100%;
+			}
+		}
+
+		.txt-title {
+			position:relative;
+			float:left;
+			height:100%;
+			margin-right:10px;
+			border-bottom:1px solid #7575ea;
+			line-height:60px;
+			font-size:14px;
+			color:#7575ea;
+			font-weight:normal;
+		}
+		.txt-desc {
+			display:block;
+			position:relative;
+			top:24px;
+			font-size:11px;
+			color:#aaa;
+
+			@extend %ellipsis;
+		}
+	}
+
+	.blank-content {
+		padding:46px 0 0;
+	}
+
+	// Iframe
+	.section-iframe {
+		position:absolute;
+		left:0;
+		top:0;
+		z-index:10;
+		width:100%;
+		height:100%;
+		padding:66px 27px 0;
+
+		@extend %box-sizing;
+		@extend %fixed;
+	}
+	iframe.iframe-area {
+		display:block;
+		width:100%;
+		height:100%;
+	}
+
+	// Page
+	[class^="page-"] {
+		padding:30px 27px 50px;
+	}
+}

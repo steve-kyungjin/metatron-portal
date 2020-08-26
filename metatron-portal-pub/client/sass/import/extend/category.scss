@@ -1,0 +1,81 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   EXTEND : CATEGORY BUTTON
+***************************************************************************************/
+%btn-category {
+	overflow:hidden;
+	display:inline-block;
+	position:relative;
+	height:31px;
+	margin:0 5px 5px 0;
+	padding:0 15px;
+	border:1px solid transparent;
+	background-color:#fff;
+	line-height:31px;
+
+	@include radius(4px);
+	@extend %box-sizing;
+}
+
+$map: (
+	a: #262a50,
+	b: #646ed9,
+	c: #e4606d,
+	d: #00cf9f,
+	e: #2685c9,
+	f: #848c98,
+	g: #ff851f,
+	h: #1148a3,
+	i: #96cd01,
+	j: #df52a8
+);
+
+%style-category {
+	@each $class, $color in $map {
+		.type-#{$class} {
+			border-color:$color;
+			color:$color;
+
+			&:hover {
+				background-color:$color;
+				color:#fff;
+			}
+		}
+	}
+}
+
+%selected-category {
+	@each $class, $color in $map {
+		.input-radio:checked + .type-#{$class} {
+			background-color:$color;
+			color:#fff;
+		}
+	}
+}
+
+%lnb-category {
+	@each $class, $color in $map {
+		.type-#{$class} {
+			background-color:$color;
+			color:#fff;
+
+			&:after {
+				display:none;
+				position:absolute;
+				left:0;
+				top:0;
+				width:100%;
+				height:100%;
+				background-color:rgba(0,0,0,0.1);
+				content:'';
+			}
+			&:hover {
+				background-color:$color;
+			}
+			&:hover:after {
+				display:block;
+			}
+		}
+	}
+}

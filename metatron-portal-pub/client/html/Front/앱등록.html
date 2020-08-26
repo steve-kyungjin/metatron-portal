@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- Wrap -->
+	<div class="dtp-wrap">
+
+		<!-- HEADER -->
+		<div class="layout-header">
+			<div class="section-search"></div>
+		</div>
+		<!-- //HEADER -->
+
+		<!-- TITLE,LOCATION,SEARCH RESULT -->
+		<div class="layout-top">
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<div class="title-area">
+					<!-- Location -->
+					<div class="location">
+						<em class="item">홈</em>
+						<em class="item">분석앱</em>
+						<em class="item">앱플레이스</em>
+					</div>
+					<!-- //Location -->
+
+					<!-- Title -->
+					<div class="title">
+						<h2 class="txt-title">앱플레이스</h2>
+						<p class="txt-desc">
+							앱플레이스 소갯말이 들어가는 곳입니다.
+						</p>
+					</div>
+					<!-- //Title -->
+				</div>
+			</div>
+			<!-- //타이틀 영역 -->
+		</div>
+		<!-- //TITLE,LOCATION,SEARCH RESULT -->
+
+		<!-- LNB -->
+		<div class="layout-lnb">
+
+		</div>
+		<!-- //LNB -->
+
+		<!-- QUICK COMM. -->
+		<div class="layout-quick">
+
+		</div>
+		<!-- //QUICK COMM. -->
+
+		<!-- CONTENT -->
+		<div class="layout-content">
+			<!-- 앱 관리 -->
+			<div class="page-app-register">
+
+				<!-- 앱 등록 -->
+				<div class="section-register">
+					<!-- Title -->
+					<div class="title-area">
+						<h3 class="txt-title">앱 등록하기</h3>
+					</div>
+					<!-- //Title -->
+
+					<!-- 등록 폼, 카테고리, 권한 설정 -->
+					<div class="register-area">
+						<!-- 등록 폼 -->
+						<div class="form-block">
+							<div class="form">
+								<!-- [D] Validation Check tr태그에 is-error 클래스 추가 -->
+								<table class="table-register">
+									<colgroup>
+										<col width="100" />
+										<col width="*" />
+									</colgroup>
+									<tbody>
+										<tr class="is-error">
+											<th>
+												<label class="label">데이터 추출</label>
+											</th>
+											<td>
+												<div class="form-import">
+													<a href="javascript:;" class="btn-action">추출하기</a>
+													<span class="txt-alert">데이터 추출형 생성완료!</span>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>
+												<label class="label">대시보드</label>
+											</th>
+											<td>
+												<div class="form-import">
+													<a href="javascript:;" class="btn-action">선택하기</a>
+													<input type="text" class="input-text" value="Folder/Workbook/dashboard" disabled>
+												</div>
+											</td>
+										</tr>
+										<tr class="is-error">
+											<th>
+												<label class="label">URL</label>
+											</th>
+											<td>
+												<input type="text" class="input-text" placeholder="연결하고자 하는 서비스의 URL를 입력해 주세요.">
+											</td>
+										</tr>
+										<tr>
+											<th>
+												<label class="label">앱 이름</label>
+											</th>
+											<td>
+												<input type="text" class="input-text" placeholder="앱 이름을 입력해 주세요.">
+											</td>
+										</tr>
+										<tr>
+											<th>
+												<label class="label">간략 설명</label>
+											</th>
+											<td>
+												<input type="text" class="input-text" placeholder="앱에 대한 간략한 설명을 입력해 주세요.">
+											</td>
+										</tr>
+										<tr>
+											<th class="align-top">
+												<label class="label">앱 소개</label>
+											</th>
+											<td>
+												<textarea class="textarea"></textarea>
+											</td>
+										</tr>
+										<tr>
+											<th>
+												<label class="label">버전</label>
+											</th>
+											<td>
+												<input type="text" class="input-text" placeholder="버전을 입력해 주세요.">
+											</td>
+										</tr>
+										<tr>
+											<th class="align-top">
+												<label class="label">버전정보</label>
+											</th>
+											<td>
+												<textarea class="textarea"></textarea>
+											</td>
+										</tr>
+										<tr>
+											<th class="align-top">
+												<label class="label">스크린샷</label>
+											</th>
+											<td>
+												<!-- 업로드 -->
+												<div class="form-upload">
+													<span class="btn-basic">
+														<label for="upload">파일 찾기</label>
+														<input type="file" id="upload" class="input-file">
+													</span>
+													<p class="txt-desc">이미지 권장 사이즈: 835*520</p>
+												</div>
+												<!-- //업로드 -->
+
+												<!-- 파일 목록 -->
+												<ul class="list-file">
+													<li>
+														screenshot_01.jpg
+														<a href="javascript:;" class="btn-del" aria-label="파일 삭제"></a>
+													</li>
+													<li>
+														screenshot_01.jpg
+														<a href="javascript:;" class="btn-del" aria-label="파일 삭제"></a>
+													</li>
+													<li>
+														screenshot_01.jpg
+														<a href="javascript:;" class="btn-del" aria-label="파일 삭제"></a>
+													</li>
+												</ul>
+												<!-- //파일 목록 -->
+											</td>
+										</tr>
+										<tr>
+											<th>
+												<label class="label">상태</label>
+											</th>
+											<td>
+												<ul class="list-option">
+													<li>
+														<input type="radio" id="radio1" class="input-radio" name="status" checked>
+														<label class="label" for="radio1">ON</label>
+													</li>
+													<li>
+														<input type="radio" id="radio2" class="input-radio" name="status">
+														<label class="label" for="radio2">OFF</label>
+													</li>
+												</ul>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- //등록 폼 -->
+
+						<!-- 카테고리, 권한 설정 -->
+						<div class="option-block">
+							<!-- 카테고리 설정 -->
+							<dl class="option-category is-error">
+								<dt>카테고리</dt>
+								<dd>
+									<ul class="list-category">
+										<li>
+											<input type="checkbox" id="check1" class="input-checkbox">
+											<label class="label" for="check1">
+												<span class="txt-kor">무선</span>
+												<span class="txt-eng">Wireless</span>
+											</label>
+										</li>
+										<li>
+											<input type="checkbox" id="check2" class="input-checkbox">
+											<label class="label" for="check2">
+												<span class="txt-kor">무선</span>
+												<span class="txt-eng">Wireless</span>
+											</label>
+										</li>
+									</ul>
+								</dd>
+							</dl>
+							<!-- //카테고리 설정 -->
+
+							<!-- 권한 설정 -->
+							<dl class="option-permission">
+								<dt>
+									권한 설정
+								</dt>
+								<dd>
+									<ul class="list-permission">
+										<li>
+											<input type="radio" id="radio03" class="input-radio" checked>
+											<label class="label" for="radio03">전체</label>
+										</li>
+										<li>
+											<input type="radio" id="radio04" class="input-radio">
+											<label class="label" for="radio04">사용자/그룹/조직 권한설정하기</label>
+
+											<!-- 확장 영역 -->
+											<!--
+												[D] 확장 영역 노출 시 aria-expanded 값 true로 변경
+											-->
+											<ul class="permission-expand" aria-expanded="true">
+												<li>
+													<span class="txt-label">사용자</span>
+													<strong class="txt-num">1,356</strong>
+													<a href="javascript:;" class="btn-setting" aria-label="사용자 설정"></a>
+												</li>
+												<li>
+													<span class="txt-label">그룹</span>
+													<strong class="txt-num">825</strong>
+													<a href="javascript:;" class="btn-setting" aria-label="그룹 설정"></a>
+												</li>
+												<li>
+													<span class="txt-label">조직</span>
+													<strong class="txt-num">10</strong>
+													<a href="javascript:;" class="btn-setting" aria-label="조직 설정"></a>
+												</li>
+											</ul>
+											<!-- //확장 영역 -->
+										</li>
+									</ul>
+								</dd>
+							</dl>
+							<!-- //권한 설정 -->
+						</div>
+						<!-- //카테고리, 권한 설정 -->
+					</div>
+					<!-- //등록 폼, 카테고리, 권한 설정 -->
+
+					<!-- 버튼 영역 -->
+					<div class="button-area">
+						<div class="left-block">
+							<button type="button" class="btn-basic">취소</button>
+							<button type="button" class="btn-action">등록</button>
+						</div>
+					</div>
+					<!-- //버튼 영역 -->
+				</div>
+				<!-- //앱 등록 -->
+
+			</div>
+			<!-- //앱 관리 -->
+		</div>
+		<!-- //CONTENT -->
+
+	</div>
+	<!-- //Wrap -->
+
+</body>
+</html>

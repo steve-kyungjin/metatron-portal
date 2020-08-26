@@ -1,0 +1,83 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   COMPONENT : TREE
+***************************************************************************************/
+.component-tree {
+	.list-tree {
+		> li + li {
+			margin-top:10px;
+		}
+
+		.tree-item {
+			display:block;
+			position:relative;
+			font-size:12px;
+			color:#333;
+			white-space:nowrap;
+
+			.icon-tree {
+				display:inline-block;
+				margin:2px 3px 0 0;
+				vertical-align:top;
+				cursor:pointer;
+
+				@include get-sprite($icon_tree);
+			}
+
+			&:after {
+				content:'';
+			}
+
+			&.is-expanded,
+			&.is-collapsed {
+				font-weight:bold;
+
+				.label {
+					color:#262a50;
+				}
+			}
+
+			&.is-expanded .icon-tree {
+				@include get-sprite($icon_tree_unfold);
+			}
+			&.is-collapsed .icon-tree {
+				@include get-sprite($icon_tree_fold);
+			}
+
+			&.is-selected .label {
+				color:#7575ea;
+			}
+
+			.label {
+				display:inline-block;
+				margin:0;
+				padding:0;
+
+				&:before {
+					display:none;
+					margin-top:0;
+				}
+
+				&:hover:before {
+					display:none;
+				}
+			}
+
+			// Checkbox
+			@extend %ui-checkbox;
+		}
+
+		// Loading
+		.component-loading.type-sub {
+			z-index:10;
+		}
+	}
+
+	// 체크박스 유형
+	&.type-checkbox {
+		.list-tree .tree-item {
+
+		}
+	}
+}

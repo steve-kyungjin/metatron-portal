@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- Wrap -->
+	<div class="dtp-wrap">
+
+		<!-- HEADER -->
+		<div class="layout-header">
+			<div class="section-search"></div>
+		</div>
+		<!-- //HEADER -->
+
+		<!-- TITLE,LOCATION,SEARCH RESULT -->
+		<div class="layout-top">
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<div class="title-area">
+					<!-- Location -->
+					<div class="location">
+						<em class="item">홈</em>
+						<em class="item">분석앱</em>
+						<em class="item">앱플레이스</em>
+					</div>
+					<!-- //Location -->
+
+					<!-- Title -->
+					<div class="title">
+						<h2 class="txt-title">
+							앱플레이스
+							<a href="javascript:;" class="btn-blank" aria-label="새창으로 보기"></a>
+						</h2>
+						<p class="txt-desc">
+							앱플레이스 소갯말이 들어가는 곳입니다.
+						</p>
+					</div>
+					<!-- //Title -->
+				</div>
+			</div>
+			<!-- //타이틀 영역 -->
+		</div>
+		<!-- //TITLE,LOCATION,SEARCH RESULT -->
+
+		<!-- LNB -->
+		<div class="layout-lnb">
+
+		</div>
+		<!-- //LNB -->
+
+		<!-- QUICK COMM. -->
+		<div class="layout-quick">
+
+		</div>
+		<!-- //QUICK COMM. -->
+
+		<!-- CONTENT -->
+		<div class="layout-content">
+			<!-- 데이터 추출 -->
+			<div class="page-data-extract">
+
+				<!-- 조건 입력 -->
+				<!-- [D] 조건이 없는 경우 aria-expanded : true -->
+				<div class="section-condition" aria-expanded="false">
+					<div class="title-area">
+						<h3 class="txt-title">실행조건입력</h3>
+						<a href="javascript:;" class="btn-reset">초기화</a>
+					</div>
+
+					<div class="condition-area" aria-expanded="true">
+						<ul class="form-condition">
+							<li>
+								<label class="txt-label">이름</label>
+								<input type="text" class="input-text" placeholder="">
+								<p class="txt-desc">* 이름입력</p>
+							</li>
+							<li>
+								<label class="txt-label">버전 정보</label>
+								<input type="text" class="input-text" placeholder="">
+								<p class="txt-desc">* 이름입력</p>
+							</li>
+							<li>
+								<label class="txt-label">사용여부</label>
+								<!-- Select Box -->
+								<div class="component-select">
+									<span class="label">전체</span>
+									<!-- [D] 셀렉트 박스 선택 시 aria-expanded 값 true로 변경 -->
+									<div class="layer-select" aria-expanded="false">
+										<ul class="list-options">
+											<li>
+												<input type="radio" id="radio1" class="input-radio" name="selectoption" checked>
+												<label for="radio1" class="item-option">남자 남자 남자 남자 남자 남자 남자</label>
+											</li>
+											<li>
+												<input type="radio" id="radio2" class="input-radio" name="selectoption">
+												<label for="radio2" class="item-option">여자</label>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<!-- //Select Box -->
+								<p class="txt-desc">* 이름입력</p>
+							</li>
+							<li>
+								<label class="txt-label">앱 이름</label>
+								<input type="text" class="input-text" placeholder="">
+								<p class="txt-desc">* 이름입력</p>
+							</li>
+							<li>
+								<label class="txt-label">날짜</label>
+								<div class="component-datepicker">
+									<div class="box-datepicker">
+										<input type="text" value="2018-05-10" readonly="readonly">
+									</div>
+								</div>
+								<p class="txt-desc">* 이름입력</p>
+							</li>
+							<li>
+								<label class="txt-label">날짜/시간</label>
+								<div class="component-datepicker">
+									<div class="box-datepicker">
+										<input type="text" value="2018-05-10" readonly="readonly">
+									</div>
+								</div>
+								<p class="txt-desc">* 이름입력</p>
+							</li>
+							<li>
+								<label class="txt-label">사용자 정의 변수</label>
+								<div class="form-regist">
+									<div class="regist-input">
+										<input type="text" class="input-text" placeholder="" readonly>
+									</div>
+									<div class="regist-button">
+										<a href="javascript:;" class="btn-basic">등록</a>
+									</div>
+								</div>
+								<p class="txt-desc">* 이름입력</p>
+							</li>
+						</ul>
+					</div>
+					<!-- 실행 -->
+					<div class="start-area">
+						<input type="text" class="input-text">
+						<a href="javascript:;" class="btn-action type-start">실행</a>
+					</div>
+					<!-- //실행 -->
+					<a href="javascript:;" class="btn-condition-expand"></a>
+				</div>
+				<!-- //조건 입력 -->
+
+				<!-- Query 결과 -->
+				<div class="section-query">
+					<div class="title-area">
+						<h3 class="txt-title">Query 결과</h3>
+						<a href="javascript:;" class="btn-basic type-download">엑셀 다운로드</a>
+					</div>
+
+					<!-- Query -->
+					<div class="query-area">
+						<!-- No Data -->
+						<div class="nodata-query">
+							<p class="txt-desc">
+								Query 결과가 표시됩니다.
+							</p>
+						</div>
+						<!-- //No Data -->
+
+						<!-- Query 영역 -->
+						<div class="component-query"></div>
+						<!-- //Query 영역 -->
+					</div>
+					<!-- //Query -->
+				</div>
+				<!-- //Query 결과 -->
+
+			</div>
+			<!-- //데이터 추출 -->
+		</div>
+		<!-- //CONTENT -->
+
+	</div>
+	<!-- //Wrap -->
+
+</body>
+</html>

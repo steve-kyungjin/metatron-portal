@@ -1,0 +1,449 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   COMMON UI : Scroll
+***************************************************************************************/
+%scroll {
+	/* Chrome, Safari */
+	&::-webkit-scrollbar {
+		width:5px;
+		height:5px;
+	}
+	&::-webkit-scrollbar-button {
+		width:5px;
+		height:5px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: #444447;
+		border: 0 none;
+		border-radius: 50px;
+	}
+	&::-webkit-scrollbar-thumb:hover,
+	&::-webkit-scrollbar-thumb:active {
+		background: #595a5c;
+	}
+	&::-webkit-scrollbar-track {
+		background: #303136;
+		border: 0 none;
+		border-radius: 50px;
+	}
+	&::-webkit-scrollbar-track:hover,
+	&::-webkit-scrollbar-track:active {
+		background: #303136;
+	}
+	&::-webkit-scrollbar-corner {
+		background: transparent;
+	}
+
+	/* IE */
+	scrollbar-face-color:#444447;
+	scrollbar-highlight-color:#303136;
+	scrollbar-3dlight-color:#303136;
+	scrollbar-darkshadow-color:#303136;
+	scrollbar-shadow-color:#303136;
+	scrollbar-arrow-color:#303136;
+	scrollbar-track-color:#444447;
+}
+
+%scroll-lnb {
+	/* Chrome, Safari */
+	&::-webkit-scrollbar {
+		width:5px;
+		height:5px;
+	}
+	&::-webkit-scrollbar-button {
+		width:5px;
+		height:5px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: #646b7a;
+		border: 0 none;
+		border-radius: 50px;
+	}
+	&::-webkit-scrollbar-thumb:hover,
+	&::-webkit-scrollbar-thumb:active {
+		background: #7b818d;
+	}
+	&::-webkit-scrollbar-track {
+		background: #555d6b;
+		border: 0 none;
+		border-radius: 50px;
+	}
+	&::-webkit-scrollbar-track:hover,
+	&::-webkit-scrollbar-track:active {
+		background: #555d6b;
+	}
+	&::-webkit-scrollbar-corner {
+		background: transparent;
+	}
+
+	/* IE */
+	scrollbar-face-color:#646b7a;
+	scrollbar-highlight-color:#555d6b;
+	scrollbar-3dlight-color:#555d6b;
+	scrollbar-darkshadow-color:#555d6b;
+	scrollbar-shadow-color:#555d6b;
+	scrollbar-arrow-color:#555d6b;
+	scrollbar-track-color:#646b7a;
+}
+
+%scroll-popup {
+	/* Chrome, Safari */
+	&::-webkit-scrollbar {
+		width:8px;
+		height:8px;
+	}
+	&::-webkit-scrollbar-button {
+		width:8px;
+		height:8px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: #646b7a;
+		border: 0 none;
+	}
+	&::-webkit-scrollbar-thumb:hover,
+	&::-webkit-scrollbar-thumb:active {
+		background: #7b818d;
+	}
+	&::-webkit-scrollbar-track {
+		background: #000;
+		border: 0 none;
+	}
+	&::-webkit-scrollbar-track:hover,
+	&::-webkit-scrollbar-track:active {
+		background: #555d6b;
+	}
+	&::-webkit-scrollbar-corner {
+		background: transparent;
+	}
+
+	/* IE */
+	scrollbar-face-color:#646b7a;
+	scrollbar-highlight-color:#555d6b;
+	scrollbar-3dlight-color:#555d6b;
+	scrollbar-darkshadow-color:#555d6b;
+	scrollbar-shadow-color:#555d6b;
+	scrollbar-arrow-color:#555d6b;
+	scrollbar-track-color:#000;
+}
+
+/***************************************************************************************
+	COMMON UI : 앱플레이스 타이틀 영역
+***************************************************************************************/
+%ui-title {
+	position:relative;
+	height:36px;
+	border-bottom:1px solid #d4d4dc;
+
+	@extend %box-sizing;
+
+	> .txt-title {
+		display:inline-block;
+		height:100%;
+		border-bottom:1px solid #262a50;
+		line-height:36px;
+		font-size:14px;
+		color:#262a50;
+	}
+}
+
+/***************************************************************************************
+	COMMON UI : TAB
+***************************************************************************************/
+%ui-tab {
+	.list-tab {
+		height:32px;
+		border-top:1px solid #d4d4dc;
+		border-bottom:1px solid #d4d4dc;
+
+		&:after {
+			@extend %clear;
+		}
+
+		> li {
+			float:left;
+		}
+
+		.btn-tab {
+			display:block;
+			height:100%;
+			margin-top:-1px;
+			padding:0 20px;
+			border:1px solid transparent;
+			line-height:32px;
+			font-size:12px;
+			color:#a7a7b8;
+		}
+		.btn-tab:hover,
+		.is-selected .btn-tab {
+			border-top:1px solid #262a50;
+			border-bottom:1px solid #262a50;
+			color:#262a50;
+		}
+	}
+}
+
+/***************************************************************************************
+	COMMON UI : Table Style
+***************************************************************************************/
+%ui-table {
+	thead th {
+		height:30px;
+		border-bottom:1px solid #eaeaf1;
+		background-color:#f3f3f9;
+		font-size:12px;
+		color:#262a50;
+	}
+	tbody th,
+	tbody td {
+		padding:9px 0 10px;
+		border-bottom:1px solid #f4f4f6;
+		background-color:#fff;
+		text-align:center;
+		font-size:12px;
+		color:#808080;
+	}
+	tbody td {
+		height:30px;
+		padding:5px 0;
+	}
+}
+
+/***************************************************************************************
+   COMMON UI : 필수 입력
+***************************************************************************************/
+.require {
+	font-size:13px;
+	color:#f2ab25;
+	font-weight:normal;
+	vertical-align:top;
+}
+
+/***************************************************************************************
+   COMMON UI : Validation Check
+***************************************************************************************/
+%error-set {
+	.input-text,
+	.textarea {
+		border-color:#ff0048;
+		background-color:#ffeef3;
+
+		@include placeholder(#ff0048);
+	}
+	.component-select {
+		border-color:#ff0048;
+		background-color:#ffeef3;
+
+		&:hover {
+			border-color:#ff0048;
+		}
+		.label {
+			color:#ff0048;
+		}
+	}
+	.component-datepicker .box-datepicker {
+		border-color:#ff0048;
+		background-color:#ffeef3;
+	}
+}
+
+.is-error {
+	.label {
+		color:#ff0048;
+	}
+
+	@extend %error-set;
+
+	& + td {
+		@extend %error-set;
+	}
+}
+
+/***************************************************************************************
+	COMMON UI : No Data
+***************************************************************************************/
+%ui-nodata {
+	padding:80px 0 75px;
+	border-bottom:1px solid #f4f4f6;
+	text-align:center;
+	font-size:13px;
+	color:#333;
+}
+
+/***************************************************************************************
+   COMMON UI : Input Box
+***************************************************************************************/
+.input-text {
+	width:100%;
+	height:36px;
+	padding:0 10px;
+	border:1px solid #eaeaea;
+	background-color:#fff;
+	font-size:12px;
+	color:#333;
+
+	@include placeholder(#aaa);
+	@include radius(2px);
+	@extend %box-sizing;
+
+	&:focus {
+		border-color:#808080;
+		background-color:#fff;
+	}
+	&:disabled {
+		background-color:#f7f7f7;
+		opacity:0.5;
+	}
+
+	&.is-error {
+		border-color:#ff0048;
+		background-color:#ffeef3;
+
+		@include placeholder(#ff0048);
+	}
+}
+
+/***************************************************************************************
+   COMMON UI : TEXTAREA
+***************************************************************************************/
+.textarea {
+	width:100%;
+	padding:10px;
+	border:1px solid #eaeaea;
+	background-color:#fff;
+	font-size:12px;
+	color:#333;
+
+	@include placeholder(#aaa);
+	@include radius(2px);
+	@extend %box-sizing;
+
+	&:focus {
+		border-color:#808080;
+	}
+
+	&.is-error {
+		border-color:red;
+	}
+}
+
+/***************************************************************************************
+   COMMON UI : RADIO BUTTON
+***************************************************************************************/
+%ui-radio {
+	input[type=radio],
+	.input-radio {
+		@extend %hide-input;
+	}
+	.label {
+		display:block;
+		line-height:16px;
+		font-size:12px;
+		color:#333;
+		cursor:pointer;
+
+		&:before {
+			display:inline-block;
+			margin:1px 4px 0 0;
+			vertical-align:top;
+			content:'';
+
+			@include get-sprite($icon_radio);
+		}
+
+		&:hover:before {
+			@include get-sprite($icon_radio_hover);
+		}
+	}
+	input[type=radio]:checked + .label:before,
+	.input-radio:checked + .label:before {
+		@include get-sprite($icon_radio_on);
+	}
+	.input-radio:disabled {
+		& + .label {
+			opacity:0.5;
+			cursor:default;
+		}
+		& + .label:hover:before {
+			@include get-sprite($icon_radio);
+		}
+	}
+}
+
+/***************************************************************************************
+   COMMON UI : CHECKBOX
+***************************************************************************************/
+%ui-checkbox {
+	.input-checkbox {
+		@extend %hide-input;
+	}
+
+	.label {
+		display:block;
+		font-size:12px;
+		color:#333;
+		cursor:pointer;
+
+		&:before {
+			display:inline-block;
+			margin:1px 5px 0 0;
+			vertical-align:top;
+			content:'';
+
+			@include get-sprite($icon_checkbox);
+		}
+		&:hover:before {
+			@include get-sprite($icon_checkbox_hover);
+		}
+	}
+
+	.input-checkbox:checked + .label {
+		&:before {
+			@include get-sprite($icon_checkbox_on);
+		}
+		&:hover:before {
+			@include get-sprite($icon_checkbox_on_hover);
+		}
+	}
+}
+
+/***************************************************************************************
+	COMMON UI : File List
+***************************************************************************************/
+%file-list {
+	font-size:0;
+
+	> li {
+		display:inline-block;
+		position:relative;
+		height:24px;
+		margin:0 3px 0 0;
+		padding:0 24px 0 10px;
+		background-color:#e3f3f6;
+		vertical-align:top;
+		line-height:24px;
+		font-size:11px;
+		color:#0c869b;
+
+		@include radius(2px);
+	}
+
+	.btn-del {
+		display:block;
+		position:absolute;
+		right:0;
+		top:0;
+		width:24px;
+		height:24px;
+
+		&:before {
+			position:absolute;
+			left:50%;
+			top:50%;
+			margin:-4px 0 0 -4px;
+			content:'';
+
+			@include get-sprite($icon_file_delete);
+		}
+	}
+}

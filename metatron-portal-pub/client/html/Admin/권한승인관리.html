@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- Wrap -->
+	<div class="dtp-wrap">
+
+		<!-- HEADER -->
+		<div class="layout-header">
+			<div class="section-search"></div>
+		</div>
+		<!-- //HEADER -->
+
+		<!-- TITLE,LOCATION,SEARCH RESULT -->
+		<div class="layout-top">
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<div class="title-area">
+					<!-- Location -->
+					<div class="location">
+						<em class="item">홈</em>
+						<em class="item">분석앱</em>
+						<em class="item">앱플레이스</em>
+					</div>
+					<!-- //Location -->
+
+					<!-- Title -->
+					<div class="title">
+						<h2 class="txt-title">앱플레이스</h2>
+						<p class="txt-desc">
+							앱플레이스 소갯말이 들어가는 곳입니다.
+						</p>
+					</div>
+					<!-- //Title -->
+				</div>
+			</div>
+			<!-- //타이틀 영역 -->
+		</div>
+		<!-- //TITLE,LOCATION,SEARCH RESULT -->
+
+		<!-- LNB -->
+		<div class="layout-lnb">
+
+		</div>
+		<!-- //LNB -->
+
+		<!-- QUICK COMM. -->
+		<div class="layout-quick">
+
+		</div>
+		<!-- //QUICK COMM. -->
+
+		<!-- CONTENT -->
+		<div class="layout-content">
+			<!-- 권한 승인 관리 -->
+			<div class="page-management-authority">
+
+				<div class="section-list">
+					<!-- Title -->
+					<div class="title-area">
+						<a href="javascript:;" class="link-step" aria-selected="true">전체(30)</a>
+						<a href="javascript:;" class="link-step" aria-selected="false">승인대기(100)</a>
+						<a href="javascript:;" class="link-step" aria-selected="false">승인완료(20)</a>
+						<div class="filter">
+							<!-- 검색 -->
+							<div class="component-search">
+								<input type="text" class="input-search" placeholder="이름, 아이디로 검색">
+								<button class="btn-search" aria-label="검색"></button>
+							</div>
+							<!-- //검색 -->
+						</div>
+					</div>
+					<!-- //Title -->
+
+					<!-- 목록 -->
+					<table class="table-approve">
+						<colgroup>
+							<col width="90" />
+							<col width="*" />
+							<col width="120" />
+							<col width="120" />
+							<col width="140" />
+							<col width="160" />
+							<col width="110" />
+							<col width="60" />
+						</colgroup>
+						<thead>
+						<tr>
+							<th>구분</th>
+							<th>신청앱</th>
+							<th>이름</th>
+							<th>아이디</th>
+							<th>조직</th>
+							<th>신청일</th>
+							<th>승인</th>
+							<th>관리</th>
+						</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><span class="txt-name">홍길동</span></td>
+								<td>gildong</td>
+								<td>SKT</td>
+								<td>DT Infra</td>
+								<td>2018-03-03 17:55:55</td>
+								<td>일반사용자</td>
+								<td>
+									<a href="javascript:;" class="link-status">승인대기</a>
+								</td>
+								<td>
+									<a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+								</td>
+							</tr>
+							<!-- [D] 상태가 승인완료인 경우 tr태그에 type-complete 클래스 추가 -->
+							<tr class="type-complete">
+								<td><span class="txt-name">홍길동</span></td>
+								<td>gildong</td>
+								<td>SKT</td>
+								<td>DT Infra</td>
+								<td>2018-03-03 17:55:55</td>
+								<td>일반사용자</td>
+								<td>
+									<strong class="txt-status">승인완료</strong>
+								</td>
+								<td>
+									<a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- //목록 -->
+
+					<!-- No Data -->
+					<div class="list-nodata">
+						등록된 권한이 없습니다.
+					</div>
+					<!-- //No Data -->
+
+					<!-- Pagination -->
+					<div class="pagination-area">
+						<div class="component-page">
+							<!-- [D] 이전/다음 버튼은 노출하지 않는 경우 aria-hidden 값 true로 변경 -->
+							<!-- [D] 페이지 버튼 선택 된 항목은 aria-selected 값 true로 변경 -->
+							<a href="javascript:;" class="btn-prev" aria-hidden="false" aria-label="이전"></a>
+							<a href="javascript:;" class="btn-page" aria-selected="true">1</a>
+							<a href="javascript:;" class="btn-page" aria-selected="false">2</a>
+							<a href="javascript:;" class="btn-page" aria-selected="false">3</a>
+							<a href="javascript:;" class="btn-page" aria-selected="false">4</a>
+							<a href="javascript:;" class="btn-page" aria-selected="false">5</a>
+							<a href="javascript:;" class="btn-next" aria-hidden="false" aria-label="다음"></a>
+						</div>
+					</div>
+					<!-- //Pagination -->
+				</div>
+
+			</div>
+			<!-- //권한 승인 관리 -->
+		</div>
+		<!-- //CONTENT -->
+
+	</div>
+	<!-- //Wrap -->
+
+</body>
+</html>

@@ -1,0 +1,574 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   QUICK COMM.
+***************************************************************************************/
+.layout-quick {
+	position:fixed;
+	right:-290px;
+	top:0;
+	bottom:0;
+	z-index:30;
+	width:290px;
+	background-color:rgba(0,0,0,0.9);
+	flex-flow:column nowrap;
+
+	@include transition(right 0.3s ease);
+	@extend %fixed;
+	@extend %flex;
+
+	.btn-quick {
+		display:block;
+		position:absolute;
+		left:-40px;
+		top:240px;
+		width:40px;
+		height:113px;
+		background-color:rgba(0,0,0,0.9);
+
+		@include transition(all 0.3s ease);
+		@include radius(4px 0 0 4px);
+
+		&:before {
+			position:absolute;
+			left:50%;
+			top:50%;
+			margin:-46px 0 0 -6px;
+			content:'';
+
+			@include get-sprite($icon_quick);
+		}
+
+		&:hover {
+			background-color:#f2ab25;
+		}
+	}
+
+	&[aria-expanded="true"] {
+		right:0;
+	}
+}
+
+/***************************************************************************************
+   QUICK : User Info
+***************************************************************************************/
+.layout-quick .section-user {
+	position:relative;
+	height:58px;
+
+	@include flex(initial);
+
+	&:after {
+		@extend %clear;
+	}
+	.btn-close {
+		position:absolute;
+		right:14px;
+		top:50%;
+		margin:-7px 0 0;
+
+		@include get-sprite($icon_close_quick);
+	}
+
+	.img-user {
+		overflow:hidden;
+		display:block;
+		float:left;
+		width:34px;
+		height:34px;
+		margin:12px 0 0 10px;
+
+		@include radius(50%);
+		@extend %bg-cover;
+	}
+	.info-user {
+		float:left;
+		max-width:120px;
+		margin:12px 0 0 10px;
+
+		> em {
+			display:block;
+			font-size:11px;
+			color:#fff;
+
+			@extend %ellipsis;
+		}
+		.txt-id {
+			margin:2px 0 0;
+		}
+		.txt-name {
+			margin:5px 0 0;
+		}
+	}
+	.btn-modify {
+		display:block;
+		float:left;
+		height:20px;
+		margin:18px 0 0 10px;
+		padding:0 9px;
+		border:1px solid #3b3d42;
+		background-color:#2d2f34;
+		line-height:20px;
+		text-align:center;
+		font-size:11px;
+		color:#a5a6a7;
+
+		@include radius(10px);
+		@extend %box-sizing;
+
+		&:hover {
+			border-color:#96979a;
+			color:#fff;
+		}
+	}
+}
+
+/***************************************************************************************
+   QUICK : SETTING
+***************************************************************************************/
+.layout-quick .section-setting {
+	padding:9px 8px 10px;
+
+	@include flex(initial);
+	@extend %box-sizing;
+
+	&:after {
+		@extend %clear;
+	}
+
+	// 현재 화면 설정
+	.save-area {
+		float:left;
+		width:50%;
+		padding-right:5px;
+
+		@extend %box-sizing;
+
+		.txt-label {
+			display:block;
+			margin:0 0 5px;
+			font-size:10px;
+			color:#fff;
+		}
+		.btn-save {
+			display:table;
+			width:100%;
+			height:32px;
+			border:1px solid #3b3d42;
+			background-color:#2d2f34;
+			font-size:10px;
+			color:#a5a6a7;
+
+			@include radius(2px);
+			@extend %box-sizing;
+
+			&:hover {
+				border-color:#96979a;
+				color:#fff;
+			}
+
+			> span {
+				display:table-cell;
+				text-align:center;
+				vertical-align:middle;
+			}
+		}
+	}
+
+	// 언어 선택
+	.language-area {
+		float:right;
+		width:50%;
+		padding-left:5px;
+
+		@extend %box-sizing;
+
+		.txt-label {
+			display:block;
+			margin:0 0 5px;
+			font-size:10px;
+			color:#fff;
+		}
+		.language-block {
+			position:relative;
+			height:32px;
+			border:1px solid #3b3d42;
+			background-color:#2d2f34;
+			cursor:pointer;
+
+			@include radius(2px);
+			@extend %box-sizing;
+
+			&:hover {
+				border-color:#96979a;
+
+				.txt-language {
+					color:#fff;
+
+					&:after {
+						opacity:1;
+					}
+				}
+			}
+
+			.txt-language {
+				display:block;
+				position:relative;
+				padding:0 20px 0 14px;
+				line-height:32px;
+				font-size:10px;
+				color:#a5a6a7;
+
+				@extend %ellipsis;
+
+				&:after {
+					position:absolute;
+					right:9px;
+					top:50%;
+					margin-top:-2px;
+					opacity:0.5;
+					content:'';
+
+					@include get-sprite($arrow_language);
+				}
+			}
+
+			// 언어 목록
+			.layer-language {
+				display:none;
+				position:absolute;
+				left:-1px;
+				right:-1px;
+				z-index:10;
+				top:33px;
+				padding:5px 0;
+				border:1px solid #96979a;
+				background-color:#2d2f34;
+
+				@include radius(2px);
+
+				&[aria-expanded="true"] {
+					display:block;
+				}
+
+				> a {
+					display:block;
+					position:relative;
+					height:28px;
+					padding:0 10px 0 20px;
+					line-height:28px;
+					font-size:11px;
+					color:#fff;
+
+					&:before {
+						display:block;
+						position:absolute;
+						left:8px;
+						top:50%;
+						margin-top:-4px;
+						opacity:0;
+						content:'';
+
+						@include get-sprite($icon_check_language);
+					}
+
+					&:hover {
+						color:#2ddccd;
+
+						&:before {
+							opacity:0.5;
+						}
+					}
+
+					&.is-selected {
+						color:#2ddccd;
+
+						&:before {
+							opacity:1;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+/***************************************************************************************
+   QUICK : TAB
+***************************************************************************************/
+.layout-quick .section-tab {
+	position:relative;
+
+	@include flex(auto);
+
+	.list-tab {
+		position:absolute;
+		left:0;
+		top:0;
+		flex-flow:column nowrap;
+		width:100%;
+		height:100%;
+
+		@extend %flex;
+
+		> li {
+			position:relative;
+
+			@include flex(initial);
+
+			&[aria-expanded="true"] {
+				@include flex(auto);
+
+				.tab-content {
+					display:block;
+				}
+			}
+
+			&[aria-expanded="true"] .btn-tab,
+			.btn-tab:hover {
+				color:#fff;
+				background-color:#616877;
+
+				&:before {
+					background-color:#36c6bc;
+				}
+			}
+
+			.btn-tab {
+				display:block;
+				position:relative;
+				height:36px;
+				padding:0 15px;
+				border-bottom:1px solid #585c64;
+				background-color:#454952;
+				line-height:36px;
+				font-size:12px;
+				color:#d9dce4;
+
+				@extend %box-sizing;
+
+				&:before {
+					display:block;
+					position:absolute;
+					left:0;
+					top:0;
+					bottom:-1px;
+					width:3px;
+					background-color:#128094;
+					content:'';
+
+					@include transition(all 0.3s ease);
+				}
+			}
+
+			.tab-content {
+				overflow-y:auto;
+				overflow-x:hidden;
+				display:none;
+				position:absolute;
+				left:0;
+				right:5px;
+				top:41px;
+				bottom:5px;
+
+				@extend %scroll;
+			}
+
+			// 목록
+			.list-lately {
+				padding:15px 10px 15px 20px;
+
+				> li + li {
+					margin-top:25px;
+				}
+
+				.txt-title {
+					display:block;
+					line-height:18px;
+					font-size:13px;
+					color:#fff;
+
+					@include ellipsisMultiline(3,16);
+				}
+				.txt-date {
+					display:block;
+					margin:5px 0 0;
+					font-size:10px;
+					color:#fff;
+					opacity:0.5;
+				}
+
+				.info-reply {
+					display:block;
+					margin:5px 0 0;
+
+					&:after {
+						@extend %clear;
+					}
+					.txt-date {
+						float:left;
+						margin:0;
+					}
+					.txt-name {
+						display:block;
+						float:right;
+						max-width:60%;
+						text-align:right;
+						font-size:10px;
+						color:#fff;
+						opacity:0.5;
+
+						@extend %ellipsis;
+					}
+				}
+			}
+
+			// No Data
+			.nodata-lately {
+				padding:75px 0;
+				font-size:11px;
+				color:#aaa;
+				text-align:center;
+
+				&[aria-hidden="true"] {
+					display:none;
+				}
+			}
+		}
+	}
+}
+
+/***************************************************************************************
+   QUICK : LINK
+***************************************************************************************/
+.layout-quick .section-link {
+	@include flex(initial);
+
+	// 시스템 운영공지, 필요 소프트웨어, FAQ
+	.link-quick {
+		display:block;
+		position:relative;
+		height:35px;
+		border-top:1px solid #565a61;
+		background-color:#454952;
+		line-height:36px;
+		font-size:11px;
+		color:#dadde4;
+		text-align:center;
+
+		@extend %box-sizing;
+
+		&:hover {
+			color:#fff;
+			background-color:#616877;
+		}
+		&:after {
+			display:inline-block;
+			margin:11px 0 0 15px;
+			vertical-align:top;
+			content:'';
+
+			@include get-sprite($arrow_quick_comm);
+		}
+	}
+	.comm-area {
+		&:after {
+			@extend %clear;
+		}
+		.link-quick {
+			float:left;
+			width:50%;
+			border-top:0 none;
+
+			& + .link-quick:before {
+				display:block;
+				position:absolute;
+				left:0;
+				top:50%;
+				width:1px;
+				height:11px;
+				margin:-5px 0 0;
+				background-color:#fff;
+				opacity:0.1;
+				content:'';
+			}
+		}
+	}
+
+	// 요청
+	.request-area {
+		padding:5px;
+
+		@extend %box-sizing;
+
+		&:after {
+			@extend %clear;
+		}
+		> li {
+			float:left;
+			width:33.3333%;
+			padding:3px;
+
+			@extend %box-sizing;
+		}
+		[class*="link-"] {
+			display:table;
+			width:100%;
+			height:58px;
+			border:1px solid #565961;
+			background-color:#454952;
+
+			@include radius(4px);
+			@extend %box-sizing;
+
+			&:hover {
+				border-color:#7d8391;
+				background-color:#616877;
+			}
+
+			> span {
+				display:table-cell;
+				font-size:10px;
+				color:#fff;
+				text-align:center;
+				vertical-align:middle;
+				letter-spacing:-0.4px;
+			}
+			> span:before {
+				display:block;
+				margin:0 auto 9px;
+				content:'';
+			}
+		}
+		.link-data-collection {
+			> span:before {
+				@include get-sprite($icon_request_data_collection);
+			}
+		}
+		.link-data-generate {
+			> span:before {
+				@include get-sprite($icon_request_data_generate);
+			}
+		}
+		.link-report-generate {
+			> span:before {
+				@include get-sprite($icon_request_report_generate);
+			}
+		}
+		.link-data-extract {
+			> span:before {
+				@include get-sprite($icon_request_data_extract);
+			}
+		}
+		.link-data-verification {
+			> span:before {
+				@include get-sprite($icon_request_data_verification);
+			}
+		}
+		.link-meta-request {
+			> span:before {
+				@include get-sprite($icon_request_meta);
+			}
+		}
+	}
+}

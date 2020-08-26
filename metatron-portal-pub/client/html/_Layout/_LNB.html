@@ -1,0 +1,691 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<link rel="stylesheet" href="http://idangero.us/swiper/dist/css/swiper.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- Wrap -->
+	<div class="dtp-wrap">
+
+		<!-- HEADER -->
+		<div class="layout-header">
+			<!-- 검색, 사용자 정보 -->
+			<div class="section-search">
+				<!-- LOGO -->
+				<h1 class="logo" aria-label="DT Portal"><a href="javascript:;" class="link-logo"></a></h1>
+				<!-- //LOGO -->
+
+				<!-- 검색 -->
+				<div class="search-area">
+					<input type="text" class="input-search">
+					<button type="button" class="btn-search" aria-label="검색"></button>
+				</div>
+				<!-- //검색 -->
+
+				<div class="top-right">
+					<!-- 공지사항 -->
+					<div class="notice-area">
+						<a href="javascript:;" class="btn-notice" aria-label="공지사항 보기"></a>
+					</div>
+					<!-- //공지사항 -->
+					<!-- 사용자 정보 -->
+					<div class="user-area">
+						<a href="javascript:;" class="btn-profile" aria-label="프로필" style="background-image:url(../../images/sample_profile.png);"></a>
+						<a href="javascript:;" class="btn-quick" aria-label="Quick Comm"><span>Quick Comm</span></a>
+					</div>
+					<!-- //사용자 정보 -->
+				</div>
+			</div>
+			<!-- //검색, 사용자 정보 -->
+		</div>
+		<!-- //HEADER -->
+
+		<!-- TITLE,LOCATION,SEARCH RESULT -->
+		<div class="layout-top">
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<div class="title-area">
+					<!-- Location -->
+					<div class="location">
+						<em class="item">홈</em>
+						<em class="item">서비스명</em>
+					</div>
+					<!-- //Location -->
+
+					<!-- Title -->
+					<div class="title">
+						<h2 class="txt-title">타이틀 영역</h2>
+						<p class="txt-desc">
+							서비스 소갯말이 들어가는 곳입니다.
+						</p>
+					</div>
+					<!-- //Title -->
+				</div>
+			</div>
+			<!-- //타이틀 영역 -->
+		</div>
+		<!-- //TITLE,LOCATION,SEARCH RESULT -->
+
+		<!-- LNB -->
+		<div class="layout-lnb">
+			<!--
+				[D] 메뉴 선택 시 li태그에 is-selected 클래스 추가
+				[D] hover 확장메뉴 노출 시 aria-expanded 값 true로 변경
+			-->
+			<ul class="section-lnb">
+				<li class="link-home is-selected"><a href="javascript:;" aria-label="홈"></a></li>
+				<li class="link-comm" aria-expanded="true">
+					<a href="javascript:;" aria-label="커뮤니케이션"></a>
+					<!-- LNB 확장 -->
+					<div class="lnb-expand">
+						<!-- 메뉴 정보 -->
+						<div class="info-area">
+							<h2 class="txt-title">
+								커뮤니케이션
+								<a href="javascript:;" class="link-comm-all">전체 현황</a>
+							</h2>
+							<p class="txt-desc">
+								Infra Center Data와 관련된<br>
+								기사와 자료를 공유하고<br>
+								의견을 나눌 수 있는 공간입니다.
+							</p>
+						</div>
+						<!-- //메뉴 정보 -->
+						<!-- 검색,메뉴 영역 -->
+						<div class="expand-area">
+							<!-- 검색 -->
+							<div class="component-search type-auto">
+								<input type="text" class="input-search" placeholder="메뉴 검색">
+
+								<!-- 검색 결과 -->
+								<!-- [D] 검색결과 레이어 노출 시 aria-expanded 값 true로 변경 -->
+								<ul class="layer-result" aria-expanded="false">
+									<li><a href="javascript:;" class="link-result">검색결과1</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과2</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과3</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과4</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과5</a></li>
+								</ul>
+								<!-- //검색 결과 -->
+							</div>
+							<!-- //검색 -->
+
+							<!-- 메뉴 목록 -->
+							<div class="menu-block">
+								<dl class="list-menu">
+									<dt>
+										DT커뮤니티
+										<span class="info-total" title="최근 2일동안 등록된 DT커뮤니티 게시글은 총 12건 입니다.">12</span>
+									</dt>
+									<dd>
+										<ul>
+											<li><a href="javascript:;" class="link-menu">권한승인관리</a></li>
+											<li><a href="javascript:;" class="link-menu">사용자조회</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="list-menu">
+									<dt>
+										데이터 활용 Tip
+										<span class="info-total" title="최근 2일동안 등록된 DT커뮤니티 게시글은 총 12건 입니다.">2</span>
+									</dt>
+									<dd>
+										<ul>
+											<li><a href="javascript:;" class="link-menu">권한승인관리</a></li>
+											<li><a href="javascript:;" class="link-menu">사용자조회</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="list-menu">
+									<dt>
+										요청 및 문의
+										<span class="info-total" title="최근 2일동안 등록된 DT커뮤니티 게시글은 총 12건 입니다.">999</span>
+									</dt>
+									<dd>
+										<ul>
+											<li><a href="javascript:;" class="link-menu">권한승인관리</a></li>
+											<li><a href="javascript:;" class="link-menu">사용자조회</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<!-- //메뉴 목록 -->
+
+							<!-- 퀵 버튼 -->
+							<div class="button-block">
+								<button type="button" class="btn-lnb-quick">시스템 운영 공지</button>
+								<button type="button" class="btn-lnb-quick">필요 소프트웨어</button>
+								<button type="button" class="btn-lnb-quick">Data Infra FAQ</button>
+							</div>
+							<!-- //퀵 버튼 -->
+						</div>
+						<!-- //검색,메뉴 영역 -->
+					</div>
+					<!-- //LNB 확장 -->
+				</li>
+				<li class="link-my" aria-expanded="false">
+					<a href="javascript:;" aria-label="마이앱"></a>
+					<!-- LNB 확장 -->
+					<div class="lnb-expand">
+						<!-- 메뉴 정보 -->
+						<div class="info-area">
+							<h2 class="txt-title">마이앱 스페이스</h2>
+							<p class="txt-desc">
+								마이앱에 추가된<br>
+								나만의 앱 목록을 볼 수 있으며,<br>
+								앱 선택 시 앱이 바로 실행됩니다.
+							</p>
+						</div>
+						<!-- //메뉴 정보 -->
+						<!-- 검색,메뉴 영역 -->
+						<div class="expand-area">
+							<!-- 검색 -->
+							<div class="component-search type-auto">
+								<input type="text" class="input-search" placeholder="메뉴 검색">
+
+								<!-- 검색 결과 -->
+								<!-- [D] 검색결과 레이어 노출 시 aria-expanded 값 true로 변경 -->
+								<ul class="layer-result" aria-expanded="false">
+									<li><a href="javascript:;" class="link-result">검색결과1</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과2</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과3</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과4</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과5</a></li>
+								</ul>
+								<!-- //검색 결과 -->
+							</div>
+							<!-- //검색 -->
+
+							<!-- 썸네일형 메뉴 목록 -->
+							<div class="thumb-block">
+								<!-- 마이 리포트앱 -->
+								<dl class="thumb-report">
+									<dt>
+										<span>마이 리포트앱</span>
+										<a href="javascript:;" class="link-more">관리</a>
+									</dt>
+									<dd>
+										<div class="thumb">
+											<a href="javascript:;" class="link-my">
+												<span class="img-thumb">
+													<em style="background-image:url(../../images/sample_app.png);"></em>
+												</span>
+												<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
+												<span class="txt-title" title="일망 현황">일망 현황</span>
+											</a>
+											<a href="javascript:;" class="link-my">
+												<span class="img-thumb">
+													<em style="background-image:url(../../images/sample_app.png);"></em>
+												</span>
+												<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
+												<span class="txt-title" title="일망 현황">일망 현황</span>
+											</a>
+											<a href="javascript:;" class="link-my">
+												<span class="img-thumb">
+													<em style="background-image:url(../../images/sample_app.png);"></em>
+												</span>
+												<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
+												<span class="txt-title" title="일망 현황">일망 현황</span>
+											</a>
+											<a href="javascript:;" class="link-my">
+												<span class="img-thumb">
+													<em style="background-image:url(../../images/sample_app.png);"></em>
+												</span>
+												<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
+												<span class="txt-title" title="일망 현황">일망 현황</span>
+											</a>
+										</div>
+										<!-- No Data -->
+										<div class="nodata">
+											<a href="javascript:;" class="btn-app"></a>
+											<p class="txt-desc">
+												앱플레이스에서 자주 사용할 리포트앱을<br>마이앱에 추가해보세요.
+											</p>
+											<a href="javascript:;" class="link-appplace">앱플레이스 바로가기</a>
+										</div>
+										<!-- //No Data -->
+									</dd>
+								</dl>
+								<!-- //마이 리포트앱 -->
+
+								<!-- 마이 분석앱 -->
+								<dl class="thumb-analysis">
+									<dt>
+										<span>마이 분석앱</span>
+										<a href="javascript:;" class="link-more">관리</a>
+									</dt>
+									<dd>
+										<div class="thumb">
+											<a href="javascript:;" class="link-my">
+												<span class="img-thumb">
+													<em style="background-image:url(../../images/sample_app.png);"></em>
+												</span>
+												<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
+												<span class="txt-title" title="일망 현황">일망 현황</span>
+											</a>
+											<a href="javascript:;" class="link-my">
+												<span class="img-thumb">
+													<em style="background-image:url(../../images/sample_app.png);"></em>
+												</span>
+												<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
+												<span class="txt-title" title="일망 현황">일망 현황</span>
+											</a>
+											<a href="javascript:;" class="link-my">
+												<span class="img-thumb">
+													<em style="background-image:url(../../images/sample_app.png);"></em>
+												</span>
+												<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
+												<span class="txt-title" title="일망 현황">일망 현황</span>
+											</a>
+											<a href="javascript:;" class="link-my">
+												<span class="img-thumb">
+													<em style="background-image:url(../../images/sample_app.png);"></em>
+												</span>
+												<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
+												<span class="txt-title" title="일망 현황">일망 현황</span>
+											</a>
+										</div>
+										<!-- No Data -->
+										<div class="nodata">
+											<a href="javascript:;" class="btn-app"></a>
+											<p class="txt-desc">
+												앱플레이스에서 자주 사용할 리포트앱을<br>마이앱에 추가해보세요.
+											</p>
+											<a href="javascript:;" class="link-appplace">앱플레이스 바로가기</a>
+										</div>
+										<!-- //No Data -->
+									</dd>
+								</dl>
+								<!-- //마이 분석앱 -->
+							</div>
+							<!-- //썸네일형 메뉴 목록 -->
+						</div>
+						<!-- //검색,메뉴 영역 -->
+					</div>
+					<!-- //LNB 확장 -->
+				</li>
+				<li class="link-app" aria-expanded="false">
+					<a href="javascript:;" aria-label="앱플레이스"></a>
+					<!-- LNB 확장 -->
+					<div class="lnb-expand">
+						<!-- 메뉴 정보 -->
+						<div class="info-area">
+							<h2 class="txt-title">앱플레이스</h2>
+							<p class="txt-desc">
+								앱플레이스에서는<br>
+								멀티데이터 소스를 활용하여<br>
+								Dashboard 등 다양한 기반의<br>
+								리포트, 분석 앱을 제공합니다.
+								<br><br>
+								자주 사용할 앱을 마이앱에 추가하여<br>
+								나만의 앱공간을 만들어 보세요!
+							</p>
+						</div>
+						<!-- //메뉴 정보 -->
+						<!-- 검색,메뉴 영역 -->
+						<div class="expand-area">
+							<!-- 검색 -->
+							<div class="component-search type-auto">
+								<input type="text" class="input-search" placeholder="메뉴 검색">
+
+								<!-- 검색 결과 -->
+								<!-- [D] 검색결과 레이어 노출 시 aria-expanded 값 true로 변경 -->
+								<ul class="layer-result" aria-expanded="false">
+									<li><a href="javascript:;" class="link-result">검색결과1</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과2</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과3</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과4</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과5</a></li>
+								</ul>
+								<!-- //검색 결과 -->
+							</div>
+							<!-- //검색 -->
+
+							<!-- 인기/최신 리포트,분석앱 목록 -->
+							<div class="recently-block">
+								<!-- 리포트앱 -->
+								<dl class="thumb-report">
+									<dt>
+										<span>리포트앱</span>
+										<a href="javascript:;" class="link-more">전체보기</a>
+									</dt>
+									<dd>
+										<!-- 인기 -->
+										<div class="popular-list">
+											<strong class="txt-title"><span><em>인기</em> 리포트앱</span></strong>
+											<ol class="list-popular">
+												<li>
+													<a href="javascript:;" class="link-item">
+														<span class="img-thumb">
+															<em style="background-image:url(../../images/sample_app.png);"></em>
+														</span>
+														<span class="txt-title">
+															<em class="txt-num">1</em>
+															<span class="txt-app" title="일망 현황">일망 현황</span>
+														</span>
+														<span class="txt-category">코어</span>
+													</a>
+												</li>
+												<li>
+													<a href="javascript:;" class="link-item">
+														<span class="img-thumb">
+															<em style="background-image:url(../../images/sample_app.png);"></em>
+														</span>
+														<span class="txt-title">
+															<em class="txt-num">2</em>
+															<span class="txt-app" title="일망 현황">일망 현황 일망 현황 일망 현황 일망 현황 일망 현황</span>
+														</span>
+														<span class="txt-category">코어</span>
+													</a>
+												</li>
+												<li>
+													<a href="javascript:;" class="link-item">
+														<span class="img-thumb">
+															<em style="background-image:url(../../images/sample_app.png);"></em>
+														</span>
+														<span class="txt-title">
+															<em class="txt-num">3</em>
+															<span class="txt-app" title="일망 현황">일망 현황 일망 현황 일망 현황 일망 현황 일망 현황 일망 현황 일망 현황 일망 현황 일망 현황 일망 현황</span>
+														</span>
+														<span class="txt-category">코어</span>
+													</a>
+												</li>
+											</ol>
+											<!-- No Data -->
+											<div class="nodata">
+												<p class="txt-desc">등록된 리포트가 없습니다.</p>
+											</div>
+											<!-- //No Data -->
+										</div>
+										<!-- //인기 -->
+										<!-- 최신 -->
+										<div class="new-list">
+											<strong class="txt-title"><span><em>최신</em> 리포트앱</span></strong>
+											<div class="thumb">
+												<a href="javascript:;" class="link-my">
+													<span class="img-thumb">
+														<em style="background-image:url(../../images/sample_app.png);"></em>
+													</span>
+													<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
+													<span class="txt-title" title="일망 현황">일망 현황</span>
+												</a>
+												<a href="javascript:;" class="link-my">
+													<span class="img-thumb">
+														<em style="background-image:url(../../images/sample_app.png);"></em>
+													</span>
+													<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
+													<span class="txt-title" title="일망 현황">일망 현황</span>
+												</a>
+											</div>
+											<!-- No Data -->
+											<div class="nodata">
+												<p class="txt-desc">등록된 최신앱이 없습니다.</p>
+											</div>
+											<!-- //No Data -->
+										</div>
+										<!-- //최신 -->
+									</dd>
+								</dl>
+								<!-- //리포트앱 -->
+
+								<!-- 분석앱 -->
+								<dl class="thumb-analysis">
+									<dt>
+										<span>분석앱</span>
+										<a href="javascript:;" class="link-more">전체보기</a>
+									</dt>
+									<dd>
+										<!-- 인기 -->
+										<div class="popular-list">
+											<strong class="txt-title"><span><em>인기</em> 분석앱</span></strong>
+											<ol class="list-popular">
+												<li>
+													<a href="javascript:;" class="link-item">
+														<span class="img-thumb">
+															<em style="background-image:url(../../images/sample_app.png);"></em>
+														</span>
+														<span class="txt-title">
+															<em class="txt-num">1</em>
+															<span class="txt-app" title="일망 현황">일망 현황</span>
+														</span>
+														<span class="txt-category">코어</span>
+													</a>
+												</li>
+												<li>
+													<a href="javascript:;" class="link-item">
+														<span class="img-thumb">
+															<em style="background-image:url(../../images/sample_app.png);"></em>
+														</span>
+														<span class="txt-title">
+															<em class="txt-num">2</em>
+															<span class="txt-app" title="일망 현황">일망 현황 일망 현황 일망 현황 일망 현황 일망 현황</span>
+														</span>
+														<span class="txt-category">코어</span>
+													</a>
+												</li>
+												<li>
+													<a href="javascript:;" class="link-item">
+														<span class="img-thumb">
+															<em style="background-image:url(../../images/sample_app.png);"></em>
+														</span>
+														<span class="txt-title">
+															<em class="txt-num">3</em>
+															<span class="txt-app" title="일망 현황">일망 현황 일망 현황 일망 현황 일망 현황 일망 현황 일망 현황 일망 현황 일망 현황 일망 현황 일망 현황</span>
+														</span>
+														<span class="txt-category">코어</span>
+													</a>
+												</li>
+											</ol>
+											<!-- No Data -->
+											<div class="nodata">
+												<p class="txt-desc">등록된 분석앱이 없습니다.</p>
+											</div>
+											<!-- //No Data -->
+										</div>
+										<!-- //인기 -->
+										<!-- 최신 -->
+										<div class="new-list">
+											<strong class="txt-title"><span><em>최신</em> 분석앱</span></strong>
+											<div class="thumb">
+												<a href="javascript:;" class="link-my">
+												<span class="img-thumb">
+													<em style="background-image:url(../../images/sample_app.png);"></em>
+												</span>
+													<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
+													<span class="txt-title" title="일망 현황">일망 현황</span>
+												</a>
+												<a href="javascript:;" class="link-my">
+												<span class="img-thumb">
+													<em style="background-image:url(../../images/sample_app.png);"></em>
+												</span>
+													<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
+													<span class="txt-title" title="일망 현황">일망 현황</span>
+												</a>
+											</div>
+											<!-- No Data -->
+											<div class="nodata">
+												<p class="txt-desc">등록된 최신앱이 없습니다.</p>
+											</div>
+											<!-- //No Data -->
+										</div>
+										<!-- //최신 -->
+									</dd>
+								</dl>
+								<!-- //분석앱 -->
+							</div>
+							<!-- //리포트,분석앱 목록 -->
+						</div>
+						<!-- //검색,메뉴 영역 -->
+					</div>
+					<!-- //LNB 확장 -->
+				</li>
+				<li class="link-meta" aria-expanded="false">
+					<a href="javascript:;" aria-label="메타데이터"></a>
+					<!-- LNB 확장 -->
+					<div class="lnb-expand">
+						<!-- 메뉴 정보 -->
+						<div class="info-area">
+							<h2 class="txt-title">메타데이터</h2>
+							<p class="txt-desc">
+								DW내 주제영역을 기반으로<br>
+								데이터 테이블을 분류,<br>
+								물리적 테이블 및 컬럼정보를<br>
+								확인할 수 있는 메뉴입니다.
+							</p>
+						</div>
+						<!-- //메뉴 정보 -->
+						<!-- 검색,메뉴 영역 -->
+						<div class="expand-area">
+							<!-- 검색 -->
+							<div class="component-search type-auto">
+								<input type="text" class="input-search" placeholder="메뉴 검색">
+
+								<!-- 검색 결과 -->
+								<!-- [D] 검색결과 레이어 노출 시 aria-expanded 값 true로 변경 -->
+								<ul class="layer-result" aria-expanded="false">
+									<li><a href="javascript:;" class="link-result">검색결과1</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과2</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과3</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과4</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과5</a></li>
+								</ul>
+								<!-- //검색 결과 -->
+							</div>
+							<!-- //검색 -->
+
+							<!-- 메뉴 목록 -->
+							<div class="menu-block">
+								<dl class="list-menu">
+									<dt>데이터 관리 표준</dt>
+									<dd>
+										<ul>
+											<li><a href="javascript:;" class="link-menu">권한승인관리</a></li>
+											<li><a href="javascript:;" class="link-menu">사용자조회</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="list-menu">
+									<dt>DW 데이터 정보</dt>
+									<dd>
+										<ul>
+											<li><a href="javascript:;" class="link-menu">권한승인관리</a></li>
+											<li><a href="javascript:;" class="link-menu">사용자조회</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<!-- //메뉴 목록 -->
+						</div>
+						<!-- //검색,메뉴 영역 -->
+					</div>
+					<!-- //LNB 확장 -->
+				</li>
+				<li class="link-portal" aria-expanded="false">
+					<a href="javascript:;" aria-label="포탈 어드민"></a>
+					<!-- LNB 확장 -->
+					<div class="lnb-expand">
+						<!-- 메뉴 정보 -->
+						<div class="info-area">
+							<h2 class="txt-title">포탈어드민</h2>
+							<p class="txt-desc">
+								Infra Center Data Portal의<br>
+								사용자, 권한관리를 할 수 있습니다.
+							</p>
+						</div>
+						<!-- //메뉴 정보 -->
+						<!-- 검색,메뉴 영역 -->
+						<div class="expand-area">
+							<!-- 검색 -->
+							<div class="component-search type-auto">
+								<input type="text" class="input-search" placeholder="메뉴 검색">
+
+								<!-- 검색 결과 -->
+								<!-- [D] 검색결과 레이어 노출 시 aria-expanded 값 true로 변경 -->
+								<ul class="layer-result" aria-expanded="false">
+									<li><a href="javascript:;" class="link-result">검색결과1</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과2</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과3</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과4</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과5</a></li>
+								</ul>
+								<!-- //검색 결과 -->
+							</div>
+							<!-- //검색 -->
+
+							<!-- 메뉴 목록 -->
+							<div class="menu-block">
+								<dl class="list-menu">
+									<dt>포털관리</dt>
+									<dd>
+										<ul>
+											<li><a href="javascript:;" class="link-menu">권한승인관리</a></li>
+											<li><a href="javascript:;" class="link-menu">사용자조회</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="list-menu">
+									<dt>리포트앱 관리</dt>
+									<dd>
+										<ul>
+											<li><a href="javascript:;" class="link-menu">권한승인관리</a></li>
+											<li><a href="javascript:;" class="link-menu">사용자조회</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="list-menu">
+									<dt>분석앱 관리</dt>
+									<dd>
+										<ul>
+											<li><a href="javascript:;" class="link-menu">권한승인관리</a></li>
+											<li><a href="javascript:;" class="link-menu">사용자조회</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<!-- //메뉴 목록 -->
+						</div>
+						<!-- //검색,메뉴 영역 -->
+					</div>
+					<!-- //LNB 확장 -->
+				</li>
+				<li class="link-all">
+					<a href="javascript:;" aria-label="전체메뉴"></a>
+				</li>
+			</ul>
+			<ul class="section-app">
+				<li class="link-metatron"><a href="javascript:;" aria-label="METATRON"></a></li>
+				<li class="link-finddata"><a href="javascript:;" aria-label="Find Data"></a></li>
+				<li class="link-dgc"><a href="javascript:;" aria-label="DGC"></a></li>
+			</ul>
+		</div>
+		<!-- //LNB -->
+
+		<!-- QUICK COMM. -->
+		<!-- [D] QUICK 노출 시 aria-expanded 값 true로 변경 -->
+		<div class="layout-quick" aria-expanded="false">
+			<a href="javascript:;" class="btn-quick" aria-label="퀵메뉴"></a>
+		</div>
+		<!-- //QUICK COMM. -->
+
+		<!-- CONTENT -->
+		<div class="layout-content">
+			<!-- 화면 별 마크업 -->
+
+			<!-- //화면 별 마크업 -->
+		</div>
+		<!-- //CONTENT -->
+
+	</div>
+	<!-- //Wrap -->
+
+</body>
+</html>

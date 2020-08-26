@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<link rel="stylesheet" href="http://idangero.us/swiper/dist/css/swiper.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+    <!-- LAYER POPUP -->
+    <div class="layout-popup">
+        <div class="layer-popup">
+            <div class="popup">
+                <!-- Popup Content -->
+                <div class="popup-content">
+                    <!-- 상단 버튼 영역 -->
+                    <div class="section-button">
+                        <a href="javascript:;" class="btn-basic">취소</a>
+                        <a href="javascript:;" class="btn-action">적용</a>
+                    </div>
+                    <!-- //상단 버튼 영역 -->
+
+                    <!-- 타이틀 영역 -->
+                    <div class="section-title">
+                        <h1 class="txt-title">사용자 정의 변수 등록</h1>
+                    </div>
+                    <!-- //타이틀 영역 -->
+
+                    <!-- 데이터 추출하기 -->
+                    <div class="section-extract type-custom">
+                        <!-- 목록 -->
+                        <div class="list-area">
+                            <div class="search-data">
+                                <a href="javascript:;" class="btn-action type-add">데이터소스 등록하기</a>
+
+                                <!-- 검색 -->
+                                <div class="component-search">
+                                    <input type="text" class="input-search" placeholder="데이터 소스 이름으로 찾기">
+                                    <button class="btn-search" aria-label="검색"></button>
+                                </div>
+                                <!-- //검색 -->
+                            </div>
+
+                            <!-- 데이터 소스 목록 -->
+                            <ul class="list-source">
+                                <li>
+                                    <a href="javascript:;" class="link-item">데이터 소스 이름 01</a>
+                                    <a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" class="link-item">데이터 소스 이름 02</a>
+                                    <a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" class="link-item">데이터 소스 이름 03</a>
+                                    <a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+                                </li>
+                            </ul>
+                            <!-- //데이터 소스 목록 -->
+                        </div>
+                        <!-- //목록 -->
+
+                        <!-- 데이터 소스 -->
+                        <!--
+                            [D] 확대 버튼 클릭 시
+                            Query 작성 : zoom-query 클래스 추가
+                            Query 결과 : zoom-result 클래스 추가
+                        -->
+                        <div class="extract-area">
+                            <!--
+                                [D] 왼쪽 목록에서 데이터 소스를 선택하면 'title-area'에 is-activated 클래스 추가
+                                [D] 타이틀명은 txt-title에 데이터 소스명 적용
+                            -->
+                            <div class="title-block is-activated">
+                                <h3 class="txt-placeholder">추출할 데이터 소스를 선택해 주세요.</h3>
+                                <h3 class="txt-title">데이터 소스명</h3>
+                            </div>
+
+                            <!-- 사용자 정의 -->
+                            <dl class="form-custom">
+                                <dt>이름</dt>
+                                <dd>
+                                    <input type="text" class="input-text" placeholder="이름을 입력하세요.">
+                                </dd>
+                                <dt>설명</dt>
+                                <dd>
+                                    <input type="text" class="input-text" placeholder="설명을 입력하세요.">
+                                </dd>
+                                <dt>검색 키</dt>
+                                <dd>
+                                    <input type="text" class="input-text" placeholder="검색 키를 입력하세요.">
+                                </dd>
+                            </dl>
+                            <!-- //사용자 정의 -->
+
+                            <!-- Query 작성 -->
+                            <div class="query-block">
+                                <div class="title">
+                                    <h4 class="txt-title">Query 작성</h4>
+                                    <div class="buttons">
+                                        <a href="javascript:;" class="btn-reset">초기화</a>
+                                        <a href="javascript:;" class="btn-zoom" aria-label="확대/축소"></a>
+                                    </div>
+                                </div>
+
+                                <!-- Query -->
+                                <div class="query"></div>
+                                <!-- //Query -->
+
+                                <div class="start">
+                                    <input type="text" class="input-text">
+                                    <a href="javascript:;" class="btn-action">실행</a>
+                                </div>
+                            </div>
+                            <!-- //Query 작성 -->
+
+                            <!-- Query 결과 미리보기 -->
+                            <div class="result-block">
+                                <div class="title">
+                                    <h4 class="txt-title">Query 결과 미리보기</h4>
+                                    <a href="javascript:;" class="btn-zoom" aria-label="확대/축소"></a>
+                                </div>
+
+                                <!-- Query -->
+                                <div class="query">
+                                    <!-- No Data -->
+                                    <div class="nodata-query">
+                                        <p class="txt-desc">
+                                            Query 결과가 표시됩니다.
+                                        </p>
+                                    </div>
+                                    <!-- //No Data -->
+
+                                    <!-- Query 영역 -->
+                                    <div class="component-query"></div>
+                                    <!-- //Query 영역 -->
+                                </div>
+                                <!-- //Query -->
+                            </div>
+                            <!-- //Query 결과 미리보기 -->
+                        </div>
+						<!-- //데이터 소스 -->
+                    </div>
+					<!-- //데이터 추출하기 -->
+                </div>
+				<!-- //Popup Content -->
+            </div>
+        </div>
+    </div>
+    <!-- //LAYER POPUP -->
+
+</body>
+</html>

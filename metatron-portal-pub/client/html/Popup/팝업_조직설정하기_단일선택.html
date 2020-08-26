@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<link rel="stylesheet" href="http://idangero.us/swiper/dist/css/swiper.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- LAYER POPUP -->
+	<div class="layout-popup">
+		<div class="layer-popup">
+			<div class="popup">
+				<!-- Popup Content -->
+				<div class="popup-content">
+					<!-- 상단 버튼 영역 -->
+					<div class="section-button">
+						<a href="javascript:;" class="btn-basic">취소</a>
+						<a href="javascript:;" class="btn-action">적용</a>
+					</div>
+					<!-- //상단 버튼 영역 -->
+
+					<!-- 타이틀 영역 -->
+					<div class="section-title">
+						<h1 class="txt-title">조직 설정하기</h1>
+					</div>
+					<!-- //타이틀 영역 -->
+
+					<!-- 그룹 설정하기 -->
+					<div class="section-authority type-organization type-single">
+						<!-- 왼쪽 목록 -->
+						<div class="list-area">
+							<!-- 조직 -->
+							<div class="organization-block" aria-expanded="true">
+								<!-- 조직 목록 -->
+								<div class="list-organization">
+									<!-- 검색 -->
+									<div class="component-search">
+										<input type="text" class="input-search" placeholder="그룹명으로 찾기">
+										<button class="btn-search" aria-label="검색"></button>
+									</div>
+									<!-- //검색 -->
+
+									<!-- Loading -->
+									<div class="component-loading type-sub">
+										<span class="bar"></span>
+									</div>
+									<!-- //Loading -->
+
+									<div class="scroll">
+										<!-- 트리 메뉴 -->
+										<div class="component-tree type-checkbox">
+											<ul class="list-tree">
+												<!--
+                                                    [D] 접힌 경우 : is-collapsed
+                                                    [D] 펼친 경우 : is-expanded
+                                                    [D] 기본 : is-none
+                                                -->
+												<li>
+													<span class="tree-item is-expanded">
+														<span class="icon-tree"></span>
+														<input type="checkbox" class="input-checkbox" id="check01">
+														<label class="label" for="check01">조직명1</label>
+													</span>
+												</li>
+												<li style="padding-left:15px;">
+													<span class="tree-item is-expanded">
+														<span class="icon-tree"></span>
+														<input type="checkbox" class="input-checkbox" id="check01">
+														<label class="label" for="check01">조직명1-1</label>
+													</span>
+												</li>
+												<li style="padding-left:30px;">
+													<span class="tree-item">
+														<span class="icon-tree"></span>
+														<input type="checkbox" class="input-checkbox" id="check01">
+														<label class="label" for="check01">조직명1-1-1</label>
+													</span>
+												</li>
+												<li style="padding-left:30px;">
+													<span class="tree-item">
+														<span class="icon-tree"></span>
+														<input type="checkbox" class="input-checkbox" id="check01">
+														<label class="label" for="check01">조직명1-1-2</label>
+													</span>
+												</li>
+												<li>
+													<span class="tree-item is-collapsed">
+														<span class="icon-tree"></span>
+														<input type="checkbox" class="input-checkbox" id="check01">
+														<label class="label" for="check01">조직명2</label>
+													</span>
+												</li>
+											</ul>
+										</div>
+										<!-- //트리 메뉴 -->
+									</div>
+								</div>
+								<!-- //조직 목록 -->
+							</div>
+							<!-- //조직 -->
+						</div>
+						<!-- //왼쪽 목록 -->
+					</div>
+					<!-- //그룹 설정하기 -->
+				</div>
+				<!-- //Popup Content -->
+			</div>
+		</div>
+	</div>
+	<!-- //LAYER POPUP -->
+
+</body>
+</html>

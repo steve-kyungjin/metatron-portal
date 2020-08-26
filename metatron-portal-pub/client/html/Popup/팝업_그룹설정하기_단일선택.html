@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<link rel="stylesheet" href="http://idangero.us/swiper/dist/css/swiper.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- LAYER POPUP -->
+	<div class="layout-popup">
+		<div class="layer-popup">
+			<div class="popup">
+				<!-- Popup Content -->
+				<div class="popup-content">
+					<!-- 상단 버튼 영역 -->
+					<div class="section-button">
+						<a href="javascript:;" class="btn-basic">취소</a>
+					</div>
+					<!-- //상단 버튼 영역 -->
+
+					<!-- 타이틀 영역 -->
+					<div class="section-title">
+						<h1 class="txt-title">그룹 설정하기</h1>
+					</div>
+					<!-- //타이틀 영역 -->
+
+					<!-- 그룹 설정하기 -->
+					<div class="section-authority type-group type-single">
+						<!-- 왼쪽 목록 -->
+						<div class="list-area">
+							<!-- [D] 해당 영역 노출 시 aria-expanded 값 true로 변경 -->
+							<!-- 그룹 -->
+							<div class="group-block" aria-expanded="true">
+								<!-- 검색 -->
+								<div class="component-search">
+									<input type="text" class="input-search" placeholder="그룹명으로 찾기">
+									<button class="btn-search" aria-label="검색"></button>
+								</div>
+								<!-- //검색 -->
+
+								<!-- 검색 결과 없는 경우 -->
+								<!-- [D] 검색 결과 없는 경우 aria-hidden 값 false로 변경 -->
+								<div class="nodata" aria-hidden="true">
+									<span>'그룹명'</span>에 대한 검색결과가 없습니다.
+								</div>
+								<!-- //검색 결과 없는 경우 -->
+
+								<!-- 그룹 목록 -->
+								<ul class="list-group">
+									<li><a href="javascript:;" class="item">그룹명1</a></li>
+									<li><a href="javascript:;" class="item">그룹명2</a></li>
+								</ul>
+								<!-- //그룹 목록 -->
+
+								<!-- Pagination -->
+								<div class="pagination">
+									<div class="component-page">
+										<!-- [D] 이전/다음 버튼은 노출하지 않는 경우 aria-hidden 값 true로 변경 -->
+										<!-- [D] 페이지 버튼 선택 된 항목은 aria-selected 값 true로 변경 -->
+										<a href="javascript:;" class="btn-prev" aria-hidden="false" aria-label="이전"></a>
+										<a href="javascript:;" class="btn-page" aria-selected="true">1</a>
+										<a href="javascript:;" class="btn-page" aria-selected="false">2</a>
+										<a href="javascript:;" class="btn-page" aria-selected="false">3</a>
+										<a href="javascript:;" class="btn-page" aria-selected="false">4</a>
+										<a href="javascript:;" class="btn-page" aria-selected="false">5</a>
+										<a href="javascript:;" class="btn-next" aria-hidden="false" aria-label="다음"></a>
+									</div>
+								</div>
+								<!-- //Pagination -->
+							</div>
+							<!-- //그룹 -->
+						</div>
+						<!-- //왼쪽 목록 -->
+					</div>
+					<!-- //그룹 설정하기 -->
+				</div>
+				<!-- //Popup Content -->
+			</div>
+		</div>
+	</div>
+	<!-- //LAYER POPUP -->
+
+</body>
+</html>

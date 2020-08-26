@@ -1,0 +1,70 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   ERROR
+***************************************************************************************/
+.dtp-error-wrap {
+	display:table;
+	table-layout:fixed;
+	width:100%;
+	height:100%;
+
+	.error {
+		display:table-cell;
+		text-align:center;
+		vertical-align:middle;
+	}
+
+	.section-error {
+		&:before {
+			vertical-align:top;
+			content:'';
+		}
+
+		&.type-404:before {
+			@include get-sprite($icon_error_404);
+		}
+		&.type-access:before {
+			@include get-sprite($icon_error_access);
+		}
+		&.type-server:before {
+			@include get-sprite($icon_error_server);
+		}
+
+		.txt-desc {
+			margin:70px 0 0;
+			font-size:24px;
+			color:#262a50;
+			font-weight:bold;
+		}
+
+		.txt-contact {
+			display:block;
+			margin-top:8px;
+			font-size:16px;
+			color:#262a50;
+		}
+
+		.link-email {
+			color:#0001ff;
+			text-decoration:underline;
+		}
+	}
+
+	.section-button {
+		margin:50px 0 0;
+		font-size:0;
+
+		.btn-basic {
+			min-width:170px;
+			height:38px;
+			line-height:38px;
+			font-size:14px;
+
+			@include radius(19px);
+		}
+		.btn-basic + .btn-basic {
+			margin-left:6px;
+		}
+	}
+}

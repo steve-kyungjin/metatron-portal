@@ -1,0 +1,604 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   DT 과제
+***************************************************************************************/
+.page-assignment {
+	// 제목 영역
+	.title-area {
+		@extend %ui-title;
+	}
+}
+
+/***************************************************************************************
+   DT 과제 > 목록
+***************************************************************************************/
+.page-assignment .section-list {
+
+	// 타이틀 영역
+	.title-area {
+		height:auto;
+		padding-bottom:14px;
+
+		.filter {
+			position: absolute;
+			right: 0;
+			bottom: 13px;
+
+			.component-select {
+				width: 130px;
+			}
+		}
+	}
+
+	// 등록 버튼
+	.type-add:before {
+		margin:10px 5px 0 0;
+		vertical-align:top;
+		content:'';
+
+		@include get-sprite($icon_app_add);
+	}
+
+	// 목록
+	.table-assignment {
+		@extend %ui-table;
+
+		tbody tr:hover {
+			.txt-category,
+			.link-app {
+				text-decoration:underline;
+			}
+		}
+		.link-assignment {
+			display:block;
+			padding:0 10px;
+			font-size:13px;
+			color:#333;
+
+			@extend %ellipsis;
+		}
+		.txt-status {
+			color:#333;
+		}
+
+		$step-map: (
+			a: #2c9beb,
+			b: #f2ab25,
+			c: #e4606d,
+			d: #a9d53f,
+			e: #646ed9
+		);
+
+		@each $class, $color in $step-map {
+			.step-#{$class} {
+				color:$color;
+			}
+		}
+	}
+
+	// No Data
+	.app-nodata {
+		@extend %ui-nodata;
+	}
+
+	// Pagination
+	.pagination-area {
+		margin-top:10px;
+	}
+}
+
+/***************************************************************************************
+   DT 과제 > 상세
+***************************************************************************************/
+.page-assignment .section-detail {
+	// 목록보기
+	.link-list {
+		display:inline-block;
+		font-size:12px;
+		color:#808080;
+
+		&:before {
+			margin:2px 3px 0;
+			vertical-align:top;
+			content:'';
+
+			@include get-sprite($arrow_user_detail);
+		}
+		&:hover {
+			color:#0c869b;
+		}
+		&:hover:before {
+			@include get-sprite($arrow_user_detail_on);
+		}
+	}
+
+	.button-area {
+		&:after {
+			@extend %clear;
+		}
+
+		.link-list {
+			float:left;
+			margin:16px 0 0;
+		}
+		.button-right {
+			float:right;
+
+			.btn-basic {
+				min-width:auto;
+			}
+		}
+	}
+
+	// 상세 영역
+	.detail-area {
+		position:relative;
+		margin:10px 0;
+		border-top:1px solid #d4d4dc;
+		border-bottom:1px solid #d4d4dc;
+
+		// 버튼 영역
+		.button-block {
+			position:absolute;
+			right:16px;
+			top:16px;
+			font-size:0;
+
+			.link-btn {
+				display:inline-block;
+				margin:0 0 0 9px;
+				font-size:12px;
+				color:#333;
+			}
+		}
+	}
+
+	// 상세 상단 타이틀 영역
+	.title-block {
+		.title {
+			padding:34px 10px;
+			background-color:#f7f7fa;
+			text-align:center;
+
+			@extend %box-sizing;
+		}
+
+		.txt-category {
+			display:inline-block;
+			height:24px;
+			padding:0 10px;
+			background-color:#dfebf0;
+			line-height:24px;
+			font-size:12px;
+			color:#0c869b;
+
+			@include radius(2px);
+		}
+		.txt-title {
+			display:block;
+			margin-top:15px;
+			font-size:18px;
+			color:#333;
+		}
+	}
+
+	// STEP
+	.step {
+		position:relative;
+		width:638px;
+		margin:60px auto 0;
+		font-size:0;
+
+		&:before {
+			position:absolute;
+			left:0;
+			right:0;
+			bottom:5px;
+			height:2px;
+			background-color:#e9eaf2;
+			content:'';
+		}
+
+		[class*="step-"] {
+			display:inline-block;
+			position:relative;
+			z-index:10;
+			width:20%;
+			padding-bottom:22px;
+			vertical-align:bottom;
+
+			> .txt-step {
+				display:inline-block;
+				font-size:11px;
+				color:#c9cad9;
+			}
+			> em {
+				display:block;
+				position:absolute;
+				left:50%;
+				bottom:0;
+				z-index:15;
+				width:12px;
+				height:12px;
+				margin:0 0 0 -6px;
+				background-color:#c9cad9;
+
+				@include radius(50%);
+			}
+
+			&[aria-selected="true"] {
+				.txt-step {
+					position:relative;
+					top:-5px;
+					height:26px;
+					padding:0 10px;
+					background-color:#fff;
+					line-height:26px;
+					font-weight:bold;
+
+					@include radius(3px);
+					@include box-shadow(0 2px 5px rgba(0,0,0,0.08));
+
+					&:after {
+						position:absolute;
+						left:50%;
+						bottom:-6px;
+						margin:0 0 0 -4px;
+						content:'';
+
+						@include get-sprite($arrow_step);
+					}
+				}
+				> em {
+					bottom:-4px;
+					width:22px;
+					height:22px;
+					margin:0 0 0 -11px;
+					line-height:24px;
+					font-size:13px;
+					color:#fff;
+				}
+			}
+		}
+
+		.step-a[aria-selected="true"] {
+			.txt-step {
+				color:#2c9beb;
+			}
+			> em {
+				background-color:#2c9beb;
+			}
+		}
+		.step-b[aria-selected="true"] {
+			.txt-step {
+				color:#f2ab25;
+			}
+			> em {
+				background-color:#f2ab25;
+			}
+		}
+		.step-c[aria-selected="true"] {
+			.txt-step {
+				color:#e4606d;
+			}
+			> em {
+				background-color:#e4606d;
+			}
+		}
+		.step-d[aria-selected="true"] {
+			.txt-step {
+				color:#96cd01;
+			}
+			> em {
+				background-color:#96cd01;
+			}
+		}
+		.step-e[aria-selected="true"] {
+			.txt-step {
+				color:#646ed9;
+			}
+			> em {
+				background-color:#646ed9;
+			}
+		}
+
+		.step-a:before,
+		.step-e:before {
+			display:block;
+			position:absolute;
+			bottom:5px;
+			width:50%;
+			height:2px;
+			background-color:#f7f7fa;
+			content:'';
+		}
+		.step-a:before {
+			left:0;
+		}
+		.step-e:before {
+			right:0;
+		}
+	}
+
+	// 상세 테이블
+	.table-detail {
+		tbody th,
+		tbody td {
+			height:30px;
+			padding:27px 0;
+			border-top:1px solid #eee;
+		}
+		tbody tr:first-child {
+			th,td {
+				border:0 none;
+			}
+		}
+		tbody th {
+			width:80px;
+			padding-right:20px;
+			text-align:right;
+			font-size:13px;
+			color:#aaa;
+			font-weight:normal;
+		}
+		tbody td {
+			padding-right:10px;
+			line-height:20px;
+			font-size:13px;
+			color:#333;
+
+			@extend %break;
+		}
+
+		.align-top {
+			vertical-align:top;
+
+			.txt-label {
+				display:block;
+				margin-top:2px;
+			}
+		}
+
+		.set-data {
+			&[aria-hidden="true"] {
+				display:none;
+			}
+
+			.txt {
+				display:inline-block;
+				vertical-align:middle;
+			}
+			.btn-modify {
+				margin:-1px 0 0 6px;
+				vertical-align:middle;
+			}
+		}
+	}
+
+	// 파일 목록
+	.upload-file {
+		font-size:0;
+
+		@extend %ui-file-download;
+
+		.link-file + .link-file {
+			margin-left:3px;
+		}
+	}
+
+	// 멤버
+	.list-members {
+		font-size:0;
+
+		> li {
+			display:inline-block;
+			height:46px;
+			padding:6px;
+			margin-top:2px;
+			background-color:#f3f3f9;
+
+			@include radius(2px);
+			@extend %box-sizing;
+
+			&:after {
+				@extend %clear;
+			}
+		}
+		> li + li {
+			margin-left:2px;
+		}
+
+		.img-user {
+			display:block;
+			width:34px;
+			height:34px;
+			float:left;
+			margin-right:5px;
+			border:1px solid #dbdbe1;
+
+			@include radius(50%);
+			@extend %bg-cover;
+			@extend %box-sizing;
+		}
+		.info-user {
+			float:left;
+			white-space:nowrap;
+
+			.user-name {
+				display:block;
+				margin:8px 0 0;
+				padding:0 6px 0 0;
+				font-size:12px;
+				color:#262a50;
+			}
+		}
+	}
+}
+
+/***************************************************************************************
+   DT 과제 > 등록
+***************************************************************************************/
+.page-assignment .section-create {
+	.create-area {
+		padding:10px 0;
+	}
+
+	// 등록 폼
+	.table-register {
+		tbody th, td {
+			height:36px;
+		}
+		tbody th {
+			padding:0 10px 0 0;
+			text-align:right;
+			font-size:13px;
+			color:#808080;
+			font-weight:normal;
+		}
+		tbody td {
+			padding:6px 0;
+		}
+
+		.align-top {
+			vertical-align:top;
+
+			.label {
+				margin-top:12px;
+			}
+			& + td {
+				vertical-align:top;
+			}
+		}
+
+		.label {
+			display:block;
+		}
+
+		.textarea {
+			height:90px;
+		}
+
+		// Select Box
+		.component-select {
+			width:150px;
+		}
+
+		// Date picker
+		.component-datepicker .box-datepicker {
+			width:210px;
+		}
+		.form-datepicker {
+			&:after {
+				@extend %clear;
+			}
+			.component-datepicker {
+				float:left;
+			}
+			> em {
+				display:block;
+				float:left;
+				width:6px;
+				height:1px;
+				margin:18px 4px 0;
+				background-color:#eaeaea;
+			}
+		}
+
+		// Radio Button
+		.list-option {
+			&:after {
+				@extend %clear;
+			}
+
+			> li {
+				position:relative;
+				float:left;
+				margin-right:50px;
+			}
+
+			// Radio Button
+			@extend %ui-radio;
+		}
+
+		// 업로드 파일 목록
+		.list-file {
+			margin-top:8px;
+
+			@extend %file-list;
+		}
+
+		// 조직
+		.form-group {
+			&:after {
+				@extend %clear;
+			}
+			.btn-basic {
+				float:left;
+				min-width:auto;
+				height:26px;
+				line-height:26px;
+				margin:0 6px 0 0;
+			}
+			.list-group {
+				> li {
+					display:inline-block;
+					height:24px;
+					margin:0 3px 3px 0;
+					padding:0 0 0 10px;
+					background-color:#f3f3f9;
+					line-height:26px;
+					vertical-align:top;
+
+					@include radius(2px);
+				}
+				.txt-group {
+					display:inline-block;
+					font-size:11px;
+					color:#262a50;
+					vertical-align:top;
+				}
+				.btn-delete {
+					display:inline-block;
+					position:relative;
+					width:24px;
+					height:24px;
+					background-color:transparent;
+
+					&:before {
+						display:none;
+					}
+					&:after {
+						position:absolute;
+						left:50%;
+						top:50%;
+						margin:-4px 0 0 -4px;
+						content:'';
+
+						@include get-sprite($icon_box_delete);
+					}
+				}
+			}
+		}
+
+		// 담당자
+		.form-member {
+			@extend %form-member;
+		}
+
+		// Validation Check
+		.is-error {
+			.form-import .btn-basic,
+			.form-upload .btn-baisc,
+			.form-group .btn-baisc,
+			.form-member .btn-baisc {
+				border-color:#ff0048;
+			}
+		}
+	}
+
+	// 버튼 영역
+	.button-area {
+		@extend %button-area;
+	}
+}

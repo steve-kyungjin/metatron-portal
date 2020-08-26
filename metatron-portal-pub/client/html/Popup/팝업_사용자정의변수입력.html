@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<link rel="stylesheet" href="http://idangero.us/swiper/dist/css/swiper.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+    <!-- LAYER POPUP -->
+    <div class="layout-popup">
+        <div class="layer-popup">
+            <div class="popup">
+                <!-- Popup Content -->
+                <div class="popup-content">
+                    <!-- 상단 버튼 영역 -->
+                    <div class="section-button">
+                        <a href="javascript:;" class="btn-basic">취소</a>
+                        <a href="javascript:;" class="btn-action">적용</a>
+                    </div>
+                    <!-- //상단 버튼 영역 -->
+
+                    <!-- 타이틀 영역 -->
+                    <div class="section-title">
+                        <h1 class="txt-title">사용자 정의 변수 입력</h1>
+                    </div>
+                    <!-- //타이틀 영역 -->
+
+                    <!-- 사용자 정의 변수 입력 -->
+                    <div class="section-custom">
+                        <ul class="option-area">
+                            <li>
+                                <input type="radio" id="radio01" class="input-radio" checked>
+                                <label class="label" for="radio01">기본 변수</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="radio02" class="input-radio">
+                                <label class="label" for="radio02">사용자 정의 변수</label>
+                            </li>
+                        </ul>
+
+                        <!-- 기본 변수 -->
+                        <div class="default-area">
+                            <div class="form-var">
+                                <table class="table-var">
+                                    <colgroup>
+                                        <col width="120" />
+                                        <col width="*" />
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th>기본 변수 선택</th>
+                                        <td>
+                                            <!-- Select Box -->
+                                            <div class="component-select">
+                                                <span class="label">선택하세요.</span>
+                                                <!-- [D] 셀렉트 박스 선택 시 aria-expanded 값 true로 변경 -->
+                                                <div class="layer-select" aria-expanded="false">
+                                                    <ul class="list-options">
+                                                        <li>
+                                                            <input type="radio" id="radio1" class="input-radio" name="selectoption" checked>
+                                                            <label for="radio1" class="item-option">전체</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- //Select Box -->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>이름</th>
+                                        <td><input type="text" class="input-text" placeholder=""></td>
+                                    </tr>
+                                    <tr>
+                                        <th>설명</th>
+                                        <td><input type="text" class="input-text" placeholder=""></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Argument(인자)</th>
+                                        <td>
+                                            <input type="text" class="input-text" placeholder="">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- 변수 미리보기 -->
+                            <div class="preview-var">
+                                <h2 class="txt-title">변수 미리보기</h2>
+                                <input type="text" class="input-text" value="123" readonly>
+                            </div>
+                            <!-- //변수 미리보기 -->
+                        </div>
+                        <!-- //기본 변수 -->
+
+                        <!-- 사용자 정의 변수 -->
+                        <div class="custom-area">
+                            <h2 class="txt-title">
+                                사용하실 <strong>변수</strong>를 선택하세요.
+                            </h2>
+
+                            <div class="var-option">
+                                <a href="javascript:;" class="btn-basic type-var">변수 등록</a>
+                                <ul class="list-option">
+                                    <li>
+                                        <input type="radio" id="radio03" class="input-radio" checked>
+                                        <label class="label" for="radio03">싱글</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio04" class="input-radio">
+                                        <label class="label" for="radio04">멀티</label>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- 목록 -->
+                            <div class="var-list">
+                                <table class="table-var">
+                                    <colgroup>
+                                        <col width="180" />
+                                        <col width="*" />
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>이름</th>
+                                            <th>설명</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="align-center">
+                                                <a href="javascript:;" class="txt-var">사용자 정의 변수01</a>
+                                            </td>
+                                            <td>
+                                                <div class="var-desc">
+                                                    <span class="txt-desc">설명이 들어갈 곳입니다.</span>
+                                                    <span class="button-desc">
+                                                        <a href="javascript:;" class="btn-modify" aria-label="수정"></a>
+                                                        <a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-center">
+                                                <a href="javascript:;" class="txt-var">사용자 정의 변수01</a>
+                                            </td>
+                                            <td>
+                                                <div class="var-desc">
+                                                    <span class="txt-desc">설명이 들어갈 곳입니다.</span>
+                                                    <span class="button-desc">
+                                                        <a href="javascript:;" class="btn-modify" aria-label="수정"></a>
+                                                        <a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-center">
+                                                <a href="javascript:;" class="txt-var">사용자 정의 변수01</a>
+                                            </td>
+                                            <td>
+                                                <div class="var-desc">
+                                                    <span class="txt-desc">설명이 들어갈 곳입니다.</span>
+                                                    <span class="button-desc">
+                                                        <a href="javascript:;" class="btn-modify" aria-label="수정"></a>
+                                                        <a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-center">
+                                                <a href="javascript:;" class="txt-var">사용자 정의 변수01</a>
+                                            </td>
+                                            <td>
+                                                <div class="var-desc">
+                                                    <span class="txt-desc">설명이 들어갈 곳입니다.</span>
+                                                    <span class="button-desc">
+                                                        <a href="javascript:;" class="btn-modify" aria-label="수정"></a>
+                                                        <a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-center">
+                                                <a href="javascript:;" class="txt-var">사용자 정의 변수01</a>
+                                            </td>
+                                            <td>
+                                                <div class="var-desc">
+                                                    <span class="txt-desc">설명이 들어갈 곳입니다.</span>
+                                                    <span class="button-desc">
+                                                        <a href="javascript:;" class="btn-modify" aria-label="수정"></a>
+                                                        <a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- //목록 -->
+
+                            <!-- Pagination -->
+                            <div class="pagination-area">
+                                <div class="component-page">
+                                    <!-- [D] 이전/다음 버튼은 노출하지 않는 경우 aria-hidden 값 true로 변경 -->
+                                    <!-- [D] 페이지 버튼 선택 된 항목은 aria-selected 값 true로 변경 -->
+                                    <a href="javascript:;" class="btn-prev" aria-hidden="false" aria-label="이전"></a>
+                                    <a href="javascript:;" class="btn-page" aria-selected="true">1</a>
+                                    <a href="javascript:;" class="btn-page" aria-selected="false">2</a>
+                                    <a href="javascript:;" class="btn-page" aria-selected="false">3</a>
+                                    <a href="javascript:;" class="btn-page" aria-selected="false">4</a>
+                                    <a href="javascript:;" class="btn-page" aria-selected="false">5</a>
+                                    <a href="javascript:;" class="btn-next" aria-hidden="false" aria-label="다음"></a>
+                                </div>
+                            </div>
+                            <!-- //Pagination -->
+
+                            <!-- No Data -->
+                            <div class="nodata">데이터가 없습니다.</div>
+                            <!-- //No Data -->
+
+                            <div class="form-var">
+                                <table class="table-var">
+                                    <colgroup>
+                                        <col width="50" />
+                                        <col width="*" />
+                                        <col width="50" />
+                                        <col width="*" />
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th>이름</th>
+                                        <td><input type="text" class="input-text" placeholder=""></td>
+                                        <th>설명</th>
+                                        <td><input type="text" class="input-text" placeholder=""></td>
+                                    </tr>
+                                    <tr>
+                                        <th>인자</th>
+                                        <td colspan="3"><input type="text" class="input-text" placeholder=""></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- 변수 미리보기 -->
+                            <div class="preview-var">
+                                <h2 class="txt-title">변수 미리보기</h2>
+                                <input type="text" class="input-text" value="123" readonly>
+                            </div>
+                            <!-- //변수 미리보기 -->
+                        </div>
+                        <!-- //사용자 정의 변수 -->
+                    </div>
+					<!-- //사용자 정의 변수 입력 -->
+                </div>
+				<!-- //Popup Content -->
+            </div>
+        </div>
+    </div>
+    <!-- //LAYER POPUP -->
+
+</body>
+</html>

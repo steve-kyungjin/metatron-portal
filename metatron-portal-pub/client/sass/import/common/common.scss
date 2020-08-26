@@ -1,0 +1,176 @@
+@charset "utf-8";
+
+/***************************************************************************************
+  COMMON
+***************************************************************************************/
+// COMMON CLASS
+.blind {
+    @extend %blind;
+}
+.align-left {
+	text-align:left !important;
+}
+.align-center {
+	text-align:center !important;
+}
+.align-right {
+	text-align:right !important;
+}
+.link-content {
+    color:#0c869b;
+    text-decoration:underline;
+
+    @extend %break;
+}
+
+// Placeholder Selector
+%box-sizing {
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -ms-box-sizing:border-box;
+    box-sizing:border-box;
+}
+
+%ellipsis {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+%clear {
+    display:block;
+    clear:both;
+    content:'';
+}
+
+%break {
+    word-break:break-all;
+    word-wrap:break-word;
+}
+
+%blind {
+    position:absolute;
+    left:-1px;
+    top:-1px;
+    width:0;
+    height:0;
+    font-size:0;
+    line-height:0;
+    color:transparent;
+    visibility:hidden;
+}
+
+%flex {
+	display:-webkit-box;
+	display:-ms-flexbox;
+	display:-webkit-flex;
+	display:flex;
+}
+
+%bg-cover {
+	background-repeat:no-repeat;
+	background-position:50% 50%;
+	background-size:cover;
+}
+
+%hide-input {
+	position:absolute;
+	left:0;
+	top:0;
+	width:1px;
+	height:1px;
+	opacity:0;
+}
+
+%outline {
+	position:absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+}
+
+%fixed {
+	-webkit-transform:translateZ(0);
+	-moz-transform:translateZ(0);
+	-ms-transform:translateZ(0);
+	transform:translateZ(0);
+}
+
+// Mixin
+@mixin flex($val){
+	-webkit-flex:$val;
+	-ms-flex:$val;
+	flex:$val;
+}
+
+@mixin placeholder($color){
+    &::-webkit-input-placeholder {
+        color:$color !important; font-weight:normal !important;
+    }
+    &::-moz-placeholder {
+        color:$color !important; font-weight:normal !important;
+    }
+    &:-ms-input-placeholder {
+        color:$color !important; font-weight:normal !important;
+    }
+    &:-moz-placeholder {
+        color:$color !important; font-weight:normal !important;
+    }
+}
+@mixin radius($radius){
+    -webkit-border-radius:$radius;
+    -moz-border-radius:$radius;
+    -ms-border-radius:$radius;
+    border-radius:$radius;
+}
+
+@mixin ellipsisMultiline($line, $lineHeight){
+    $maxHeight: $lineHeight * $line;
+	display:block;
+    display:-webkit-box;
+    overflow:hidden;
+    max-height:#{$maxHeight}px;
+    line-height:#{$lineHeight}px;
+    -webkit-line-clamp:$line;
+    -webkit-box-orient:vertical;
+}
+
+@mixin box-shadow($args...){
+    -webkit-box-shadow:$args;
+    -moz-box-shadow:$args;
+	-ms-box-shadow:$args;
+	box-shadow:$args;
+}
+
+@mixin transition($args...){
+	-webkit-transition:$args;
+	-moz-transition:$args;
+	-ms-transition:$args;
+	transition:$args;
+}
+
+@mixin rotate($deg){
+    -webkit-transform:rotate(#{$deg}deg);
+    -moz-transform:rotate(#{$deg}deg);
+    -ms-transform:rotate(#{$deg}deg);
+    transform:rotate(#{$deg}deg);
+}
+
+@mixin webFont($fontName,$fontFile,$fontWeight){
+    font-family:$fontName;
+    src: url("fonts/#{$fontFile}.eot");
+    src: url("fonts/#{$fontFile}.eot?#iefix") format("embedded-opentype"),
+    	 url("fonts/#{$fontFile}.woff") format("woff"),
+    	 url("fonts/#{$fontFile}.ttf") format("truetype");
+    font-weight:$fontWeight;
+    font-style:normal;
+}
+
+@mixin gradient-vertical($start-color, $end-color, $start-percent: 0%, $end-percent: 100%) {
+	background-image: -webkit-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);
+	background-image: -o-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  //
+	background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); //
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0);
+}

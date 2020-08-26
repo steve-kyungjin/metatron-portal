@@ -1,0 +1,178 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   메뉴 관리
+***************************************************************************************/
+.page-management-menu {
+	position:relative;
+	min-height:623px;
+
+	.section-menu {
+		position:absolute;
+		left:80px;
+		top:20px;
+		width:288px;
+
+		@extend %box-sizing;
+	}
+
+	.section-form {
+		padding-left:328px;
+	}
+}
+
+/***************************************************************************************
+   메뉴 관리 > 메뉴 목록
+***************************************************************************************/
+.page-management-menu .section-menu {
+	// 타이틀 영역
+	.title-area {
+		margin-bottom:5px;
+
+		&:after {
+			@extend %clear;
+		}
+		.txt-title {
+			float:left;
+			margin-top:5px;
+			font-size:14px;
+			color:#262a50;
+		}
+		.type-add {
+			float:right;
+			min-width:auto;
+			height:26px;
+			padding:0 12px;
+			line-height:26px;
+		}
+		.type-add:before {
+			margin:7px 5px 0 0;
+			vertical-align:top;
+			content:'';
+
+			@include get-sprite($icon_app_add);
+		}
+	}
+
+	// 트리메뉴 영역
+	.tree-area {
+		position:relative;
+		border:1px solid #e3e3e3;
+
+		@include radius(4px);
+
+		.scroll {
+			overflow:scroll;
+			height:590px;
+			padding:11px 12px 15px;
+
+			@extend %box-sizing;
+		}
+	}
+}
+
+/***************************************************************************************
+   메뉴 관리 > 메뉴 생성 폼
+***************************************************************************************/
+.page-management-menu .section-form {
+	// 제목 영역
+	.title-area {
+		@extend %ui-title;
+	}
+
+	// 메뉴 등록
+	.table-register {
+		margin:10px 0;
+
+		tbody th, td {
+			height:36px;
+		}
+		tbody th {
+			padding:6px 10px 6px 0;
+			text-align:right;
+			font-size:13px;
+			color:#262a50;
+			font-weight:normal;
+		}
+		tbody td {
+			padding:6px 0;
+		}
+
+		.align-top {
+			vertical-align:top;
+
+			.label {
+				margin-top:14px;
+			}
+		}
+
+		.label {
+			display:block;
+		}
+
+		.type-order {
+			width:124px;
+		}
+
+		// Location
+		.list-depth {
+			display:table;
+			width:100%;
+
+			> li {
+				display:table-cell;
+				font-size:12px;
+				color:#aaa;
+			}
+			> li:first-child {
+				width:50px;
+				padding:0 6px 0 14px;
+				white-space:nowrap;
+			}
+
+			&.type-none {
+				> li:first-child {
+					display:none;
+				}
+			}
+		}
+
+		// Radio Button
+		.list-option {
+			&:after {
+				@extend %clear;
+			}
+
+			> li {
+				position:relative;
+				float:left;
+				margin-right:20px;
+			}
+
+			// Radio Button
+			@extend %ui-radio;
+		}
+	}
+
+	// 버튼 영역
+	.button-area {
+		@extend %button-area;
+	}
+
+	// No Data
+	.nodata {
+		padding:245px 0 0;
+		text-align:center;
+		line-height:16px;
+		font-size:12px;
+		color:#c7c8cf;
+
+		&:before {
+			display:block;
+			margin:0 auto 14px;
+			content:'';
+
+			@include get-sprite($icon_menu_nodata);
+		}
+	}
+}

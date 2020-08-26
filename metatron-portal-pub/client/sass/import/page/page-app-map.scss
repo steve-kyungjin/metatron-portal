@@ -1,0 +1,379 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   지도 앱
+***************************************************************************************/
+.page-app-map {
+	width:1340px;
+	margin:0 auto;
+	padding-bottom:14px;
+
+	// 공통 타이틀 영역
+	.title-block {
+		@extend %ui-title;
+
+		.btn-basic.type-download {
+			position:absolute;
+			right:0;
+			bottom:3px;
+		}
+
+		.component-select {
+			position:absolute;
+			right:0;
+			bottom:3px;
+			width:200px;
+
+			.layer-select {
+				z-index:15;
+			}
+		}
+	}
+
+	// 공통 No Data
+	.nodata-map {
+		position:absolute;
+		left:0;
+		top:0;
+		z-index:10;
+		width:100%;
+		height:100%;
+		background-color:#fff;
+		text-align:center;
+
+		&:before {
+			display:inline-block;
+			width:1px;
+			height:100%;
+			vertical-align:middle;
+			content:'';
+		}
+		&[aria-hidden="true"] {
+			display:none;
+		}
+
+		.txt-desc {
+			display:inline-block;
+			vertical-align:middle;
+			font-size:12px;
+			color:#c7c8cf;
+
+			&:before {
+				display:block;
+				margin:0 auto 15px;
+				content:'';
+
+				@include get-sprite($icon_nodata_query);
+			}
+		}
+	}
+
+	// 상단 조회
+	.section-filter {
+		position:relative;
+		z-index:401;
+		padding:14px 0;
+		font-size:0;
+
+		[common-select],
+		.component-select {
+			display:inline-block;
+			width:154px;
+			vertical-align:top;
+		}
+		[common-select] + [common-select],
+		.component-select + .component-select {
+			margin:0 0 0 4px;
+		}
+		.btn-action {
+			margin:3px 0 0 4px;
+			vertical-align:top;
+		}
+		.txt-info {
+			position:absolute;
+			right:0;
+			bottom:14px;
+			font-size:11px;
+			color:#aaa;
+
+			&:before {
+				margin:-1px 5px 0 0;
+				vertical-align:top;
+				content:'';
+
+				@include get-sprite($icon_info_map);
+			}
+		}
+	}
+
+	// Summary
+	.section-summary {
+		padding:20px 0 30px;
+
+		&:after {
+			@extend %clear;
+		}
+
+		> li {
+			position:relative;
+			float:left;
+			padding:0 0 0 20px;
+			font-size:0;
+
+			&:before {
+				display:block;
+				position:absolute;
+				left:0;
+				top:0;
+				content:'';
+
+				@extend %box-sizing;
+				@include get-sprite($bg_line_dotted);
+			}
+		}
+		> li + li {
+			margin:0 0 0 80px;
+		}
+
+		.txt-label {
+			display:block;
+			margin:1px 0 0 0;
+			font-size:13px;
+			color:#808080;
+			font-weight:bold;
+		}
+		.txt-data {
+			display:block;
+			margin:5px 0 0;
+			font-size:26px;
+
+			> em {
+				font-size:11px;
+				font-weight:normal;
+			}
+		}
+		.list-data {
+			margin:20px 0 0;
+
+			> li {
+				font-size:13px;
+				color:#aaa;
+
+				> strong {
+					color:#808080;
+				}
+			}
+			> li + li {
+				margin-top:8px;
+			}
+		}
+
+		$color-map: (
+			a: #00d3d1,
+			b: #e970a9,
+			c: #c070e9,
+			d: #f2ab25,
+			e: #f3774b
+		);
+		@each $class, $color in $color-map {
+			.type-#{$class} {
+				color:$color;
+			}
+		}
+	}
+
+	// 지도, 그래프
+	.section-map {
+		&:after {
+			@extend %clear;
+		}
+
+		.map-area {
+			overflow:hidden;
+			position:relative;
+			float:left;
+			width:49%;
+			height:465px;
+			border:1px solid #e3e3e3;
+
+			@include radius(4px);
+			@extend %box-sizing;
+
+			.toggle-block {
+				position:absolute;
+				right:10px;
+				top:10px;
+				z-index:499;
+				height:31px;
+				padding:0 8px;
+				background-color:rgba(255,255,255,0.9);
+				line-height:31px;
+
+				@include radius(2px);
+
+				.txt-label {
+					font-size:12px;
+					color:#808080;
+					font-weight:bold;
+				}
+
+				.toggle {
+					display:inline-block;
+					position:relative;
+					margin:0 0 0 3px;
+				}
+			}
+			.map-block {
+				height:100%;
+			}
+		}
+		.graph-area {
+			overflow:hidden;
+			position:relative;
+			float:right;
+			width:49%;
+			height:465px;
+			border:1px solid #e3e3e3;
+
+			@include radius(4px);
+			@extend %box-sizing;
+
+			.graph-block {
+				height:100%;
+			}
+		}
+
+		// Number
+		.txt-num {
+			display:block;
+			position:absolute;
+			right:20px;
+			top:20px;
+			z-index:10;
+			width:52px;
+			height:52px;
+			line-height:52px;
+			text-align:center;
+			font-size:18px;
+			color:#fff;
+
+			&:hover {
+				color:#d1d1d1;
+			}
+		}
+
+		// Date picker
+		.component-datepicker {
+			position:absolute;
+			left:20px;
+			top:20px;
+
+			.box-datepicker {
+				width:340px;
+				height:54px;
+			}
+			.box-datepicker:after {
+				right:13px;
+				margin-top:-11px;
+
+				@include get-sprite($icon_calendar_large);
+			}
+			.box-datepicker > input {
+				padding:0 50px 0 15px;
+				font-size:18px;
+				color:#333;
+				font-weight:bold;
+			}
+		}
+	}
+
+	// 그래프 영역
+	.section-graph {
+		margin-top:30px;
+
+		.graph-block {
+			position:relative;
+			height:305px;
+		}
+		.graph {
+			height:100%;
+		}
+	}
+
+	// 건물리스트, 커버리지 정보
+	.section-data {
+		&[aria-hidden="true"] .building-area {
+			display:none;
+		}
+		.building-area,
+		.coverage-area {
+			margin-top:30px;
+		}
+
+		.building-area {
+			.grid-block {
+				height:480px;
+			}
+			.grid-table {
+				height:100%;
+			}
+		}
+		.coverage-area {
+			.table-map {
+				@extend %ui-table;
+
+				thead th,
+				tbody td {
+					padding:0 10px;
+					border-left:1px solid #f4f4f6;
+					border-right:1px solid #f4f4f6;
+				}
+
+				.type-sum td {
+					background-color:#fef5e5;
+					color:#e99901;
+				}
+			}
+
+			// No Data
+			.nodata-map {
+				position:static;
+				padding:140px 0;
+			}
+		}
+
+		.grid-block {
+			position:relative;
+			border:1px solid #ebebed;
+			border-top:0 none;
+
+			.slick-header-column.ui-state-default {
+				-webkit-box-sizing:content-box;
+				-moz-box-sizing:content-box;
+				-ms-box-sizing:content-box;
+				box-sizing:content-box;
+			}
+		}
+
+		.table-sum {
+			tfoot td {
+				height:37px;
+				padding:0 10px;
+				background-color:#fef5e5;
+				font-size:12px;
+				color:#e99901;
+				text-align:center;
+			}
+		}
+	}
+
+	// 외부 iframe
+	.section-external {
+		margin:30px 0 0;
+
+		> iframe {
+			width:100%;
+			height:805px;
+		}
+	}
+}

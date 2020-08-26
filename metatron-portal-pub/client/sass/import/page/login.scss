@@ -1,0 +1,180 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   LOGIN
+***************************************************************************************/
+.dtp-login-wrap {
+    position:relative;
+	height:100%;
+	min-height:800px;
+
+    &:after {
+        position:absolute;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        background:url(../images/bg/bg_login.png) no-repeat 50% 50%;
+		background-size:cover;
+        content:'';
+    }
+
+    // Login Area
+    .section-login {
+        position:absolute;
+        left:50%;
+        top:50%;
+        z-index:10;
+        width:398px;
+        height:500px;
+        margin:-250px 0 0 -199px;
+        padding:60px 58px 0;
+        background-color:rgba(255,255,255,0.9);
+
+        @extend %box-sizing;
+
+        .logo {
+            display:block;
+            margin:0 auto;
+
+            @include get-sprite($logo);
+        }
+    }
+
+    // Login
+    .login-area {
+        margin-top:50px;
+
+        .input-login {
+            width:100%;
+            height:38px;
+            border:0 none;
+            border-bottom:1px solid #cfcbd7;
+            background-color:transparent;
+            font-size:18px;
+            color:#272950;
+
+			@include placeholder(#babbc9);
+			@extend %box-sizing;
+
+            &:focus {
+                border-color:#272950;
+            }
+            & + .input-login {
+                margin-top:32px;
+            }
+        }
+
+        .btn-login {
+            width:100%;
+            height:38px;
+            margin-top:60px;
+            background-color:#272950;
+            font-size:14px;
+            color:#fff;
+            text-align:center;
+            line-height:38px;
+
+            @include radius(18px);
+			@include transition(background-color 0.3s ease);
+
+            &:hover {
+                background-color:#7575ea;
+            }
+        }
+    }
+
+    // ID 저장
+    .save-block {
+        position:relative;
+        margin-top:16px;
+
+        .input-checkbox {
+            position:absolute;
+            left:0;
+            top:0;
+            width:1px;
+            height:1px;
+            opacity:0;
+
+            &:checked + .label {
+                font-weight:bold;
+            }
+            &:checked + .label:before {
+                @include get-sprite($login_checkbox_on);
+            }
+        }
+        .label {
+			display:inline-block;
+			line-height:13px;
+            font-size:13px;
+            color:#272950;
+            cursor:pointer;
+
+            &:before {
+                float:left;
+				margin:1px 6px 0 0;
+                content:'';
+
+                @include get-sprite($login_checkbox);
+            }
+        }
+    }
+
+	// 로그인 오류 메세지
+	.alert-block {
+		visibility:hidden;
+		margin-top:10px;
+		font-size:12px;
+		color:#fe0000;
+		line-height:18px;
+
+		&.is_activated {
+			visibility:visible;
+		}
+	}
+
+    // 로그인 문의, TANGO바로가기
+    .info-area {
+        margin:28px 0 0 0;
+        padding:0 0 0 14px;
+
+        .txt-login {
+            display:block;
+            font-size:13px;
+            color:#272950;
+            font-weight:300;
+
+            > a {
+                color:#272950;
+                text-decoration:underline;
+            }
+            > a:hover {
+                color:#47dbf4;
+            }
+        }
+        .link-tango {
+            display:inline-block;
+            margin-top:10px;
+            font-size:13px;
+            color:#ff5a00;
+
+            &:hover {
+                text-decoration:underline;
+            }
+        }
+    }
+
+    // Copyright
+    .section-copy {
+        position:absolute;
+        left:0;
+        bottom:28px;
+        z-index:10;
+        width:100%;
+        text-align:center;
+        font-size:12px;
+        color:#fff;
+        opacity:0.6;
+    }
+}

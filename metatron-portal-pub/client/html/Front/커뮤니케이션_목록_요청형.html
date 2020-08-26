@@ -1,0 +1,288 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- Wrap -->
+	<div class="dtp-wrap">
+
+		<!-- HEADER -->
+		<div class="layout-header">
+			<div class="section-search"></div>
+		</div>
+		<!-- //HEADER -->
+
+		<!-- TITLE,LOCATION,SEARCH RESULT -->
+		<div class="layout-top">
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<div class="title-area">
+					<!-- Location -->
+					<div class="location">
+						<em class="item">홈</em>
+						<em class="item">분석앱</em>
+						<em class="item">앱플레이스</em>
+					</div>
+					<!-- //Location -->
+
+					<!-- Title -->
+					<div class="title">
+						<h2 class="txt-title">앱플레이스</h2>
+						<p class="txt-desc">
+							앱플레이스 소갯말이 들어가는 곳입니다.
+						</p>
+					</div>
+					<!-- //Title -->
+				</div>
+			</div>
+			<!-- //타이틀 영역 -->
+		</div>
+		<!-- //TITLE,LOCATION,SEARCH RESULT -->
+
+		<!-- LNB -->
+		<div class="layout-lnb">
+
+		</div>
+		<!-- //LNB -->
+
+		<!-- QUICK COMM. -->
+		<div class="layout-quick">
+
+		</div>
+		<!-- //QUICK COMM. -->
+
+		<!-- CONTENT -->
+		<div class="layout-content">
+			<!-- 커뮤니케이션 -->
+			<div class="page-communication">
+
+				<div class="section-list">
+					<!-- 등록,검색 -->
+					<div class="search-block">
+						<!-- 글 등록 -->
+						<a href="javascript:;" class="btn-action type-create">새 글쓰기</a>
+						<!-- //글 등록 -->
+						<div class="filter">
+							<div class="filter-select">
+								<span class="txt-filter">상태</span>
+								<!-- Select Box -->
+								<div class="component-select type-filter type-data">
+									<span class="label">
+										요청처리완료
+									</span>
+									<!-- [D] 셀렉트 박스 선택 시 aria-expanded 값 true로 변경 -->
+									<div class="layer-select" aria-expanded="false">
+										<ul class="list-options">
+											<li>
+												<input type="radio" id="radio1" class="input-radio" name="selectoption" checked>
+												<label for="radio1" class="item-option">전체</label>
+											</li>
+											<li>
+												<input type="radio" id="radio2" class="input-radio" name="selectoption">
+												<label for="radio2" class="item-option">물리명</label>
+											</li>
+											<li>
+												<input type="radio" id="radio3" class="input-radio" name="selectoption">
+												<label for="radio3" class="item-option">논리명</label>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<!-- //Select Box -->
+								<em class="bar"></em>
+							</div>
+
+							<!-- 검색 -->
+							<div class="component-search">
+								<input type="text" class="input-search" placeholder="제목,내용,등록자로 검색">
+								<button class="btn-search" aria-label="검색"></button>
+							</div>
+							<!-- //검색 -->
+						</div>
+					</div>
+					<!-- //등록,검색 -->
+
+					<!-- 목록 -->
+					<table class="table-communication">
+						<colgroup>
+							<col width="*" />
+							<col width="100" />
+							<col width="180" />
+							<col width="180" />
+							<col width="100" />
+							<col width="100" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th>제목</th>
+								<th>상태</th>
+								<th>등록자</th>
+								<th>처리자</th>
+								<th>등록일</th>
+								<th>조회</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="align-left">
+									<a href="javascript:;" class="link-comm" title="앱 이름이 들어갈 곳입니다 만약에 길어지면 title 속성에 동일한 앱 이름을 넣어주세요.">
+										<span class="txt-comment">[20]</span>
+										<span class="txt-title">앱 이름이 들어갈 곳입니다 만약에 길어지면 title 속성에 동일한 앱 이름을 넣어주세요.</span>
+									</a>
+								</td>
+								<td>
+									<!--
+										[D] 상태 클래스명 정의
+										type-a : 요청등록
+										type-b : 요청취소
+										type-c : 요청처리중
+										type-d : 요청처리완료
+										type-e : 요청완료확인
+									-->
+									<span class="txt-status type-a">요청등록</span>
+								</td>
+								<td>
+									<span class="txt-manager">홍길동(DT Infra팀), 홍길동(DT Infra팀), 홍길동(DT Infra팀), 홍길동(DT Infra팀)</span>
+								</td>
+								<td>홍길동(DT Infra팀)</td>
+								<td>2018-07-07</td>
+								<td>999,999</td>
+							</tr>
+							<tr>
+								<td class="align-left">
+									<a href="javascript:;" class="link-comm" title="제목이 들어갈 곳입니다.">
+										<span class="txt-comment">[20]</span>
+										<span class="txt-title">제목이 들어갈 곳입니다.</span>
+									</a>
+								</td>
+								<td>
+									<!--
+										[D] 상태 클래스명 정의
+										type-a : 요청등록
+										type-b : 요청취소
+										type-c : 요청처리중
+										type-d : 요청처리완료
+										type-e : 요청완료확인
+									-->
+									<span class="txt-status type-b">요청취소</span>
+								</td>
+								<td>홍길동(DT Infra팀)</td>
+								<td>홍길동(DT Infra팀)</td>
+								<td>2018-07-07</td>
+								<td>999,999</td>
+							</tr>
+							<tr>
+								<td class="align-left">
+									<a href="javascript:;" class="link-comm" title="제목이 들어갈 곳입니다.">
+										<span class="txt-comment">[20]</span>
+										<span class="txt-title">제목이 들어갈 곳입니다.</span>
+									</a>
+								</td>
+								<td>
+									<!--
+										[D] 상태 클래스명 정의
+										type-a : 요청등록
+										type-b : 요청취소
+										type-c : 요청처리중
+										type-d : 요청처리완료
+										type-e : 요청완료확인
+									-->
+									<span class="txt-status type-c">요청처리중</span>
+								</td>
+								<td>홍길동(DT Infra팀)</td>
+								<td>홍길동(DT Infra팀)</td>
+								<td>2018-07-07</td>
+								<td>999,999</td>
+							</tr>
+							<tr>
+								<td class="align-left">
+									<a href="javascript:;" class="link-comm" title="제목이 들어갈 곳입니다.">
+										<span class="txt-comment">[20]</span>
+										<span class="txt-title">제목이 들어갈 곳입니다.</span>
+									</a>
+								</td>
+								<td>
+									<!--
+										[D] 상태 클래스명 정의
+										type-a : 요청등록
+										type-b : 요청취소
+										type-c : 요청처리중
+										type-d : 요청처리완료
+										type-e : 요청완료확인
+									-->
+									<span class="txt-status type-d">요청처리완료</span>
+								</td>
+								<td>홍길동(DT Infra팀)</td>
+								<td>홍길동(DT Infra팀)</td>
+								<td>2018-07-07</td>
+								<td>999,999</td>
+							</tr>
+							<tr>
+								<td class="align-left">
+									<a href="javascript:;" class="link-comm" title="제목이 들어갈 곳입니다.">
+										<span class="txt-comment">[20]</span>
+										<span class="txt-title">제목이 들어갈 곳입니다.</span>
+									</a>
+								</td>
+								<td>
+									<!--
+										[D] 상태 클래스명 정의
+										type-a : 요청등록
+										type-b : 요청취소
+										type-c : 요청처리중
+										type-d : 요청처리완료
+										type-e : 요청완료확인
+									-->
+									<span class="txt-status type-e">요청완료확인</span>
+								</td>
+								<td>홍길동(DT Infra팀)</td>
+								<td>홍길동(DT Infra팀)</td>
+								<td>2018-07-07</td>
+								<td>999,999</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- //목록 -->
+
+					<!-- No Data -->
+					<div class="nodata-communication">
+						등록된 글이 없습니다.
+					</div>
+					<!-- //No Data -->
+
+					<!-- Pagination -->
+					<div class="pagination-area">
+						<div class="component-page">
+							<!-- [D] 이전/다음 버튼은 노출하지 않는 경우 aria-hidden 값 true로 변경 -->
+							<!-- [D] 페이지 버튼 선택 된 항목은 aria-selected 값 true로 변경 -->
+							<a href="javascript:;" class="btn-prev" aria-hidden="false" aria-label="이전"></a>
+							<a href="javascript:;" class="btn-page" aria-selected="true">1</a>
+							<a href="javascript:;" class="btn-page" aria-selected="false">2</a>
+							<a href="javascript:;" class="btn-page" aria-selected="false">3</a>
+							<a href="javascript:;" class="btn-page" aria-selected="false">4</a>
+							<a href="javascript:;" class="btn-page" aria-selected="false">5</a>
+							<a href="javascript:;" class="btn-next" aria-hidden="false" aria-label="다음"></a>
+						</div>
+					</div>
+					<!-- //Pagination -->
+				</div>
+
+			</div>
+			<!-- //커뮤니케이션 -->
+		</div>
+		<!-- //CONTENT -->
+
+	</div>
+	<!-- //Wrap -->
+
+</body>
+</html>

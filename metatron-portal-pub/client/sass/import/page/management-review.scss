@@ -1,0 +1,154 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   리뷰 관리
+***************************************************************************************/
+.page-management-review {
+	// 제목 영역
+	.title-area {
+		@extend %ui-title;
+	}
+
+	// 목록
+	.section-list {
+		// 타이틀 영역
+		.title-area .filter {
+			position:absolute;
+			right:0;
+			bottom:3px;
+
+			.component-search {
+				width:247px;
+			}
+		}
+
+		// 목록
+		.table-list {
+			@extend %ui-table;
+
+			// 리뷰
+			.review-block {
+				padding:10px 0;
+
+				.txt-app {
+					display:block;
+					font-size:13px;
+					color:#333;
+				}
+				> .txt-review {
+					margin-top:5px;
+					line-height:18px;
+					font-size:13px;
+					color:#808080;
+
+					@extend %break;
+				}
+			}
+
+			// 답글
+			.reply {
+				margin-top:10px;
+
+				.btn-reply {
+					display:inline-block;
+					position:relative;
+					padding-right:14px;
+					font-size:12px;
+					color:#0c869b;
+
+					&:after {
+						position:absolute;
+						right:0;
+						top:50%;
+						margin:-3px 0 0 0;
+						content:'';
+
+						@include get-sprite($icon_review_unfold);
+					}
+				}
+				.type-hide {
+					display:none;
+				}
+
+				&[aria-expanded="true"] {
+					.btn-reply {
+						display:none;
+						color:#f2ab25;
+
+						&:after {
+							@include get-sprite($icon_review_fold);
+						}
+					}
+					.type-hide {
+						display:inline-block;
+					}
+				}
+			}
+
+			// 답글 리뷰
+			.review {
+				position:relative;
+				min-height:34px;
+				margin-top:10px;
+				padding:4px 0 0 44px;
+
+				.img-user {
+					overflow:hidden;
+					display:block;
+					position:absolute;
+					left:0;
+					top:0;
+					width:34px;
+					height:34px;
+
+					@include radius(50%);
+					@extend %bg-cover;
+				}
+				.txt-user {
+					display:block;
+					font-size:13px;
+					color:#333;
+				}
+				.txt-user > em {
+					display:inline-block;
+					margin-left:7px;
+					font-size:11px;
+					color:#aaa;
+				}
+				.txt-review {
+					padding:5px 0 0 0;
+					line-height: 18px;
+					font-size: 13px;
+					color: #808080;
+
+					@extend %break;
+				}
+			}
+		}
+
+		// No Data
+		.list-nodata {
+			@extend %ui-nodata;
+		}
+
+		// 목록 더보기 버튼
+		.btn-more {
+			display:block;
+			height:32px;
+			margin-top:10px;
+			border:1px solid #d4d4dc;
+			background-color:#fff;
+			line-height:32px;
+			text-align:center;
+			font-size:12px;
+			color:#262a50;
+
+			@include radius(16px);
+			@extend %box-sizing;
+
+			&:hover {
+				border-color:#262a50;
+			}
+		}
+	}
+}

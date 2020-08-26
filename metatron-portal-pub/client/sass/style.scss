@@ -1,0 +1,108 @@
+// [ Scss 작성 가이드 ]
+//
+// 1. 마크업 레벨(Depth) Class 가이드
+// {project code}-wrap > layout-xxx > page-xxx(컨텐츠 영역,화면 고유) > section-xxx > xxx-area > xxx-block
+//
+// 2. 동적 클래스
+// is-activated, is-selected, is-disabled, is-fold(unfold), is-show(hide), is-xxx
+//
+// 3. 유형 클래스 : type-xxx
+//
+// 4. 컴포넌트 클래스 정의 : component-xxx, ex:component-datepicker
+//
+// 5. 화면 별 고유 클래스 정의 : page-xxx, ex:page-login
+//
+// 6. 작성 가이드
+// overflow,visibility,display,position(left,right,top,bottom),z-index,width,height,margin,padding,border,background,box-sizing, ~ 자유배치
+// @include, @extend는 마지막에 삽입
+//
+// 7. z-index 가이드
+// 기본 10 증가 폭 5단위
+// 팝업 500 증가폭 10단위
+// 로딩 1000
+
+/***************************************************************************************
+   기본설정, 공통
+***************************************************************************************/
+@import "import/common/sprite"; // Sprite Image
+@import "import/common/common"; // 공통(mixin, extend)
+@import "import/common/base"; // 기본설정
+
+/***************************************************************************************
+   EXTEND UI
+***************************************************************************************/
+@import "import/extend/common-ui"; // 공통 UI
+@import "import/extend/category"; // Category
+@import "import/extend/button"; // Button
+@import "import/extend/form"; // Form
+
+/***************************************************************************************
+   LAYOUT
+***************************************************************************************/
+@import "import/layout/layout"; // Layout
+@import "import/layout/header"; // Header
+@import "import/layout/lnb"; // LNB
+@import "import/layout/quick"; // Quick Comm.
+@import "import/layout/layer-popup"; // Layer Popup
+@import "import/layout/layout-blank"; // App New Window
+
+/***************************************************************************************
+   COMPONENT
+***************************************************************************************/
+@import "import/component/loading"; // Loading
+@import "import/component/autocomplete"; // Auto Complete
+@import "import/component/search"; // Search(LNB,FILTER)
+@import "import/component/pagination"; // Pagination
+@import "import/component/selectbox"; // Select Box
+@import "import/component/tree"; // Tree
+@import "import/component/datepicker"; // Date Picker
+
+/***************************************************************************************
+   COMPONENT CUSTOM
+***************************************************************************************/
+@import "import/component/swipe"; // Swipe
+@import "import/component/toast"; // Toast
+@import "import/component/grid"; // Grid
+@import "import/component/editor"; // Editor
+
+/***************************************************************************************
+   FRONT
+***************************************************************************************/
+@import "import/page/login"; // Login
+@import "import/page/intro"; // Intro
+@import "import/page/search"; // Search (통합검색)
+@import "import/page/sitemap"; // 전체 서비스 보기
+@import "import/page/help"; // 도움말
+
+@import "import/page/page-app-place"; // APP PLACE (목록, 상세, 마이앱)
+@import "import/page/page-app-register"; // APP REGISTER (목록, 유형선택, 등록)
+@import "import/page/page-app-map"; // 지도 앱
+@import "import/page/page-dt-assignment"; // DT 과제 (목록, 상세, 등록)
+@import "import/page/page-data-extract"; // 데이터 추출
+@import "import/page/page-dw"; // DW Table, Database, 연계시스템
+@import "import/page/page-communication"; // 커뮤니케이션
+
+/***************************************************************************************
+   ADMIN
+***************************************************************************************/
+@import "import/page/management-menu"; // 메뉴 관리
+@import "import/page/management-review"; // 메뉴 관리
+@import "import/page/management-category"; // 메뉴 관리
+@import "import/page/management-user"; // 사용자 조회, 상세
+@import "import/page/management-authority"; // 권한관리, 권한승인관리
+@import "import/page/management-group"; // 그룹관리, 등록, 상세
+
+/***************************************************************************************
+   공통 ERROR
+***************************************************************************************/
+@import "import/page/error"; // ERROR (400, 404, 500)
+
+/***************************************************************************************
+   POPUP
+***************************************************************************************/
+@import "import/page/popup"; // LAYER POPUP (화면 별 레이어 팝업)
+
+/***************************************************************************************
+   Responsive
+***************************************************************************************/
+@import "import/responsive";

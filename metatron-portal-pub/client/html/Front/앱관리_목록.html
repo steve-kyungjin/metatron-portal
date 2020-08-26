@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- Wrap -->
+	<div class="dtp-wrap">
+
+		<!-- HEADER -->
+		<div class="layout-header">
+			<div class="section-search"></div>
+		</div>
+		<!-- //HEADER -->
+
+		<!-- TITLE,LOCATION,SEARCH RESULT -->
+		<div class="layout-top">
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<div class="title-area">
+					<!-- Location -->
+					<div class="location">
+						<em class="item">홈</em>
+						<em class="item">분석앱</em>
+						<em class="item">앱플레이스</em>
+					</div>
+					<!-- //Location -->
+
+					<!-- Title -->
+					<div class="title">
+						<h2 class="txt-title">앱플레이스</h2>
+						<p class="txt-desc">
+							앱플레이스 소갯말이 들어가는 곳입니다.
+						</p>
+					</div>
+					<!-- //Title -->
+				</div>
+			</div>
+			<!-- //타이틀 영역 -->
+		</div>
+		<!-- //TITLE,LOCATION,SEARCH RESULT -->
+
+		<!-- LNB -->
+		<div class="layout-lnb">
+
+		</div>
+		<!-- //LNB -->
+
+		<!-- QUICK COMM. -->
+		<div class="layout-quick">
+
+		</div>
+		<!-- //QUICK COMM. -->
+
+		<!-- CONTENT -->
+		<div class="layout-content">
+			<!-- 앱 관리 -->
+			<div class="page-app-register">
+
+				<div class="section-list">
+					<!-- 앱 등록 버튼 영역 -->
+					<div class="button-area">
+						<a href="javascript:;" class="btn-action type-add">앱 등록</a>
+					</div>
+					<!-- //앱 등록 버튼 영역 -->
+
+					<!-- Title -->
+					<div class="title-area">
+						<h3 class="txt-title">목록(196)</h3>
+						<div class="filter">
+							<!-- Select Box -->
+							<span class="txt-filter">카테고리</span>
+							<div class="component-select type-filter">
+								<span class="label">
+									전체
+								</span>
+								<!-- [D] 셀렉트 박스 선택 시 aria-expanded 값 true로 변경 -->
+								<div class="layer-select" aria-expanded="false">
+									<ul class="list-options">
+										<li>
+											<input type="radio" id="radio1" class="input-radio" name="selectoption" checked>
+											<label for="radio1" class="item-option">전체</label>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!-- //Select Box -->
+							<em class="bar"></em>
+							<!-- 검색 -->
+							<div class="component-search">
+								<input type="text" class="input-search" placeholder="앱 이름으로 검색">
+								<button class="btn-search" aria-label="검색"></button>
+							</div>
+							<!-- //검색 -->
+						</div>
+					</div>
+					<!-- //Title -->
+
+					<!-- 목록 -->
+					<table class="table-app">
+						<colgroup>
+							<col width="50" />
+							<col width="160" />
+							<col width="*" />
+							<col width="180" />
+							<col width="180" />
+							<col width="80" />
+							<col width="60" />
+							<col width="80" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>카테고리</th>
+								<th>앱 이름</th>
+								<th>등록자</th>
+								<th>등록일</th>
+								<th>사용 수</th>
+								<th>상태</th>
+								<th>관리</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- [D] 상태값이 OFF인 경우 aria-disabled 값 true로 변경 -->
+							<tr aria-disabled="false">
+								<td>999</td>
+								<td>
+									<div class="txt-category">
+										무선
+									</div>
+								</td>
+								<td class="align-left">
+									<a href="javascript:;" class="link-app" title="앱 이름이 들어갈 곳입니다 만약에 길어지면 title 속성에 동일한 앱 이름을 넣어주세요.">
+										앱 이름이 들어갈 곳입니다 만약에 길어지면 title 속성에 동일한 앱 이름을 넣어주세요.
+									</a>
+								</td>
+								<td>홍태희(DT Infra팀)</td>
+								<td>2018-08-08 17:22:30</td>
+								<td>1,000</td>
+								<td>
+									<strong class="txt-status">ON</strong>
+								</td>
+								<td>
+									<a href="javascript:;" class="btn-modify" aria-label="수정"></a>
+									<a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+								</td>
+							</tr>
+							<tr aria-disabled="true">
+								<td>999</td>
+								<td>
+									<div class="txt-category">
+										카테고리 영역이 길어지면 말줄임 처리가 됩니다.
+									</div>
+								</td>
+								<td class="align-left">
+									<a href="javascript:;" class="link-app" title="앱 이름이 들어갈 곳입니다 만약에 길어지면 title 속성 동일한 앱 이름을 넣어주세요.">
+										앱 이름이 들어갈 곳입니다 만약에 길어지면 title 속성 동일한 앱 이름을 넣어주세요.
+									</a>
+								</td>
+								<td>홍태희(DT Infra팀)</td>
+								<td>2018-08-08 17:22:30</td>
+								<td>1,000</td>
+								<td>
+									<strong class="txt-status">OFF</strong>
+								</td>
+								<td>
+									<a href="javascript:;" class="btn-modify" aria-label="수정"></a>
+									<a href="javascript:;" class="btn-delete" aria-label="삭제"></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- //목록 -->
+
+					<!-- No Data -->
+					<div class="app-nodata">
+						등록된 앱이 없습니다.
+					</div>
+					<!-- //No Data -->
+
+					<!-- Pagination -->
+					<div class="pagination-area">
+						<div class="component-page">
+							<!-- [D] 이전/다음 버튼은 노출하지 않는 경우 aria-hidden 값 true로 변경 -->
+							<!-- [D] 페이지 버튼 선택 된 항목은 aria-selected 값 true로 변경 -->
+							<a href="javascript:;" class="btn-prev" aria-hidden="false" aria-label="이전"></a>
+							<a href="javascript:;" class="btn-page" aria-selected="true">1</a>
+							<a href="javascript:;" class="btn-page" aria-selected="false">2</a>
+							<a href="javascript:;" class="btn-page" aria-selected="false">3</a>
+							<a href="javascript:;" class="btn-page" aria-selected="false">4</a>
+							<a href="javascript:;" class="btn-page" aria-selected="false">5</a>
+							<a href="javascript:;" class="btn-next" aria-hidden="false" aria-label="다음"></a>
+						</div>
+					</div>
+					<!-- //Pagination -->
+				</div>
+
+			</div>
+			<!-- //앱 관리 -->
+		</div>
+		<!-- //CONTENT -->
+
+	</div>
+	<!-- //Wrap -->
+
+</body>
+</html>

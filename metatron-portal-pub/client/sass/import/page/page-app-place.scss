@@ -1,0 +1,1012 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   앱 플레이스
+***************************************************************************************/
+.page-app-place {
+	.section-container {
+		&:after {
+			@extend %clear;
+		}
+	}
+
+	.app-area {
+		float:left;
+		width:100%;
+		margin-left:-258px;
+
+		.app-content {
+			padding:0 30px 0 258px;
+		}
+	}
+
+	.aside-area {
+		float:right;
+		width:258px;
+	}
+
+	.top-block {
+		@extend %ui-title;
+	}
+}
+
+/***************************************************************************************
+   앱 플레이스 : SWIPE
+***************************************************************************************/
+.page-app-place .section-swipe {
+	position:relative;
+	width:1020px;
+	height:210px;
+	margin:0 auto 37px;
+
+	.link-swipe {
+		overflow:hidden;
+		display:block;
+		position:relative;
+		width:100%;
+		height:100%;
+
+		@include radius(4px);
+
+		&:before {
+			z-index:1;
+			opacity:0.9;
+			content:'';
+
+			@include transition(all 0.3s ease);
+			@include gradient-vertical(rgba(0,0,0,0.08),rgba(0,0,0,0.4),25%);
+			@include radius(4px);
+			@extend %outline;
+		}
+
+		&:hover {
+			&:before {
+				opacity:1;
+
+				@include gradient-vertical(rgba(0,0,0,0.28),rgba(0,0,0,0.6),25%);
+			}
+		}
+	}
+
+	.img-swipe {
+		display:block;
+		height:100%;
+
+		@extend %bg-cover;
+	}
+
+	.desc-swipe {
+		position:absolute;
+		left:0;
+		right:0;
+		bottom:0;
+		z-index:2;
+		padding:17px 20px 13px;
+		text-align:left;
+	}
+
+	.txt-title {
+		display:block;
+		font-size:20px;
+		color:#fff;
+		text-shadow:0 1px 2px rgba(0,0,0,0.2);
+
+		@extend %ellipsis;
+	}
+
+	.txt-desc {
+		display:block;
+		margin-top:5px;
+		font-size:12px;
+		color:#fff;
+		text-shadow:0 1px 1px rgba(0,0,0,0.2);
+
+		@include ellipsisMultiline(2,16);
+	}
+}
+
+/***************************************************************************************
+   앱 플레이스 : ASIDE
+***************************************************************************************/
+.page-app-place .aside-area {
+	.top-block {
+		margin-bottom:20px;
+
+		.txt-title > span {
+			color:#0c869b;
+		}
+	}
+	.aside-content + .aside-content {
+		margin-top:25px;
+	}
+
+	// 카테고리
+	.list-category {
+		&:after {
+			@extend %clear;
+		}
+		> li {
+			position:relative;
+			float:left;
+		}
+
+		.input-radio {
+			@extend %hide-input;
+		}
+		.label {
+			font-size:13px;
+			cursor:pointer;
+
+			@extend %btn-category;
+		}
+
+		// 카테고리 색상
+		@extend %style-category;
+
+		// 선택된 카테고리 색상
+		@extend %selected-category;
+	}
+
+	// 앱 목록
+	.list-app {
+		> li + li {
+			margin-top:7px;
+		}
+
+		.link-app {
+			display:block;
+			position:relative;
+			padding:7px 70px 5px 30px;
+			font-size:13px;
+			color:#333;
+
+			&:hover {
+				background-color:#f5f5f5;
+			}
+		}
+
+		.txt-num {
+			position:absolute;
+			left:7px;
+			top:7px;
+		}
+		.txt-title {
+			display:block;
+			font-weight:normal;
+
+			@extend %ellipsis;
+		}
+		.txt-category {
+			display:block;
+			margin-top:5px;
+			font-size:11px;
+			color:#808080;
+
+			@extend %ellipsis;
+		}
+	}
+
+	// 공지사항
+	.link-all {
+		display:block;
+		position:absolute;
+		right:0;
+		bottom:10px;
+		font-size:12px;
+		color:#808080;
+
+		&:hover {
+			color:#0c869b;
+			text-decoration:underline;
+		}
+	}
+	.list-notice {
+		> li + li {
+			margin-top:20px;
+		}
+
+		.link-notice {
+			display:block;
+			padding:0 7px;
+
+			&:hover .txt-title {
+				text-decoration:underline;
+			}
+		}
+
+		.txt-title {
+			display:block;
+			font-size:13px;
+			color:#333;
+
+			@extend %ellipsis;
+		}
+		.txt-date {
+			display:block;
+			margin-top:5px;
+			font-size:11px;
+			color:#aaa;
+		}
+	}
+
+	// No Data
+	.nodata {
+		border:0 none;
+
+		@extend %ui-nodata;
+	}
+}
+
+/***************************************************************************************
+   앱 플레이스 : 전체 목록
+***************************************************************************************/
+.page-app-place .app-area {
+	// 상단 검색, 정렬
+	.filter {
+		position:absolute;
+		right:0;
+		bottom:3px;
+
+		&:after {
+			@extned %clear;
+		}
+
+		.component-search {
+			float:left;
+		}
+		.list-sort {
+			float:left;
+			margin-right:8px;
+
+			> li {
+				position:relative;
+				float:left;
+				height:28px;
+				margin:0 0 0 20px;
+				line-height:26px;
+			}
+			> li:hover .label,
+			.input-radio:checked + .label {
+				color:#0c869b;
+
+				&:after {
+					@include get-sprite($icon_sort_on);
+				}
+			}
+
+			.input-radio {
+				@extend %hide-input;
+			}
+			.label {
+				font-size:11px;
+				color:#808080;
+				cursor:pointer;
+			}
+			.label:after {
+				margin:9px 0 0 2px;
+				vertical-align:top;
+				content:'';
+
+				@include get-sprite($icon_sort);
+			}
+
+			.input-radio:checked + .label {
+				font-weight:bold;
+			}
+		}
+	}
+
+	// 전체 목록
+	.list-app {
+		margin-bottom:50px;
+
+		&:after {
+			@extend %clear;
+		}
+
+		> li {
+			float:left;
+			width:50%;
+			margin-top:20px;
+		}
+
+		.link-app {
+			display:block;
+			position:relative;
+			min-height:108px;
+			padding:0 25px 0 176px;
+		}
+
+		.img-app {
+			overflow:hidden;
+			display:block;
+			position:absolute;
+			left:0;
+			top:0;
+			width:166px;
+			height:108px;
+
+			@include radius(2px);
+			@extend %bg-cover;
+		}
+
+		.txt-title {
+			display:block;
+			padding:5px 0 10px;
+			font-size:14px;
+			color:#000;
+
+			@extend %ellipsis;
+		}
+
+		.data-install {
+			display:inline-block;
+			font-size:11px;
+			color:#f2ab25;
+
+			&:before {
+				margin:1px 4px 0 0;
+				vertical-align:top;
+				content:'';
+
+				@include get-sprite($icon_app_install);
+			}
+		}
+		.data-usage {
+			display:inline-block;
+			font-size:11px;
+			color:#2ddccd;
+
+			&:before {
+				margin:1px 3px 0 15px;
+				vertical-align:top;
+				content:'';
+
+				@include get-sprite($icon_app_usage);
+			}
+		}
+
+		.txt-desc {
+			margin-top:10px;
+			font-size:13px;
+			color:#808080;
+
+			@include ellipsisMultiline(2,18);
+			@extend %break;
+		}
+
+		.link-app:hover {
+			.img-app:before {
+				background-color:#000;
+				opacity:0.2;
+				content:'';
+
+				@include radius(2px);
+				@extend %outline;
+			}
+
+			.txt-title {
+				text-decoration:underline;
+			}
+		}
+	}
+
+	// No Data
+	.list-nodata {
+		@extend %ui-nodata;
+	}
+
+	// 목록 더보기 버튼
+	.btn-more {
+		display:block;
+		height:32px;
+		border:1px solid #d4d4dc;
+		background-color:#fff;
+		line-height:32px;
+		text-align:center;
+		font-size:12px;
+		color:#262a50;
+
+		@include radius(16px);
+		@extend %box-sizing;
+
+		&:hover {
+			border-color:#262a50;
+		}
+	}
+}
+
+/***************************************************************************************
+   앱 플레이스 : 상세
+***************************************************************************************/
+.page-app-place .app-area {
+	// 목록 보기 버튼
+	.button-back {
+		height:36px;
+		line-height:36px;
+
+		&.type-top {
+			border-bottom:1px solid #d4d4dc;
+		}
+		&.type-bottom {
+			border-top:1px solid #d4d4dc;
+		}
+	}
+	.link-list {
+		display:inline-block;
+		font-size:12px;
+		color:#808080;
+
+		&:before {
+			margin:-2px 3px 0;
+			vertical-align:middle;
+			content:'';
+
+			@include get-sprite($arrow_user_detail);
+		}
+		&:hover {
+			color:#0c869b;
+		}
+		&:hover:before {
+			@include get-sprite($arrow_user_detail_on);
+		}
+	}
+
+	// 상단 앱 정보
+	.app-detail {
+		position:relative;
+		margin-top:10px;
+		padding:0 0 15px;
+
+		.txt-title {
+			display:block;
+			font-size:20px;
+			color:#333;
+		}
+		.txt-category {
+			display:inline-block;
+			margin-left:5px;
+			font-size:11px;
+			color:#aaa;
+		}
+		.txt-desc {
+			padding:16px 0 16px;
+			font-size:12px;
+			color:#333;
+		}
+
+		.list-info {
+			margin-bottom:18px;
+
+			> li {
+				font-size:11px;
+			}
+			> li + li {
+				margin-top:5px;
+			}
+			.txt-label {
+				display:inline-block;
+				color:#aaa;
+			}
+			.txt-data {
+				display:inline-block;
+				color:#808080;
+			}
+		}
+
+		.app-install {
+			display:inline-block;
+			min-width:77px;
+
+			> dt {
+				font-size:11px;
+				color:#808080;
+			}
+			> dd {
+				margin-top:5px;
+				font-size:30px;
+				color:#f2ab25;
+			}
+		}
+		.app-usage {
+			display:inline-block;
+			margin-left:65px;
+
+			> dt {
+				font-size:11px;
+				color:#808080;
+			}
+			> dd {
+				margin-top:5px;
+				font-size:30px;
+				color:#2ddccd;
+			}
+		}
+
+		.app-button {
+			position:absolute;
+			right:0;
+			bottom:0;
+			font-size:0;
+			line-height:0;
+
+			> [class*="btn"] {
+				line-height:28px;
+			}
+			> [class*="btn"] + [class*="btn"] {
+				margin-left:5px;
+			}
+		}
+	}
+
+	// 앱 소개, 사용자 리뷰, 버전 정보
+	.app-info {
+		margin-top:15px;
+
+		// Tab
+		@extend %ui-tab;
+
+		.tab-content {
+			padding:20px 0;
+		}
+	}
+}
+
+/***************************************************************************************
+   앱 플레이스 : 상세 > 앱 소개
+***************************************************************************************/
+.page-app-place .app-area .app-info {
+	.type-app {
+		.txt-introduce {
+			line-height:18px;
+			font-size:13px;
+			color:#333;
+
+			@extend %break;
+		}
+
+		// 앱 미리보기
+		.app-preview {
+			overflow:hidden;
+			margin-top:28px;
+			padding:30px 25px 40px;
+			border:1px solid #e5e5e5;
+			background-color:#f7f7f7;
+			text-align:center;
+			font-size:0;
+			line-height:0;
+
+			@include radius(5px);
+		}
+		.img-preview {
+			display:block;
+			position:relative;
+			width:720px;
+			height:445px;
+			margin:0 auto 22px;
+
+			@extend %bg-cover;
+
+			&:before {
+				border:1px solid #dedede;
+				content:'';
+
+				@extend %outline;
+			}
+		}
+
+		// 썸네일
+		.item-thumb {
+			display:inline-block;
+			position:relative;
+
+			.input-radio {
+				@extend %hide-input;
+			}
+			.label {
+				display:block;
+				position:relative;
+				width:120px;
+				height:77px;
+				cursor:pointer;
+
+				@extend %box-sizing;
+				@extend %bg-cover;
+			}
+			.label:before {
+				border:1px solid #e0e0e0;
+				content:'';
+
+				@include transition(all 0.3s ease);
+				@extend %outline;
+			}
+		}
+		.item-thumb + .item-thumb {
+			margin-left:20px;
+		}
+		.item-thumb:hover .label:before,
+		.item-thumb .input-radio:checked + .label:before {
+			border:2px solid #91c6cf;
+		}
+	}
+}
+
+/***************************************************************************************
+   앱 플레이스 : 상세 > 사용자 리뷰
+***************************************************************************************/
+.page-app-place .app-area .app-info {
+	.type-review {
+		// 리뷰 작성
+		.form-review {
+			&[aria-expanded="true"] {
+				.btn-review {
+					color:#f2ab25;
+
+					&:after {
+						@include get-sprite($icon_review_fold);
+					}
+				}
+				.form {
+					display:block;
+				}
+			}
+
+			.btn-review {
+				display:inline-block;
+				font-size:12px;
+				color:#0c869b;
+
+				&:after {
+					margin:3px 0 0 4px;
+					vertical-align:top;
+					content:'';
+
+					@include get-sprite($icon_review_unfold);
+				}
+			}
+		}
+
+		// 리뷰 작성 폼
+		.form {
+			display:none;
+			position:relative;
+			margin-top:20px;
+			padding-left:44px;
+		}
+		.img-user {
+			overflow:hidden;
+			display:block;
+			position:absolute;
+			left:0;
+			top:0;
+			width:34px;
+			height:34px;
+
+			@include radius(50%);
+			@extend %bg-cover;
+		}
+		.textarea-review {
+			width:100%;
+			height:72px;
+			border:1px solid #eaeaea;
+			background-color:#fff;
+			padding:10px;
+			font-size:13px;
+			color:#333;
+
+			@include radius(3px);
+			@include placeholder(#bdbdbd);
+			@extend %box-sizing;
+
+			&:focus {
+				border-color:#aaa;
+			}
+		}
+
+		.button {
+			margin-top:10px;
+			text-align:right;
+		}
+
+		// 리뷰를 사용할 수 없는 안내 문구
+		.no-review {
+			padding:16px 0 46px;
+			font-size:12px;
+			color:#aaa;
+
+			&[aria-hidden="true"] {
+				display:none;
+			}
+		}
+
+		// 리뷰 목록
+		.list-review {
+			> li {
+				margin-top:25px;
+			}
+			// 리뷰
+			.review {
+				position:relative;
+				min-height:34px;
+				padding:4px 0 0 44px;
+
+				.txt-user {
+					display:block;
+					font-size:13px;
+					color:#333;
+				}
+				.txt-user > em {
+					display:inline-block;
+					margin-left:7px;
+					font-size:11px;
+					color:#aaa;
+					font-weight:normal;
+				}
+				.txt-review {
+					padding:10px 0 0 0;
+					line-height:18px;
+					font-size:13px;
+					color:#808080;
+
+					@extend %break;
+				}
+
+				// 리뷰 수정 모드
+				&[aria-hidden="false"] {
+					padding-left:0;
+
+					[class*="txt-"],
+					.img-user,
+					.extend {
+						display:none;
+					}
+					.form,
+					.form .img-user {
+						display:block;
+						margin:0;
+					}
+				}
+			}
+
+			// 확장 버튼 영역
+			.extend {
+				position:absolute;
+				right:0;
+				top:0;
+				font-size:0;
+			}
+			.btn-extend {
+				display:inline-block;
+				font-size:12px;
+				color:#333;
+				vertical-align:top;
+
+				& + .btn-extend:before {
+					display:inline-block;
+					width:1px;
+					height:10px;
+					margin:2px 15px 0;
+					background-color:#e5e5e5;
+					vertical-align:top;
+					content:'';
+				}
+			}
+
+			// 내가 작성한 리뷰, 답글
+			.type-my {
+				.extend {
+					display:block;
+				}
+				.txt-user {
+					color:#262a50;
+					font-weight:bold;
+				}
+			}
+
+			// 답글
+			.reply {
+				padding:10px 0 0 44px;
+
+				.btn-reply {
+					display:inline-block;
+					position:relative;
+					padding-right:14px;
+					font-size:12px;
+					color:#0c869b;
+
+					&:after {
+						position:absolute;
+						right:0;
+						top:50%;
+						margin:-3px 0 0 0;
+						content:'';
+
+						@include get-sprite($icon_review_unfold);
+					}
+				}
+				.btn-add-reply {
+					display:inline-block;
+					position:relative;
+					padding-left:11px;
+					font-size:12px;
+					color:#0c869b;
+
+					&:before {
+						position:absolute;
+						left:0;
+						top:50%;
+						margin:-3px 0 0 0;
+						content:'';
+
+						@include get-sprite($icon_reply_add_unfold);
+					}
+				}
+
+				.reply-content,
+				.reply-form,
+				.form {
+					display:none;
+					margin-top:10px;
+				}
+
+				// 답글 펼침
+				&[aria-expanded="true"] {
+					.btn-reply {
+						color:#f2ab25;
+
+						&:after {
+							@include get-sprite($icon_review_fold);
+						}
+					}
+					.btn-add-reply {
+						color:#f2ab25;
+
+						&:before {
+							@include get-sprite($icon_reply_add_fold);
+						}
+					}
+					.form {
+						margin-top:10px;
+					}
+					.reply-content,
+					.reply-form {
+						display:block;
+
+						.form {
+							margin-top:0;
+						}
+					}
+					.reply-form .form {
+						display:block;
+					}
+				}
+				// 답글 수정 모드
+				&[aria-hidden="false"] {
+					.review {
+						padding-left:0;
+					}
+
+					[class*="txt-"],
+					.img-user,
+					.extend {
+						display:none;
+					}
+					.form,
+					.form .img-user {
+						display:block;
+					}
+				}
+			}
+		}
+
+		// 리뷰 더보기
+		.btn-more {
+			margin-top:30px;
+		}
+
+		// No Data
+		.review-nodata {
+			border-bottom:0 none;
+
+			@extend %ui-nodata;
+		}
+	}
+}
+
+/***************************************************************************************
+   앱 플레이스 : 상세 > 버전 정보
+***************************************************************************************/
+.page-app-place .app-area .app-info {
+	.type-version {
+		.txt-version {
+			line-height:18px;
+			font-size:13px;
+			color:#aaa;
+		}
+
+		.btn-more {
+			margin-top:30px;
+		}
+	}
+}
+
+/***************************************************************************************
+   앱 플레이스 : 마이 앱
+***************************************************************************************/
+.page-app-place .app-area {
+	// 목록 테이블
+	.table-app {
+		margin-bottom:15px;
+
+		@extend %ui-table;
+
+		tbody td {
+			padding:9px 0 10px;
+		}
+
+		.link-app {
+			display:block;
+			position:relative;
+			min-height:72px;
+			padding-left:122px;
+
+			.img-app {
+				overflow:hidden;
+				display:block;
+				position:absolute;
+				left:0;
+				top:0;
+				width:112px;
+				height:72px;
+
+				@include radius(2px);
+				@extend %bg-cover;
+			}
+			.txt-title {
+				display:block;
+				padding:6px 0 10px;
+				font-size:14px;
+				color:#000;
+
+				@extend %ellipsis;
+			}
+			.txt-desc {
+				font-size:13px;
+				color:#808080;
+
+				@include ellipsisMultiline(2,18);
+				@extend %break;
+			}
+		}
+		.link-app:hover {
+			.img-app:before {
+				border:1px solid #dfdfdf;
+				content:'';
+
+				@extend %outline;
+			}
+			.txt-title {
+				text-decoration:underline;
+			}
+		}
+	}
+
+	// 데이터 없는 경우
+	.app-nodata {
+		padding:120px 0;
+		text-align:center;
+
+		&:before {
+			content:'';
+
+			@include get-sprite($icon_nodata_analysis);
+		}
+
+		.txt-desc {
+			margin-top:15px;
+			line-height:16px;
+			font-size:12px;
+			color:#aab3c0;
+		}
+	}
+}

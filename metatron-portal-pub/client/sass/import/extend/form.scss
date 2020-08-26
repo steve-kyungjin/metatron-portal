@@ -1,0 +1,110 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   FORM : UPLOAD
+***************************************************************************************/
+.dtp-wrap,
+.layout-popup {
+	.form-upload {
+		[class*="btn-"] {
+			position:relative;
+			min-width:auto;
+			height:26px;
+			line-height:26px;
+
+			@include radius(13px);
+
+			> label {
+				display:block;
+				cursor:pointer;
+			}
+		}
+		.input-file {
+			position:absolute;
+			left:0;
+			top:0;
+			width:100%;
+			height:100%;
+			opacity:0;
+			cursor:pointer;
+		}
+		.txt-desc {
+			display:inline-block;
+			margin:9px 0 0 6px;
+			vertical-align:top;
+			font-size:11px;
+			color:#aaa;
+		}
+	}
+}
+
+/***************************************************************************************
+   FORM : Member
+***************************************************************************************/
+%form-member {
+	&:after {
+		@extend %clear;
+	}
+	.btn-basic {
+		float:left;
+		min-width:auto;
+		height:26px;
+		margin:0 6px 0 0;
+		line-height:26px;
+	}
+	.list-member {
+		> li {
+			display:inline-block;
+			height:46px;
+			margin:0 3px 3px 0;
+			padding:0 0 0 6px;
+			background-color:#f3f3f9;
+			line-height:46px;
+			vertical-align:top;
+
+			@include radius(2px);
+		}
+		.bg-member {
+			overflow:hidden;
+			display:inline-block;
+			position:relative;
+			top:6px;
+			width:34px;
+			height:34px;
+			border:1px solid #dbdbe1;
+			vertical-align:top;
+
+			@include radius(50%);
+			@extend %bg-cover;
+			@extend %box-sizing;
+		}
+		.txt-member {
+			display:inline-block;
+			margin:0 0 0 2px;
+			font-size:11px;
+			color:#262a50;
+			vertical-align:top;
+		}
+		.btn-delete {
+			display:inline-block;
+			position:relative;
+			top:7px;
+			width:24px;
+			height:24px;
+			background-color:transparent;
+
+			&:before {
+				display:none;
+			}
+			&:after {
+				position:absolute;
+				left:50%;
+				top:50%;
+				margin:-4px 0 0 -4px;
+				content:'';
+
+				@include get-sprite($icon_box_delete);
+			}
+		}
+	}
+}

@@ -1,0 +1,103 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   Editor Customize (Summer Note)
+***************************************************************************************/
+.note-popover .note-popover-content>.note-btn-group.note-fontname,
+.note-toolbar>.note-btn-group.note-fontname {
+	display:none;
+}
+
+.detail-area .note-editor .note-editing-area .note-editable {
+	height:auto !important;
+}
+
+// 기본 태그 스타일 지정
+.note-editable {
+	font-size:12px;
+
+	&:after {
+		@extend %clear;
+	}
+
+	* {
+		float:none !important;
+	}
+
+	ul,ol {
+		margin:16px 0;
+		padding:0 0 0 40px;
+	}
+	ul {
+		list-style-type:disc;
+	}
+	ol {
+		list-style-type:decimal;
+	}
+	p {
+		margin:16px 0;
+	}
+	u {
+		text-decoration:underline;
+	}
+	a:hover {
+		text-decoration:underline;
+	}
+	em,i,address {
+		font-style:italic;
+	}
+
+	img {
+		cursor:pointer;
+	}
+}
+
+/***************************************************************************************
+   Editor Customize (Summer Note) > Layer Popup
+***************************************************************************************/
+.note-modal-content {
+	margin-top:20%;
+
+	@include radius(4px);
+	@include box-shadow(0 2px 4px rgba(0,0,0,0.08));
+}
+.note-modal-title {
+	font-size:20px;
+	color:#333;
+}
+.note-form-label {
+	font-size:14px;
+	font-weight:normal;
+	color:#333;
+}
+.note-modal-footer {
+	padding-bottom:20px;
+}
+.note-btn-primary {
+	background-color:#262a50;
+	font-size:13px;
+	opacity:1;
+
+	@include radius(12px);
+
+	&:hover {
+		background-color:#262a50;
+		font-size:13px;
+		opacity:1;
+
+		@include radius(12px);
+	}
+}
+.note-popover {
+	z-index:5 !important;
+}
+.note-link-popover {
+	display:none !important;
+	left:-9999px !important;
+	top:-9999px !important;
+	opacity:0;
+}
+
+.note-toolbar {
+	@extend %box-sizing;
+}

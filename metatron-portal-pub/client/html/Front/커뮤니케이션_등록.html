@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- Wrap -->
+	<div class="dtp-wrap">
+
+		<!-- HEADER -->
+		<div class="layout-header">
+			<div class="section-search"></div>
+		</div>
+		<!-- //HEADER -->
+
+		<!-- TITLE,LOCATION,SEARCH RESULT -->
+		<div class="layout-top">
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<div class="title-area">
+					<!-- Location -->
+					<div class="location">
+						<em class="item">홈</em>
+						<em class="item">분석앱</em>
+						<em class="item">앱플레이스</em>
+					</div>
+					<!-- //Location -->
+
+					<!-- Title -->
+					<div class="title">
+						<h2 class="txt-title">앱플레이스</h2>
+						<p class="txt-desc">
+							앱플레이스 소갯말이 들어가는 곳입니다.
+						</p>
+					</div>
+					<!-- //Title -->
+				</div>
+			</div>
+			<!-- //타이틀 영역 -->
+		</div>
+		<!-- //TITLE,LOCATION,SEARCH RESULT -->
+
+		<!-- LNB -->
+		<div class="layout-lnb">
+
+		</div>
+		<!-- //LNB -->
+
+		<!-- QUICK COMM. -->
+		<div class="layout-quick">
+
+		</div>
+		<!-- //QUICK COMM. -->
+
+		<!-- CONTENT -->
+		<div class="layout-content">
+			<!-- 커뮤니케이션 -->
+			<div class="page-communication">
+
+				<!-- 커뮤니케이션 등록 -->
+				<div class="section-create">
+					<!-- Title -->
+					<div class="title-area">
+						<h3 class="txt-title">글 등록하기</h3>
+						<div class="filter">
+							<label class="txt-label">라벨명</label>
+							<div class="component-select type-filter">
+								<span class="label">
+									메타데이터 수정/보완 요청
+								</span>
+								<!-- [D] 셀렉트 박스 선택 시 aria-expanded 값 true로 변경 -->
+								<div class="layer-select" aria-expanded="false">
+									<ul class="list-options">
+										<li>
+											<input type="radio" id="radio1" class="input-radio" name="selectoption" checked>
+											<label for="radio1" class="item-option">전체</label>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- //Title -->
+
+					<!-- 글 등록 -->
+					<div class="create-area">
+						<input type="text" class="input-text is-error" placeholder="제목을 입력하세요.">
+
+						<!-- Editor 영역 -->
+						<div class="create-editor">
+							에디터 영역입니다.
+						</div>
+						<!-- //Editor 영역 -->
+					</div>
+					<!-- //글 등록 -->
+
+					<!-- 첨부파일,대표이미지 등록 -->
+					<div class="attachment-area">
+						<ul class="attachment">
+							<li>
+								<span class="txt-label align-middle">공지알림여부</span>
+								<div class="create-notice">
+									<div class="notice">
+										<input type="checkbox" id="check1" class="input-checkbox">
+										<label class="label" for="check1">
+											공지알림
+										</label>
+									</div>
+									<div class="component-datepicker" aria-hidden="true">
+										<div class="box-datepicker">
+											<input type="text" value="2018-05-10 ~ 2018-09-09" readonly="readonly">
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<span class="txt-label align-middle">등록날짜</span>
+								<div class="form-attachment">
+									<div class="component-datepicker type-timepicker">
+										<div class="box-datepicker">
+											<input type="text" value="2018-05-10" readonly="readonly">
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<span class="txt-label">첨부문서</span>
+								<div class="form-attachment">
+									<!-- 업로드 -->
+									<div class="form-upload">
+										<span class="btn-basic">
+											<label for="upload">파일 찾기</label>
+											<input type="file" id="upload" class="input-file">
+										</span>
+										<p class="txt-desc">첨부문서는 최대 5개, 파일 당 30MB, csv, xls, xlsx, ppt, pptx, doc,docx, txt, jpg, gif, png 확장자로 제한됩니다.</p>
+									</div>
+									<!-- //업로드 -->
+
+									<!-- 파일 목록 -->
+									<ul class="list-file">
+										<li>
+											screenshot_01.jpg
+											<a href="javascript:;" class="btn-del" aria-label="파일 삭제"></a>
+										</li>
+										<li>
+											screenshot_01.jpg
+											<a href="javascript:;" class="btn-del" aria-label="파일 삭제"></a>
+										</li>
+										<li>
+											screenshot_01.jpg
+											<a href="javascript:;" class="btn-del" aria-label="파일 삭제"></a>
+										</li>
+									</ul>
+									<!-- //파일 목록 -->
+								</div>
+							</li>
+							<li>
+								<span class="txt-label">대표이미지</span>
+								<div class="form-attachment">
+									<!-- 업로드 -->
+									<div class="form-upload">
+										<span class="btn-basic">
+											<label for="upload">파일 찾기</label>
+											<input type="file" id="upload" class="input-file">
+										</span>
+										<p class="txt-desc">권장 이미지 사이즈: 255*158</p>
+									</div>
+									<!-- //업로드 -->
+
+									<!-- 파일 목록 -->
+									<ul class="list-file">
+										<li>
+											screenshot_01.jpg
+											<a href="javascript:;" class="btn-del" aria-label="파일 삭제"></a>
+										</li>
+									</ul>
+									<!-- //파일 목록 -->
+								</div>
+							</li>
+							<li>
+								<span class="txt-label">담당자</span>
+								<div class="form-attachment">
+									<div class="form-member">
+										<a href="javascript:;" class="btn-basic">설정하기</a>
+										<ul class="list-member">
+											<li>
+												<span class="bg-member" style="background-image:url(../../images/sample_profile.png);"></span>
+												<span class="txt-member">홍태희(Core Infra 솔루션)</span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!-- //첨부파일,대표이미지 등록 -->
+
+					<!-- 버튼 영역 -->
+					<div class="button-area">
+						<div class="button-left">
+							<a href="javascript:;" class="btn-basic">취소</a>
+							<a href="javascript:;" class="btn-basic">임시저장</a>
+							<a href="javascript:;" class="btn-action">등록</a>
+						</div>
+						<div class="button-right">
+							<a href="javascript:;" class="btn-basic">삭제</a>
+						</div>
+					</div>
+					<!-- //버튼 영역 -->
+				</div>
+				<!-- //커뮤니케이션 등록 -->
+
+			</div>
+			<!-- //커뮤니케이션 -->
+		</div>
+		<!-- //CONTENT -->
+
+	</div>
+	<!-- //Wrap -->
+
+</body>
+</html>

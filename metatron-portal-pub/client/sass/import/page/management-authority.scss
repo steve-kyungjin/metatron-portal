@@ -1,0 +1,269 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   권한 관리
+***************************************************************************************/
+.page-management-authority {
+	// 제목 영역
+	.title-area {
+		@extend %ui-title;
+
+		&:after {
+			@extend %clear;
+		}
+
+		.link-step {
+			display:block;
+			position:relative;
+			height:36px;
+			float:left;
+			padding:0 20px;
+			line-height:36px;
+			font-size:12px;
+			color:#262a50;
+
+			&[aria-selected="true"] {
+				font-size:14px;
+				font-weight:bold;
+			}
+		}
+		.link-step + .link-step {
+			&:before {
+				display:block;
+				position:absolute;
+				left:0;
+				top:50%;
+				width:1px;
+				height:8px;
+				margin:-4px 0 0;
+				background-color:#262626;
+				content:'';
+			}
+		}
+	}
+
+	// 목록
+	.section-list {
+		// 타이틀 영역
+		.title-area .filter {
+			position:absolute;
+			right:0;
+			bottom:3px;
+
+			.component-search {
+				width:247px;
+			}
+		}
+
+		// 목록
+		.table-list {
+			@extend %ui-table;
+
+			td > a {
+				display:block;
+				font-size:12px;
+				color:#333;
+				text-decoration:underline;
+
+				&:hover {
+					color:#0c869b;
+				}
+			}
+		}
+
+		// No Data
+		.list-nodata {
+			@extend %ui-nodata;
+		}
+	}
+}
+
+/***************************************************************************************
+   권한 관리 상세
+***************************************************************************************/
+.page-management-authority .section-detail {
+	// 목록보기
+	.link-list {
+		display:inline-block;
+		font-size:12px;
+		color:#808080;
+
+		&:before {
+			margin:2px 3px 0;
+			vertical-align:top;
+			content:'';
+
+			@include get-sprite($arrow_user_detail);
+		}
+		&:hover {
+			color:#0c869b;
+		}
+		&:hover:before {
+			@include get-sprite($arrow_user_detail_on);
+		}
+	}
+
+	.button-area {
+		&:after {
+			@extend %clear;
+		}
+
+		.link-list {
+			float:left;
+			margin-top:16px;
+		}
+	}
+
+	.detail-area {
+		margin:10px 0;
+		padding:20px 0;
+		border-top:1px solid #d4d4dc;
+		border-bottom:1px solid #d4d4dc;
+	}
+
+	.table-detail {
+		tbody th,
+		tbody td {
+			height:30px;
+			padding:3px 0;
+		}
+		tbody th {
+			padding-right:10px;
+			text-align:right;
+			font-size:13px;
+			color:#aaa;
+			font-weight:normal;
+		}
+		tbody td {
+			font-size:12px;
+			color:#333;
+		}
+
+		.align-top {
+			vertical-align:top;
+
+			.txt-label {
+				display:block;
+				margin-top:8px;
+			}
+		}
+	}
+
+	.extend-table {
+		margin:15px 0 0;
+		padding:15px 0 0;
+		border-top:1px solid #eee;
+
+		.table-detail {
+			th {
+				padding-right:20px;
+			}
+			.align-top .txt-label {
+				margin-top:16px;
+			}
+		}
+	}
+
+	.set-authority {
+		margin:0 0 12px;
+		padding:0 20px;
+		background-color:#f9f9f9;
+
+		@include radius(4px);
+
+		.table-setting {
+			th,td {
+				padding:20px 0;
+				border-bottom:1px solid #ebebeb;
+			}
+			th {
+				padding-right:20px;
+				text-align:right;
+			}
+			tr:last-child {
+				th,td {
+					border-bottom:0 none;
+				}
+			}
+			.align-top .txt-label {
+				margin-top:8px;
+			}
+		}
+
+		.list-setting {
+			margin:3px 0 0;
+
+			&:after {
+				@extend %clear;
+			}
+			> dt {
+				float:left;
+				width:87px;
+				font-size:12px;
+				color:#333;
+			}
+			> dd {
+				float:left;
+
+				&:after {
+					@extend %clear;
+				}
+				.set-radio {
+					float:left;
+				}
+				.set-radio + .set-radio {
+					margin-left:20px;
+				}
+			}
+
+			.set-radio {
+				position:relative;
+
+				// Radio Button
+				@extend %ui-radio;
+			}
+		}
+	}
+	.btn-action {
+		width:94px;
+		min-width:auto;
+		height:26px;
+		line-height:26px;
+	}
+}
+
+/***************************************************************************************
+   권한 승인 관리
+***************************************************************************************/
+.page-management-authority {
+	.table-approve {
+		@extend %ui-table;
+
+		.type-complete {
+			td {
+				background-color:#f0f0f0;
+			}
+			.txt-status {
+				color:#aaa;
+				text-decoration:none;
+			}
+		}
+
+		.txt-name {
+			color:#333;
+		}
+		.link-status {
+			color:#f2ab25;
+			text-decoration:underline;
+		}
+		.txt-title {
+			display:block;
+			padding:0 20px;
+		}
+	}
+
+	// Pagination
+	.pagination-area {
+		margin-top:10px;
+	}
+}

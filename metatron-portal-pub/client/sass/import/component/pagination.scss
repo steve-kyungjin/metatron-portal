@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   COMPONENT : PAGINATION
+***************************************************************************************/
+.component-page {
+	text-align:center;
+	font-size:0;
+
+	[class*="btn-"] {
+		display:inline-block;
+		position:relative;
+		width:26px;
+		height:26px;
+		margin:0 1px;
+		vertical-align:top;
+		line-height:26px;
+		font-size:11px;
+		color:#333;
+	}
+	[aria-selected="true"] {
+		color:#0c869b;
+		text-decoration:underline;
+	}
+	[aria-hidden="true"] {
+		display:none;
+	}
+
+	.btn-prev,
+	.btn-next {
+		&:before {
+			position:absolute;
+			left:50%;
+			top:50%;
+			margin:-6px 0 0 -3px;
+			content:'';
+
+			@include get-sprite($arrow_page);
+		}
+		&:hover:before {
+			@include get-sprite($arrow_page_on);
+		}
+	}
+
+	.btn-prev:before {
+		margin-left:-4px;
+
+		@include rotate(180);
+	}
+}

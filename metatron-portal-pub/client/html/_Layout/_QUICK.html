@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<link rel="stylesheet" href="http://idangero.us/swiper/dist/css/swiper.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- Wrap -->
+	<div class="dtp-wrap">
+
+		<!-- HEADER -->
+		<div class="layout-header is-quick">
+			<!-- 검색, 사용자 정보 -->
+			<div class="section-search">
+				<!-- LOGO -->
+				<h1 class="logo" aria-label="DT Portal"><a href="javascript:;" class="link-logo"></a></h1>
+				<!-- //LOGO -->
+
+				<!-- 검색 -->
+				<div class="search-area">
+					<input type="text" class="input-search">
+					<button type="button" class="btn-search" aria-label="검색"></button>
+				</div>
+				<!-- //검색 -->
+
+				<div class="top-right">
+					<!-- 공지사항 -->
+					<div class="notice-area">
+						<a href="javascript:;" class="btn-notice" aria-label="공지사항 보기"></a>
+					</div>
+					<!-- //공지사항 -->
+					<!-- 사용자 정보 -->
+					<div class="user-area">
+						<a href="javascript:;" class="btn-profile" aria-label="프로필" style="background-image:url(../../images/sample_profile.png);"></a>
+						<a href="javascript:;" class="btn-quick" aria-label="Quick Comm"><span>Quick Comm</span></a>
+					</div>
+					<!-- //사용자 정보 -->
+				</div>
+			</div>
+			<!-- //검색, 사용자 정보 -->
+		</div>
+		<!-- //HEADER -->
+
+		<!-- TITLE,LOCATION,SEARCH RESULT -->
+		<div class="layout-top">
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<div class="title-area">
+					<!-- Location -->
+					<div class="location">
+						<em class="item">홈</em>
+						<em class="item">서비스명</em>
+					</div>
+					<!-- //Location -->
+
+					<!-- Title -->
+					<div class="title">
+						<h2 class="txt-title">타이틀 영역</h2>
+						<p class="txt-desc">
+							서비스 소갯말이 들어가는 곳입니다.
+						</p>
+					</div>
+					<!-- //Title -->
+				</div>
+			</div>
+			<!-- //타이틀 영역 -->
+		</div>
+		<!-- //TITLE,LOCATION,SEARCH RESULT -->
+
+		<!-- LNB -->
+		<div class="layout-lnb">
+
+		</div>
+		<!-- //LNB -->
+
+		<!-- QUICK COMM. -->
+		<!-- [D] QUICK 노출 시 aria-expanded 값 true로 변경 -->
+		<div class="layout-quick" aria-expanded="true">
+			<!-- 사용자 정보 -->
+			<div class="section-user">
+				<a href="javascript:;" class="btn-close" aria-label="Quick Close"></a>
+				<span class="img-user" style="background-image:url(../../images/sample_profile.png);"></span>
+				<span class="info-user">
+					<em class="txt-id">iam0074</em>
+					<em class="txt-name">홍태희 SKT</em>
+				</span>
+				<a href="javascript:;" class="btn-modify">정보수정</a>
+			</div>
+			<!-- //사용자 정보 -->
+			<!-- 설정 -->
+			<div class="section-setting">
+				<!-- 현재 화면 설정 -->
+				<div class="save-area">
+					<span class="txt-label">시작화면 설정</span>
+					<a href="javascript:;" class="btn-save">
+						<span>현 화면을<br>시작화면으로</span>
+					</a>
+				</div>
+				<!-- //현재 화면 설정 -->
+				<!-- 언어 선택 -->
+				<div class="language-area">
+					<span class="txt-label">언어 설정</span>
+					<div class="language-block">
+						<span class="txt-language">
+							한국어
+						</span>
+						<!-- 목록 -->
+						<!-- [D] 레이어 노출 시 aria-expanded 값 true로 변경 -->
+						<!-- [D] 선택 된 언어 a태그에 is-selected 클래스 추가 -->
+						<div class="layer-language" aria-expanded="false">
+							<a href="javascript:;" class="is-selected">한국어</a>
+							<a href="javascript:;">English</a>
+						</div>
+						<!-- //목록 -->
+					</div>
+				</div>
+				<!-- //언어 선택 -->
+			</div>
+			<!-- //설정 -->
+
+			<!-- 탭메뉴 -->
+			<div class="section-tab">
+				<ul class="list-tab">
+					<!-- [D] 탭 노출 시 aria-expanded 값 true로 변경 -->
+					<li aria-expanded="false">
+						<a href="javascript:;" class="btn-tab">내가 작성한 글</a>
+						<div class="tab-content">
+							<ul class="list-lately">
+								<li>
+									<a href="javascript:;" class="link-item">
+										<span class="txt-title">제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.</span>
+										<span class="txt-date">2018-05-05 12:00</span>
+									</a>
+								</li>
+							</ul>
+							<!-- No Data -->
+							<!-- [D] Hide : aria-hidden = true -->
+							<div class="nodata-lately" aria-hidden="true">
+								최근 작성한 글이 없습니다.
+							</div>
+							<!-- //No Data -->
+						</div>
+					</li>
+					<li aria-expanded="false">
+						<a href="javascript:;" class="btn-tab">내가 작성한 댓글</a>
+						<div class="tab-content">
+							<ul class="list-lately">
+								<li>
+									<a href="javascript:;" class="link-item">
+										<span class="txt-title">제목이 들어갈 곳입니다.</span>
+										<span class="txt-date">2018-05-05 12:00</span>
+									</a>
+								</li>
+							</ul>
+							<!-- No Data -->
+							<!-- [D] Hide : aria-hidden = true -->
+							<div class="nodata-lately" aria-hidden="true">
+								최근 작성한 댓글이 없습니다.
+							</div>
+							<!-- //No Data -->
+						</div>
+					</li>
+					<li aria-expanded="true">
+						<a href="javascript:;" class="btn-tab">댓글 알림</a>
+						<div class="tab-content">
+							<ul class="list-lately">
+								<li>
+									<a href="javascript:;" class="link-item">
+										<span class="txt-title">제목이 들어갈 곳입니다.</span>
+										<span class="info-reply">
+											<em class="txt-date">2018-05-05 12:00</em>
+											<em class="txt-name">홍길동(DT Infra)</em>
+										</span>
+									</a>
+								</li>
+							</ul>
+							<!-- No Data -->
+							<!-- [D] Hide : aria-hidden = true -->
+							<div class="nodata-lately" aria-hidden="true">
+								최근 작성한 댓글이 없습니다.
+							</div>
+							<!-- //No Data -->
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- //탭메뉴 -->
+
+			<!-- 퀵 링크 -->
+			<div class="section-link">
+				<div class="comm-area">
+					<a href="javascript:;" class="link-quick">시스템 운영 공지</a>
+					<a href="javascript:;" class="link-quick">필요 소프트웨어</a>
+				</div>
+				<a href="javascript:;" class="link-quick">Data Infra FAQ</a>
+				<ul class="request-area">
+					<li><a href="javascript:;" class="link-data-collection"><span>데이터 수집 요청</span></a></li>
+					<li><a href="javascript:;" class="link-data-generate"><span>데이터 생성 요청</span></a></li>
+					<li><a href="javascript:;" class="link-report-generate"><span>리포트 생성 요청</span></a></li>
+					<li><a href="javascript:;" class="link-data-extract"><span>데이터 추출 요청</span></a></li>
+					<li><a href="javascript:;" class="link-data-verification"><span>데이터 검증 요청</span></a></li>
+					<li><a href="javascript:;" class="link-meta-request"><span>메타 수정/보완 요청</span></a></li>
+				</ul>
+			</div>
+			<!-- //퀵 링크 -->
+		</div>
+		<!-- //QUICK COMM. -->
+
+		<!-- CONTENT -->
+		<div class="layout-content">
+			<!-- 화면 별 마크업 -->
+
+			<!-- //화면 별 마크업 -->
+		</div>
+		<!-- //CONTENT -->
+
+	</div>
+	<!-- //Wrap -->
+
+</body>
+</html>

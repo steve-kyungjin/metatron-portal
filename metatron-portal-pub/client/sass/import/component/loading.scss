@@ -1,0 +1,235 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   COMPONENT : LOADING
+***************************************************************************************/
+.component-loading {
+	position:fixed;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	z-index:1000;
+	background-color:rgba(255,255,255,0.6);
+
+	&[aria-hidden="true"] {
+		display:none;
+
+		.bar {
+			animation:unset;
+		}
+	}
+
+	.loading {
+		position:absolute;
+		left:50%;
+		top:50%;
+		width:100px;
+		height:100px;
+		margin:-50px 0 0 -50px;
+	}
+
+	.bar {
+		display:block;
+		position:absolute;
+		left:50%;
+		top:50%;
+		width:30px;
+		height:30px;
+		margin:-15px 0 0 -15px;
+		border:1px solid transparent;
+		opacity:0;
+		animation:dtp-loading 1.2s infinite ease;
+
+		@include radius(50%);
+		@extend %box-sizing;
+	}
+	.bar:first-child {
+		border-top-color:#2ddccd;
+		border-right-color:#2ddccd;
+		animation-name:dtp-loading-reverse;
+		animation-delay:0.1s;
+	}
+	.bar:nth-child(2) {
+		border-bottom-color:#262a50;
+		border-left-color:#262a50;
+		animation-name:dtp-loading2;
+		animation-duration:1.5s;
+		animation-delay:0.3s;
+	}
+	.bar:nth-child(3) {
+		border-bottom-color:#0c869b;
+		border-right-color:#0c869b;
+		animation-name:dtp-loading-reverse2;
+		animation-duration:1.6s;
+		animation-delay:0.5s;
+	}
+	.bar:last-child {
+		border-top-color:#f2ab25;
+		border-left-color:#f2ab25;
+		animation-duration:1.3s;
+		animation-delay:0.7s;
+	}
+}
+
+// Loading
+@keyframes dtp-loading {
+	0% {
+		opacity:0;
+	}
+	10% {
+		opacity:1;
+	}
+	100% {
+		transform:scale(2.4) rotate(480deg);
+		opacity:0;
+	}
+}
+@keyframes dtp-loading2 {
+	0% {
+		opacity:0;
+	}
+	10% {
+		opacity:1;
+	}
+	100% {
+		transform:scale(2.8) rotate(720deg);
+		opacity:0;
+	}
+}
+@keyframes dtp-loading-reverse {
+	0% {
+		opacity:0;
+	}
+	20% {
+		opacity:1;
+	}
+	100% {
+		transform:scale(2) rotate(-480deg);
+		opacity:0;
+	}
+}
+@keyframes dtp-loading-reverse2 {
+	0% {
+		opacity:0;
+	}
+	20% {
+		opacity:1;
+	}
+	100% {
+		transform:scale(1.6) rotate(-720deg);
+		opacity:0;
+	}
+}
+
+/***************************************************************************************
+   COMPONENT : LOADING (SUB)
+***************************************************************************************/
+.component-loading.type-sub {
+	position:absolute;
+
+	.bar {
+		border-width:4px;
+		border-top-color:#7575ea;
+		border-bottom-color:#47dbf4;
+		border-right-color:#272950;
+		border-left-color:#f1f1f1;
+		animation:dtp-loading-sub 0.6s infinite linear;
+		opacity:0.8;
+	}
+
+	@keyframes dtp-loading-sub {
+		0% {
+			@include rotate(0);
+		}
+		100% {
+			@include rotate(360);
+		}
+	}
+}
+
+/***************************************************************************************
+   COMPONENT : LOADING (METATRON)
+***************************************************************************************/
+@keyframes lds-wedges {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@-webkit-keyframes lds-wedges {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+.lds-wedges {
+	position:absolute; top:50%; left:50%; margin:-0px 0 0 -0px;
+}
+.lds-wedges > div > div {
+	-webkit-transform-origin: 100px 100px;
+	transform-origin: 100px 100px;
+	-webkit-animation: lds-wedges 2.8s linear infinite;
+	animation: lds-wedges 2.8s linear infinite;
+	opacity: 0.8;
+}
+.lds-wedges > div > div > div {
+	position: absolute;
+	left: 30px;
+	top: 30px;
+	width: 70px;
+	height: 70px;
+	border-radius: 70px 0 0 0;
+	-webkit-transform-origin: 100px 100px;
+	transform-origin: 100px 100px;
+}
+.lds-wedges > div div:nth-child(1) > div {
+	background: #7575ea;
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+.lds-wedges > div div:nth-child(1) {
+	-webkit-animation-duration: 0.7s;
+	animation-duration: 0.7s;
+}
+.lds-wedges > div div:nth-child(2) > div {
+	background: #47dbf4;
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+.lds-wedges > div div:nth-child(2) {
+	-webkit-animation-duration: 0.933333333333333s;
+	animation-duration: 0.933333333333333s;
+}
+.lds-wedges > div div:nth-child(3) > div {
+	background: #272950;
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+.lds-wedges > div div:nth-child(3) {
+	-webkit-animation-duration: 1.4s;
+	animation-duration: 1.4s;
+}
+.lds-wedges > div div:nth-child(4) > div {
+	background: #f1f1f1;
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+.lds-wedges > div div:nth-child(4) {
+	-webkit-animation-duration: 2.8s;
+	animation-duration: 2.8s;
+}
+.lds-wedges {
+	width: 100px !important;
+	height: 100px !important;
+	-webkit-transform: translate(-100px, -100px) scale(0.50) translate(100px, 100px);
+	transform: translate(-100px, -100px) scale(0.50) translate(50px, 50px);
+}

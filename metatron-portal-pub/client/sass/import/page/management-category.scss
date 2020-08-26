@@ -1,0 +1,252 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   카테고리 관리
+***************************************************************************************/
+.page-management-category {
+	// 제목 영역
+	.title-area {
+		@extend %ui-title;
+	}
+	.title-area > .btn-action {
+		position:absolute;
+		right:0;
+		bottom:3px;
+
+		&.type-add:before {
+			margin:10px 5px 0 0;
+			vertical-align:top;
+			content:'';
+
+			@include get-sprite($icon_app_add);
+		}
+	}
+
+	// 카테고리 추가 팝업
+	.layer-category {
+		display:none;
+		position:absolute;
+		right:0;
+		top:0;
+		z-index:10;
+		padding:15px 15px 20px;
+		border:1px solid #d8dadc;
+		background-color:#fff;
+
+		@include radius(4px);
+		@include box-shadow(2px 2px 3px #e8e8e8);
+		@extend %box-sizing;
+
+		&[aria-expanded="true"] {
+			display:block;
+		}
+
+		.btn-close {
+			position:absolute;
+			right:8px;
+			top:8px;
+
+			@include get-sprite($icon_layer_close);
+		}
+
+		.txt-title {
+			display:block;
+			font-size:14px;
+			color:#262a50;
+		}
+
+		.form-category {
+			margin-top:20px;
+
+			> li:after {
+				@extend %clear;
+			}
+			> li + li {
+				margin-top:5px;
+			}
+
+			.txt-label {
+				float:left;
+				height:36px;
+				margin:0 10px 0 10px;
+				line-height:36px;
+				font-size:13px;
+				color:#808080;
+			}
+			.input-text {
+				float:left;
+				width:192px;
+			}
+		}
+
+		.button {
+			margin-top:20px;
+			text-align:center;
+		}
+	}
+
+	// No Data
+	.list-nodata {
+		@extend %ui-nodata;
+	}
+
+	// 목록
+	.list-category {
+		> li {
+			height:41px;
+			padding:0 10px;
+			border-bottom:1px solid #f4f4f6;
+
+			&:after {
+				@extend %clear;
+			}
+		}
+
+		.control-move {
+			float:left;
+			margin:10px 4px 0 0;
+
+			[class*="btn-"] {
+				display:block;
+				position:relative;
+				width:28px;
+				height:11px;
+				margin:0;
+
+				&:before {
+					position:absolute;
+					left:50%;
+					top:50%;
+					margin:-2px 0 0 -4px;
+					content:'';
+
+					@include get-sprite($arrow_category);
+				}
+				&:hover:before {
+					@include get-sprite($arrow_category_on);
+				}
+				&:disabled:before {
+					@include get-sprite($arrow_category_disabled);
+				}
+			}
+			.btn-down {
+				@include rotate(180);
+			}
+		}
+		.txt-category {
+			float:left;
+			padding-top:15px;
+			font-size:0;
+
+			&[aria-hidden="true"] {
+				display:none;
+			}
+
+			[class*="txt-"] {
+				display:inline-block;
+				vertical-align:top;
+			}
+			.txt-code {
+				font-size:12px;
+				color:#333;
+
+				&:after {
+					display:inline-block;
+					width:1px;
+					height:8px;
+					margin:2px 10px 0;
+					background-color:#eaeaea;
+					vertical-align:top;
+					content:'';
+				}
+			}
+			.txt-ko {
+				display:inline-block;
+				position:relative;
+				top:-1px;
+				font-size:13px;
+				color:#333;
+			}
+			.txt-en {
+				display:inline-block;
+				position:relative;
+				top:-1px;
+				margin:0 0 0 5px;
+				font-size:13px;
+				color:#aaa;
+			}
+			.txt-desc {
+				font-size:12px;
+				color:#aaa;
+
+				&:before {
+					display:inline-block;
+					width:1px;
+					height:8px;
+					margin:2px 10px 0;
+					background-color:#eaeaea;
+					vertical-align:top;
+					content:'';
+				}
+			}
+			.btn-modify {
+				margin:-3px 0 0 4px;
+				vertical-align:top;
+			}
+		}
+		.btn-delete {
+			float:right;
+			margin:11px 0 0;
+		}
+	}
+
+	// 수정모드
+	.form-edit {
+		display:none;
+		margin:4px 0 0;
+		font-size:0;
+
+		&[aria-expanded="true"] {
+			display:block;
+		}
+
+		.input-text.type-code,
+		.input-text.type-category,
+		.input-text.type-description {
+			width:190px;
+			height:36px;
+			vertical-align:top;
+
+			& + .input-text {
+				margin-left:4px;
+			}
+		}
+		.input-text.type-code {
+			width:60px;
+		}
+		.input-text.type-description {
+			width:300px;
+		}
+
+		.btn-cancel,
+		.btn-save {
+			margin:5px 0 0 4px;
+			vertical-align:top;
+		}
+
+		.btn-cancel {
+			@include get-sprite($icon_edit_cancel);
+
+			&:hover {
+				@include get-sprite($icon_edit_cancel_hover);
+			}
+		}
+		.btn-save {
+			@include get-sprite($icon_edit_save);
+
+			&:hover {
+				@include get-sprite($icon_edit_save_hover);
+			}
+		}
+	}
+}

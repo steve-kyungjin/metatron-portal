@@ -1,0 +1,562 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   HEADER
+***************************************************************************************/
+.layout-header {
+	.section-search {
+		position:relative;
+		height:58px;
+		padding-left:88px;
+		background-color:#e9ebed;
+
+		&:after {
+			@extend %clear;
+		}
+	}
+
+	.logo {
+		float:left;
+		margin:13px 26px 0 0;
+
+		.link-logo {
+			display:block;
+
+			@include get-sprite($logo_sub);
+		}
+	}
+
+	.search-area {
+		position:relative;
+		float:left;
+		width:436px;
+		height:40px;
+		margin-top:8px;
+		background-color:#fff;
+
+		.input-search {
+			width:100%;
+			height:40px;
+			padding:0 54px 0 14px;
+			border:0 none;
+			background-color:#fff;
+			line-height:40px;
+			font-size:14px;
+			color:#333;
+
+			@extend %box-sizing;
+			@include radius(2px);
+		}
+		.input-search:hover,
+		.input-search:focus {
+			@include box-shadow(0 2px 8px #d5d8da);
+		}
+
+		.btn-search {
+			position:absolute;
+			right:0;
+			top:0;
+			width:40px;
+			height:40px;
+
+			&:before {
+				position:absolute;
+				left:50%;
+				top:50%;
+				margin:-10px 0 0 -10px;
+				content:'';
+
+				@include get-sprite($icon_search);
+			}
+		}
+	}
+
+	.top-right {
+		position:absolute;
+		top:0;
+		right:30px;
+
+		@include transition(right 0.3s ease);
+	}
+
+	&.is-quick {
+		.top-right {
+			right:300px;
+		}
+		.user-area {
+			display:none;
+		}
+	}
+}
+
+/***************************************************************************************
+   사용자 도움말
+***************************************************************************************/
+.btn-user-help {
+	display:block;
+	float:left;
+	margin:19px 15px 0 0;
+
+	@include get-sprite($icon_user_help);
+}
+
+/***************************************************************************************
+   NOTICE
+***************************************************************************************/
+.notice-area {
+	position:relative;
+	float:left;
+	margin:12px 10px 0 0;
+
+	.btn-notice {
+		display:block;
+		position:relative;
+		width:34px;
+		height:34px;
+		background-color:#aaa;
+
+		@include radius(50%);
+
+		&:before {
+			position:absolute;
+			left:50%;
+			top:50%;
+			margin:-10px 0 0 -8px;
+			content:'';
+
+			@include get-sprite($icon_gnb_notice);
+		}
+
+		&:hover,
+		&[aria-selected="true"] {
+			background-color:#f2ab25;
+		}
+
+		.txt-badge {
+			position:absolute;
+			left:16px;
+			top:-5px;
+			height:14px;
+			padding:0 4px;
+			background-color:#232833;
+			line-height:14px;
+			font-size:10px;
+			color:#fff;
+
+			@include radius(8px);
+		}
+	}
+
+	.layer-notice {
+		display:none;
+		position:absolute;
+		right:0;
+		top:39px;
+		z-index:15;
+		width:520px;
+		background-color:rgba(25,27,32,0.9);
+
+		&[aria-expanded="true"] {
+			display:block;
+		}
+
+		.btn-close {
+			position:absolute;
+			right:14px;
+			top:14px;
+			opacity:0.5;
+
+			&:before {
+				display:block;
+				content:'';
+
+				@include get-sprite($icon_notice_close);
+			}
+			&:hover {
+				opacity:1;
+			}
+		}
+		.txt-title {
+			display:block;
+			height:41px;
+			padding:0 0 0 20px;
+			line-height:40px;
+			font-size:13px;
+			color:#fff;
+			font-weight:bold;
+
+			&:before {
+				margin:-2px 4px 0 0;
+				vertical-align:middle;
+				content:'';
+
+				@include get-sprite($icon_layer_notice);
+			}
+		}
+
+		// 하단 버튼
+		.link-notice {
+			display:block;
+			height:38px;
+			background-color:#43474f;
+			line-height:38px;
+			text-align:center;
+			font-size:12px;
+			color:#fff;
+
+			@include transition(all 0.3s ease);
+
+			&:hover {
+				background-color:#7575ea;
+			}
+		}
+
+		// 스크롤 영역
+		.scroll {
+			overflow-y:auto;
+			overflow-x:hidden;
+			max-height:470px;
+			margin:0 5px 5px;
+
+			@extend %scroll;
+		}
+
+		// 공지사항 목록
+		.list-notice {
+			margin:10px 0 0;
+			padding:0 0 20px;
+
+			> li {
+				position:relative;
+				padding:0 20px 0;
+			}
+			> li + li {
+				margin:19px 0 0;
+			}
+			.link-item {
+				display:block;
+				position:relative;
+
+				&:hover {
+					.txt-notice {
+						font-weight:bold;
+						text-decoration:underline;
+					}
+				}
+			}
+			.txt-notice {
+				display:block;
+				max-width:70%;
+				font-size:13px;
+				color:#fff;
+				font-weight:normal;
+
+				@extend %ellipsis;
+			}
+			.txt-date {
+				position:absolute;
+				right:0;
+				top:2px;
+				font-size:10px;
+				color:#fff;
+				opacity:0.5;
+			}
+			.txt-desc {
+				margin:10px 0 0;
+				line-height:14px;
+				font-size:11px;
+				color:#aaa;
+
+				@include ellipsisMultiline(2,16);
+				@extend %break;
+			}
+		}
+
+		// No Data
+		.nodata-notice {
+			padding:105px;
+			font-size:11px;
+			color:#aaa;
+			text-align:center;
+		}
+	}
+}
+
+/***************************************************************************************
+   요청 처리중/등록/처리완료
+***************************************************************************************/
+.notice-area {
+	// 요청 처리중
+	&.type-process {
+		.btn-notice:before {
+			margin:-9px 0 0 -8px;
+
+			@include get-sprite($icon_gnb_process);
+		}
+
+		.layer-notice {
+			.txt-title:before {
+				margin:-1px 4px 0 0;
+
+				@include get-sprite($icon_layer_process);
+			}
+		}
+	}
+
+	// 요청 등록
+	&.type-registration {
+		.btn-notice:before {
+			margin:-9px 0 0 -8px;
+
+			@include get-sprite($icon_gnb_regist);
+		}
+
+		.layer-notice {
+			.txt-title:before {
+				margin:-1px 4px 0 0;
+
+				@include get-sprite($icon_layer_regist);
+			}
+		}
+	}
+
+	// 처리완료
+	&.type-complete {
+		.btn-notice:before {
+			margin:-7px 0 0 -7px;
+
+			@include get-sprite($icon_gnb_complete);
+		}
+
+		.layer-notice {
+			.txt-title:before {
+				margin:-1px 4px 0 0;
+
+				@include get-sprite($icon_layer_complete);
+			}
+		}
+	}
+}
+
+/***************************************************************************************
+   USER INFO
+***************************************************************************************/
+.user-area {
+	position:relative;
+	float:left;
+	margin:12px 0 0 0;
+
+	.btn-quick {
+		display:block;
+		position:relative;
+		width:150px;
+		height:34px;
+		padding:0 30px 0 0;
+		background-color:#f2ab25;
+		line-height:34px;
+		text-align:right;
+
+		@include radius(17px);
+		@extend %box-sizing;
+
+		&:after {
+			position:absolute;
+			right:0;
+			top:50%;
+			margin:-7px 0 0;
+			content:'';
+
+			@include get-sprite($arrow_header_quick);
+		}
+		> span {
+			font-size:12px;
+			color:#fff;
+			font-weight:bold;
+		}
+	}
+	.btn-profile {
+		overflow:hidden;
+		display:block;
+		position:absolute;
+		left:0;
+		top:0;
+		z-index:1;
+		width:34px;
+		height:34px;
+
+		@include radius(50%);
+		@extend %bg-cover;
+	}
+
+	// 프로필 레이어
+	.layer-profile {
+		display:none;
+		position:absolute;
+		right:2px;
+		top:58px;
+		z-index:10;
+		width:146px;
+		background-color:#4e545e;
+
+		&[aria-expanded="true"] {
+			display:block;
+		}
+
+		// 프로필
+		.profile-info {
+			padding:20px 0;
+			text-align:center;
+
+			.img-profile {
+				overflow:hidden;
+				display:block;
+				width:46px;
+				height:46px;
+				margin:0 auto;
+				border:2px solid #fff;
+
+				@include radius(50%);
+				@extend %bg-cover;
+			}
+
+			[class*="data-"] {
+				display:block;
+				font-size:12px;
+				color:#fff;
+			}
+			.data-name {
+				margin-top:5px;
+				font-weight:normal;
+			}
+			.data-code {
+				margin-top:12px;
+				color:#2ddccd;
+			}
+		}
+
+		// 버튼 영역
+		.profile-button {
+			&:after {
+				@extend %clear;
+			}
+
+			[class*="btn-"] {
+				display:block;
+				height:38px;
+				line-height:38px;
+				text-align:center;
+				font-size:12px;
+				color:#fff;
+			}
+
+			.btn-my {
+				background-color:#3d424a;
+
+				@include transition(all 0.3s ease);
+
+				&:hover {
+					background-color:#0c869b;
+				}
+			}
+		}
+
+		.btn-close {
+			position:absolute;
+			right:0;
+			top:0;
+			padding:7px;
+			opacity:0.5;
+
+			&:before {
+				display:block;
+				content:'';
+
+				@include get-sprite($icon_profile_close);
+			}
+			&:hover {
+				opacity:1;
+			}
+		}
+	}
+}
+
+/***************************************************************************************
+   Title, Location
+***************************************************************************************/
+.layout-top > .section-title {
+	position:relative;
+	padding:0 80px 0 138px;
+	background-color:#fff;
+
+	@extend %box-sizing;
+
+	.title-area {
+		height:46px;
+		border-bottom:1px solid #e9e9e9;
+
+		@extend %box-sizing;
+
+		&:after {
+			@extend %clear;
+		}
+
+		.title {
+			height:100%;
+		}
+	}
+
+	.txt-title {
+		position:relative;
+		float:left;
+		height:100%;
+		margin-right:10px;
+		border-bottom:1px solid #7575ea;
+		line-height:60px;
+		font-size:14px;
+		color:#7575ea;
+		font-weight:normal;
+
+		.btn-blank {
+			display:inline-block;
+			position:relative;
+			width:16px;
+			height:16px;
+			margin:21px 0 0 3px;
+			vertical-align:top;
+
+			&:before {
+				display:block;
+				position:absolute;
+				left:50%;
+				top:50%;
+				margin:-6px 0 0 -7px;
+				content:'';
+
+				@include get-sprite($icon_new_window);
+			}
+		}
+	}
+	.txt-desc {
+		display:block;
+		position:relative;
+		top:24px;
+		font-size:11px;
+		color:#aaa;
+
+		@extend %ellipsis;
+	}
+	.location {
+		float:right;
+		margin:23px 0 0 10px;
+		font-size:12px;
+		color:#9495a4;
+
+		.item + .item:before {
+			display:inline-block;
+			margin:0 4px 0 2px;
+			vertical-align:top;
+			content:'>';
+		}
+	}
+}
+

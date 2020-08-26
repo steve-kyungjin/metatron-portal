@@ -1,0 +1,518 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   앱 관리
+***************************************************************************************/
+.page-app-register {
+	// 제목 영역
+	.title-area {
+		@extend %ui-title;
+	}
+}
+
+/***************************************************************************************
+   앱 관리 > 목록
+***************************************************************************************/
+.page-app-register .section-list {
+
+	// 버튼 영역
+	.button-area {
+		margin-bottom:5px;
+		text-align:right;
+
+		.type-add:before {
+			margin:10px 5px 0 0;
+			vertical-align:top;
+			content:'';
+
+			@include get-sprite($icon_app_add);
+		}
+	}
+
+	// 타이틀 영역
+	.title-area .filter {
+		position:absolute;
+		right:0;
+		bottom:3px;
+
+		&:after {
+			@extend %clear;
+		}
+		.txt-filter {
+			float:left;
+			height:26px;
+			margin:0 5px 0 7px;
+			line-height:30px;
+			font-size:11px;
+			color:#aaa;
+		}
+		> [common-select] {
+			float: left;
+		}
+		.component-select {
+			position: relative;
+			float: left;
+			width: 160px;
+		}
+		.component-search {
+			float:left;
+			width:247px;
+		}
+		.bar {
+			display:inline-block;
+			float:left;
+			width:1px;
+			height:16px;
+			margin:6px 8px 0;
+			background-color:#aaa;
+		}
+	}
+
+	// 목록
+	.table-app {
+		@extend %ui-table;
+
+		tbody tr:hover {
+			.txt-category,
+			.link-app {
+				text-decoration:underline;
+			}
+		}
+		[aria-disabled="true"] {
+			td {
+				background-color:#f0f0f0;
+			}
+			.txt-status {
+				color:#aaa;
+			}
+		}
+
+		.txt-category {
+			display:block;
+			padding:0 10px;
+			font-size:12px;
+			line-height:1.1em;
+
+			@extend %ellipsis;
+		}
+		.link-app {
+			display:block;
+			padding:0 10px;
+			font-size:13px;
+			color:#333;
+			cursor:pointer;
+
+			@extend %ellipsis;
+		}
+		.txt-status {
+			color:#f2ab25;
+		}
+		.txt-desc {
+			display:block;
+			padding:0 10px;
+			font-size:12px;
+
+			@extend %ellipsis;
+		}
+	}
+
+	// No Data
+	.app-nodata {
+		@extend %ui-nodata;
+	}
+
+	// Pagination
+	.pagination-area {
+		margin-top:10px;
+	}
+}
+
+/***************************************************************************************
+   앱 관리 > 유형 선택
+***************************************************************************************/
+.page-app-register .section-type {
+	// 안내 문구
+	.register-desc {
+		display:block;
+		padding:90px 0;
+		text-align:center;
+		font-size:18px;
+		color:#262a50;
+
+		> strong {
+			display:inline-block;
+			position:relative;
+
+			&:before {
+				display:block;
+				position:absolute;
+				left:0;
+				top:-8px;
+				width:100%;
+				height:3px;
+				background:url(../images/bg/bg_dot.png) repeat-x left top;
+				content:'';
+			}
+		}
+	}
+
+	// 유형
+	.list-type {
+		text-align:center;
+		font-size:0;
+
+		> li {
+			display:inline-block;
+			vertical-align:top;
+		}
+		> li + li {
+			margin-left:30px;
+		}
+
+		[class*="link-"] {
+			display:block;
+			width:280px;
+			height:240px;
+			padding:10px;
+			border:1px solid #e8e8f7;
+			background-color:#f3f3f9;
+			text-align:center;
+			color:#262a50;
+
+			@include transition(all 0.2s ease);
+			@include radius(4px);
+			@extend %box-sizing;
+
+			&:before {
+				margin:25px 0 30px;
+				content:'';
+			}
+
+			&:hover {
+				border-color:#c9ebf1;
+				background-color:#e3f3f6;
+				color:#0c869b;
+			}
+		}
+		.link-url:before {
+			@include get-sprite($icon_regist_url);
+		}
+		.link-dashboard:before {
+			@include get-sprite($icon_regist_dashboard);
+		}
+		.link-extraction:before {
+			@include get-sprite($icon_regist_extraction);
+		}
+
+		.txt-title {
+			display:block;
+			margin-bottom:15px;
+			font-size:18px;
+		}
+		.txt-desc {
+			display:block;
+			font-size:12px;
+			line-height:16px;
+		}
+	}
+
+	// 버튼 영역
+	.button-area {
+		margin-top:150px;
+	}
+}
+
+/***************************************************************************************
+   앱 관리 > 앱 등록
+***************************************************************************************/
+.page-app-register .section-register {
+	// 제목 영역
+	.title-area {
+		@extend %ui-title;
+	}
+
+	// 등록 폼 영역
+	.register-area {
+		padding:10px 0;
+
+		&:after {
+			@extend %clear;
+		}
+
+		.form-block {
+			float:left;
+			width:100%;
+			margin-left:-258px;
+
+			.form {
+				padding:0 30px 0 258px;
+			}
+		}
+		.option-block {
+			float:right;
+			width:258px;
+		}
+	}
+
+	// 버튼 영역
+	.button-area {
+		@extend %button-area;
+	}
+}
+
+/***************************************************************************************
+   앱 관리 > 앱 등록 폼
+***************************************************************************************/
+.page-app-register .section-register {
+	.table-register {
+		tbody th, td {
+			height:36px;
+		}
+		tbody th {
+			padding:0 10px 0 0;
+			text-align:right;
+			font-size:13px;
+			color:#808080;
+			font-weight:normal;
+		}
+		tbody td {
+			padding:6px 0;
+		}
+
+		.align-top {
+			vertical-align:top;
+
+			.label {
+				margin-top:13px;
+			}
+		}
+
+		.label {
+			display:block;
+		}
+
+		.textarea {
+			height:90px;
+		}
+
+		// Radio Button
+		.list-option {
+			&:after {
+				@extend %clear;
+			}
+
+			> li {
+				position:relative;
+				float:left;
+				margin-right:20px;
+			}
+
+			// Radio Button
+			@extend %ui-radio;
+		}
+
+		// 파일 업로드
+		.form-upload {
+			margin-bottom:8px;
+		}
+
+		// 업로드 파일 목록
+		.list-file {
+			@extend %file-list;
+		}
+
+		// 대시보드, 추출형
+		.form-import {
+			position:relative;
+			padding-left:115px;
+
+			.btn-action {
+				position:absolute;
+				left:0;
+				top:5px;
+				min-width:auto;
+				height:26px;
+				line-height:26px;
+			}
+			.input-text:disabled {
+				border:1px solid #f3f3f9;
+				background-color:#f3f3f9;
+				font-size:13px;
+				color:#262a50;
+			}
+			.txt-alert {
+				display:block;
+				height:36px;
+				line-height:36px;
+				font-size:12px;
+				color:#0c869b;
+			}
+		}
+
+		// Validation Check
+		.is-error {
+			.form-import .btn-basic,
+			.form-upload .btn-basic {
+				border-color:#ff0048;
+			}
+		}
+	}
+}
+
+/***************************************************************************************
+   앱 관리 > 카테고리
+***************************************************************************************/
+.page-app-register .section-register {
+	.option-category {
+		margin-top:9px;
+
+		> dt {
+			font-size:13px;
+			color:#808080;
+		}
+		> dd {
+			overflow-y:auto;
+			overflow-x:hidden;
+			height:215px;
+			margin-top:9px;
+			padding:20px;
+			border:1px solid #eaeaea;
+
+			@include radius(2px);
+			@extend %box-sizing;
+		}
+
+		.list-category {
+			> li {
+				position:relative;
+			}
+			> li + li {
+				margin-top:15px;
+			}
+
+			.label {
+				@extend %ellipsis;
+			}
+			.txt-kor {
+				color:#333;
+				line-height:100%;
+			}
+			.txt-eng {
+				color:#aaa;
+			}
+
+			// Checkbox
+			@extend %ui-checkbox;
+		}
+
+		// Validation Check
+		&.is-error {
+			> dt {
+				color:#ff0048;
+			}
+			> dd {
+				border-color:#ff0048;
+				background-color:#ffeef3;
+			}
+		}
+	}
+}
+
+/***************************************************************************************
+   앱 관리 > 권한 설정
+***************************************************************************************/
+.page-app-register .section-register {
+	.option-permission {
+		margin-top:25px;
+
+		> dt {
+			font-size:13px;
+			color:#808080;
+		}
+		> dd {
+			margin-top:9px;
+			padding:20px;
+			border:1px solid #eaeaea;
+
+			@include radius(2px);
+			@extend %box-sizing;
+		}
+
+		.list-permission {
+			> li {
+				position:relative;
+			}
+			> li + li {
+				margin-top:15px;
+			}
+
+			.label {
+				color:#333;
+
+				@extend %ellipsis;
+			}
+
+			// Radio Button
+			@extend %ui-radio;
+		}
+
+		// 권한 확장영역
+		.permission-expand {
+			display:none;
+			margin:10px 0 0 17px;
+			padding:0 10px;
+			background-color:#f9f9f9;
+
+			@include radius(2px);
+
+			&[aria-expanded="true"] {
+				display:block;
+			}
+			> li {
+				padding:16px 0 14px 10px;
+
+				&:after {
+					@extend %clear;
+				}
+			}
+			> li + li {
+				border-top:1px solid #ebebeb;
+			}
+			.txt-label {
+				float:left;
+				display:block;
+				width:35px;
+				margin:0 10px 0 0;
+				text-align:right;
+				font-size:12px;
+				color:#aaa;
+			}
+			.txt-num {
+				float:left;
+				display:block;
+				font-size:12px;
+				color:#132949;
+			}
+			.btn-setting {
+				float:right;
+
+				@include get-sprite($icon_app_setting);
+
+				&:hover {
+					@include get-sprite($icon_app_setting_hover);
+				}
+			}
+		}
+
+		// Validation Check
+		&.is-error {
+			> dt {
+				color:#ff0048;
+			}
+			> dd {
+				border-color:#ff0048;
+				background-color:#ffeef3;
+			}
+		}
+	}
+}

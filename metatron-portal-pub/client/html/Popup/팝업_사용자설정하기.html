@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<link rel="stylesheet" href="http://idangero.us/swiper/dist/css/swiper.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- LAYER POPUP -->
+	<div class="layout-popup">
+		<div class="layer-popup">
+			<div class="popup">
+				<!-- Popup Content -->
+				<div class="popup-content">
+					<!-- 상단 버튼 영역 -->
+					<div class="section-button">
+						<a href="javascript:;" class="btn-basic">취소</a>
+						<a href="javascript:;" class="btn-action">적용</a>
+					</div>
+					<!-- //상단 버튼 영역 -->
+
+					<!-- 타이틀 영역 -->
+					<div class="section-title">
+						<h1 class="txt-title">사용자 설정하기</h1>
+					</div>
+					<!-- //타이틀 영역 -->
+
+					<!-- 사용자 설정하기 -->
+					<div class="section-authority">
+						<!-- 목록(그룹,조직) -->
+						<div class="list-area">
+							<!-- 탭 메뉴 -->
+							<ul class="list-tab">
+								<li aria-selected="true"><a href="javascript:;" class="link-tab">그룹으로 찾기</a></li>
+								<li aria-selected="false"><a href="javascript:;" class="link-tab">조직으로 찾기</a></li>
+							</ul>
+							<!-- //탭 메뉴 -->
+
+							<!-- [D] 해당 영역 노출 시 aria-expanded 값 true로 변경 -->
+							<!-- 그룹 -->
+							<div class="group-block" aria-expanded="false">
+								<!-- 검색 -->
+								<div class="component-search">
+									<input type="text" class="input-search" placeholder="그룹명으로 찾기">
+									<button class="btn-search" aria-label="검색"></button>
+								</div>
+								<!-- //검색 -->
+
+								<!-- 검색 결과 없는 경우 -->
+								<!-- [D] 검색 결과 없는 경우 aria-hidden 값 false로 변경 -->
+								<div class="nodata" aria-hidden="false">
+									<span>'그룹명'</span>에 대한 검색결과가 없습니다.
+								</div>
+								<!-- //검색 결과 없는 경우 -->
+
+								<!-- 그룹 목록 -->
+								<ul class="list-group">
+									<li><a href="javascript:;" class="item">그룹명1</a></li>
+									<li><a href="javascript:;" class="item">그룹명2</a></li>
+								</ul>
+								<!-- //그룹 목록 -->
+
+								<!-- Pagination -->
+								<div class="pagination">
+									<div class="component-page">
+										<!-- [D] 이전/다음 버튼은 노출하지 않는 경우 aria-hidden 값 true로 변경 -->
+										<!-- [D] 페이지 버튼 선택 된 항목은 aria-selected 값 true로 변경 -->
+										<a href="javascript:;" class="btn-prev" aria-hidden="false" aria-label="이전"></a>
+										<a href="javascript:;" class="btn-page" aria-selected="true">1</a>
+										<a href="javascript:;" class="btn-page" aria-selected="false">2</a>
+										<a href="javascript:;" class="btn-page" aria-selected="false">3</a>
+										<a href="javascript:;" class="btn-page" aria-selected="false">4</a>
+										<a href="javascript:;" class="btn-page" aria-selected="false">5</a>
+										<a href="javascript:;" class="btn-next" aria-hidden="false" aria-label="다음"></a>
+									</div>
+								</div>
+								<!-- //Pagination -->
+							</div>
+							<!-- //그룹 -->
+
+							<!-- 조직 -->
+							<div class="organization-block" aria-expanded="true">
+								<!-- 검색 -->
+								<div class="component-search">
+									<input type="text" class="input-search" placeholder="그룹명으로 찾기">
+									<button class="btn-search" aria-label="검색"></button>
+								</div>
+								<!-- //검색 -->
+
+								<!-- 검색 결과 없는 경우 -->
+								<!-- [D] 검색 결과 없는 경우 aria-hidden 값 false로 변경 -->
+								<div class="nodata" aria-hidden="true">
+									<span>'그룹명'</span>에 대한 검색결과가 없습니다.
+								</div>
+								<!-- //검색 결과 없는 경우 -->
+
+								<!-- 조직 목록 -->
+								<div class="list-organization" style="display:none">
+									<!-- Loading -->
+									<div class="component-loading type-sub">
+										<span class="bar"></span>
+									</div>
+									<!-- //Loading -->
+
+									<div class="scroll">
+										<!-- 트리 메뉴 -->
+										<div class="component-tree type-checkbox">
+											<ul class="list-tree">
+												<!--
+                                                    [D] 접힌 경우 : is-collapsed
+                                                    [D] 펼친 경우 : is-expanded
+                                                    [D] 기본 : is-none
+                                                -->
+												<li>
+													<span class="tree-item is-expanded">
+														<span class="icon-tree"></span>
+														<input type="checkbox" class="input-checkbox" id="check01">
+														<label class="label" for="check01">조직명1</label>
+													</span>
+												</li>
+												<li style="padding-left:15px;">
+													<span class="tree-item is-expanded">
+														<span class="icon-tree"></span>
+														<input type="checkbox" class="input-checkbox" id="check01">
+														<label class="label" for="check01">조직명1-1</label>
+													</span>
+												</li>
+												<li style="padding-left:30px;">
+													<span class="tree-item">
+														<span class="icon-tree"></span>
+														<input type="checkbox" class="input-checkbox" id="check01">
+														<label class="label" for="check01">조직명1-1-1</label>
+													</span>
+												</li>
+												<li style="padding-left:30px;">
+													<span class="tree-item">
+														<span class="icon-tree"></span>
+														<input type="checkbox" class="input-checkbox" id="check01">
+														<label class="label" for="check01">조직명1-1-2</label>
+													</span>
+												</li>
+												<li>
+													<span class="tree-item is-collapsed">
+														<span class="icon-tree"></span>
+														<input type="checkbox" class="input-checkbox" id="check01">
+														<label class="label" for="check01">조직명2</label>
+													</span>
+												</li>
+											</ul>
+										</div>
+										<!-- //트리 메뉴 -->
+									</div>
+								</div>
+								<!-- //조직 목록 -->
+
+								<!-- 조직 검색 결과 -->
+								<div class="search-result">
+									<!-- 그룹 목록 -->
+									<ul class="list-result">
+										<li><a href="javascript:;" class="item">조직명1</a></li>
+										<li><a href="javascript:;" class="item">조직명2</a></li>
+									</ul>
+									<!-- //그룹 목록 -->
+
+									<!-- Pagination -->
+									<div class="pagination">
+										<div class="component-page">
+											<!-- [D] 이전/다음 버튼은 노출하지 않는 경우 aria-hidden 값 true로 변경 -->
+											<!-- [D] 페이지 버튼 선택 된 항목은 aria-selected 값 true로 변경 -->
+											<a href="javascript:;" class="btn-prev" aria-hidden="false" aria-label="이전"></a>
+											<a href="javascript:;" class="btn-page" aria-selected="true">1</a>
+											<a href="javascript:;" class="btn-page" aria-selected="false">2</a>
+											<a href="javascript:;" class="btn-page" aria-selected="false">3</a>
+											<a href="javascript:;" class="btn-page" aria-selected="false">4</a>
+											<a href="javascript:;" class="btn-page" aria-selected="false">5</a>
+											<a href="javascript:;" class="btn-next" aria-hidden="false" aria-label="다음"></a>
+										</div>
+									</div>
+									<!-- //Pagination -->
+								</div>
+								<!-- //조직 검색 결과 -->
+							</div>
+							<!-- //조직 -->
+						</div>
+						<!-- //목록(그룹,조직) -->
+
+						<!-- 오른쪽 선택 된 목록 -->
+						<div class="result-area">
+							<!-- 그룹 -->
+							<div class="group-block">
+								<div class="title">
+									<h3 class="txt-title">무선 그룹(210)</h3>
+									<!-- 검색 -->
+									<div class="component-search">
+										<input type="text" class="input-search" placeholder="그룹명으로 검색">
+										<button class="btn-search" aria-label="검색"></button>
+									</div>
+									<!-- //검색 -->
+								</div>
+								<div class="table-body">
+									<table class="table-list">
+										<colgroup>
+											<col width="158" />
+											<col width="*" />
+										</colgroup>
+										<tbody>
+										<tr>
+											<th class="align-left"><a href="javascript:;" class="link-select">홍길동</a></th>
+											<td class="align-left">tester1</td>
+										</tr>
+										<tr>
+											<th class="align-left"><a href="javascript:;" class="link-select">홍길동</a></th>
+											<td class="align-left">tester2</td>
+										</tr>
+										</tbody>
+									</table>
+
+									<!-- No Data -->
+									<!-- [D] 데이터 없는 경우 aria-hidden 값 false로 변경 -->
+									<div class="nodata" aria-hidden="true">
+										선택된 그룹이 없습니다.
+									</div>
+									<!-- //No Data -->
+								</div>
+
+								<!-- Pagination -->
+								<div class="pagination">
+									<div class="component-page">
+										<!-- [D] 이전/다음 버튼은 노출하지 않는 경우 aria-hidden 값 true로 변경 -->
+										<!-- [D] 페이지 버튼 선택 된 항목은 aria-selected 값 true로 변경 -->
+										<a href="javascript:;" class="btn-prev" aria-hidden="false" aria-label="이전"></a>
+										<a href="javascript:;" class="btn-page" aria-selected="true">1</a>
+										<a href="javascript:;" class="btn-page" aria-selected="false">2</a>
+										<a href="javascript:;" class="btn-page" aria-selected="false">3</a>
+										<a href="javascript:;" class="btn-page" aria-selected="false">4</a>
+										<a href="javascript:;" class="btn-page" aria-selected="false">5</a>
+										<a href="javascript:;" class="btn-next" aria-hidden="false" aria-label="다음"></a>
+									</div>
+								</div>
+								<!-- //Pagination -->
+							</div>
+							<!-- //그룹 -->
+
+							<!-- 선택된 사용자 -->
+							<!-- [D] 단일 선택일 때 'selected-block' 영역 제거 -->
+							<div class="selected-block">
+								<div class="title">
+									<h3 class="txt-title">선택된 사용자(210)</h3>
+									<a href="javascript:;" class="btn-delete">전체삭제</a>
+								</div>
+								<div class="table-body">
+									<table class="table-list">
+										<colgroup>
+											<col width="158" />
+											<col width="*" />
+											<col width="60" />
+										</colgroup>
+										<tbody>
+										<tr>
+											<th class="align-left"><strong>홍길동</strong></th>
+											<td class="align-left">kwon</td>
+											<td><a href="javascript:;" class="btn-delete" aria-label="삭제"></a></td>
+										</tr>
+										</tbody>
+									</table>
+
+									<!-- No Data -->
+									<!-- [D] 데이터 없는 경우 aria-hidden 값 false로 변경 -->
+									<div class="nodata" aria-hidden="true">
+										선택된 사용자가 없습니다.
+									</div>
+									<!-- //No Data -->
+								</div>
+							</div>
+							<!-- //선택된 사용자 -->
+						</div>
+						<!-- //선택 된 목록 -->
+					</div>
+					<!-- //사용자 설정하기 -->
+				</div>
+				<!-- //Popup Content -->
+			</div>
+		</div>
+	</div>
+	<!-- //LAYER POPUP -->
+
+</body>
+</html>

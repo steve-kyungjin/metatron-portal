@@ -1,0 +1,364 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   SEARCH : 검색 결과
+***************************************************************************************/
+.layout-top > .section-result {
+	height:46px;
+	padding:0 80px 0 138px;
+	background-color:#fff;
+	font-size:13px;
+	color:#333;
+	font-weight:bold;
+
+	&:after {
+		display:inline-block;
+		width:1px;
+		height:100%;
+		vertical-align:middle;
+		content:'';
+	}
+
+	> strong {
+		color:#0c869b;
+	}
+
+	.txt-keyword {
+		display:inline-block;
+		position:relative;
+		top:3px;
+		max-width:50%;
+		line-height:100%;
+
+		@extend %ellipsis;
+	}
+}
+
+/***************************************************************************************
+   SEARCH : TAB
+***************************************************************************************/
+.page-search {
+	padding-top:0 !important;
+
+	.section-tab {
+		height:32px;
+		border-top:1px solid #d4d4dc;
+		border-bottom:1px solid #d4d4dc;
+
+		@extend %box-sizing;
+
+		&:after {
+			@extend %clear;
+		}
+
+		> li {
+			float:left;
+		}
+		> li[aria-selected="true"] .link-tab {
+			margin-top:-1px;
+			border-top:1px solid #262a50;
+			border-bottom:1px solid #262a50;
+			color:#262a50;
+		}
+
+		.link-tab {
+			display:block;
+			height:32px;
+			padding:0 22px;
+			line-height:32px;
+			font-size:12px;
+			color:#a7a7b8;
+
+			@extend %box-sizing;
+
+			&:hover {
+				margin-top:-1px;
+				border-top:1px solid #262a50;
+				border-bottom:1px solid #262a50;
+				color:#262a50;
+			}
+		}
+	}
+
+	.search-content {
+		padding:25px 0;
+		border-bottom:1px solid #f4f4f6;
+
+		> dt {
+			font-size:14px;
+			color:#262a50;
+			font-weight:bold;
+		}
+		> dd {
+			margin-top:25px;
+			padding-left:10px;
+		}
+	}
+
+	.detail-content {
+		.list-result {
+			padding:30px 0 20px 10px;
+		}
+
+		.pagination-area {
+			margin-top:30px;
+		}
+
+		.nodata-search {
+			padding:60px 0;
+			text-align:center;
+		}
+	}
+}
+
+/***************************************************************************************
+   SEARCH : 검색 결과 목록
+***************************************************************************************/
+.page-search .list-result {
+	padding:0 0 20px;
+
+	> li {
+		position:relative;
+	}
+	> li + li {
+		margin:30px 0 0;
+	}
+
+	.type-thumb {
+		min-height:84px;
+		padding-left:140px;
+	}
+	.img-thumb {
+		overflow:hidden;
+		display:block;
+		position:absolute;
+		left:0;
+		top:0;
+		width:131px;
+		height:84px;
+		border:1px solid #e5e5e5;
+
+		@include radius(2px);
+		@extend %bg-cover;
+		@extend %box-sizing;
+	}
+
+	.link-title {
+		display:inline-block;
+		max-width:100%;
+		margin:0 0 5px;
+		padding-right:5px;
+		font-size:14px;
+		color:#0c869b;
+		vertical-align:top;
+		text-decoration:underline;
+
+		@extend %ellipsis;
+		@extend %box-sizing;
+	}
+
+	.title-block {
+		display:inline-block;
+		max-width:100%;
+		color:#0c869b;
+
+		@extend %ellipsis;
+
+		&:after {
+			@extend %clear;
+		}
+
+		.data-status {
+			float:right;
+		}
+		.link-title {
+			display:inline;
+			max-width:none;
+			margin:0;
+			padding:0;
+		}
+	}
+
+	.txt-location {
+		display:block;
+		float:left;
+		max-width:85%;
+		margin:0 0 0 20px;
+		font-size:11px;
+		color:#aaa;
+		vertical-align:top;
+
+		@extend %ellipsis;
+	}
+
+	.txt-desc {
+		font-size:13px;
+		color:#333;
+
+		@include ellipsisMultiline(5,18);
+	}
+
+	.data-status {
+		display:inline-block;
+		margin:3px 0 0 10px;
+		font-size:0;
+
+		> span {
+			display:inline-block;
+			font-size:11px;
+			color:#aaa;
+			vertical-align:top;
+		}
+		> span + span:before {
+			display:inline-block;
+			width:1px;
+			height:6px;
+			margin:3px 10px 0;
+			background-color:#eee;
+			vertical-align:top;
+			content:'';
+		}
+	}
+
+	.data-info {
+		margin:10px 0 0;
+		font-size:11px;
+		color:#808080;
+
+		&:after {
+			@extend %clear;
+		}
+
+		[class*="data-"] {
+			display:block;
+			float:left;
+			margin-right:20px;
+		}
+		[class*="data-"]:before {
+			margin:0 4px 0 0;
+			vertical-align:top;
+			content:'';
+		}
+
+		.data-good:before {
+			@include get-sprite($icon_search_good);
+		}
+		.data-comment:before {
+			@include get-sprite($icon_search_comment);
+		}
+		.data-views:before {
+			@include get-sprite($icon_search_views);
+		}
+		.data-database:before {
+			position:relative;
+			top:-1px;
+
+			@include get-sprite($icon_search_database);
+		}
+		.data-used:before {
+			@include get-sprite($icon_search_use);
+		}
+		.data-table:before {
+			@include get-sprite($icon_search_table);
+		}
+		.data-manager:before {
+			@include get-sprite($icon_search_user);
+		}
+		.data-department:before {
+			@include get-sprite($icon_search_department);
+		}
+		.data-user:before,
+		.data-type:before,
+		.data-category:before {
+			display:none;
+		}
+	}
+}
+
+/***************************************************************************************
+   SEARCH : 더보기, Nodata
+***************************************************************************************/
+.page-search {
+	.link-more {
+		display:inline-block;
+		font-size:12px;
+		color:#0c869b;
+		font-weight:bold;
+		text-decoration:underline;
+
+		&:after {
+			margin:0 0 0 5px;
+			vertical-align:top;
+			content:'';
+
+			@include get-sprite($arrow_search_more);
+		}
+	}
+
+	// No Data
+	.nodata-search {
+		font-size:13px;
+		color:#a7a7b8;
+
+		&[aria-hidden="true"] {
+			display:none;
+		}
+	}
+}
+
+/***************************************************************************************
+   SEARCH : 전체 검색결과가 없는 경우
+***************************************************************************************/
+.page-search {
+	.section-nodata {
+		margin:8px 0 0;
+		padding:19px 19px 26px;
+		border:1px solid #edeff4;
+		background-color:#f7f7fa;
+
+		&[aria-hidden="true"] {
+			display:none;
+		}
+
+		.txt-nodata {
+			> dt {
+				font-size:13px;
+				color:#333;
+				font-weight:bold;
+
+				&:before {
+					display:inline-block;
+					margin:-1px 4px 0 0;
+					vertical-align:top;
+					content:'';
+
+					@include get-sprite($icon_search_info);
+				}
+			}
+			> dd {
+				padding:15px 0 0;
+			}
+		}
+
+		.list-desc {
+			> li {
+				font-size:13px;
+				color:#808080;
+			}
+			> li:before {
+				display:inline-block;
+				width:3px;
+				height:3px;
+				margin:4px 10px 0 0;
+				background-color:#808080;
+				vertical-align:top;
+				content:'';
+
+				@include radius(50%);
+			}
+			> li + li {
+				margin-top:10px;
+			}
+		}
+	}
+}

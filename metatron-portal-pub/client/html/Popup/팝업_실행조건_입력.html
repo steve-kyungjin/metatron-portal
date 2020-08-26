@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<link rel="stylesheet" href="http://idangero.us/swiper/dist/css/swiper.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- LAYER POPUP -->
+	<div class="layout-popup">
+		<div class="layer-popup">
+			<div class="popup">
+				<!-- Popup Content -->
+				<div class="popup-content">
+					<!-- 상단 버튼 영역 -->
+					<div class="section-button">
+						<a href="javascript:;" class="btn-basic">취소</a>
+						<a href="javascript:;" class="btn-action">적용</a>
+					</div>
+					<!-- //상단 버튼 영역 -->
+
+					<!-- 타이틀 영역 -->
+					<div class="section-title">
+						<h1 class="txt-title">실행조건 입력하기</h1>
+					</div>
+					<!-- //타이틀 영역 -->
+
+					<!-- 실행조건 입력하기 -->
+					<div class="section-condition">
+						<!-- 조건 입력 -->
+						<table class="table-data">
+							<colgroup>
+								<col width="130" />
+								<col width="*" />
+							</colgroup>
+							<tbody>
+								<tr>
+									<th class="align-top type-custom"><label class="label">담당자</label></th>
+									<td>
+										<div class="form-member">
+											<a href="javascript:;" class="btn-basic">설정하기</a>
+											<div class="txt-member">
+												홍길동, 홍길순, 홍길철, 임꺽정
+												홍길동, 홍길순, 홍길철, 임꺽정
+											</div>
+										</div>
+										<p class="txt-desc">* 변수입력</p>
+									</td>
+								</tr>
+								<tr>
+									<th class="align-top"><label class="label">abc</label></th>
+									<td>
+										<input type="text" class="input-text">
+										<p class="txt-desc">* 변수입력</p>
+									</td>
+								</tr>
+								<tr>
+									<th class="align-top"><label class="label">cnt</label></th>
+									<td>
+										<input type="text" class="input-text">
+										<p class="txt-desc">* 숫자입력</p>
+									</td>
+								</tr>
+								<tr>
+									<th class="align-top"><label class="label">성별</label></th>
+									<td>
+										<!-- Select Box -->
+										<div class="component-select">
+											<span class="label">전체</span>
+											<!-- [D] 셀렉트 박스 선택 시 aria-expanded 값 true로 변경 -->
+											<div class="layer-select" aria-expanded="true">
+												<ul class="list-options">
+													<li>
+														<input type="radio" id="radio1" class="input-radio" name="selectoption" checked>
+														<label for="radio1" class="item-option">남자 남자 남자 남자 남자 남자 남자</label>
+													</li>
+													<li>
+														<input type="radio" id="radio2" class="input-radio" name="selectoption">
+														<label for="radio2" class="item-option">여자</label>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<!-- //Select Box -->
+										<p class="txt-desc">* 성별입력</p>
+									</td>
+								</tr>
+								<tr>
+									<th class="align-top"><label class="label">arr</label></th>
+									<td>
+										<input type="text" class="input-text">
+										<p class="txt-desc">* a,b,c배열을 입력</p>
+									</td>
+								</tr>
+								<tr>
+									<th class="align-top"><label class="label">startDate</label></th>
+									<td>
+										<div class="component-datepicker">
+											<div class="box-datepicker">
+												<input type="text" value="2018-05-10" readonly="readonly">
+											</div>
+										</div>
+										<p class="txt-desc">* 날짜입력</p>
+									</td>
+								</tr>
+								<tr class="is-error">
+									<th class="align-top"><label class="label">startTime</label></th>
+									<td>
+										<div class="component-datepicker type-timepicker">
+											<div class="box-datepicker">
+												<input type="text" value="2018-05-10" readonly="readonly">
+											</div>
+										</div>
+										<p class="txt-desc">* 시간입력</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- //조건 입력 -->
+					</div>
+					<!-- //실행조건 입력하기 -->
+				</div>
+				<!-- //Popup Content -->
+			</div>
+		</div>
+	</div>
+	<!-- //LAYER POPUP -->
+
+</body>
+</html>

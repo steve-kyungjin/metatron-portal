@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<link rel="stylesheet" href="http://idangero.us/swiper/dist/css/swiper.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- LAYER POPUP -->
+	<div class="layout-popup">
+		<div class="layer-popup">
+			<div class="popup">
+				<!-- Popup Content -->
+				<div class="popup-content">
+					<!-- 상단 버튼 영역 -->
+					<div class="section-button">
+						<a href="javascript:;" class="btn-basic">취소</a>
+						<a href="javascript:;" class="btn-action">적용</a>
+					</div>
+					<!-- //상단 버튼 영역 -->
+
+					<!-- 타이틀 영역 -->
+					<div class="section-title">
+						<h1 class="txt-title">데이터 소스 등록하기</h1>
+					</div>
+					<!-- //타이틀 영역 -->
+
+					<!-- 데이터 소스 등록하기 -->
+					<div class="section-data-source">
+						<p class="txt-desc">
+							사용할 <strong>데이터 소스 정보</strong>를 등록하세요.
+						</p>
+
+						<!-- 데이터 선택 -->
+						<table class="table-data">
+							<colgroup>
+								<col width="120" />
+								<col width="*" />
+							</colgroup>
+							<tbody>
+							<tr class="is-error">
+								<th><label class="label">데이터베이스</label></th>
+								<td>
+									<!-- Select Box -->
+									<div class="component-select">
+										<span class="label">데이터 베이스 선택</span>
+										<!-- [D] 셀렉트 박스 선택 시 aria-expanded 값 true로 변경 -->
+										<div class="layer-select" aria-expanded="false">
+											<ul class="list-options">
+												<li>
+													<input type="radio" id="radio1" class="input-radio" name="selectoption" checked>
+													<label for="radio1" class="item-option">데이터 베이스</label>
+												</li>
+												<li>
+													<input type="radio" id="radio2" class="input-radio" name="selectoption">
+													<label for="radio2" class="item-option">데이터 베이스</label>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- //Select Box -->
+								</td>
+							</tr>
+							<tr>
+								<th><label class="label">데이터 소스 이름</label></th>
+								<td>
+									<input type="text" class="input-text" placeholder="데이터 소스 이름을 입력하세요.">
+								</td>
+							</tr>
+							</tbody>
+						</table>
+						<!-- //데이터 선택 -->
+
+						<!-- 데이터 정보 입력 -->
+						<div class="extend-table">
+							<table class="table-data">
+								<colgroup>
+									<col width="120" />
+									<col width="*" />
+								</colgroup>
+								<tbody>
+								<tr>
+									<th><label class="label">Host</label></th>
+									<td>
+										<input type="text" class="input-text" placeholder="Host를 입력하세요.">
+									</td>
+								</tr>
+								<tr>
+									<th><label class="label">Port</label></th>
+									<td>
+										<input type="text" class="input-text" placeholder="Port를 입력하세요.">
+									</td>
+								</tr>
+								<tr>
+									<th><label class="label">SID</label></th>
+									<td>
+										<input type="text" class="input-text" placeholder="SID를 입력하세요.">
+									</td>
+								</tr>
+								<tr>
+									<th><label class="label">User ID</label></th>
+									<td>
+										<input type="text" class="input-text" placeholder="User ID를 입력하세요.">
+									</td>
+								</tr>
+								<tr>
+									<th><label class="label">User Password</label></th>
+									<td>
+										<input type="text" class="input-text" placeholder="User Password를 입력하세요.">
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- //데이터 정보 입력 -->
+					</div>
+					<!-- //데이터 소스 등록하기 -->
+				</div>
+				<!-- //Popup Content -->
+			</div>
+		</div>
+	</div>
+	<!-- //LAYER POPUP -->
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "exntu-sass-spritesmith",
+  "version": "1.0.0",
+  "scripts": {
+    "tsc": "tsc",
+    "watch": "node html.grunt.watch.js",
+    "sprite": "node html.sprite.build.js",
+    "sass": "node html.sass.build.js",
+    "build": "npm run sprite && npm run sass",
+    "ui:watch": "node ui.grunt.watch.js",
+    "ui:sprite:build": "node ui.sprite.build.js",
+    "ui:sass:build": "node ui.sass.build.js",
+    "ui:build": "npm run ui:sprite:build && npm run ui:sass:build"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^2.0.0",
+    "grunt-spritesmith": "^3.5.0",
+    "os": "^0.1.1",
+    "shelljs": "^0.8.1",
+    "typescript": "2.3.4"
+  }
+}

@@ -1,0 +1,116 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   COMPONENT : AUTOCOMPLETE
+***************************************************************************************/
+.component-autocomplete {
+	display:none;
+	position:absolute;
+	left:0;
+	right:0;
+	top:39px;
+	z-index:10;
+	border-top:1px solid #e9ebed;
+	background-color:#fff;
+
+	@include box-shadow(0 1px 4px #f1f1f2);
+
+	&[aria-expanded="true"] {
+		display:block;
+	}
+
+	// 자동 완성 목록
+	.list-autocomplete {
+		padding:5px 0;
+
+		@extend %box-sizing;
+
+		.link-autocomplete {
+			display:block;
+			padding:7px 15px 6px;
+			font-size:13px;
+			color:#333;
+
+			@extend %break;
+
+			> em {
+				color:#7575ea;
+				font-weight:bold;
+			}
+
+			&.is-selected {
+				background-color:#e8ebed;
+			}
+		}
+	}
+
+	// 저장된 검색어 목록
+	.list-save {
+		padding:5px 0;
+
+		@extend %box-sizing;
+
+		> li {
+			position:relative;
+			padding-right:0;
+		}
+		.link-autocomplete {
+			display:block;
+			padding:7px 40px 6px 15px;
+			font-size:13px;
+			color:#333;
+
+			@extend %break;
+
+			&.is-selected {
+				background-color:#e8ebed;
+			}
+		}
+		.btn-del {
+			display:block;
+			position:absolute;
+			right:10px;
+			top:3px;
+			width:20px;
+			height:20px;
+
+			&:before {
+				display:block;
+				position:absolute;
+				left:50%;
+				top:50%;
+				margin:-5px 0 0 -5px;
+				content:'';
+
+				@include get-sprite($icon_search_delete);
+			}
+		}
+	}
+
+	// 하단 옵션 버튼
+	.option-block {
+		padding:6px 10px 8px;
+		border-top:1px solid #e9ebed;
+		text-align:right;
+	}
+	.btn-option {
+		display:inline-block;
+		font-size:11px;
+		color:#808080;
+
+		&:hover {
+			color:#262a50;
+			text-decoration:underline;
+		}
+
+		& + .btn-option:before {
+			display:inline-block;
+			width:1px;
+			height:8px;
+			margin:2px 10px 0 7px;
+			background-color:#808080;
+			vertical-align:top;
+			content:'';
+		}
+	}
+}

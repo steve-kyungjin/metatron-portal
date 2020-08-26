@@ -1,0 +1,1127 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<link rel="stylesheet" href="http://idangero.us/swiper/dist/css/swiper.css"/>
+	<script type="text/javascript" src="http://idangero.us/swiper/dist/js/swiper.min.js"></script>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- INTRO WRAP -->
+	<div class="dtp-intro-wrap">
+
+		<!-- LNB -->
+		<div class="layout-lnb">
+			<!--
+				[D] 메뉴 선택 시 li태그에 is-selected 클래스 추가
+				[D] hover 확장메뉴 노출 시 aria-expanded 값 true로 변경
+			-->
+			<ul class="section-lnb">
+				<li class="link-home is-selected"><a href="javascript:;" aria-label="홈"></a></li>
+				<li class="link-comm" aria-expanded="false">
+					<a href="javascript:;" aria-label="커뮤니케이션"></a>
+					<!-- LNB 확장 -->
+
+					<!-- //LNB 확장 -->
+				</li>
+				<li class="link-my" aria-expanded="false">
+					<a href="javascript:;" aria-label="마이앱"></a>
+					<!-- LNB 확장 -->
+
+					<!-- //LNB 확장 -->
+				</li>
+				<li class="link-app" aria-expanded="false">
+					<a href="javascript:;" aria-label="앱플레이스"></a>
+					<!-- LNB 확장 -->
+
+					<!-- //LNB 확장 -->
+				</li>
+				<li class="link-meta" aria-expanded="false">
+					<a href="javascript:;" aria-label="메타데이터"></a>
+					<!-- LNB 확장 -->
+
+					<!-- //LNB 확장 -->
+				</li>
+				<li class="link-portal" aria-expanded="false">
+					<a href="javascript:;" aria-label="포탈 어드민"></a>
+					<!-- LNB 확장 -->
+
+					<!-- //LNB 확장 -->
+				</li>
+				<li class="link-all">
+					<a href="javascript:;" aria-label="전체메뉴"></a>
+				</li>
+			</ul>
+			<ul class="section-app">
+				<li class="link-metatron"><a href="javascript:;" aria-label="METATRON"></a></li>
+				<li class="link-dgc"><a href="javascript:;" aria-label="DGC"></a></li>
+			</ul>
+		</div>
+		<!-- //LNB -->
+
+		<!-- [D] Quick 열렸을 때 is-quick 클래스 추가 -->
+		<div class="layout-user">
+			<!-- 공지사항 -->
+			<div class="notice-area">
+				<!--
+                    [D] 공지사항 레이어 노출 시 aria-selected 값 true로 변경
+                -->
+				<a href="javascript:;" class="btn-notice" aria-selected="true" aria-label="공지사항 보기"></a>
+				<!--
+                    공지사항 레이어
+                    [D] 레이어 노출 시 aria-expanded 값 true로 변경
+                -->
+				<div class="layer-notice" aria-expanded="false">
+					<a href="javscript:;" class="btn-close" aria-label="공지 닫기"></a>
+					<strong class="txt-title">공지알림</strong>
+					<ul class="list-notice">
+						<li>
+							<a href="javascript:;" class="link-item">
+								<strong class="txt-notice">[공지] 제목이 들어갈 곳입니다.</strong>
+								<span class="txt-date">2018-07-07</span>
+								<p class="txt-desc">
+									공지사항 내용이 들어갈 곳입니다.
+								</p>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:;" class="link-item">
+								<strong class="txt-notice">[시스템 점검] 제목이 들어갈 곳입니다.</strong>
+								<span class="txt-date">2018-07-07</span>
+								<p class="txt-desc">
+									공지사항 내용이 들어갈 곳입니다.
+									공지사항 내용이 들어갈 곳입니다.
+									공지사항 내용이 들어갈 곳입니다.
+									공지사항 내용이 들어갈 곳입니다.
+								</p>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:;" class="link-item">
+								<strong class="txt-notice">[시스템 점검] 제목이 들어갈 곳입니다.</strong>
+								<span class="txt-date">2018-07-07</span>
+								<p class="txt-desc">
+									공지사항 내용이 들어갈 곳입니다.
+									공지사항 내용이 들어갈 곳입니다.
+									공지사항 내용이 들어갈 곳입니다.
+									공지사항 내용이 들어갈 곳입니다.
+								</p>
+							</a>
+						</li>
+					</ul>
+					<a href="javascript:;" class="link-notice">시스템 운영공지 전체보기</a>
+				</div>
+				<!-- //공지사항 레이어 -->
+			</div>
+			<!-- //공지사항 -->
+
+			<!-- 사용자 도움말 -->
+			<a href="javascript:;" class="btn-user-help" aria-selected="true" aria-label="사용자 도움말 보기" style="display:none;"></a>
+			<!-- //사용자 도움말 -->
+
+			<!-- 사용자 정보 -->
+			<div class="user-area">
+				<a href="javascript:;" class="btn-profile" aria-label="프로필" style="background-image:url(../../images/sample_profile.png);"></a>
+				<!--
+                    확장: 프로필
+                    [D] 프로필 레이어 노출 시 aria-expanded 값 true로 변경
+                -->
+				<div class="layer-profile" aria-expanded="false">
+					<div class="profile-info">
+						<span class="img-profile" style="background-image:url(../../images/sample_profile.png);" aria-label="프로필 사진"></span>
+						<span class="data-code">iam0074</span>
+						<strong class="data-name">홍태희(DT Infra)님</strong>
+					</div>
+					<!-- 버튼 영역 -->
+					<div class="profile-button">
+						<a href="javascript:;" class="btn-my">내 정보</a>
+					</div>
+					<!-- //버튼 영역 -->
+					<a href="javascript:;" class="btn-close" aria-label="프로필창 닫기"></a>
+				</div>
+				<!-- //확장: 프로필 -->
+
+				<a href="javascript:;" class="btn-quick" aria-label="Quick Comm"><span>Quick Comm</span></a>
+			</div>
+			<!-- //사용자 정보 -->
+		</div>
+
+		<!-- QUICK COMM. -->
+		<!-- [D] QUICK 노출 시 aria-expanded 값 true로 변경 -->
+		<div class="layout-quick" aria-expanded="false">
+		</div>
+		<!-- //QUICK COMM. -->
+
+		<div class="layout-intro">
+			<div class="section-intro">
+				<!-- LOGO -->
+				<h1 class="logo" aria-label="DT Portal"></h1>
+				<!-- //LOGO -->
+
+				<!-- 통합검색 -->
+				<div class="layout-search">
+					<input type="text" class="input-search">
+					<button type="button" class="btn-search" aria-label="검색"></button>
+
+					<!-- 자동 완성 -->
+					<div class="component-autocomplete" aria-expanded="false">
+						<!-- 자동완성 목록 -->
+						<ul class="list-autocomplete">
+							<li><a href="javascript:;" class="link-autocomplete"><em>일망</em> 현황</a></li>
+							<li><a href="javascript:;" class="link-autocomplete">일일자별 리포트</a></li>
+							<li><a href="javascript:;" class="link-autocomplete">일망 현황</a></li>
+							<li><a href="javascript:;" class="link-autocomplete">일일자별 리포트</a></li>
+							<li><a href="javascript:;" class="link-autocomplete">일망 현황</a></li>
+							<li><a href="javascript:;" class="link-autocomplete">일일자별 리포트</a></li>
+							<li><a href="javascript:;" class="link-autocomplete">일망 현황</a></li>
+							<li><a href="javascript:;" class="link-autocomplete">일일자별 리포트</a></li>
+							<li><a href="javascript:;" class="link-autocomplete">일망 현황</a></li>
+							<li><a href="javascript:;" class="link-autocomplete">일일자별 리포트</a></li>
+						</ul>
+						<!-- //자동완성 목록 -->
+						<!-- 저장된 검색어 목록 -->
+						<ul class="list-save">
+							<li>
+								<a href="javascript:;" class="link-autocomplete">일자별 리포트</a>
+								<a href="javascript:;" class="btn-del" aria-label="검색어 삭제"></a>
+							</li>
+							<li>
+								<a href="javascript:;" class="link-autocomplete">일자별 리포트</a>
+								<a href="javascript:;" class="btn-del" aria-label="검색어 삭제"></a>
+							</li>
+						</ul>
+						<!-- //저장된 검색어 목록 -->
+						<!-- 옵션 -->
+						<div class="option-block">
+							<a href="javascript:;" class="btn-option">검색어 저장 끄기</a>
+							<a href="javascript:;" class="btn-option">자동완성 끄기</a>
+						</div>
+						<!-- //옵션 -->
+					</div>
+					<!-- //자동 완성 -->
+				</div>
+				<!-- //통합검색 -->
+
+				<!-- INTRO CONTENT -->
+				<div class="layout-content">
+					<!-- Min Size Swipe -->
+					<!-- [D] 로딩 완료 시점에 is-finish 클래스 추가 -->
+					<div class="intro-content type-min is-finish">
+						<!-- Intro Loader -->
+						<div class="intro-loader">
+							<span></span>
+						</div>
+						<!-- //Intro Loader -->
+
+						<!-- Swipe Content -->
+						<div class="intro-swipe">
+							<!-- Tab -->
+							<div class="section-tab">
+								<span class="link-tab">
+									<a href="javascript:;" class="link-txt" aria-selected="true">All</a>
+									<div>
+										<a href="javascript:;" class="link-dot" aria-selected="true"></a>
+										<a href="javascript:;" class="link-dot" aria-selected="false"></a>
+									</div>
+								</span>
+								<span class="link-tab">
+									<a href="javascript:;" class="link-txt" aria-selected="false">리포트</a>
+									<div>
+										<a href="javascript:;" class="link-dot" aria-selected="false"></a>
+									</div>
+								</span>
+								<span class="link-tab">
+									<a href="javascript:;" class="link-txt" aria-selected="false">분석 앱</a>
+									<div>
+										<a href="javascript:;" class="link-dot" aria-selected="false"></a>
+										<a href="javascript:;" class="link-dot" aria-selected="false"></a>
+									</div>
+								</span>
+								<span class="link-tab">
+									<a href="javascript:;" class="link-txt" aria-selected="false">커뮤니케이션</a>
+									<div>
+										<a href="javascript:;" class="link-dot" aria-selected="false"></a>
+										<a href="javascript:;" class="link-dot" aria-selected="false"></a>
+									</div>
+								</span>
+							</div>
+							<div class="swiper-pagination"></div>
+							<!-- //Tab -->
+
+							<!-- Swipe -->
+							<div class="section-swipe">
+								<div class="swiper-container">
+									<div class="swiper-wrapper">
+										<!-- All -->
+										<div class="swiper-slide">
+											<ul class="list-intro type-all">
+												<li>
+													<div class="box type-report">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-report">리포트</span>
+																	<span class="badge-my">마이리포트</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-analysis">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-analysis">분석앱</span>
+																	<span class="badge-my">마이앱</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- //All -->
+										<!-- All -->
+										<div class="swiper-slide">
+											<ul class="list-intro type-all is-comm">
+												<li>
+													<div class="box type-comm type-thumb">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm">
+														<a href="javascript:;" class="link-box">
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm">
+														<a href="javascript:;" class="link-box">
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- //All -->
+										<!-- 리포트 -->
+										<div class="swiper-slide">
+											<ul class="list-intro">
+												<li>
+													<div class="box type-report">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-report">리포트</span>
+																	<span class="badge-my">마이리포트</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-report">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-report">리포트</span>
+																	<span class="badge-my">마이리포트</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- //리포트 -->
+										<!-- 리포트 -->
+										<div class="swiper-slide">
+											<ul class="list-intro">
+												<li>
+													<div class="box type-report">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-report">리포트</span>
+																	<span class="badge-my">마이리포트</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-report">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-report">리포트</span>
+																	<span class="badge-my">마이리포트</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- //리포트 -->
+										<!-- 분석 앱 -->
+										<div class="swiper-slide">
+											<ul class="list-intro">
+												<li>
+													<div class="box type-analysis">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-analysis">분석앱</span>
+																	<span class="badge-my">마이앱</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-analysis">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-analysis">분석앱</span>
+																	<span class="badge-my">마이앱</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- //분석 앱 -->
+										<!-- 분석 앱 -->
+										<div class="swiper-slide">
+											<ul class="list-intro">
+												<li>
+													<div class="box type-analysis">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-analysis">분석앱</span>
+																	<span class="badge-my">마이앱</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-analysis">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-analysis">분석앱</span>
+																	<span class="badge-my">마이앱</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- //분석 앱 -->
+										<!-- 커뮤니케이션 -->
+										<div class="swiper-slide">
+											<ul class="list-intro type-communication">
+												<li>
+													<div class="box type-comm type-thumb">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/default_comm_02.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">분석툴 활용</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm">
+														<a href="javascript:;" class="link-box">
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm">
+														<a href="javascript:;" class="link-box">
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- //커뮤니케이션 -->
+										<!-- 커뮤니케이션 -->
+										<div class="swiper-slide">
+											<ul class="list-intro type-communication">
+												<li>
+													<div class="box type-comm type-thumb">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/default_comm_01.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm">
+														<a href="javascript:;" class="link-box">
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm">
+														<a href="javascript:;" class="link-box">
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- //커뮤니케이션 -->
+									</div>
+								</div>
+								<!-- PREV/NEXT -->
+								<div class="swiper-button-next" aria-label="이전"></div>
+								<div class="swiper-button-prev" aria-label="다음"></div>
+								<!-- //PREV/NEXT -->
+							</div>
+							<!-- //Swipe -->
+						</div>
+						<!-- //Swipe Content -->
+					</div>
+					<!-- //Min Size Swipe -->
+
+					<!-- Default Swipe -->
+					<div class="intro-content type-max is-finish">
+						<!-- Intro Loader -->
+						<div class="intro-loader">
+							<span></span>
+						</div>
+						<!-- //Intro Loader -->
+
+						<!-- Swipe Content -->
+						<div class="intro-swipe">
+							<!-- Tab -->
+							<div class="section-tab">
+								<a href="javascript:;" class="link-tab" aria-selected="false" onclick="a(0)">All</a>
+								<a href="javascript:;" class="link-tab" aria-selected="false" onclick="a(1)">리포트</a>
+								<a href="javascript:;" class="link-tab" aria-selected="true" onclick="a(2)">분석 앱</a>
+								<a href="javascript:;" class="link-tab" aria-selected="false" onclick="a(3)">커뮤니케이션</a>
+							</div>
+							<div class="swiper-pagination"></div>
+							<!-- //Tab -->
+
+							<!-- Swipe -->
+							<div class="section-swipe">
+								<div class="swiper-container">
+									<div class="swiper-wrapper">
+										<!-- All -->
+										<div class="swiper-slide">
+											<ul class="list-intro type-all is-comm">
+												<li>
+													<div class="box type-report">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-report">리포트</span>
+																	<span class="badge-my">마이리포트</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-analysis">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-analysis">분석앱</span>
+																	<span class="badge-my">마이앱</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-comm type-thumb">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm">
+														<a href="javascript:;" class="link-box">
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm">
+														<a href="javascript:;" class="link-box">
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- //All -->
+										<!-- 리포트 -->
+										<div class="swiper-slide">
+											<ul class="list-intro">
+												<li>
+													<div class="box type-report">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-report">리포트</span>
+																	<span class="badge-my">마이리포트</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-report">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-report">리포트</span>
+																	<span class="badge-my">마이리포트</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-report">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-report">리포트</span>
+																	<span class="badge-my">마이리포트</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-report">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-report">리포트</span>
+																	<span class="badge-my">마이리포트</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- //리포트 -->
+										<!-- 분석 앱 -->
+										<div class="swiper-slide">
+											<ul class="list-intro">
+												<li>
+													<div class="box type-analysis">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-analysis">분석앱</span>
+																	<span class="badge-my">마이앱</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-analysis">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-analysis">분석앱</span>
+																	<span class="badge-my">마이앱</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-analysis">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-analysis">분석앱</span>
+																	<span class="badge-my">마이앱</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li>
+													<div class="box type-analysis">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/sample_app.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-analysis">분석앱</span>
+																	<span class="badge-my">마이앱</span>
+																	<span class="txt-category">#카테고리, #무선, #전송</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- //분석 앱 -->
+										<!-- 커뮤니케이션 -->
+										<div class="swiper-slide">
+											<ul class="list-intro type-communication">
+												<li>
+													<div class="box type-comm type-thumb">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/default_comm_02.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">분석툴 활용</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm">
+														<a href="javascript:;" class="link-box">
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm">
+														<a href="javascript:;" class="link-box">
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm type-thumb">
+														<a href="javascript:;" class="link-box">
+															<span class="bg-img" style="background-image:url(../../images/default_comm_01.png);"></span>
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm">
+														<a href="javascript:;" class="link-box">
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+													<div class="box type-comm">
+														<a href="javascript:;" class="link-box">
+															<div class="info-box">
+																<div class="category">
+																	<span class="badge-comm">Data 활용 팁</span>
+																</div>
+																<strong class="txt-title">
+																	제목이 들어갈 곳입니다. 제목이 들어갈 곳입니다.
+																</strong>
+																<p class="txt-desc">
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																	내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다. 내용이 들어갈 곳입니다.
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- //커뮤니케이션 -->
+									</div>
+								</div>
+								<!-- PREV/NEXT -->
+								<div class="swiper-button-next" aria-label="이전"></div>
+								<div class="swiper-button-prev" aria-label="다음"></div>
+								<!-- //PREV/NEXT -->
+							</div>
+							<!-- //Swipe -->
+						</div>
+						<!-- //Swipe Content -->
+					</div>
+					<!-- //Default Swipe -->
+				</div>
+				<!-- //INTRO CONTENT -->
+			</div>
+		</div>
+
+	</div>
+	<!-- //INTRO WRAP -->
+
+	<!-- Initialize Swiper -->
+	<script>
+		var swiper = new Swiper('.type-max .swiper-container', {
+			slidesPerView: 1,
+			spaceBetween: 10,
+			slidesPerGroup: 1,
+			loop: true,
+			loopFillGroupWithBlank: true,
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			}
+		});
+
+		var swiper = new Swiper('.type-min .swiper-container', {
+			slidesPerView: 1,
+			spaceBetween: 10,
+			slidesPerGroup: 1,
+			loop: true,
+			loopFillGroupWithBlank: true,
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			}
+		});
+	</script>
+
+</body>
+</html>

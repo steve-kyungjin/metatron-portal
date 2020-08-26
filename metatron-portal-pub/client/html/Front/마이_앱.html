@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../../css/dtp.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>DT Portal</title>
+</head>
+
+<body>
+
+	<!-- Wrap -->
+	<div class="dtp-wrap">
+
+		<!-- HEADER -->
+		<div class="layout-header">
+			<div class="section-search"></div>
+		</div>
+		<!-- //HEADER -->
+
+		<!-- TITLE,LOCATION,SEARCH RESULT -->
+		<div class="layout-top">
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<div class="title-area">
+					<!-- Location -->
+					<div class="location">
+						<em class="item">홈</em>
+						<em class="item">분석앱</em>
+						<em class="item">앱플레이스</em>
+					</div>
+					<!-- //Location -->
+
+					<!-- Title -->
+					<div class="title">
+						<h2 class="txt-title">앱플레이스</h2>
+						<p class="txt-desc">
+							앱플레이스 소갯말이 들어가는 곳입니다.
+						</p>
+					</div>
+					<!-- //Title -->
+				</div>
+			</div>
+			<!-- //타이틀 영역 -->
+		</div>
+		<!-- //TITLE,LOCATION,SEARCH RESULT -->
+
+		<!-- LNB -->
+		<div class="layout-lnb">
+
+		</div>
+		<!-- //LNB -->
+
+		<!-- QUICK COMM. -->
+		<div class="layout-quick">
+
+		</div>
+		<!-- //QUICK COMM. -->
+
+		<!-- CONTENT -->
+		<div class="layout-content">
+			<!-- 마이 앱 -->
+			<div class="page-app-place">
+
+				<!-- CONTAINER -->
+				<div class="section-container">
+					<!-- 마이 앱 목록 -->
+					<div class="app-area">
+						<div class="app-content">
+							<!-- 상단 검색 -->
+							<div class="top-block">
+								<h3 class="txt-title">목록(92)</h3>
+								<div class="filter">
+									<!-- 검색 -->
+									<div class="component-search">
+										<input type="text" class="input-search" placeholder="이름으로 찾기">
+										<button class="btn-search" aria-label="검색"></button>
+
+										<!-- 검색 결과 -->
+										<!-- [D] 검색결과 레이어 노출 시 aria-expanded 값 true로 변경 -->
+										<ul class="layer-result" aria-expanded="false">
+											<li><a href="javascript:;" class="link-result">검색결과1</a></li>
+											<li><a href="javascript:;" class="link-result">검색결과2</a></li>
+											<li><a href="javascript:;" class="link-result">검색결과3</a></li>
+											<li><a href="javascript:;" class="link-result">검색결과4</a></li>
+											<li><a href="javascript:;" class="link-result">검색결과5</a></li>
+										</ul>
+										<!-- //검색 결과 -->
+									</div>
+									<!-- //검색 -->
+								</div>
+							</div>
+							<!-- //상단 검색 -->
+
+							<!-- 목록 -->
+							<table class="table-app">
+								<colgroup>
+									<col width="*" />
+									<col width="80" />
+									<col width="120" />
+									<col width="150" />
+									<col width="60" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th>이름</th>
+										<th>버전</th>
+										<th>업데이트</th>
+										<th>등록자</th>
+										<th>삭제</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="align-left">
+											<a href="javascript:;" class="link-app">
+												<span class="img-app" style="background-image:url(../../images/sample_app.png);"></span>
+												<strong class="txt-title">앱 제목이 들어갈 곳입니다.</strong>
+												<p class="txt-desc">
+													이벤트 지역 장소 분류에 따른 시설 수 사용자 수, 트래픽에 대한 품질을 분석하는 앱입니다.
+													이벤트 지역 장소 분류에 따른 시설 수 사용자 수, 트래픽에 대한 품질을 분석하는 앱입니다.
+												</p>
+											</a>
+										</td>
+										<td>VO.1</td>
+										<td>2018-06-12</td>
+										<td>홍태희(DT Infra팀)</td>
+										<td><a href="javascript:;" class="btn-delete" aria-label="삭제"></a></td>
+									</tr>
+									<tr>
+										<td class="align-left">
+											<a href="javascript:;" class="link-app">
+												<span class="img-app" style="background-image:url(../../images/sample_app.png);"></span>
+												<strong class="txt-title">앱 제목이 들어갈 곳입니다.</strong>
+												<p class="txt-desc">
+													이벤트 지역 장소 분류에 따른 시설 수 사용자 수, 트래픽에 대한 품질을 분석하는 앱입니다.
+													이벤트 지역 장소 분류에 따른 시설 수 사용자 수, 트래픽에 대한 품질을 분석하는 앱입니다.
+												</p>
+											</a>
+										</td>
+										<td>VO.1</td>
+										<td>2018-06-12</td>
+										<td>홍태희(DT Infra팀)</td>
+										<td><a href="javascript:;" class="btn-delete" aria-label="삭제"></a></td>
+									</tr>
+								</tbody>
+							</table>
+							<!-- //목록 -->
+
+							<!-- No Data -->
+							<!-- [D] 데이터 없을 때 노출 시 aria-hidden 값 false로 변경 -->
+							<div class="app-nodata" aria-hidden="false">
+								<p class="txt-desc">앱플레이스에서<br>마이앱을 등록해 보세요.</p>
+							</div>
+							<!-- //No Data -->
+
+							<!-- 목록 더보기 -->
+							<a href="javascript:;" class="btn-more">목록 더보기</a>
+							<!-- //목록 더보기 -->
+						</div>
+					</div>
+					<!-- //마이 앱 목록 -->
+
+					<!-- ASIDE -->
+					<div class="aside-area">
+						<!-- 공지사항 -->
+						<div class="aside-content">
+							<div class="top-block">
+								<h3 class="txt-title">공지사항</h3>
+								<a href="javascript:;" class="link-all">전체보기 &gt;</a>
+							</div>
+							<ul class="list-notice">
+								<li>
+									<a href="javascript:;" class="link-notice">
+										<strong class="txt-title">앱이 출시되었습니다.</strong>
+										<span class="txt-date">2018.07.07</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="link-notice">
+										<strong class="txt-title">앱이 출시되었습니다.</strong>
+										<span class="txt-date">2018.07.07</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="link-notice">
+										<strong class="txt-title">앱이 출시되었습니다.</strong>
+										<span class="txt-date">2018.07.07</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="link-notice">
+										<strong class="txt-title">앱이 출시되었습니다.</strong>
+										<span class="txt-date">2018.07.07</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="link-notice">
+										<strong class="txt-title">앱이 출시되었습니다.</strong>
+										<span class="txt-date">2018.07.07</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<!--//공지사항 -->
+
+						<!-- 인기 급상승 앱 -->
+						<div class="aside-content">
+							<div class="top-block">
+								<h3 class="txt-title">인기 급상승 앱</h3>
+							</div>
+							<ol class="list-app">
+								<li>
+									<a href="javascript:;" class="link-app">
+										<em class="txt-num">1</em>
+										<strong class="txt-title">메타트론 디스커버리</strong>
+										<span class="txt-category">코어</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="link-app">
+										<em class="txt-num">2</em>
+										<strong class="txt-title">메타트론 디스커버리</strong>
+										<span class="txt-category">코어</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="link-app">
+										<em class="txt-num">3</em>
+										<strong class="txt-title">메타트론 디스커버리</strong>
+										<span class="txt-category">코어</span>
+									</a>
+								</li>
+							</ol>
+						</div>
+						<!--//인기 급상승 앱 -->
+
+						<!-- 신규 앱 -->
+						<div class="aside-content">
+							<div class="top-block">
+								<h3 class="txt-title">신규 앱</h3>
+							</div>
+							<ol class="list-app">
+								<li>
+									<a href="javascript:;" class="link-app">
+										<em class="txt-num">1</em>
+										<strong class="txt-title">메타트론 디스커버리</strong>
+										<span class="txt-category">코어</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="link-app">
+										<em class="txt-num">2</em>
+										<strong class="txt-title">메타트론 디스커버리</strong>
+										<span class="txt-category">코어</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="link-app">
+										<em class="txt-num">3</em>
+										<strong class="txt-title">메타트론 디스커버리</strong>
+										<span class="txt-category">코어</span>
+									</a>
+								</li>
+							</ol>
+						</div>
+						<!--//신규 앱 -->
+					</div>
+					<!-- //ASIDE -->
+				</div>
+				<!-- //CONTAINER -->
+
+			</div>
+			<!-- //마이 앱 -->
+		</div>
+		<!-- //CONTENT -->
+
+	</div>
+	<!-- //Wrap -->
+
+</body>
+</html>

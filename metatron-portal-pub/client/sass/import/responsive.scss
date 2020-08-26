@@ -1,0 +1,106 @@
+@charset "utf-8";
+
+/***************************************************************************************
+   Responsive : LAYOUT
+***************************************************************************************/
+@media screen and (max-width: 1240px) {
+	.layout-header,
+	.layout-top,
+	.layout-content .section-iframe {
+		position:absolute;
+	}
+	.layout-content .section-iframe {
+		padding-left:80px;
+	}
+}
+@media screen and (max-width: 1125px) {
+	.layout-lnb,
+	.layout-lnb .lnb-expand {
+		position:absolute;
+	}
+}
+@media screen and (max-height: 700px) {
+	.layout-header,
+	.layout-top,
+	.layout-content .section-iframe {
+		position:absolute;
+	}
+	.layout-content .section-iframe {
+		padding-left:80px;
+	}
+	.layout-lnb,
+	.layout-lnb .lnb-expand {
+		position:absolute;
+	}
+}
+@media screen and (max-height: 600px) {
+	.layout-lnb {
+		height:600px;
+	}
+}
+
+/***************************************************************************************
+   Responsive : QUICK
+***************************************************************************************/
+@media screen and (max-width: 1519px) {
+	.dtp-intro-wrap quick-menu,
+	.dtp-intro-wrap .layout-quick {
+		&[aria-expanded="true"] {
+			& + .layout-intro .section-intro {
+				padding-right:290px;
+			}
+			& + .layout-intro .layout-content .intro-content.type-max {
+				position:absolute;
+				left:-9999px;
+				top:-9999px;
+			}
+
+			& + .layout-intro .layout-content .intro-content.type-min {
+				position:relative;
+			}
+		}
+
+		&[aria-expanded="false"] {
+			& + .layout-intro .layout-content .intro-content.type-max {
+				position:relative;
+			}
+
+			& + .layout-intro .layout-content .intro-content.type-min {
+				position:absolute;
+				left:-9999px;
+				top:-9999px;
+			}
+		}
+	}
+}
+@media screen and (min-width: 1520px) {
+	.dtp-intro-wrap quick-menu,
+	.dtp-intro-wrap .layout-quick {
+		&[aria-expanded="true"] {
+			& + .layout-intro .section-intro {
+				padding-right:290px;
+			}
+			& + .layout-intro .layout-content .intro-content.type-max {
+				position:relative;
+			}
+
+			& + .layout-intro .layout-content .intro-content.type-min {
+				position:absolute;
+				left:-9999px;
+				top:-9999px;
+			}
+		}
+
+		&[aria-expanded="false"] {
+			& + .layout-intro .layout-content .intro-content.type-max {
+				position:relative;
+			}
+
+			& + .layout-intro .layout-content .intro-content.type-min {
+				position:absolute;
+				left:-9999px;
+				top:-9999px;
+			}
+		}
+	}
+}
