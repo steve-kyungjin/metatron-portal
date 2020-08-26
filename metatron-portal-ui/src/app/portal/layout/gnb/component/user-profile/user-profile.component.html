@@ -1,0 +1,16 @@
+<!--
+    [D] 프로필 레이어 노출 시 aria-expanded 값 true로 변경
+-->
+<!--suppress JSUnnecessarySemicolon -->
+<div class="user-area">
+
+	<a href="javascript:;"
+	   class="btn-profile"
+	   [attr.aria-label]="translateService.instant('USER.PROFILE.TITLE', '프로필')"
+	   [style.background-image]="'url(' + userService.getProfileImage(sessionInfo.getUser()) + ')'"
+	   (click)="showQuick.emit(true); tagging(TaggingType.GNB, TaggingAction.BTN, 'Quick Comm')">
+	</a>
+
+	<a href="javascript:;" class="btn-quick" aria-label="Quick Comm" (click)="showQuick.emit(true); tagging(TaggingType.GNB, TaggingAction.BTN, 'Quick Comm')"><span>Quick Comm</span></a>
+
+</div>

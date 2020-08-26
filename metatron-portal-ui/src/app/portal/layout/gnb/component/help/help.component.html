@@ -1,0 +1,56 @@
+<!-- LAYER POPUP -->
+<div class="layout-popup" [hidden]="!isShow">
+	<div class="layer-popup">
+		<div class="popup">
+			<!-- Popup Content -->
+			<div class="popup-content">
+				<!-- 상단 버튼 영역 -->
+				<a href="javascript:;" class="btn-close" [attr.aria-label]="translateService.instant('COMMON.CLOSE')" (click)="isShow = false; close.emit(true)"></a>
+				<!-- //상단 버튼 영역 -->
+
+				<!-- 타이틀 영역 -->
+				<div class="section-title">
+					<h1 class="txt-title">{{ translateService.instant('HELP.TITLE') }}</h1>
+				</div>
+				<!-- //타이틀 영역 -->
+
+				<!-- 사용자 도움말 -->
+				<div class="section-help">
+					<div class="tab-area">
+						<a href="javascript:;" class="btn-tab" *ngFor='let item of helpList' [attr.aria-selected]="item.selected" (click)="helpClick(item)">
+							{{ item.title }}
+						</a>
+					</div>
+					<div class="swipe-area">
+						<div class="help-content" aria-expanded="true">
+							<div class="section-swipe type-help">
+								<div class="swiper-container">
+									<div class="swiper-wrapper" id="helpSwiperWrapper">
+										<div class="swiper-slide" id="helpSwiperItem">
+											<div class="help-img">
+												<div class="img-area">
+													<div class="img-block">
+														<img>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="swiper-pagination"></div>
+									<!-- PREV/NEXT -->
+									<div class="swiper-button-next" [attr.aria-label]="translateService.instant('COMMON.PREV', '이전')"></div>
+									<div class="swiper-button-prev" [attr.aria-label]="translateService.instant('COMMON.NEXT', '다음')"></div>
+									<!-- //PREV/NEXT -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- //사용자 도움말 -->
+			</div>
+			<!-- //Popup Content -->
+		</div>
+	</div>
+</div>
+<!-- //LAYER POPUP -->
+

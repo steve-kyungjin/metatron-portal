@@ -1,0 +1,178 @@
+<!-- DT 과제 등록 -->
+<div class="section-create">
+	<!-- Title -->
+	<div class="title-area">
+		<h3 class="txt-title" *ngIf="isEditMode === true">DT 과제 수정하기</h3>
+		<h3 class="txt-title" *ngIf="isEditMode === false">DT 과제 등록하기</h3>
+	</div>
+	<!-- //Title -->
+
+	<!-- 등록 폼 -->
+	<div class="create-area">
+		<!-- [D] Validation Check tr태그에 is-error 클래스 추가 -->
+		<table class="table-register">
+			<colgroup>
+				<col width="100"/>
+				<col width="*"/>
+			</colgroup>
+			<tbody>
+			<tr>
+				<th>
+					<label class="label">구분</label>
+				</th>
+				<td [class.is-error]="project.isTypeValidationFail">
+					<!-- Select Box -->
+					<div common-select
+						 #typeSelectBox
+						 [items]="typeList"
+						 (itemSelect)="project.isTypeValidationFail = false;"
+						 [placeholder]="typeSelectBoxPlaceholder">
+					</div>
+					<!-- //Select Box -->
+				</td>
+			</tr>
+			<tr [class.is-error]="project.isNameValidationFail">
+				<th>
+					<label class="label">과제명</label>
+				</th>
+				<td>
+					<input type="text" class="input-text" placeholder="과제명을 입력해 주세요."
+						   [(ngModel)]="project.name"
+						   (focus)="project.isNameValidationFail = false;">
+				</td>
+			</tr>
+			<tr [class.is-error]="project.isProgressValidationFail">
+				<th>
+					<label class="label">진행현황</label>
+				</th>
+				<td>
+					<ul class="list-option">
+						<li *ngFor="let progress of projectProgressList; let index = index;">
+							<!--suppress HtmlFormInputWithoutLabel -->
+							<input type="radio" [attr.id]="'progressRadio' + index" class="input-radio" name="projectProgress" [checked]="progress.checked" (click)="selectProgress(index, progress)">
+							<label class="label" [attr.for]="'progressRadio' + index">{{ progress.label }}</label>
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr [class.is-error]="project.isStartEndDateValidationFail">
+				<th>
+					<label class="label">기간</label>
+				</th>
+				<td>
+					<div class="component-datepicker">
+						<div class="box-datepicker">
+							<!--suppress HtmlFormInputWithoutLabel -->
+							<input type="text" readonly="readonly"
+								   #startAndEndDatePickerSettingsInputElement>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr [class.is-error]="project.isSummaryValidationFail">
+				<th class="align-top">
+					<label class="label">과제개요</label>
+				</th>
+				<td>
+					<!--suppress HtmlFormInputWithoutLabel -->
+					<textarea class="textarea"
+							  (focus)="project.isSummaryValidationFail = false;"
+							  [(ngModel)]="project.summary"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th class="align-top">
+					<label class="label">기대효과</label>
+				</th>
+				<td>
+					<!--suppress HtmlFormInputWithoutLabel -->
+					<textarea class="textarea" [(ngModel)]="project.benefit"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th class="align-top">
+					<label class="label">비고</label>
+				</th>
+				<td>
+					<!--suppress HtmlFormInputWithoutLabel -->
+					<textarea class="textarea" [(ngModel)]="project.description"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th class="align-top">
+					<label class="label">첨부문서</label>
+				</th>
+				<td>
+					<!-- 업로드 -->
+					<file-field
+						[description]="translateService.instant('PROJECT.CREATE.UPDATE.FILE.DESC', '첨부문서는 최대 5개, 파일 당 30MB, csv, xls, xlsx, ppt, pptx, pdf, doc, docx, txt, jpg, jpeg, bmp, gif, png 확장자로 제한됩니다.')"
+						[fileMaxSize]="31457280"
+						[fileMaxLength]="5"
+						[accept]="['.csv', '.xls', '.xlsx', '.ppt', '.pptx', '.pdf', '.doc', '.docx', '.txt', '.jpg', '.jpeg', '.bmp', '.gif', '.png']"
+						(change)="oChangeFile($event)">
+					</file-field>
+					<!-- //업로드 -->
+				</td>
+			</tr>
+			<tr>
+				<th class="align-top">
+					<label class="label">협업조직</label>
+				</th>
+				<td>
+					<div class="form-group">
+						<a href="javascript:;" class="btn-basic" (click)="isOpenCoworkerOrgSelectPopup = true;">설정하기</a>
+						<ul class="list-group" *ngIf="project.coworkOrg && project.coworkOrg.id">
+							<li>
+								<span class="txt-group">{{ project.coworkOrg.name }}</span>
+								<a href="javascript:;" class="btn-delete" aria-label="삭제" (click)="deleteCoworkerOrg()"></a>
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th class="align-top">
+					<label class="label">담당자</label>
+				</th>
+				<td>
+					<div class="form-member">
+						<a href="javascript:;" class="btn-basic" (click)="isOpenWorkerUserSelectPopup = true;">설정하기</a>
+						<ul class="list-member" *ngIf="project.worker && project.worker.userId">
+							<li>
+								<span class="bg-member" [style.background-image]="'url(' + userService.getProfileImage(project.worker)  + ')'"></span>
+								<span class="txt-member">{{ project.worker.userNm }}{{ project.worker.orgNm === '' ? '' : '(' + project.worker.orgNm + ')'  }}</span>
+								<a href="javascript:;" class="btn-delete" aria-label="삭제" (click)="deleteWorker()"></a>
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<!-- //등록 폼 -->
+	</div>
+
+	<!-- 버튼 영역 -->
+	<div class="button-area">
+		<div class="left-block">
+			<button type="button" class="btn-basic" (click)="cancel()">취소</button>
+			<button type="button" class="btn-action" (click)="done()">저장</button>
+		</div>
+	</div>
+	<!-- //버튼 영역 -->
+</div>
+<!-- //DT 과제 등록 -->
+
+<!--suppress JSCheckFunctionSignatures -->
+<div user-select
+	 *ngIf="isOpenWorkerUserSelectPopup"
+	 [isUserMultipleSelectMode]="false"
+	 (oDone)="doneWorkerUserSelectPopup($event)"
+	 (oClose)="closeWorkerUserSelectPopup()">
+</div>
+
+<div organization-select
+	 *ngIf="isOpenCoworkerOrgSelectPopup"
+	 [isUserMultipleSelectMode]="false"
+	 (oDone)="doneCoworkerOrgSelectPopup($event)"
+	 (oClose)="closeCoworkerOrgSelectPopup()"></div>

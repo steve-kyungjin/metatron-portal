@@ -1,0 +1,122 @@
+<!-- 상세 -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="section-detail">
+
+	<div class="button-area">
+		<a href="javascript:;"
+		   class="link-list"
+		   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, '목록보기'); goListPage()">목록보기</a>
+	</div>
+
+	<div class="detail-area" *ngIf="entity !== undefined">
+		<div class="button-block">
+			<a href="javascript:;" class="link-btn" *ngIf="enableEdit"
+			   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, '수정'); goEditPage()">수정</a>
+			<a href="javascript:;" class="link-btn" *ngIf="enableDelete"
+			   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, '삭제'); deleteProject(entity.id)">삭제</a>
+		</div>
+
+		<!-- 과제명 -->
+		<div class="title-block">
+			<div class="title">
+				<span class="txt-category">{{ entity.type.nmKr }}</span>
+				<strong class="txt-title">{{ entity.name }}</strong>
+
+				<!-- STEP -->
+				<div class="step">
+					<div class="step-a" [attr.aria-selected]="ENUM_PROJECT_PROGRESS.PLANNING == entity.progress">
+						<span class="txt-step">{{ getProgressLabel(ENUM_PROJECT_PROGRESS.PLANNING) }}</span>
+						<em>1</em>
+					</div>
+					<div class="step-b" [attr.aria-selected]="ENUM_PROJECT_PROGRESS.DESIGN == entity.progress">
+						<span class="txt-step">{{ getProgressLabel(ENUM_PROJECT_PROGRESS.DESIGN) }}</span>
+						<em>2</em>
+					</div>
+					<div class="step-c" [attr.aria-selected]="ENUM_PROJECT_PROGRESS.DEVELOP == entity.progress">
+						<span class="txt-step">{{ getProgressLabel(ENUM_PROJECT_PROGRESS.DEVELOP) }}</span>
+						<em>3</em>
+					</div>
+					<div class="step-d" [attr.aria-selected]="ENUM_PROJECT_PROGRESS.TEST == entity.progress">
+						<span class="txt-step">{{ getProgressLabel(ENUM_PROJECT_PROGRESS.TEST) }}</span>
+						<em>4</em>
+					</div>
+					<div class="step-e" [attr.aria-selected]="ENUM_PROJECT_PROGRESS.PRODUCT == entity.progress">
+						<span class="txt-step">{{ getProgressLabel(ENUM_PROJECT_PROGRESS.PRODUCT) }}</span>
+						<em>5</em>
+					</div>
+				</div>
+				<!-- //STEP -->
+			</div>
+		</div>
+		<!-- //과제명 -->
+
+		<table class="table-detail">
+			<colgroup>
+				<col width="100"/>
+				<col width="200"/>
+				<col width="100"/>
+				<col width="*"/>
+			</colgroup>
+			<tbody>
+			<tr>
+				<th><span class="txt-label">기간</span></th>
+				<td colspan="3">
+					{{ entity.startDate }}~{{ entity.endDate }}
+				</td>
+			</tr>
+			<tr>
+				<th><span class="txt-label">과제개요</span></th>
+				<td colspan="3"
+					[innerHTML]="lineBreakOrTabOrSpaceCharacter(entity.summary)">
+				</td>
+			</tr>
+			<tr>
+				<th><span class="txt-label">기대효과</span></th>
+				<td colspan="3"
+					[innerHTML]="lineBreakOrTabOrSpaceCharacter(entity.benefit)">
+				</td>
+			</tr>
+			<tr>
+				<th><span class="txt-label">비고</span></th>
+				<td colspan="3"
+					[innerHTML]="lineBreakOrTabOrSpaceCharacter(entity.description)">
+				</td>
+			</tr>
+			<tr>
+				<th><span class="txt-label">첨부파일</span></th>
+				<td colspan="3">
+					<div class="upload-file"
+						 *ngIf="entity !== undefined && entity.fileGroup !== undefined">
+						<file-list-view [fileGroup]="entity.fileGroup"></file-list-view>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th><span class="txt-label">담당부서</span></th>
+				<td>{{ entity.worker && entity.worker.orgNm ? entity.worker.orgNm : '' }}</td>
+				<th><span class="txt-label">협업조직</span></th>
+				<td>{{ entity.coworkOrg ? entity.coworkOrg.name : '' }}</td>
+			</tr>
+			<tr>
+				<th><span class="txt-label">담당자</span></th>
+				<td colspan="3">
+					<ul class="list-members">
+						<li *ngIf="entity.worker !== undefined && entity.worker.userId !== undefined && entity.worker.userId !== ''">
+							<span class="img-user" [style.background-image]="'url(' + userService.getProfileImage(entity.worker) + ')'"></span>
+							<div class="info-user">
+								<span class="user-name">{{ entity.worker.userNm }}</span>
+							</div>
+						</li>
+					</ul>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<a href="javascript:;"
+	   class="link-list"
+	   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, '목록보기'); goListPage()">목록보기</a>
+
+</div>
+<!-- //상세 -->

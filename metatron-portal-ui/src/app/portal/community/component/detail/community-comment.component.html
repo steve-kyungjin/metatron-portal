@@ -1,0 +1,225 @@
+<!-- 댓글 -->
+<div class="detail-comment">
+	<div class="review-manager">
+		<div class="txt-label">
+			{{ translateService.instant('COMMUNITY.DETAIL.COMMENT.TITLE', '댓글 ') }} <strong>{{ commentList ? commentList.length : 0 }}</strong>
+		</div>
+		<div class="box-manager" *ngIf="master.postType == PostType.WORKFLOW">
+			<!-- 담당자 -->
+			<div class="form-manager">
+				<div class="txt-label">
+					<span>{{ translateService.instant('COMMON.WORKER', '담당자 ') }} :</span>
+					<a href="javascript:;" class="btn-basic" *ngIf="isAdmin" (click)="isUserMultipleSelectMode = false; isOpenWorkerSelectPopup = true">{{ translateService.instant('COMMUNITY.DETAIL.UPDATE.USER.BUTTON', '등록/변경') }}</a>
+				</div>
+				<div class="txt-manager">
+					{{ post.worker ? post.worker.userNm : translateService.instant('COMMUNITY.UNSPECIFIED', '(미지정)') }}{{ post.worker && post.worker.orgNm ? '(' + post.worker.orgNm + ')' : '' }}
+				</div>
+			</div>
+			<!-- //담당자 -->
+
+			<!-- 처리자 -->
+			<div class="form-manager">
+				<div class="txt-label">
+					<span>{{ translateService.instant('COMMON.COWORKER', '처리자 ') }} :</span>
+					<a href="javascript:;" class="btn-basic" *ngIf="isAdmin" (click)="isUserMultipleSelectMode = true; isOpenCoworkerSelectPopup = true;">{{ translateService.instant('COMMUNITY.DETAIL.UPDATE.USER.BUTTON', '등록/변경') }}</a>
+				</div>
+				<div class="txt-manager">
+					{{ communityService.getCoworkersText(post) }}
+				</div>
+			</div>
+			<!-- //처리자 -->
+		</div>
+	</div>
+
+	<ul class="list-review">
+		<li *ngFor="let item of commentList; let index = index;">
+			<div class="review" [attr.aria-hidden]="!item.isView">
+				<span class="img-user" [style.background-image]="'url(' + userService.getProfileImage(item.createdBy)  + ')'"></span>
+				<span class="txt-user">
+					{{ item.createdBy.userNm }}{{ item.createdBy.orgNm ? '(' + item.createdBy.orgNm + ')' : '' }}
+					<em class="txt-status" *ngIf="master.postType == PostType.WORKFLOW && item.status != Status.COMMENT">
+						{{ item.status == Status.PROGRESS ? translateService.instant('COMMUNITY.STATUS.PROGRESS.' + master.secondaryType, '요청타입') : '' }} {{ translateService.instant('COMMUNITY.STATUS.' + item.status.toUpperCase(), '요청상태') }}
+						{{ item.completeType ? '(' + item.completeType + ')' : '' }}
+					</em>
+					<em>{{ item.createdDate | date_format: 'YYYY-MM-DD HH:mm:ss' }}</em>
+				</span>
+				<p class="txt-review" [innerHTML]="lineBreakOrTabOrSpaceCharacter(item.content)">
+				</p>
+				<div class="review-attachment">
+					<file-list-view [fileGroup]="item.fileGroup" (fileDownload)="tagging(TaggingType.DETAIL, TaggingAction.DN, '댓글,' + $event.id)"></file-list-view>
+				</div>
+				<!-- 확장 영역 -->
+				<div class="extend" *ngIf="item.isMine">
+					<a href="javascript:;" class="btn-extend" *ngIf="sessionInfo.getUser().userId == item.createdBy.userId" (click)="commentChangeMenuClick(item, index); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.MODIFY', '수정'), '댓글')">
+						{{ translateService.instant('COMMON.MODIFY', '수정') }}
+					</a>
+					<a href="javascript:;" class="btn-extend" (click)="commentDeleteMenuClick(item); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.DELETE', '삭제'), '댓글')">
+						{{ translateService.instant('COMMON.DELETE', '삭제') }}
+					</a>
+				</div>
+				<!-- //확장 영역 -->
+			</div>
+			<!-- 수정 폼 -->
+			<div class="form-review" [attr.aria-hidden]="item.isView">
+				<span class="img-user" [style.background-image]="'url(' + userService.getProfileImage(item.createdBy)  + ')'"></span>
+				<div class="review-options">
+					<a href="javascript:;" class="btn-cancel" (click)="commentModifyCancelClick(item); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMUNITY.DETAIL.COMMENT.MODIFY.CANCEL', '수정취소'), '댓글')">
+						{{ translateService.instant('COMMUNITY.DETAIL.COMMENT.MODIFY.CANCEL', '수정취소') }}
+					</a>
+				</div>
+				<textarea [ngClass]="{'textarea': true, 'is-error': item.isError}"
+						  (focus)="item.isError = false"
+						  [attr.placeholder]="translateService.instant('COMMUNITY.DETAIL.COMMENT.PLACEHOLDER', '댓글을 남겨보세요.')" [(ngModel)]="item.content"></textarea>
+				<div class="button-form">
+					<div class="form-attachment">
+						<!-- 업로드 -->
+						<file-field [description]="translateService.instant('COMMUNITY.DETAIL.COMMENT.FILE.DESC', '첨부문서는 최대 3개, 파일 당 30MB, csv, xls, xlsx, ppt, pptx, pdf, doc, docx, txt, jpg, jpeg, bmp, gif, png 확장자로 제한됩니다.')"
+									[accept]="['.csv', '.xls', '.xlsx', '.ppt', '.pptx', '.pdf', '.doc', '.docx', '.txt', '.jpg', '.jpeg', '.bmp', '.gif', '.png']"
+									[fileMaxLength]="3" [fileMaxSize]="31457280" (find)="tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('FILE.INPUT.LABEL', '파일 찾기'), '댓글')"
+									#commentFileUploader></file-field>
+						<!-- //업로드 -->
+					</div>
+					<a href="javascript:;" class="btn-action" (click)="commentModifyClick(item, index); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.SAVE', '저장'), '댓글')">
+						{{ translateService.instant('COMMON.SAVE', '저장') }}
+					</a>
+				</div>
+			</div>
+			<!-- //수정 폼 -->
+		</li>
+	</ul>
+
+	<!-- 작성 폼 -->
+	<div class="form-review" *ngIf="enableCreate">
+		<span class="img-user" [style.background-image]="'url(' + userService.getProfileImage(sessionInfo.getUser())  + ')'"></span>
+		<div class="review-options">
+			<ul class="options" *ngIf="master && master.postType == PostType.WORKFLOW">
+				<li>
+					<input type="radio" id="comment_radio0" class="input-radio" name="radio01" [value]="Status.COMMENT" [(ngModel)]="writeComment.status">
+					<label class="label" for="comment_radio0">{{ translateService.instant('COMMUNITY.STATUS.COMMENT', '문의/답변, 기타의견') }}</label>
+				</li>
+				<li class="bar" *ngIf="post.status != Status.CANCELED && post.status != Status.CLOSED && (isAdmin || post.createdBy.userId == sessionInfo.getUser().userId)"></li>
+				<li *ngIf="isAdmin && master.secondaryType == RequestType.NORMAL && (post.status == Status.REQUESTED || post.status == Status.REVIEW)">
+					<input type="radio" id="comment_radio1" class="input-radio" name="radio01" [value]="Status.REVIEW" [(ngModel)]="writeComment.status">
+					<label class="label" for="comment_radio1">{{ translateService.instant('COMMUNITY.STATUS.REVIEW', '요건검토') }}</label>
+				</li>
+				<li *ngIf="isAdmin && ((master.secondaryType == RequestType.NORMAL && post.status == Status.REVIEW) || (master.secondaryType == RequestType.REVIEW && post.status == Status.REQUESTED) || post.status == Status.PROGRESS)">
+					<input type="radio" id="comment_radio2" class="input-radio" name="radio01" [value]="Status.PROGRESS" [(ngModel)]="writeComment.status">
+					<label class="label" for="comment_radio2">{{ master.secondaryType ? translateService.instant('COMMUNITY.STATUS.PROGRESS.' + master.secondaryType, '요청타입') : '' }} {{ translateService.instant('COMMUNITY.STATUS.PROGRESS', '진행') }}</label>
+				</li>
+				<li *ngIf="isAdmin && (post.status == Status.PROGRESS || post.status == Status.COMPLETED || (master.secondaryType == RequestType.NORMAL && post.status == Status.REVIEW) || (master.secondaryType == RequestType.REVIEW && post.status == Status.PROGRESS))">
+					<input type="radio" id="comment_radio3" class="input-radio" name="radio01" [value]="Status.COMPLETED" [(ngModel)]="writeComment.status">
+					<label class="label" for="comment_radio3">{{ translateService.instant('COMMUNITY.STATUS.COMPLETED', '종결') }}({{
+						master.secondaryType == RequestType.NORMAL ?
+						(post.status == Status.PROGRESS ? translateService.instant('COMMUNITY.STATUS.COMPLETED.TYPE1', '개발완료') : (post.status == Status.COMPLETED && post.completeType ? post.completeType : translateService.instant('COMMUNITY.STATUS.COMPLETED.TYPE2', '대안제시/미수용'))) :
+						(post.status == Status.PROGRESS ? translateService.instant('COMMUNITY.STATUS.COMPLETED.TYPE3', '수정보완') : (post.status == Status.COMPLETED && post.completeType ? post.completeType : translateService.instant('COMMUNITY.STATUS.COMPLETED.TYPE4', '결과확인/설명'))) }})</label>
+				</li>
+				<li *ngIf="post.createdBy.userId == sessionInfo.getUser().userId && post.status != Status.CANCELED && post.status != Status.CLOSED && post.status != Status.COMPLETED">
+					<input type="radio" id="comment_radio4" class="input-radio" name="radio01" [value]="Status.CANCELED" [(ngModel)]="writeComment.status">
+					<label class="label" for="comment_radio4">{{ translateService.instant('COMMUNITY.STATUS.CANCELED', '요청 취소') }}</label>
+				</li>
+				<li class="type-admin" *ngIf="post.createdBy.userId == sessionInfo.getUser().userId && post.status == Status.COMPLETED">
+					<input type="radio" id="comment_radio5" class="input-radio" name="radio01" [value]="Status.CLOSED" [(ngModel)]="writeComment.status">
+					<label class="label" for="comment_radio5">
+						{{ translateService.instant('COMMUNITY.STATUS.CLOSED', '요청 완료 확인') }}
+					</label>
+				</li>
+			</ul>
+		</div>
+		<textarea [ngClass]="{'textarea': true, 'is-error': writeComment.isError}"
+				  (focus)="writeComment.isError = false"
+				  [attr.placeholder]="translateService.instant('COMMUNITY.DETAIL.COMMENT.PLACEHOLDER', '댓글을 남겨보세요.')" [(ngModel)]="writeComment.content"></textarea>
+		<div class="button-form">
+			<div class="form-attachment">
+				<!-- 업로드 -->
+				<file-field [description]="translateService.instant('COMMUNITY.DETAIL.COMMENT.FILE.DESC', '첨부문서는 최대 3개, 파일 당 30MB, csv, xls, xlsx, ppt, pptx, pdf, doc, docx, txt, jpg, jpeg, bmp, gif, png 확장자로 제한됩니다.')"
+							[accept]="['.csv', '.xls', '.xlsx', '.ppt', '.pptx', '.pdf', '.doc', '.docx', '.txt', '.jpg', '.jpeg', '.bmp', '.gif', '.png']"
+							[fileMaxLength]="3" [fileMaxSize]="31457280" (find)="tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('FILE.INPUT.LABEL', '파일 찾기'), '댓글')"
+							#commentWriteFileUploader></file-field>
+				<!-- //업로드 -->
+			</div>
+			<a href="javascript:;" class="btn-action" (click)="commentCreateClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.SAVE', '저장'), '댓글')">
+				{{ translateService.instant('COMMON.SAVE', '저장') }}
+			</a>
+		</div>
+	</div>
+	<!-- //작성 폼 -->
+</div>
+<!-- //댓글 -->
+
+<!-- LAYER POPUP -->
+<div class="layout-popup" *ngIf="showDeletePopup">
+	<div class="layer-popup">
+		<div class="popup">
+			<!-- Popup Content -->
+			<div class="popup-content type-confirm type-custom">
+
+				<!-- 타이틀 영역 -->
+				<div class="section-title">
+					<h1 class="txt-title">{{ translateService.instant('COMMON.DELETE', '삭제') }}</h1>
+				</div>
+				<!-- //타이틀 영역 -->
+
+				<!-- 닫기 버튼 -->
+				<a href="javascript:;" class="btn-close" [attr.aria-label]="translateService.instant('COMMON.CLOSE', '닫기')" (click)="showDeletePopup = false;"></a>
+				<!-- //닫기 버튼 -->
+
+				<!-- 팝업 내용 -->
+				<div class="section-popup">
+					<!-- 안내 문구 -->
+					<div class="content-area">
+						<div class="confirm-block">
+							<strong class="txt-title">{{ translateService.instant('COMMUNITY.DETAIL.COMMENT.DELETE.POPUP.TITLE', '삭제 시 변경하실 상태를 선택하세요.') }}</strong>
+
+							<!-- 상태 -->
+							<ul class="list-status">
+								<li>
+									<input type="radio" id="comment_delete_radio1" class="input-radio" name="radio02" [value]="Status.NONE" [(ngModel)]="deleteStatus">
+									<label class="label" for="comment_delete_radio1">{{ translateService.instant('COMMUNITY.DETAIL.COMMENT.DELETE.POPUP.STATUS.NONE', '변경하지 않음') }}</label>
+								</li>
+								<li *ngIf="isAdmin && master.secondaryType == RequestType.NORMAL">
+									<input type="radio" id="comment_delete_radio2" class="input-radio" name="radio02" [value]="Status.REVIEW" [(ngModel)]="deleteStatus">
+									<label class="label" for="comment_delete_radio2">{{ translateService.instant('COMMUNITY.STATUS.REVIEW', '요건검토') }}</label>
+								</li>
+								<li *ngIf="isAdmin">
+									<input type="radio" id="comment_delete_radio3" class="input-radio" name="radio02" [value]="Status.PROGRESS" [(ngModel)]="deleteStatus">
+									<label class="label" for="comment_delete_radio3">{{ master.secondaryType ? translateService.instant('COMMUNITY.STATUS.PROGRESS.' + master.secondaryType, '요청타입') : '' }} {{ translateService.instant('COMMUNITY.STATUS.PROGRESS', '진행') }}</label>
+								</li>
+								<li *ngIf="isAdmin">
+									<input type="radio" id="comment_delete_radio4_1" class="input-radio" name="radio02" [value]="Status.COMPLETED" [(ngModel)]="deleteStatus">
+									<label class="label" for="comment_delete_radio4_1">{{ translateService.instant('COMMUNITY.STATUS.COMPLETED', '종결') }}({{
+										master.secondaryType == RequestType.NORMAL ? translateService.instant('COMMUNITY.STATUS.COMPLETED.TYPE1', '개발완료') : translateService.instant('COMMUNITY.STATUS.COMPLETED.TYPE3', '수정보완') }})</label>
+								</li>
+								<li *ngIf="isAdmin">
+									<input type="radio" id="comment_delete_radio4_2" class="input-radio" name="radio02" [value]="Status.COMPLETED_CANCEL" [(ngModel)]="deleteStatus">
+									<label class="label" for="comment_delete_radio4_2">{{ translateService.instant('COMMUNITY.STATUS.COMPLETED', '종결') }}({{
+										master.secondaryType == RequestType.NORMAL ? translateService.instant('COMMUNITY.STATUS.COMPLETED.TYPE2', '대안제시/미수용') : translateService.instant('COMMUNITY.STATUS.COMPLETED.TYPE4', '결과확인/설명') }})</label>
+								</li>
+							</ul>
+							<!-- //상태 -->
+						</div>
+					</div>
+					<!-- //안내 문구 -->
+
+					<!-- 버튼 영역 -->
+					<div class="button-area">
+						<a href="javascript:;" class="btn-basic" (click)="showDeletePopup = false;">{{ translateService.instant('COMMON.CANCEL', '취소') }}</a>
+						<a href="javascript:;" class="btn-action" (click)="commentDeleteConfirmClick()">{{ translateService.instant('COMMON.DELETE', '삭제') }}</a>
+					</div>
+					<!-- //버튼 영역 -->
+				</div>
+				<!-- //팝업 내용 -->
+
+			</div>
+			<!-- //Popup Content -->
+		</div>
+	</div>
+</div>
+<!-- //LAYER POPUP -->
+
+<div user-select
+	 *ngIf="isOpenWorkerSelectPopup || isOpenCoworkerSelectPopup"
+	 [isUserMultipleSelectMode]="isUserMultipleSelectMode"
+	 [defaultSelectedUserList]="isOpenCoworkerSelectPopup ? post.coworkers : []"
+	 (oDone)="doneUserSelectPopup($event)"
+	 (oClose)="closeUserSelectPopup()">
+</div>

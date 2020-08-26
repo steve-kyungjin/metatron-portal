@@ -1,0 +1,72 @@
+<!-- 커뮤니케이션 -->
+<div class="page-communication">
+
+	<div class="section-list">
+		<!-- 등록,검색 -->
+		<div class="search-block">
+			<!-- 글 등록 -->
+			<a href="javascript:;" class="btn-action type-create" (click)="createClick(); tagging(TaggingType.LIST, TaggingAction.BTN, translateService.instant('COMMUNITY.LIST.NEW.POST', '새 글쓰기'))" *ngIf="enableCreate">
+				{{ translateService.instant('COMMUNITY.LIST.NEW.POST', '새 글쓰기') }}
+			</a>
+			<!-- //글 등록 -->
+			<div class="filter">
+				<!-- 검색 -->
+				<div class="component-search">
+					<input type="text" class="input-search"
+						   [attr.placeholder]="translateService.instant('COMMUNITY.LIST.SEARCH.PLACEHOLDER', '제목, 내용, 등록자로 검색')"
+						   (keyup.enter)="searchClick()"
+						   [(ngModel)]="searchInputText"
+						   [maxlength]="255">
+					<button class="btn-search" [attr.aria-label]="translateService.instant('COMMON.SEARCH', '검색')" (click)="searchClick()"></button>
+				</div>
+				<!-- //검색 -->
+			</div>
+		</div>
+		<!-- //등록,검색 -->
+
+		<!-- 카드형 목록 -->
+		<ul class="list-communication">
+			<!--
+                썸네일형
+                [D] LI 태그에 type-thumb 클래스 추가
+                일반형
+                [D] LI 태그에 type-a ~ type-h 까지 순차적으로 클래스 추가
+            -->
+			<li *ngFor="let item of postList" [ngClass]="item.className">
+				<a href="javascript:;" class="link-comm" (click)="postClick(item); tagging(TaggingType.LIST, TaggingAction.ITEM, item.title)">
+					<span class="bg-img" [style.background-image]="'url(' + item.imageUrl + ')'" *ngIf="item.mediaGroup"></span>
+					<dl class="card-info">
+						<dt>{{ item.title }}</dt>
+						<dd>
+							<span class="info">
+								<em class="txt-date">{{ item.createdDate | date_format : 'YYYY-MM-DD' }}</em>
+								<em class="txt-name">{{ item.createdBy.userNm }}{{ item.createdBy.orgNm ? '(' + item.createdBy.orgNm + ')' : '' }}</em>
+							</span>
+							<p class="txt-desc">
+								{{ item.strippedContent }}
+							</p>
+						</dd>
+					</dl>
+					<span class="txt-comment" *ngIf="item.master.replyYn">{{ item.replyCnt }}</span>
+				</a>
+			</li>
+			<!-- //썸네일형 -->
+			<li class="type-more" *ngIf="!page.last">
+				<div class="more-area">
+					<a href="javascript:;" class="icon-more" (click)="moreClick(); tagging(TaggingType.LIST, TaggingAction.BTN, translateService.instant('COMMON.MORE', '더보기'))">
+						<em class="txt-more">{{ translateService.instant('COMMON.MORE', '더보기') }}</em>
+					</a>
+				</div>
+			</li>
+		</ul>
+		<!-- //카드형 목록 -->
+
+		<!-- No Data -->
+		<div class="nodata-communication" *ngIf="postList && !postList.length">
+			{{ translateService.instant('COMMUNITY.LIST.NODATA', '등록된 글이 없습니다.') }}
+		</div>
+		<!-- //No Data -->
+	</div>
+
+</div>
+<!-- //커뮤니케이션 -->

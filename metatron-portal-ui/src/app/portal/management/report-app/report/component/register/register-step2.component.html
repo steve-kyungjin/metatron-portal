@@ -1,0 +1,278 @@
+<!-- 앱 관리 -->
+<!--suppress NsUnresolvedStyleClassReference, HtmlFormInputWithoutLabel, JSUnnecessarySemicolon -->
+<div class="page-app-register">
+
+	<!-- 앱 등록 -->
+	<div class="section-register">
+		<!-- Title -->
+		<div class="title-area">
+			<h3 class="txt-title">{{ parameter?.id === undefined ? '앱 등록하기' : '앱 수정하기' }}</h3>
+		</div>
+		<!-- //Title -->
+
+		<!-- 등록 폼, 카테고리, 권한 설정 -->
+		<div class="register-area">
+			<!-- 등록 폼 -->
+			<div class="form-block">
+				<div class="form">
+					<table class="table-register">
+						<colgroup>
+							<col width="100"/>
+							<col width="*"/>
+						</colgroup>
+						<tbody>
+						<tr *ngIf="headerType === 'URL'"
+							[class.is-error]="validation.isUrlValidationFail">
+							<th>
+								<label class="label">{{translateService.instant('MANAGEMENT.CREATE.ENTER.INFORMATION.LABEL.URL', 'URL')}}</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="연결하고자 하는 서비스의 URL를 입력해 주세요."
+									   [(ngModel)]="app.urlHeader.url"
+									   [minlength]="2"
+									   (focus)="validation.isUrlValidationFail = false;"
+									   [maxlength]="3000">
+							</td>
+						</tr>
+						<tr *ngIf="headerType === 'EXTRACT'"
+							[class.is-error]="validation.isExtractHeaderDataSourceIdValidationFail">
+							<th>
+								<label class="label">{{ translateService.instant('MANAGEMENT.CREATE.ENTER.INFORMATION.LABEL.EXTRACT', '데이터 추출') }}</label>
+							</th>
+							<td>
+								<div class="form-import">
+									<a href="javascript:;"
+									   class="btn-action"
+									   (click)="isExtractLayerOpen = true;"
+									   (focus)="validation.isExtractHeaderDataSourceIdValidationFail = false;">추출하기</a>
+									<span class="txt-alert">{{ app.extractHeader.dataSource.id !== '' && app.extractHeader.sqlTxt !== '' ? app.extractHeader.dataSource.name + ' 데이터 소스 추출 설정 완료' : '' }}</span>
+								</div>
+							</td>
+						</tr>
+						<tr *ngIf="headerType === 'METATRON'"
+							[class.is-error]="validation.isMetatronHeaderContentsIdValidationFail">
+							<th>
+								<label class="label">{{translateService.instant('MANAGEMENT.CREATE.ENTER.INFORMATION.LABEL.DASHBOARD', '대시보드')}}</label>
+							</th>
+							<td>
+								<div class="form-import">
+									<a href="javascript:;"
+									   class="btn-action"
+									   (click)="isDashboardLayerOpen = true;">선택하기</a>
+									<input type="text"
+										   class="input-text"
+										   [value]="getMetatronDashboardContentName()"
+										   (focus)="validation.isMetatronHeaderContentsIdValidationFail = false;"
+										   disabled>
+								</div>
+							</td>
+						</tr>
+						<tr [class.is-error]="validation.isAppNmValidationFail">
+							<th>
+								<label class="label">{{translateService.instant('MANAGEMENT.CREATE.ENTER.INFORMATION.LABEL.APP.NAME', '앱 이름')}}</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="앱 이름을 입력해 주세요."
+									   [(ngModel)]="app.appNm"
+									   [minlength]="2"
+									   (focus)="validation.isAppNmValidationFail = false"
+									   [maxlength]="50">
+							</td>
+						</tr>
+						<tr [class.is-error]="validation.isSummaryNmValidationFail">
+							<th>
+								<label class="label">간략 설명</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="앱에 대한 간략한 설명을 입력해 주세요."
+									   [(ngModel)]="app.summary"
+									   [minlength]="2"
+									   (focus)="validation.isSummaryNmValidationFail = false"
+									   [maxlength]="100">
+							</td>
+						</tr>
+						<tr [class.is-error]="validation.isContentsValidationFail">
+							<th class="align-top">
+								<label class="label">앱 소개</label>
+							</th>
+							<td>
+								<textarea class="textarea"
+										  [(ngModel)]="app.contents"
+										  [minlength]="2"
+										  (focus)="validation.isContentsValidationFail = false"
+										  [maxlength]="3000"></textarea>
+							</td>
+						</tr>
+						<tr [class.is-error]="validation.isVerValidationFail">
+							<th>
+								<label class="label">버전</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="버전을 입력해 주세요."
+									   [(ngModel)]="app.ver"
+									   [minlength]="2"
+									   (focus)="validation.isVerValidationFail = false"
+									   [maxlength]="10">
+							</td>
+						</tr>
+						<tr [class.is-error]="validation.isVerInfoValidationFail">
+							<th class="align-top">
+								<label class="label">버전정보</label>
+							</th>
+							<td>
+								<textarea class="textarea"
+										  [(ngModel)]="app.verInfo"
+										  [minlength]="0"
+										  (focus)="validation.isVerInfoValidationFail = false"
+										  [maxlength]="3000"></textarea>
+							</td>
+						</tr>
+						<tr [class.is-error]="validation.isFilesValidationFail">
+							<th class="align-top">
+								<label class="label">스크린샷</label>
+							</th>
+							<td>
+								<file-field description="이미지 권장 사이즈: 835*520px"
+											(change)="oChangeFile($event)"></file-field>
+							</td>
+						</tr>
+						<tr [hidden]="headerType !== 'URL'">
+							<th>
+								<label class="label">실행 방법</label>
+							</th>
+							<td>
+								<ul class="list-option">
+									<li>
+										<input type="radio"
+											   id="registerStep2ComponentExternalYnRadio2"
+											   class="input-radio"
+											   name="externalYn"
+											   [checked]="!app.externalYn"
+											   (click)="changeExternalUseYn(false)">
+										<label class="label"
+											   for="registerStep2ComponentExternalYnRadio2">포탈에서 열기</label>
+									</li>
+									<li>
+										<input type="radio"
+											   id="registerStep2ComponentExternalYnRadio1"
+											   class="input-radio"
+											   name="externalYn"
+											   [checked]="app.externalYn"
+											   (click)="changeExternalUseYn(true)">
+										<label class="label"
+											   for="registerStep2ComponentExternalYnRadio1">새창에서 열기</label>
+									</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">상태</label>
+							</th>
+							<td>
+								<ul class="list-option">
+									<li>
+										<input type="radio"
+											   id="registerStep2ComponentRadio1"
+											   class="input-radio"
+											   name="status"
+											   [checked]="app.useYn"
+											   (click)="changeUseYn(true)">
+										<label class="label"
+											   for="registerStep2ComponentRadio1">ON</label>
+									</li>
+									<li>
+										<input type="radio"
+											   id="registerStep2ComponentRadio2"
+											   class="input-radio"
+											   name="status"
+											   [checked]="!app.useYn"
+											   (click)="changeUseYn(false)">
+										<label class="label"
+											   for="registerStep2ComponentRadio2">OFF</label>
+									</li>
+								</ul>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- //등록 폼 -->
+
+			<!-- 카테고리, 권한 설정 -->
+			<div class="option-block">
+				<!-- 카테고리 설정 -->
+				<dl class="option-category"
+					[class.is-error]="validation.isCategoryValidationFail">
+					<dt>카테고리</dt>
+					<dd>
+						<ul class="list-category">
+							<li *ngFor="let item of categories; let index = index">
+								<input type="checkbox"
+									   id="check{{index}}"
+									   class="input-checkbox"
+									   [ngModel]="item.isChecked"
+									   (focus)="$event.stopPropagation(); validation.isCategoryValidationFail = false;"
+									   (click)="reportAppCategoryCheckbox(index, $event);">
+								<label class="label"
+									   for="check{{index}}">
+									<span class="txt-kor">{{item.nmKr}}</span>
+									<span class="txt-eng">{{item.nmEn}}</span>
+								</label>
+							</li>
+						</ul>
+					</dd>
+				</dl>
+				<!-- //카테고리 설정 -->
+
+				<!-- 권한 설정 -->
+				<dl authority-settings
+					class="option-permission"></dl>
+				<!-- //권한 설정 -->
+			</div>
+			<!-- //카테고리, 권한 설정 -->
+		</div>
+		<!-- //등록 폼, 카테고리, 권한 설정 -->
+
+		<!-- 버튼 영역 -->
+		<div class="button-area">
+			<div class="left-block">
+				<button type="button"
+						class="btn-basic"
+						(click)="reset()">취소
+				</button>
+				<button type="button"
+						class="btn-action"
+						(click)="save()">저장
+				</button>
+			</div>
+		</div>
+		<!-- //버튼 영역 -->
+	</div>
+	<!-- //앱 등록 -->
+
+</div>
+<!-- //앱 관리 -->
+
+<div dashboard-layer
+	 *ngIf="headerType === 'METATRON' && isDashboardLayerOpen"
+	 [metatronHeader]="app.metatronHeader"
+	 (close)="isDashboardLayerOpen = false;"
+	 (done)="metatronDashboardSelectedDone($event)">
+</div>
+
+<div extract-layer
+	 *ngIf="headerType === 'EXTRACT' && isExtractLayerOpen"
+	 [defaultExtractHeader]="app.extractHeader"
+	 (onDone)="doneExtractModal($event)"
+	 (onClose)="isExtractLayerOpen = false;">
+</div>

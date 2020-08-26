@@ -1,0 +1,25 @@
+<!-- 업로드 -->
+<div class="form-upload">
+	<span class="btn-basic">
+		<file-upload (remove)="removeFile($event)"
+					 (change)="changeFile($event)"
+					 (originRemove)="originRemoveFile($event)"
+					 (find)="findClick()"
+					 [accept]="acceptFileExt"
+					 [fileMaxLength]="fileMaxLength"
+					 [fileMaxSize]="fileMaxSize">
+		</file-upload>
+	</span>
+	<p class="txt-desc">{{ description }}</p>
+</div>
+<!-- //업로드 -->
+
+<!-- 파일 목록 -->
+<ul class="list-file" *ngIf="files && files.length">
+	<li *ngFor="let file of files; let index = index;">
+		{{ file.file.name }}
+		<a href="javascript:;" class="btn-del" aria-label="파일 삭제"
+		   (click)="remove(index);"></a>
+	</li>
+</ul>
+<!-- //파일 목록 -->

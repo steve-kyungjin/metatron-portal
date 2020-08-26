@@ -1,0 +1,58 @@
+<a href="javascript:;"
+   class="btn-close"
+   aria-label="팝업 닫기"
+   (click)="close()">
+</a>
+
+<h1 class="txt-title">Query작성 도움말</h1>
+<ul class="list-desc">
+	<li>변수 유형(Namespace)은 text, number, date, select, array, datetime 6가지를 지원한다.</li>
+	<li>
+		Query작성 시 구성요소(Attribute)는 Namespace, Label, Arguments, Description 4가지로 구성되며<br>아래와 같은 형식을 참고해 작성한다.
+		<span class="txt-example"><em>$&#123;Namespace:Label('Arguments')|'Description'&#125;</em></span>
+	</li>
+</ul>
+
+<!-- 작성 예시 표 -->
+<div class="example-area">
+	<table class="table-example">
+		<colgroup>
+			<col width="140"/>
+			<col width="*"/>
+		</colgroup>
+		<thead>
+		<tr>
+			<th>변수 유형</th>
+			<th>Query작성 예시</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td class="align-center">text</td>
+			<td>$&#123;text:abc('def')|'변수입력'&#125;</td>
+		</tr>
+		<tr>
+			<td class="align-center">number</td>
+			<td>$&#123;number:cnt('123')|'숫자입력'&#125;</td>
+		</tr>
+		<tr>
+			<td class="align-center">select</td>
+			<td>$&#123;select:성별('남', '여')|'성별선택'&#125;</td>
+		</tr>
+		<tr>
+			<td class="align-center">array</td>
+			<td>$&#123;array:arr('a', 'b', 'c')|'a,b,c 배열을 입력'&#125;</td>
+		</tr>
+		<tr>
+			<td class="align-center">date</td>
+			<td>$&#123;date:startDate('yyyyMMdd')|'날짜입력'&#125;</td>
+		</tr>
+		<tr>
+			<td class="align-center">datetime</td>
+			<td>$&#123;datetime:startTime('yyyyMMdd','HH:mm:ss')|'시간입력'&#125;</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+<!-- //작성 예시 표 -->
+

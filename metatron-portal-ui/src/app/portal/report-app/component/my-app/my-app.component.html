@@ -1,0 +1,160 @@
+<!-- 앱플레이스 -->
+<div class="page-app-place">
+
+	<!-- CONTAINER -->
+	<div class="section-container">
+		<!-- 전체 목록 -->
+		<div class="app-area">
+			<div class="app-content">
+				<!-- 상단 정렬,검색 -->
+				<div class="top-block">
+					<h3 class="txt-title">
+						{{ translateService.instant('COMMON.LIST', '목록') + '(' + (pageable.totalElements ? pageable.totalElements : 0) + ')' }}
+					</h3>
+					<div class="filter">
+						<!-- 검색 -->
+						<div class="component-search">
+							<input type="text" class="input-search"
+								   #searchInput
+								   (keyup.enter)="search$.next(searchInput.value)"
+								   [attr.placeholder]="translateService.instant('ANALYSIS.APP.LIST.SEARCH.PLACEHOLDER', '이름으로 찾기')"
+								   maxlength="255">
+							<button class="btn-search" [attr.aria-label]="translateService.instant('COMMON.SEARCH', '검색')" (click)="search$.next(searchInput.value)"></button>
+						</div>
+						<!-- //검색 -->
+					</div>
+				</div>
+				<!-- //상단 정렬,검색 -->
+
+				<!-- 목록 -->
+				<table class="table-app">
+					<colgroup>
+						<col width="*"/>
+						<col width="80"/>
+						<col width="120"/>
+						<col width="150"/>
+						<col width="60"/>
+					</colgroup>
+					<thead>
+					<tr>
+						<th>{{ translateService.instant('ANALYSIS.APP.COL.NAME', '이름') }}</th>
+						<th>{{ translateService.instant('ANALYSIS.APP.COL.VERSION', '버전') }}</th>
+						<th>{{ translateService.instant('ANALYSIS.APP.COL.UPDATE', '업데이트') }}</th>
+						<th>{{ translateService.instant('ANALYSIS.APP.COL.CREATOR', '등록자') }}</th>
+						<th>{{ translateService.instant('COMMON.DELETE', '삭제') }}</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr *ngFor="let item of appList">
+						<td class="align-left">
+							<a href="javascript:;" class="link-app" (click)="appClick(item); tagging(TaggingType.LIST, TaggingAction.ITEM, item.appNm)">
+								<span class="img-app" [style.background-image]="'url(' + reportAppService.getFirstImage(item) + ')'"></span>
+								<strong class="txt-title">{{ item.appNm }}</strong>
+								<p class="txt-desc">
+									{{ item.summary }}
+								</p>
+							</a>
+						</td>
+						<td>{{ item.ver }}</td>
+						<td>{{ item.updatedDate | date_format : 'YYYY-MM-DD' }}</td>
+						<td>{{ item.createdBy ? item.createdBy.userNm + (item.createdBy.org ? '(' + item.createdBy.org.name + ')' : '') : '' }}</td>
+						<td><a href="javascript:;" class="btn-delete" (click)="appDeleteClick(item); tagging(TaggingType.LIST, TaggingAction.BTN, translateService.instant('COMMON.DELETE'))"
+							   [attr.aria-label]="translateService.instant('COMMON.DELETE')"></a>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<!-- //목록 -->
+
+				<!-- No Data -->
+				<!-- [D] 데이터 없을 때 노출 시 aria-hidden 값 false로 변경 -->
+				<div class="app-nodata" aria-hidden="false" *ngIf="!existData">
+					<p class="txt-desc">추천 리포트에서<br>나의 리포트를 등록해 보세요.</p>
+				</div>
+				<!-- //No Data -->
+
+				<!-- 목록 더보기 -->
+				<a href="javascript:;" class="btn-more" (click)="listMoreClick(); tagging(TaggingType.LIST, TaggingAction.BTN, translateService.instant('COMMON.LIST.MORE', '목록 더보기'))" *ngIf="!isLast">
+					{{ translateService.instant('COMMON.LIST.MORE', '목록 더보기') }}
+				</a>
+				<!-- //목록 더보기 -->
+
+			</div>
+		</div>
+		<!-- //전체 목록 -->
+
+		<!-- ASIDE -->
+		<div class="aside-area">
+
+			<!-- 사용자 추가 앱 탑3 -->
+			<div class="aside-content">
+				<div class="top-block">
+					<h3 class="txt-title">{{ translateService.instant('REPORT.APP.SIDE.ADD.APP.TITLE', '인기 앱') }}</h3>
+				</div>
+				<ol class="list-app" *ngIf="addAppList && addAppList.length">
+					<li *ngFor="let item of addAppList; let index = index">
+						<a href="javascript:;" class="link-app" (click)="appClick(item); tagging(TaggingType.LIST, TaggingAction.BTN, translateService.instant('REPORT.APP.SIDE.ADD.APP.TITLE', '인기 앱') + ',' + item.appNm)">
+							<em class="txt-num">{{ index + 1 }}</em>
+							<strong class="txt-title">{{ item.appNm }}</strong>
+							<span class="txt-category">{{ reportAppService.getCategoryNames(item) }}</span>
+						</a>
+					</li>
+				</ol>
+				<!-- No Data -->
+				<div class="nodata" *ngIf="!addAppList || !addAppList.length">
+					{{ translateService.instant('COMMON.NODATA', '데이터가 없습니다.') }}
+				</div>
+				<!-- //No Data -->
+			</div>
+			<!--//사용자 추가 앱 탑3 -->
+
+			<!-- 최신 앱 탑3 -->
+			<div class="aside-content">
+				<div class="top-block">
+					<h3 class="txt-title">{{ translateService.instant('REPORT.APP.SIDE.NEWEST.APP.TITLE', '신규 앱') }}</h3>
+				</div>
+				<ol class="list-app" *ngIf="latestAppList && latestAppList.length">
+					<li *ngFor="let item of latestAppList; let index = index">
+						<a href="javascript:;" class="link-app" (click)="appClick(item); tagging(TaggingType.LIST, TaggingAction.BTN, translateService.instant('REPORT.APP.SIDE.NEWEST.APP.TITLE', '신규 앱') + ',' + item.appNm)">
+							<em class="txt-num">{{ index + 1 }}</em>
+							<strong class="txt-title">{{ item.appNm }}</strong>
+							<span class="txt-category">{{ reportAppService.getCategoryNames(item) }}</span>
+						</a>
+					</li>
+				</ol>
+				<!-- No Data -->
+				<div class="nodata" *ngIf="!latestAppList || !latestAppList.length">
+					{{ translateService.instant('COMMON.NODATA', '데이터가 없습니다.') }}
+				</div>
+				<!-- //No Data -->
+			</div>
+			<!--//최신 앱 탑3 -->
+
+			<!-- 공지사항 -->
+			<!--<div class="aside-content">-->
+			<!--<div class="top-block">-->
+			<!--<h3 class="txt-title">{{ translateService.instant('BOARD.NOTICE.TITLE', '공지사항') }}</h3>-->
+			<!--<a href="javascript:;" class="link-all">{{ translateService.instant('COMMON.VIEW.ALL', '전체보기') }}&gt;</a>-->
+			<!--</div>-->
+			<!--<ul class="list-notice" *ngIf="noticeList && noticeList.length > 0">-->
+			<!--<li *ngFor="let item of noticeList">-->
+			<!--<a href="javascript:;" class="link-notice">-->
+			<!--<strong class="txt-title">{{ item.title }}</strong>-->
+			<!--<span class="txt-date">{{ item.createDate }}</span>-->
+			<!--</a>-->
+			<!--</li>-->
+			<!--</ul>-->
+			<!--&lt;!&ndash; No Data &ndash;&gt;-->
+			<!--<div class="nodata" *ngIf="!noticeList || !noticeList.length">-->
+			<!--{{ translateService.instant('COMMON.NODATA', '데이터가 없습니다.') }}-->
+			<!--</div>-->
+			<!--&lt;!&ndash; //No Data &ndash;&gt;-->
+			<!--</div>-->
+			<!--//공지사항 -->
+		</div>
+		<!-- //ASIDE -->
+	</div>
+	<!-- //CONTAINER -->
+
+</div>
+<!-- //앱플레이스 -->

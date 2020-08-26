@@ -1,0 +1,21 @@
+<!-- Pagination -->
+<div class="pagination-area">
+	<div class="component-page">
+		<!-- [D] 이전/다음 버튼은 노출하지 않는 경우 aria-hidden 값 true로 변경 -->
+		<!-- [D] 페이지 버튼 선택 된 항목은 aria-selected 값 true로 변경 -->
+		<a href="javascript:;" class="btn-prev" aria-label="이전"
+		   *ngIf="groupPage.length > 0"
+		   (click)="prevPageFl && move(groupPage, true)"
+		   [attr.aria-hidden]="prevPageFl === false"></a>
+
+		<a *ngFor="let item of groupPage"
+		   (click)="setPage(item)"
+		   href="javascript:;" class="btn-page" [attr.aria-selected]="currentPage + 1 == item">{{item}}</a>
+
+		<a href="javascript:;" class="btn-next" aria-label="다음"
+		   *ngIf="groupPage.length > 0"
+		   (click)="lastPageFl && move(groupPage, false)"
+		   [attr.aria-hidden]="lastPageFl == false"></a>
+	</div>
+</div>
+<!-- //Pagination -->

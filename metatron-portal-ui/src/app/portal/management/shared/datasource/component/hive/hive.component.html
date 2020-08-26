@@ -1,0 +1,38 @@
+<table class="table-data">
+	<colgroup>
+		<col width="120"/>
+		<col width="*"/>
+	</colgroup>
+	<tbody>
+	<tr>
+		<th>Host</th>
+		<td>
+			<input type="text" class="input-text" placeholder="Host를 입력하세요." [(ngModel)]="dataSourceEntity.host">
+		</td>
+	</tr>
+	<tr>
+		<th>Port</th>
+		<td>
+			<input type="text" class="input-text" placeholder="Port를 입력하세요." [(ngModel)]="dataSourceEntity.port" input-mask="number">
+		</td>
+	</tr>
+	<tr>
+		<th>Database Name</th>
+		<td>
+			<input type="text" class="input-text" placeholder="데이터베이스 이름을 입력하세요." [(ngModel)]="dataSourceEntity.databaseNm">
+		</td>
+	</tr>
+	<tr>
+		<th>User ID</th>
+		<td>
+			<input type="text" class="input-text" placeholder="User ID를 입력하세요." [(ngModel)]="dataSourceEntity.databaseUser">
+		</td>
+	</tr>
+	<tr>
+		<th>User Password</th>
+		<td>
+			<input type="text" class="input-text" placeholder="User Password를 입력하세요." [(ngModel)]="dataSourceEntity.databasePassword">
+		</td>
+	</tr>
+	</tbody>
+</table>

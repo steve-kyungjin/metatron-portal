@@ -1,0 +1,34 @@
+<!-- 공지사항 -->
+<div class="notice-area" [class.type-registration]="type == NoticeType.REQUESTED" [class.type-process]="type == NoticeType.PROGRESS" [class.type-complete]="type == NoticeType.COMPLETED">
+	<a href="javascript:;" class="btn-notice" [attr.title]="layerTitle" [attr.aria-label]="translateService.instant('NOTICE.LAYER.SHOW')" [attr.aria-selected]="isShow" (click)="showListClick(); tagging(TaggingType.GNB, TaggingAction.BTN, layerTitle)">
+		<span class="txt-badge">{{ displayCount(badgeCount) }}</span>
+	</a>
+	<!--
+        공지사항 레이어
+        [D] 레이어 노출 시 aria-expanded 값 true로 변경
+    -->
+	<div class="layer-notice" [attr.aria-expanded]="isShow">
+		<a href="javascript:;" class="btn-close" [attr.aria-label]="translateService.instant('NOTICE.LAYER.HIDE')" (click)="closeClick()"></a>
+		<strong class="txt-title">{{ layerTitle }}</strong>
+		<div class="scroll">
+			<ul class="list-notice" *ngIf="noticeList && noticeList.length">
+				<li *ngFor="let item of noticeList">
+					<a href="javascript:;" class="link-item" (click)="noticeClick(item)">
+						<strong class="txt-notice">{{ item.title }}</strong>
+						<span class="txt-date">{{ item.createdDate | date_format : 'YYYY-MM-DD'  }}</span>
+						<p class="txt-desc">
+							{{ item.strippedContent }}
+						</p>
+					</a>
+				</li>
+			</ul>
+			<!-- No Data -->
+			<div class="nodata-notice" *ngIf="noticeList && !noticeList.length">
+				{{ translateService.instant('NOTICE.LAYER.NODATA', '설정된 알림이 없습니다.') }}
+			</div>
+		</div>
+		<!-- //No Data -->
+	</div>
+	<!-- //공지사항 레이어 -->
+</div>
+<!-- //공지사항 -->

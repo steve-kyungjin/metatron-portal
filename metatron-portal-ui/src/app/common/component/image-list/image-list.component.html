@@ -1,0 +1,9 @@
+<span class="img-preview"
+	  [style.background-image]="'url(' + currentImage + ')'"></span>
+
+<!-- [D] id/for 값 동일하게 적용 -->
+<span class="item-thumb" *ngFor="let item of imageList; let index = index; let first = first" (click)="imageClick(item)">
+	<input type="radio" class="input-radio" [attr.id]="'thumb' + index" name="thumb" [checked]="first">
+	<label class="label" [attr.for]="'thumb' + index" aria-label="앱 썸네일"
+		   [style.background-image]="'url(' + item.thumb + ')'"></label>
+</span>

@@ -1,0 +1,198 @@
+<!-- 전체 서비스 보기 -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="section-search">
+	<!-- 검색 -->
+	<div class="component-search">
+		<div menu-search-input
+			 [expanded]="true"
+			 (oClick)="clickLocalSearchResultItem($event)">
+		</div>
+	</div>
+	<!-- //검색 -->
+</div>
+
+<div class="section-sitemap">
+	<!-- 커뮤니케이션 -->
+	<div class="site-area type-comm"
+		 *ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.communityIaCode) === true">
+		<div class="sitemap">
+			<h2 class="txt-title">
+				<a href="javascript:;">{{ layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).name }}</a>
+			</h2>
+			<dl class="list-menu"
+				*ngFor="let menu of getMenuDisplayYList(layoutService.iaCodes.communityIaCode)">
+				<dt>
+					<a href="javascript:;"
+					   class="link-title"
+					   (click)="tagging(TaggingType.LIST, TaggingAction.ITEM, menu.name); goPage(menu.id, menu.link, menu.external, menu.path);">
+						{{ menu.name }}
+					</a>
+				</dt>
+				<dd>
+					<a href="javascript:;"
+					   class="link-menu"
+					   *ngFor="let children of menu.children"
+					   (click)="tagging(TaggingType.LIST, TaggingAction.ITEM, children.name); goPage(children.id, children.link, children.external, children.path);">
+						{{ children.name }}
+					</a>
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<!-- //커뮤니케이션 -->
+
+	<!-- 리포트 -->
+	<div class="site-area type-report"
+		 *ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.myAppSpaceIaCode) === true">
+		<div class="sitemap">
+			<h2 class="txt-title">
+				<a href="javascript:;"
+				   (click)="$event.stopPropagation(); tagging(TaggingType.LIST, TaggingAction.ITEM, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].id, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].link, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].external, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].path);">
+					{{ layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).name }}
+				</a>
+			</h2>
+			<dl class="list-menu">
+				<dt>
+					<a href="javascript:;"
+					   class="link-title"
+					   (click)="$event.stopPropagation(); tagging(TaggingType.LIST, TaggingAction.ITEM, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].id, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].link, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].external, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].path);">
+						{{ layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].name }}
+					</a>
+				</dt>
+				<dd>
+					<a href="javascript:;"
+					   class="link-menu"
+					   *ngFor="let menu of getMyAppList(layoutService.iaCodes.myAppSpaceReportAppIaCode);"
+					   [attr.title]="menu.name"
+					   (click)="$event.stopPropagation(); tagging(TaggingType.LIST, TaggingAction.ITEM, menu.name); goReportAppPage(menu.id, menu.link, menu.external, menu.path);">
+						{{ menu.name }}
+					</a>
+					<!-- No Data -->
+					<div class="nodata"
+						 *ngIf="getMyAppList(layoutService.iaCodes.myAppSpaceReportAppIaCode).length === 0">
+						<p class="txt-desc">리포트를 등록해 보세요.</p>
+					</div>
+					<!-- //No Data -->
+				</dd>
+			</dl>
+
+			<dl class="list-menu">
+				<dt>
+					<a href="javascript:;"
+					   class="link-title"
+					   (click)="$event.stopPropagation(); tagging(TaggingType.LIST, TaggingAction.ITEM, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].id, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].link, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].external, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].path);">
+						{{ layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].name }}
+					</a>
+				</dt>
+				<dd>
+					<a href="javascript:;"
+					   class="link-menu"
+					   *ngFor="let menu of getMyAppList(layoutService.iaCodes.myAppSpaceAnalysisAppIaCode);"
+					   (click)="$event.stopPropagation(); tagging(TaggingType.LIST, TaggingAction.ITEM, menu.name); goAnalysisAppPage(menu.id, menu.link, menu.external, menu.path);">
+						{{ menu.name }}
+					</a>
+					<!-- No Data -->
+					<div class="nodata"
+						 *ngIf="getMyAppList(layoutService.iaCodes.myAppSpaceAnalysisAppIaCode).length === 0">
+						<p class="txt-desc">분석 앱을 등록해 보세요.</p>
+					</div>
+					<!-- //No Data -->
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<!-- //리포트 -->
+
+	<!-- 분석 앱 -->
+	<div class="site-area type-analysis"
+		 *ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.appPlaceIaCode) === true">
+		<div class="sitemap">
+			<h2 class="txt-title">
+				<a href="javascript:;"
+				   (click)="$event.stopPropagation(); tagging(TaggingType.LIST, TaggingAction.ITEM, layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).path);">
+					{{ layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).name }}
+				</a>
+			</h2>
+			<dl class="list-menu">
+				<dt>
+					<a href="javascript:;" class="link-title"
+					   (click)="$event.stopPropagation(); tagging(TaggingType.LIST, TaggingAction.ITEM, getReportAppMenu().name); goPage(getReportAppMenu().id, getReportAppMenu().link, getReportAppMenu().external, getReportAppMenu().path);">
+						{{ getReportAppMenu().name }}
+					</a>
+				</dt>
+				<dd>
+					<a href="javascript:;" class="link-menu"
+					   *ngFor="let menu of getReportAppMenu().children;"
+					   (click)="$event.stopPropagation(); tagging(TaggingType.LIST, TaggingAction.ITEM, menu.name); goReportAppPage(menu.id, menu.link, menu.external, menu.path, false);">
+						{{ menu.name }}
+					</a>
+
+					<!-- No Data -->
+					<div class="nodata"
+						 *ngIf="getReportAppMenu().children.length === 0">
+						<p class="txt-desc">리포트를 등록해 보세요.</p>
+					</div>
+					<!-- //No Data -->
+				</dd>
+			</dl>
+			<dl class="list-menu">
+				<dt>
+					<!--suppress JSUnnecessarySemicolon -->
+					<a href="javascript:;" class="link-title"
+					   (click)="$event.stopPropagation(); tagging(TaggingType.LIST, TaggingAction.ITEM, getAnalysisAppMenu().name); goPage(getAnalysisAppMenu().id, getAnalysisAppMenu().link, getAnalysisAppMenu().external, getAnalysisAppMenu().path)">
+						{{ getAnalysisAppMenu().name }}
+					</a>
+				</dt>
+				<dd>
+					<!--suppress JSUnnecessarySemicolon -->
+					<a href="javascript:;" class="link-menu"
+					   *ngFor="let menu of getAnalysisAppMenu().children;"
+					   (click)="$event.stopPropagation(); tagging(TaggingType.LIST, TaggingAction.ITEM, menu.name); goAnalysisAppPage(menu.id, menu.link, menu.external, menu.path, false)">
+						{{ menu.name }}
+					</a>
+
+					<!-- No Data -->
+					<div class="nodata"
+						 *ngIf="getAnalysisAppMenu().children.length === 0">
+						<p class="txt-desc">분석 앱을 등록해 보세요.</p>
+					</div>
+					<!-- //No Data -->
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<!-- //분석 앱 -->
+
+	<!-- 데이터 웨어하우스 데이터 -->
+	<div class="site-area type-meta"
+		 *ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.metadataIaCode) === true">
+		<div class="sitemap">
+			<h2 class="txt-title">
+				<a href="javascript:;"
+				   (click)="$event.stopPropagation(); tagging(TaggingType.LIST, TaggingAction.ITEM, layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).path);">
+					{{ layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).name }}
+				</a>
+			</h2>
+			<dl class="list-menu"
+				*ngFor="let menu of getMenuDisplayYList(layoutService.iaCodes.metadataIaCode)">
+				<dt>
+					<a href="javascript:;"
+					   class="link-title">
+						{{ menu.name }}
+					</a>
+				</dt>
+				<dd>
+					<a href="javascript:;"
+					   class="link-menu"
+					   *ngFor="let children of menu.children"
+					   (click)="tagging(TaggingType.LIST, TaggingAction.ITEM, children.name); goPage(children.id, children.link, children.external, children.path)">
+						{{ children.name }}
+					</a>
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<!-- //데이터 웨어하우스 데이터 -->
+
+</div>
+<!-- //전체 서비스 보기 -->

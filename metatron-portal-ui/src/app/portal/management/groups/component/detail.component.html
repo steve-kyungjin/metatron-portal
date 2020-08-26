@@ -1,0 +1,163 @@
+<!-- 그룹 관리 -->
+<!-- 상세 -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon, HtmlFormInputWithoutLabel -->
+<div class="section-detail">
+	<div class="button-area">
+		<a href="javascript:;"
+		   class="link-list"
+		   (click)="goListPage()">목록보기</a>
+		<a href="javascript:;"
+		   class="btn-basic"
+		   (click)="deleteClick(group.id)">삭제</a>
+	</div>
+
+	<div class="detail-area">
+		<table class="table-detail">
+			<colgroup>
+				<col width="100"/>
+				<col width="*"/>
+			</colgroup>
+			<tbody>
+			<tr>
+				<th>
+					<span class="txt-label">그룹명</span>
+				</th>
+				<td>
+					<!--
+                        [D] 수정 모드일 때
+                         aria-hidden : true
+                         aria-expanded : true
+                    -->
+					<div class="set-data"
+						 [attr.aria-hidden]="group.isGroupNmEditMode">
+						<span class="txt">
+							{{ group.name }}
+
+							<a href="javascript:;"
+							   class="btn-modify"
+							   aria-label="수정"
+							   (click)="group.isGroupDescEditMode = false; changeEditMode(); group.isGroupNmEditMode = true;">
+							</a>
+
+						</span>
+					</div>
+
+					<!-- 수정 모드 -->
+					<div class="form-edit"
+						 [attr.aria-expanded]="group.isGroupNmEditMode">
+						<input type="text"
+							   class="input-text type-group"
+							   [maxLength]="80"
+							   [(ngModel)]="editGroup.name">
+						<a href="javascript:;"
+						   class="btn-cancel"
+						   aria-label="취소"
+						   (click)="group.isGroupNmEditMode = false;"></a>
+						<a href="javascript:;"
+						   class="btn-save"
+						   aria-label="저장"
+						   (click)="updateGroup(editGroup)"></a>
+					</div>
+					<!-- //수정 모드 -->
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="txt-label">그룹설명</span>
+				</th>
+				<td>
+					<div class="set-data"
+						 [attr.aria-hidden]="group.isGroupDescEditMode">
+						<span class="txt">
+							{{ group.description }}
+
+							<a href="javascript:;"
+							   class="btn-modify"
+							   aria-label="수정"
+							   (click)="group.isGroupNmEditMode = false; changeEditMode(); group.isGroupDescEditMode = true;">
+							</a>
+
+						</span>
+					</div>
+
+					<!-- 수정 모드 -->
+					<div class="form-edit"
+						 [attr.aria-expanded]="group.isGroupDescEditMode">
+						<input type="text"
+							   class="input-text type-group"
+							   [(ngModel)]="editGroup.description"
+							   [maxLength]="1000">
+						<a href="javascript:;"
+						   class="btn-cancel"
+						   aria-label="취소"
+						   (click)="group.isGroupDescEditMode = false;"></a>
+						<a href="javascript:;"
+						   class="btn-save"
+						   aria-label="저장"
+						   (click)="updateGroup(editGroup)"></a>
+					</div>
+					<!-- //수정 모드 -->
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="txt-label">등록일</span>
+				</th>
+				<td>{{ group.createdDate | date_format: 'YYYY-MM-DD HH:mm:ss' }}</td>
+			</tr>
+			</tbody>
+		</table>
+
+		<div class="extend-table">
+			<table class="table-detail">
+				<colgroup>
+					<col width="100"/>
+					<col width="*"/>
+				</colgroup>
+				<tbody>
+				<tr>
+					<th>
+						<span class="txt-label">권한</span>
+					</th>
+					<td>{{ connectIaNamePermissionWithComma(iaAndPermissionList) }}</td>
+				</tr>
+				<tr>
+					<th class="align-top">
+						<span class="txt-label">사용자({{ group.members ? group.members.length : 0 }})</span>
+					</th>
+					<td>
+						<div class="form-member">
+							<a href="javascript:;"
+							   class="btn-action"
+							   (click)="openGroupUserAddPopup()">설정하기</a>
+							<ul class="list-members">
+								<li *ngFor="let user of group.members">
+									<span class="img-user" [style.background-image]="'url(' + userService.getProfileImage(user) + ')'"></span>
+									<div class="info-user">
+										<span class="user-id">{{ user.userId }}</span>
+										<span class="user-name">{{ user.userNm }}{{user.orgNm === '' ? '' : '(' + user.orgNm + ')'}}</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<a href="javascript:;"
+	   class="link-list"
+	   (click)="goListPage()">목록보기</a>
+
+</div>
+<!-- //상세 -->
+<!-- //그룹 관리 -->
+
+<div user-select
+	 *ngIf="isOpenGroupUserAddPopup"
+	 [defaultSelectedUserList]="group.members"
+	 [isUserMultipleSelectMode]="true"
+	 (oDone)="doneGroupUserAddPopup($event)"
+	 (oClose)="closeGroupUserAddPopup()"></div>

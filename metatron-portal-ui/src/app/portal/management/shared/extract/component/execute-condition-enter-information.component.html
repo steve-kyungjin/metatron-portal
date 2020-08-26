@@ -1,0 +1,117 @@
+<!-- LAYER POPUP -->
+<!--suppress NsUnresolvedStyleClassReference, HtmlFormInputWithoutLabel, JSUnresolvedVariable, JSUnnecessarySemicolon -->
+<div *ngIf="moduleList.length > 0" class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<div class="section-button">
+				<a href="javascript:;" class="btn-basic" (click)="cancel()">취소</a>
+				<a href="javascript:;" class="btn-action" (click)="done()">적용</a>
+			</div>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">실행조건 입력하기</h1>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 실행조건 입력하기 -->
+			<div class="section-condition">
+				<!-- 조건 입력 -->
+				<table class="table-data">
+					<colgroup>
+						<col width="130"/>
+						<col width="*"/>
+					</colgroup>
+					<tbody>
+					<tr *ngFor="let module of moduleList; let index = index;" #input>
+						<th class="align-top" [class.type-custom]="module.moduleType === 'CUSTOM'">
+							<label class="label">{{module.name}}</label>
+						</th>
+						<td *ngIf="module.moduleType === 'CUSTOM'">
+							<div class="form-member">
+								<a href="javascript:;" class="btn-basic" (click)="showCustomVariableSelectLayer(module, index)">선택</a>
+								<div class="txt-member">{{ module.label }}</div>
+							</div>
+							<p class="txt-desc">{{ module.description && module.description !== '' ? '*' + module.description : '' }}</p>
+						</td>
+						<td *ngIf="module.namespace === 'TEXT'">
+							<!--suppress HtmlFormInputWithoutLabel -->
+							<input type="text" class="input-text"
+								   [(ngModel)]="module.input"
+								   (focus)="removeIsErrorClass(index)">
+							<p class="txt-desc">{{ module.description && module.description !== '' ? '*' + module.description : '' }}</p>
+						</td>
+						<td *ngIf="module.namespace === 'NUMBER'">
+							<!--suppress HtmlFormInputWithoutLabel -->
+							<input type="text" class="input-text"
+								   input-mask="number"
+								   [(ngModel)]="module.input"
+								   (focus)="removeIsErrorClass(index)">
+							<p class="txt-desc">{{ module.description && module.description !== '' ? '*' + module.description : '' }}</p>
+						</td>
+						<td *ngIf="module.namespace === 'SELECT'">
+							<div common-select
+								 [items]="module.selectValues == undefined ? [] : module.selectValues"
+								 [placeholder]="'선택할 값이 없습니다.'"
+								 (itemSelect)="removeIsErrorClass(index); module.input = $event.value;">
+							</div>
+							<p class="txt-desc">{{ module.description && module.description !== '' ? '*' + module.description : '' }}</p>
+						</td>
+						<td *ngIf="module.namespace === 'ARRAY'">
+							<!--suppress HtmlFormInputWithoutLabel -->
+							<input type="text" class="input-text"
+								   [(ngModel)]="module.input"
+								   (focus)="removeIsErrorClass(index)">
+							<p class="txt-desc">{{ module.description && module.description !== '' ? '*' + module.description : '' }}</p>
+						</td>
+						<td *ngIf="module.namespace === 'DATE'">
+							<div class="component-datepicker">
+								<div class="box-datepicker">
+									<!--suppress HtmlFormInputWithoutLabel -->
+									<input type="text" class="type-timepicker"
+										   input-datepicker
+										   [datepicker]="{ 'dataFormat': 'yyyyMMdd', 'timeFormat': 'HH:mm:ss', 'useTimePicker': false }"
+										   [(ngModel)]="module.input"
+										   (oSelected)="module.input = dateFormatConvert(getDatePickerInputValueByTrIndex(index), module.args && module.args[0] ? module.args[0] : 'yyyyMMdd' )"
+										   readonly="readonly"
+										   (focus)="removeIsErrorClass(index)">
+								</div>
+							</div>
+							<p class="txt-desc">{{ module.description && module.description !== '' ? '*' + module.description : '' }}</p>
+						</td>
+						<td *ngIf="module.namespace === 'DATETIME'">
+							<div class="component-datepicker">
+								<div class="box-datepicker">
+									<input type="text" class="type-timepicker"
+										   input-datepicker
+										   [datepicker]="{ 'dataFormat': 'yyyyMMdd', 'timeFormat': 'HH:mm:ss', 'useTimePicker': true }"
+										   [(ngModel)]="module.input"
+										   (oSelected)="module.input = dateFormatConvert(getDatePickerInputValueByTrIndex(index), module.args && module.args[0] ? module.args[0] : 'yyyyMMdd', module.args && module.args[1] ? module.args[1] : 'HH:mm:ss')"
+										   readonly="readonly"
+										   (focus)="removeIsErrorClass(index)">
+								</div>
+							</div>
+							<p class="txt-desc">{{ module.description && module.description !== '' ? '*' + module.description : '' }}</p>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<!-- //조건 입력 -->
+			</div>
+			<!-- //실행조건 입력하기 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>
+<!-- //LAYER POPUP -->
+
+<div custom-variable-select-layer
+	 *ngIf="selectedCustomVariable !== null"
+	 [callBackFn]="callBackFn"
+	 [extractCustomVariableModule]="selectedCustomVariable"
+	 (onCancel)="selectedCustomVariable = null;"
+	 (onComplete)="completeCustomVariableSelect($event)">
+</div>

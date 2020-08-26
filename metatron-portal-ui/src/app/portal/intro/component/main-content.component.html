@@ -1,0 +1,137 @@
+<!-- INTRO CONTENT -->
+<div class="layout-content">
+	<!-- [D] 로딩 완료 시점에 is-finish 클래스 추가 -->
+	<div class="intro-content type-max" [class.is-finish]="isFinish">
+		<!-- Intro Loader -->
+		<div class="intro-loader">
+			<span></span>
+		</div>
+		<!-- //Intro Loader -->
+
+		<!-- Swipe Content -->
+		<div class="intro-swipe">
+			<!-- Tab -->
+			<div class="section-tab">
+				<a href="javascript:;" class="link-tab" *ngFor="let item of tabList; let index = index;" [attr.aria-selected]="item['selected']" (click)="tabClick(index, item)">{{ item['title'] }}</a>
+			</div>
+			<div class="swiper-pagination"></div>
+			<!-- //Tab -->
+
+			<!-- Swipe -->
+			<div class="section-swipe type-main type-max">
+				<div class="swiper-container">
+					<div class="swiper-wrapper" id="mainSwiperWrapper">
+						<!-- All -->
+						<div class="swiper-slide" id="mainSwiperItem">
+							<ul class="list-intro">
+								<li>
+									<!-- 리포트 -->
+									<div class="box type-report" id="mainReportItem">
+										<a href="javascript:;" class="link-box">
+											<span class="bg-img"></span>
+											<div class="info-box">
+												<div class="category">
+													<span class="badge-report"></span>
+													<span class="badge-my"></span>
+													<span class="txt-category"></span>
+												</div>
+												<strong class="txt-title">
+												</strong>
+												<p class="txt-desc">
+												</p>
+											</div>
+										</a>
+									</div>
+									<!-- //리포트 -->
+								</li>
+								<li>
+									<!-- //분석 앱 -->
+									<div class="box type-analysis" id="mainAnalysisItem">
+										<a href="javascript:;" class="link-box">
+											<span class="bg-img"></span>
+											<div class="info-box">
+												<div class="category">
+													<span class="badge-analysis"></span>
+													<span class="badge-my"></span>
+													<span class="txt-category"></span>
+												</div>
+												<strong class="txt-title">
+												</strong>
+												<p class="txt-desc">
+												</p>
+											</div>
+										</a>
+									</div>
+									<!-- // 분석 앱 -->
+								</li>
+								<li>
+									<!-- // 커뮤니케이션 -->
+									<div class="box type-comm type-thumb" id="mainCommItem">
+										<a href="javascript:;" class="link-box">
+											<span class="bg-img"></span>
+											<div class="info-box">
+												<div class="category">
+													<span class="badge-comm"></span>
+												</div>
+												<strong class="txt-title">
+												</strong>
+												<p class="txt-desc">
+												</p>
+											</div>
+										</a>
+									</div>
+									<!-- // 커뮤니케이션 -->
+								</li>
+							</ul>
+						</div>
+						<!-- //All -->
+					</div>
+				</div>
+				<!-- PREV/NEXT -->
+				<div class="swiper-button-next" [attr.aria-label]="translateService.instant('COMMON.PREV', '이전')"></div>
+				<div class="swiper-button-prev" [attr.aria-label]="translateService.instant('COMMON.NEXT', '다음')"></div>
+				<!-- //PREV/NEXT -->
+			</div>
+			<!-- //Swipe -->
+		</div>
+	</div>
+
+	<!-- Min Size -->
+	<div class="intro-content type-min" [class.is-finish]="isFinish">
+		<!-- Intro Loader -->
+		<div class="intro-loader">
+			<span></span>
+		</div>
+		<!-- //Intro Loader -->
+
+		<!-- Swipe Content -->
+		<div class="intro-swipe">
+			<!-- Tab -->
+			<div class="section-tab">
+				<span class="link-tab" *ngFor="let item of tabList; let index = index;">
+					<a href="javascript:;" class="link-txt" [attr.aria-selected]="item['selected']" (click)="tabClick(index, item, true)">{{ item['title'] }}</a>
+					<div>
+						<a href="javascript:;" class="link-dot" *ngFor="let child of item['children']" [attr.aria-selected]="child['selected']"></a>
+					</div>
+				</span>
+			</div>
+			<div class="swiper-pagination"></div>
+			<!-- //Tab -->
+
+			<!-- Swipe -->
+			<div class="section-swipe type-main type-min">
+				<div class="swiper-container">
+					<div class="swiper-wrapper" id="mainSwiperWrapperMin">
+					</div>
+				</div>
+				<!-- PREV/NEXT -->
+				<div class="swiper-button-next" [attr.aria-label]="translateService.instant('COMMON.PREV', '이전')"></div>
+				<div class="swiper-button-prev" [attr.aria-label]="translateService.instant('COMMON.NEXT', '다음')"></div>
+				<!-- //PREV/NEXT -->
+			</div>
+			<!-- //Swipe -->
+		</div>
+	</div>
+	<!-- //Min Size -->
+</div>
+<!-- //INTRO CONTENT -->

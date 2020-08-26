@@ -1,0 +1,68 @@
+<!-- 권한 관리 -->
+<div class="page-management-authority">
+
+	<div class="section-list">
+		<!-- Title -->
+		<div class="title-area">
+			<a href="javascript:;" class="link-step" [attr.aria-selected]="selectedTabIndex == 0" (click)="selectTab(0)">{{ translateService.instant('MANAGEMENT.AUTHORITY.LIST.TITLE.GROUP', '검색') }}({{groupCount}})</a>
+			<!--<a href="javascript:;" class="link-step" [attr.aria-selected]="selectedTabIndex == 1" (click)="selectTab(1)">{{ translateService.instant('MANAGEMENT.AUTHORITY.LIST.TITLE.ORG', '조직') }}({{orgCount}})</a>-->
+			<div class="filter">
+				<!-- 검색 -->
+				<div class="component-search">
+					<div class="component-search">
+						<input type="text" class="input-search" [attr.placeholder]="translateService.instant('MANAGEMENT.AUTHORITY.LIST.SEARCH.PLACEHOLDER', '이름으로 검색')"
+							   [(ngModel)]="searchText"
+							   (keyup.enter)="searchClick()"
+							   maxlength="255">
+						<button class="btn-search" (click)="searchClick()" [attr.aria-label]="translateService.instant('COMMON.SEARCH', '검색')"></button>
+					</div>
+				</div>
+				<!-- //검색 -->
+			</div>
+		</div>
+		<!-- //Title -->
+
+		<!-- 목록 -->
+		<table class="table-list">
+			<colgroup>
+				<col width="230"/>
+				<col width="*"/>
+				<col width="250"/>
+			</colgroup>
+			<thead>
+			<tr>
+				<th *ngIf="selectedTabIndex == 0">{{ translateService.instant('MANAGEMENT.AUTHORITY.TABLE.TITLE.GROUP_NAME', '그룹명') }}</th>
+				<!--<th *ngIf="selectedTabIndex == 1">{{ translateService.instant('MANAGEMENT.AUTHORITY.TABLE.TITLE.ORG_NAME', '조직명') }}</th>-->
+				<th>{{ translateService.instant('MANAGEMENT.AUTHORITY.TABLE.TITLE.DESC', '설명') }}</th>
+				<th>{{ translateService.instant('MANAGEMENT.AUTHORITY.TABLE.TITLE.USER', '사용자') }}</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr *ngFor="let item of authorityList">
+				<td>
+					<a href="javascript:;" (click)="authorityClick(item)">
+						<span class="txt-authority">
+							{{ item.name }}
+						</span>
+					</a>
+				</td>
+				<td class="align-left">{{ item.description }}</td>
+				<td>{{ item.memberCnt | number : '1.0-3' }}</td>
+			</tr>
+			</tbody>
+		</table>
+		<!-- //목록 -->
+
+		<!-- No Data -->
+		<div class="list-nodata" *ngIf="authorityList && !authorityList.length">
+			{{ translateService.instant('MANAGEMENT.AUTHORITY.LIST.NODATA', '등록된 권한이 없습니다.') }}
+		</div>
+		<!-- //No Data -->
+
+		<!-- Pagination -->
+		<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+		<!-- //Pagination -->
+	</div>
+
+</div>
+<!-- //권한 관리 -->

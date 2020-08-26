@@ -1,0 +1,159 @@
+<!-- 메뉴 관리 -->
+<div class="page-management-menu">
+	<!-- 메뉴 -->
+	<div class="section-menu">
+		<div class="title-area">
+			<h3 class="txt-title">{{ translateService.instant('MANAGEMENT.MENU.TITLE', '메뉴') }}</h3>
+			<button class="btn-action type-add" [disabled]="!enableAdd" (click)="addMenuClick()">{{ translateService.instant('MANAGEMENT.MENU.ADD.MENU', '하위메뉴 추가') }}</button>
+		</div>
+
+		<div class="tree-area">
+			<list-tree #treeComp
+					   [nodes]="nodes"
+					   (onSelect)="onMenuSelect($event)">
+			</list-tree>
+		</div>
+	</div>
+	<!-- //메뉴 -->
+
+	<!-- 메뉴 생성 폼 -->
+	<div class="section-form">
+		<div *ngIf="currentMenu">
+			<!-- Title -->
+			<div class="title-area">
+				<h3 class="txt-title">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.BASE_INFO.TITLE', '기본정보') }}</h3>
+			</div>
+			<!-- //Title -->
+			<!-- 기본정보 폼 -->
+			<table class="table-register">
+				<colgroup>
+					<col width="100"/>
+					<col width="*"/>
+				</colgroup>
+				<tbody>
+				<tr>
+					<th>
+						<label class="label">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.NAME.TITLE', '메뉴명') }}</label>
+					</th>
+					<td>
+						<ul class="list-depth" [ngClass]="!currentNavigate || currentNavigate == '' ? 'type-none' : ''">
+							<li>{{ currentNavigate }}</li>
+							<li><input type="text" class="input-text" [attr.placeholder]="translateService.instant('MANAGEMENT.MENU.DETAIL.NAME.PLACEHOLDER', '메뉴명을 입력하세요.')" [(ngModel)]="currentMenu.iaNm" (change)="menuNameChange($event)" [class.is-error]="errorMenuName" (focus)="errorMenuName = false;"></li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label class="label">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.DESC.TITLE', '메뉴설명') }}</label>
+					</th>
+					<td>
+						<input type="text" class="input-text" [attr.placeholder]="translateService.instant('MANAGEMENT.MENU.DETAIL.DESC.PLACEHOLDER', '메뉴에 대한 간략한 설명을 입력하세요.')" [(ngModel)]="currentMenu.iaDesc">
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<!-- //기본정보 폼 -->
+
+			<!-- Title -->
+			<div class="title-area">
+				<h3 class="txt-title">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.PROPERTY.TITLE', '메뉴속성') }}</h3>
+			</div>
+			<!-- //Title -->
+			<!-- 메뉴 속성 폼 -->
+			<table class="table-register">
+				<colgroup>
+					<col width="100"/>
+					<col width="*"/>
+				</colgroup>
+				<tbody>
+				<tr>
+					<th>
+						<label class="label">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.MENU_TYPE.TITLE', '메뉴 유형') }}</label>
+					</th>
+					<td>
+						<ul class="list-option">
+							<li>
+								<input type="radio" id="radio1" class="input-radio" name="radio01" [value]="true" [(ngModel)]="currentMenu.linkYn">
+								<label class="label" for="radio1">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.MENU_TYPE.TEXT1', '새로운 페이지 생성') }}</label>
+							</li>
+							<li>
+								<input type="radio" id="radio2" class="input-radio" name="radio01" [value]="false" [(ngModel)]="currentMenu.linkYn">
+								<label class="label" for="radio2">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.MENU_TYPE.TEXT2', '페이지 없음(하위메뉴로 자동이동)') }}</label>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label class="label">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.DISPLAY_YN.TITLE', '화면표시 여부') }}</label>
+					</th>
+					<td>
+						<ul class="list-option">
+							<li>
+								<input type="radio" id="radio5" class="input-radio" name="radio3" [value]="true" [(ngModel)]="currentMenu.displayYn">
+								<label class="label" for="radio5">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.DISPLAY_YN.TEXT1', '표시') }}</label>
+							</li>
+							<li>
+								<input type="radio" id="radio6" class="input-radio" name="radio3" [value]="false" [(ngModel)]="currentMenu.displayYn">
+								<label class="label" for="radio6">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.DISPLAY_YN.TEXT2', '미표시') }}</label>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label class="label">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.PAGE_TYPE.TITLE', '페이지 유형') }}</label>
+					</th>
+					<td>
+						<ul class="list-option">
+							<li>
+								<input type="radio" id="radio3" class="input-radio" name="radio02" [value]="false" [(ngModel)]="currentMenu.externalYn" [disabled]="!currentMenu.linkYn">
+								<label class="label" for="radio3">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.PAGE_TYPE.TEXT1', '내부') }}</label>
+							</li>
+							<li>
+								<input type="radio" id="radio4" class="input-radio" name="radio02" [value]="true" [(ngModel)]="currentMenu.externalYn" [disabled]="!currentMenu.linkYn">
+								<label class="label" for="radio4">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.PAGE_TYPE.TEXT2', '외부') }}</label>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label class="label">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.PATH.TITLE', '페이지 경로') }}</label>
+					</th>
+					<td>
+						<input type="text" class="input-text" [attr.placeholder]="translateService.instant('MANAGEMENT.MENU.DETAIL.PATH.PLACEHOLDER', '페이지 URL를 입력하세요.')" [(ngModel)]="currentMenu.path" [disabled]="!currentMenu.linkYn" [class.is-error]="errorPath" (focus)="errorPath = false;">
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label class="label">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.ORDER.TITLE', '메뉴 순서') }}</label>
+					</th>
+					<td>
+						<input type="text" class="input-text type-order" [(ngModel)]="currentMenu.iaOrder">
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<!-- //메뉴 속성 폼 -->
+
+			<!-- 버튼 영역 -->
+			<div class="button-area">
+				<div class="left-block">
+					<button type="button" class="btn-action" (click)="saveClick()">{{ translateService.instant('COMMON.SAVE', '저장') }}</button>
+				</div>
+				<div class="right-block">
+					<button type="button" class="btn-basic" (click)="deleteClick()">{{ translateService.instant('COMMON.DELETE', '삭제') }}</button>
+				</div>
+			</div>
+			<!-- //버튼 영역 -->
+		</div>
+
+		<!-- No Data -->
+		<div class="nodata" *ngIf="!currentMenu" [innerHTML]="translateService.instant('MANAGEMENT.MENU.DETAIL.NODATA', '관리할 메뉴를 선택하거나 2,3depth 메뉴를 추가할 수 있습니다.')">
+		</div>
+		<!-- //No Data -->
+	</div>
+	<!-- //메뉴 생성 폼 -->
+</div>
+<!-- //메뉴 관리 -->

@@ -1,0 +1,47 @@
+<!-- LAYER POPUP -->
+<div class="layout-popup is-confirm" [hidden]="!showPopup">
+	<div class="layer-popup">
+		<div class="popup">
+			<!-- Popup Content -->
+			<div class="popup-content type-confirm">
+
+				<!-- 타이틀 영역 -->
+				<div class="section-title">
+					<h1 class="txt-title">{{ option.title }}</h1>
+				</div>
+				<!-- //타이틀 영역 -->
+
+				<!-- 닫기 버튼 -->
+				<a href="javascript:;" class="btn-close" [attr.aria-label]="translateService.instant('COMMON.CLOSE', '닫기')" (click)="close()" *ngIf="option.type == DialogType.CONFIRM"></a>
+				<!-- //닫기 버튼 -->
+
+				<!-- 팝업 내용 -->
+				<div class="section-popup">
+					<!-- 안내 문구 -->
+					<div class="content-area">
+						<div class="confirm-block">
+							<div class="txt-desc">
+								<pre>
+									<code [innerHtml]="sanitized.bypassSecurityTrustHtml(option.text)"></code>
+								</pre>
+							</div>
+							<strong class="txt-confirm" *ngIf="option.accentText">{{ option.accentText }}</strong>
+						</div>
+					</div>
+					<!-- //안내 문구 -->
+
+					<!-- 버튼 영역 -->
+					<div class="button-area">
+						<a href="javascript:;" class="btn-basic" (click)="cancelClick()" *ngIf="option.type == DialogType.CONFIRM">{{ option.cancelText }}</a>
+						<a href="javascript:;" class="btn-action" (click)="confirmClick()">{{ option.confirmText }}</a>
+					</div>
+					<!-- //버튼 영역 -->
+				</div>
+				<!-- //팝업 내용 -->
+
+			</div>
+			<!-- //Popup Content -->
+		</div>
+	</div>
+</div>
+<!-- //LAYER POPUP -->

@@ -1,0 +1,100 @@
+<!-- 앱 관리 -->
+<div class="page-app-register">
+
+	<div class="section-list">
+
+		<div class="button-area">
+			<a href="javascript:;"
+			   class="btn-action type-add"
+			   (click)="isEditMode = false; isShowCreateOrUpdateLayer = true;">
+				연계 시스템 등록
+			</a>
+		</div>
+
+		<!-- Title -->
+		<div class="title-area">
+			<h3 class="txt-title">목록({{ totalElements | number : '1.0-3'}})</h3>
+			<div class="filter">
+				<!-- 검색 -->
+				<div class="component-search">
+					<input type="text"
+						   class="input-search"
+						   placeholder="검색어 입력 후 검색"
+						   #keyWordInputElement
+						   (blur)="keyWordInputElement.value = keyWord;"
+						   (keyup.enter)="search$.next(keyWordInputElement.value);"
+						   maxlength="255">
+					<button class="btn-search" aria-label="검색" (click)="search$.next(keyWordInputElement.value);"></button>
+				</div>
+				<!-- //검색 -->
+			</div>
+		</div>
+		<!-- //Title -->
+
+		<!-- 목록 -->
+		<table class="table-app">
+			<colgroup>
+				<col width="400"/>
+				<col width="*"/>
+				<col width="160"/>
+				<col width="100"/>
+				<col width="60"/>
+			</colgroup>
+			<thead>
+			<tr>
+				<th>명칭</th>
+				<th>설명</th>
+				<th>관리담당자</th>
+				<th>연동방향</th>
+				<th>관리</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr *ngFor="let system of list">
+				<td class="align-left">
+					<a href="javascript:;"
+					   class="link-app"
+					   [title]="system.stdNm === undefined || system.stdNm.trim() === '' ? system.fullNm : system.stdNm + ( system.fullNm === undefined ? '' : system.fullNm.trim() === '' ? '' : ' / ' + system.fullNm )"
+					   (click)="selectSystem(system)">
+						{{ system.stdNm === undefined || system.stdNm.trim() === '' ? system.fullNm : system.stdNm + (system.fullNm === undefined ? '' : system.fullNm.trim() === '' ? '' : ' / ' + system.fullNm) }}
+					</a>
+				</td>
+				<td class="align-left">
+					{{ system.description }}
+				</td>
+				<td>{{ system.worker ? system.worker.userNm : '' }}</td>
+				<td>{{ system && system.direction ? system.direction.nmKr : '' }}</td>
+				<td>
+					<a href="javascript:;"
+					   class="btn-delete"
+					   aria-label="삭제"
+					   (click)="openDeleteSubjectConfirmModal(system.id)">
+					</a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<!-- //목록 -->
+
+		<!-- No Data -->
+		<div *ngIf="list.length === 0" class="app-nodata">
+			검색결과가 없습니다.
+		</div>
+		<!-- //No Data -->
+
+		<!-- Pagination -->
+		<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+		<!-- //Pagination -->
+
+	</div>
+
+</div>
+<!-- //앱 관리 -->
+
+<div system-create-or-update
+	 *ngIf="isShowCreateOrUpdateLayer"
+	 [systemId]="selectedSystem === undefined || selectedSystem === null ? '' : selectedSystem.id"
+	 [isEditMode]="isEditMode"
+	 (onCancel)="isShowCreateOrUpdateLayer = false;"
+	 (onDone)="createSystemDone()">
+</div>

@@ -1,0 +1,145 @@
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<a href="javascript:;" class="btn-close" aria-label="닫기"
+			   (click)="cancel()"></a>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">컬럼상세보기</h1>
+				<span class="txt-sub">{{ column.logicalNm === undefined || column.logicalNm.trim() == '' ? column.physicalNm : column.logicalNm + ' / ' + column.physicalNm }}</span>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 테이블 상세보기 -->
+			<div class="section-metadata">
+				<div class="top-area">
+					<!-- 탭 메뉴 -->
+					<ul class="list-tab">
+						<li [attr.aria-selected]="selectedTabIndex === 0">
+							<!--suppress JSUnnecessarySemicolon -->
+							<a href="javascript:;" class="link-tab"
+							   (click)="changeTab(0)">기본정보</a>
+						</li>
+						<li [attr.aria-selected]="selectedTabIndex === 1">
+							<!--suppress JSUnnecessarySemicolon -->
+							<a href="javascript:;" class="link-tab"
+							   (click)="changeTab(1)">테이블구성</a>
+						</li>
+					</ul>
+					<!-- //탭 메뉴 -->
+
+					<div class="top-buttons">
+						<a href="javascript:;"
+						   class="btn-action"
+						   *ngIf="editEnabled"
+						   (click)="isEditMode = true;">
+							수정
+						</a>
+					</div>
+
+				</div>
+				<!-- 기본 구성 -->
+				<div class="tabcontent-area" [attr.aria-expanded]="selectedTabIndex === 0">
+					<div class="detail-block">
+						<ul class="list-default">
+							<li>
+								<strong class="column-label">컬럼 논리명</strong>
+								<span class="column-desc">{{ column.logicalNm }}</span>
+							</li>
+							<li>
+								<strong class="column-label">컬럼 물리명</strong>
+								<span class="column-desc">{{ column.physicalNm }}</span>
+							</li>
+							<li>
+								<strong class="column-label">컬럼 설명</strong>
+								<span class="column-desc" [innerHTML]="lineBreakOrTabOrSpaceCharacter(column.description)"></span>
+							</li>
+						</ul>
+						<ul class="list-default">
+							<li>
+								<strong class="column-label">데이터 유형</strong>
+								<span class="column-desc">{{ column.dataType }}</span>
+							</li>
+							<li>
+								<strong class="column-label">데이터 사이즈</strong>
+								<span class="column-desc">{{ column.dataSize }}</span>
+							</li>
+							<li>
+								<strong class="column-label">Primary Key 여부</strong>
+								<span class="column-desc">{{ column && column.primaryKey ? 'PK' : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">NULL 허용 여부</strong>
+								<span class="column-desc">{{ column && column.nullable === true ? 'Y' : 'N' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">포함 테이블 수</strong>
+								<span class="column-desc">{{ column.relTableCnt | number: '1.0-3' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">개인정보항목</strong>
+								<span class="column-desc">{{ column.privacy ? column.privacy.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">개인정보 처리유형</strong>
+								<span class="column-desc">{{ column.privacyProc ? column.privacyProc.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">Druid 컬럼유형</strong>
+								<span class="column-desc">{{ column.druidColumn ? column.druidColumn.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">참조기준 정보테이블</strong>
+								<span class="column-desc">{{ column.refTable }}</span>
+							</li>
+							<li>
+								<strong class="column-label">참조기준 정보추출 SQL</strong>
+								<span class="column-desc"
+									  [innerHTML]="lineBreakOrTabOrSpaceCharacter(column.refSql)">
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- //기본 구성 -->
+
+				<!-- 테이블 구성 -->
+				<div class="tabcontent-area type-grid type-pagination" [attr.aria-expanded]="selectedTabIndex === 1">
+					<div class="grid-block">
+						<div class="grid-table">
+							<div class="grid-pos"
+								 grid-component
+								 #tableListGrid
+								 *ngIf="tableList.length > 0"
+								 (selectedEvent)="tableGridSelect($event)">
+							</div>
+							<!-- Pagination -->
+							<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+							<!-- //Pagination -->
+						</div>
+
+						<div class="nodata-grid" aria-hidden="false"
+							 *ngIf="tableList.length === 0">
+							<p class="txt-desc">{{ translateService.instant('COLUMN.DETAIL.NODATA', '조회된 데이터가 없습니다.') }}</p>
+						</div>
+					</div>
+				</div>
+				<!-- //테이 구성 -->
+			</div>
+			<!-- //테이블 상세보기 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>
+
+<div column-edit
+	 *ngIf="editEnabled && isEditMode"
+	 [metaColumnId]="metaColumnId"
+	 (onCancel)="isEditMode = false;"
+	 (onDone)="columnEditDone($event)">
+</div>

@@ -1,0 +1,212 @@
+<!--suppress JSUnnecessarySemicolon, JSUnnecessarySemicolon, NsUnresolvedStyleClassReference, NsUnresolvedStyleClassReference, HtmlUnknownAttribute -->
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<div class="section-button">
+				<a href="javascript:;"
+				   class="btn-basic"
+				   (click)="cancel()">
+					취소
+				</a>
+				<a href="javascript:;"
+				   class="btn-action"
+				   (click)="done()">
+					적용
+				</a>
+			</div>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">데이터 추출하기</h1>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 데이터 추출하기 -->
+			<div class="section-extract">
+				<!-- 목록 -->
+				<div class="list-area">
+					<div class="search-data">
+						<a href="javascript:;"
+						   class="btn-action type-add"
+						   (click)="showCreateDataSourceModal()">
+							데이터소스 등록하기
+						</a>
+						<!-- 검색 -->
+						<div class="component-search">
+							<input type="text" class="input-search" placeholder="데이터 소스 이름으로 찾기">
+							<button class="btn-search" aria-label="검색"></button>
+						</div>
+						<!-- //검색 -->
+					</div>
+
+					<!-- 데이터 소스 목록 -->
+					<ul class="list-source">
+						<li *ngFor="let datasource of dataSourceList">
+							<a href="javascript:;"
+							   class="link-item"
+							   (click)="selectDataSource(datasource);">
+								{{ datasource.name }}
+							</a>
+							<a href="javascript:;"
+							   class="btn-delete"
+							   aria-label="삭제"
+							   (click)="showDeleteDataSourceConfirmModal(datasource.id)">
+							</a>
+						</li>
+					</ul>
+					<!-- //데이터 소스 목록 -->
+				</div>
+				<!-- //목록 -->
+
+				<!-- 데이터 소스 -->
+				<!--
+                    [D] 확대 버튼 클릭 시
+                    Query 작성 : zoom-query 클래스 추가
+                    Query 결과 : zoom-result 클래스 추가
+                -->
+				<div class="extract-area"
+					 [class.zoom-query]="isEditorLayoutEnlarge"
+					 [class.zoom-result]="isGridLayoutEnlarge">
+
+					<!--
+                        [D] 왼쪽 목록에서 데이터 소스를 선택하면 'title-area'에 is-activated 클래스 추가
+                        [D] 타이틀명은 txt-title에 데이터 소스명 적용
+                    -->
+					<div class="title-block"
+						 [class.is-activated]="selectedDataSource !== null">
+
+						<h3 *ngIf="selectedDataSource === null"
+							class="txt-placeholder">
+							추출할 데이터 소스를 선택해 주세요.
+						</h3>
+
+						<h3 *ngIf="selectedDataSource !== null"
+							class="txt-title">
+							{{selectedDataSource.name}}
+						</h3>
+
+						<a href="javascript:;"
+						   class="btn-help"
+						   (click)="showHelpModal();">
+							도움말
+						</a>
+					</div>
+
+					<!-- Query 작성 -->
+					<div class="query-block">
+						<div class="title">
+							<h4 class="txt-title">
+								Query 작성
+								<a href="javascript:;" class="btn-basic type-var" (click)="selectVariableLayerOpen()">변수 입력</a>
+							</h4>
+							<div class="buttons">
+								<a href="javascript:;"
+								   class="btn-reset"
+								   (click)="editorReset()">
+									초기화
+								</a>
+								<a href="javascript:;"
+								   class="btn-zoom"
+								   aria-label="확대/축소"
+								   (click)="editorLayoutEnlarge()">
+								</a>
+							</div>
+						</div>
+
+						<!-- Query -->
+						<div class="query" #editorWrapperDiv>
+							<codemirror #codemirror
+										[config]="config"
+										[value]="defaultExtractHeader !== null ? defaultExtractHeader.sqlTxt : ''">
+							</codemirror>
+						</div>
+						<!-- //Query -->
+
+						<div class="start">
+							<input type="text" class="input-text"
+								   input-mask="number"
+								   maxlength="10code-mirror-editor.module"
+								   placeholder="1,000"
+								   [(ngModel)]="executeSelectQueryParameter.max">
+							<a href="javascript:;"
+							   class="btn-action"
+							   (click)="executeQuery()">
+								실행
+							</a>
+						</div>
+					</div>
+					<!-- //Query 작성 -->
+
+					<!-- Query 결과 미리보기 -->
+					<div class="result-block">
+						<div class="title">
+							<h4 class="txt-title">Query 결과 미리보기</h4>
+							<a href="javascript:;" class="btn-zoom" aria-label="확대/축소" (click)="gridLayoutEnlarge()"></a>
+						</div>
+
+						<!-- Query -->
+						<div class="query">
+
+							<!-- No Data -->
+							<div *ngIf="isQueryResultSuccess === false && isQueryFail === false" class="nodata-query">
+								<p class="txt-desc">
+									데이터가 없습니다.
+								</p>
+							</div>
+							<!-- //No Data -->
+
+							<!-- Query fail -->
+							<div *ngIf="isQueryResultSuccess === false && isQueryFail === true" class="nodata-query">
+								<p class="txt-desc">
+									조회에 실패했습니다.
+								</p>
+							</div>
+							<!-- //Query fail -->
+
+							<!-- Query 영역 -->
+							<div grid-component class="component-query"></div>
+							<!-- //Query 영역 -->
+						</div>
+						<!-- //Query -->
+					</div>
+					<!-- //Query 결과 미리보기 ->
+                </div>
+                <!-- //데이터 소스 -->
+				</div>
+				<!-- //데이터 추출하기 -->
+			</div>
+			<!-- //Popup Content -->
+
+			<!-- 도움말 레이어팝업 -->
+			<!-- [D] 팝업 HIDE : aria-hidden="true" -->
+			<div help-layer
+				 [attr.aria-hidden]="isHelpLayerHidden"
+				 (onClose)="hideHelpModal()">
+			</div>
+			<!-- //도움말 레이어팝업 -->
+
+		</div>
+	</div>
+</div>
+
+<div data-source
+	 *ngIf="isShowCreateDataSourceModal"
+	 (cancel)="dataSourceCreateCancel()"
+	 (done)="dataSourceCreateDone()">
+</div>
+
+<div *ngIf="isShowExecuteConditionEnterInformation"
+	 execute-condition-enter-information
+	 (cancel)="isShowExecuteConditionEnterInformation = false;"
+	 (done)="doneExecuteConditionEnterInformationModal($event)"
+	 [moduleList]="extractSql.modules">
+</div>
+
+<div select-variable
+	 *ngIf="isSelectVariableLayerOpen"
+	 (cancel)="isSelectVariableLayerOpen = false"
+	 (complete)="insertQueryExpression($event); isSelectVariableLayerOpen = false">
+</div>

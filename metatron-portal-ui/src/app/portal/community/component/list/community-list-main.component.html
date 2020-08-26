@@ -1,0 +1,4 @@
+<div community-list-default [masterInfo]="masterInfo" *ngIf="masterInfo && masterInfo.listType == ListType.LIST"></div>
+
+<div community-list-card [masterInfo]="masterInfo" *ngIf="masterInfo && masterInfo.listType == ListType.CARD"></div>
+

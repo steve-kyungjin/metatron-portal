@@ -1,0 +1,76 @@
+<!-- 그룹 관리 -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="section-list">
+	<!-- 그룹 등록 버튼 영역 -->
+	<div class="button-area">
+		<a href="javascript:;" class="btn-action type-add" (click)="goGroupCreatePage()">그룹 등록</a>
+	</div>
+	<!-- //그룹 등록 버튼 영역 -->
+
+	<!-- Title -->
+	<div class="title-area">
+		<h3 class="txt-title">목록({{ page.totalElements }})</h3>
+		<div class="filter">
+			<!-- 검색 -->
+			<div class="component-search">
+				<input type="text" class="input-search" placeholder="그룹명으로 검색"
+					   #keyWordInputElement
+					   (keyup.enter)="search$.next(keyWordInputElement.value)"
+					   [ngModel]="keyWord"
+					   [maxlength]="255">
+				<button class="btn-search" aria-label="검색" (click)="search$.next(keyWordInputElement.value)"></button>
+			</div>
+			<!-- //검색 -->
+		</div>
+	</div>
+	<!-- //Title -->
+
+	<!-- 목록 -->
+	<table class="table-group">
+		<colgroup>
+			<col width="230"/>
+			<col width="*"/>
+			<!--<col width="200"/>-->
+			<col width="180"/>
+			<col width="60"/>
+		</colgroup>
+		<thead>
+		<tr>
+			<th>그룹명</th>
+			<th>그룹설명</th>
+			<!--<th>권한</th>-->
+			<th>사용자</th>
+			<th>관리</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr *ngFor="let group of list">
+			<td>
+				<a href="javascript:;" class="link-detail"
+				   (click)="goDetailPage(group.id)">{{ group.name }}</a>
+			</td>
+			<td class="align-left">{{ group.description }}</td>
+			<!--<td>{{ connectRoleNmWithCommaInRoleList.apply(group.roles) }}</td>-->
+			<td>{{ group.memberCnt | number: '1.0-3' }}</td>
+			<td>
+				<a href="javascript:;" class="btn-delete" aria-label="삭제"
+				   (click)="deleteClick(group.id)">
+				</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<!-- //목록 -->
+
+	<!-- No Data -->
+	<div class="list-nodata"
+		 *ngIf="list.length === 0">
+		등록된 그룹이 없습니다.
+	</div>
+	<!-- //No Data -->
+
+	<!-- Pagination -->
+	<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+	<!-- //Pagination -->
+</div>
+<!-- //그룹 관리 -->

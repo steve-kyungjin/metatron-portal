@@ -1,0 +1,54 @@
+<!--suppress HtmlUnknownAttribute -->
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<div class="section-button">
+				<a href="javascript:;" #cancelEl class="btn-basic">취소</a>
+				<a href="javascript:;" #completeEl class="btn-action">적용</a>
+			</div>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">사용자 정의 변수 입력</h1>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 사용자 정의 변수 입력 -->
+			<div class="section-custom">
+				<ul class="option-area">
+					<li>
+						<input type="radio"
+							   id="defaultVariableRadio01"
+							   #defaultVariableRadio01
+							   name="selectedVariableMode"
+							   class="input-radio"
+							   [checked]="defaultVariableMode">
+						<label class="label" for="defaultVariableRadio01">기본 변수</label>
+					</li>
+					<li>
+						<input type="radio"
+							   id="defaultVariableRadio02"
+							   #defaultVariableRadio02
+							   name="selectedVariableMode"
+							   class="input-radio"
+							   [checked]="!defaultVariableMode">
+						<label class="label" for="defaultVariableRadio02">사용자 정의 변수</label>
+					</li>
+				</ul>
+
+				<!-- 기본 변수 -->
+				<div default-area #defaultArea [hidden]="!defaultVariableMode"></div>
+				<!-- //기본 변수 -->
+
+				<!-- 사용자 정의 변수 -->
+				<div custom-area #customArea [hidden]="defaultVariableMode"></div>
+				<!-- //사용자 정의 변수 -->
+			</div>
+			<!-- //사용자 정의 변수 입력 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>

@@ -1,0 +1,175 @@
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<a href="javascript:;" class="btn-close" aria-label="닫기"
+			   (click)="cancel()"></a>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">테이블 상세보기</h1>
+				<span class="txt-sub">{{ table.logicalNm === undefined || table.logicalNm.trim() == '' ? table.physicalNm : table.logicalNm + ' / ' + table.physicalNm }}</span>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 테이블 상세보기 -->
+			<div class="section-metadata">
+				<div class="top-area">
+					<!-- 탭 메뉴 -->
+					<ul class="list-tab">
+						<li [attr.aria-selected]="selectedTabIndex === 0">
+							<a href="javascript:;" class="link-tab"
+							   (click)="changeTab(0)">기본정보</a>
+						</li>
+						<li [attr.aria-selected]="selectedTabIndex === 1">
+							<a href="javascript:;" class="link-tab"
+							   (click)="changeTab(1);">컬럼 구성</a>
+						</li>
+						<li [attr.aria-selected]="selectedTabIndex === 2">
+							<a href="javascript:;" class="link-tab"
+							   (click)="changeTab(2);">샘플데이터</a>
+						</li>
+					</ul>
+					<!-- //탭 메뉴 -->
+
+					<div class="top-buttons">
+						<a href="javascript:;"
+						   class="btn-basic type-download"
+						   (click)="downloadTableSampleData();">
+							샘플데이터 다운로드
+						</a>
+						<a href="javascript:;"
+						   class="btn-action"
+						   *ngIf="editEnabled"
+						   (click)="isEditMode = true;">
+							수정
+						</a>
+					</div>
+
+				</div>
+				<!-- 기본 구성 -->
+				<div class="tabcontent-area" [attr.aria-expanded]="selectedTabIndex === 0">
+					<div class="detail-block">
+						<ul class="list-default">
+							<li>
+								<strong class="column-label">테이블 논리명</strong>
+								<span class="column-desc">{{ table.logicalNm }}</span>
+							</li>
+							<li>
+								<strong class="column-label">테이블 물리명</strong>
+								<span class="column-desc">{{ table.physicalNm }}</span>
+							</li>
+							<li>
+								<strong class="column-label">테이블 설명</strong>
+								<span class="column-desc" [innerHTML]="lineBreakOrTabOrSpaceCharacter(table.description)"></span>
+							</li>
+							<li>
+								<strong class="column-label">주제영역</strong>
+								<span class="column-desc">{{ table.subjectFqnStr }}</span>
+							</li>
+						</ul>
+						<ul class="list-default">
+							<li>
+								<strong class="column-label">데이터베이스명</strong>
+								<span class="column-desc">{{ table.databasePhysicalNm }}</span>
+							</li>
+							<li>
+								<strong class="column-label">관리 담당자</strong>
+								<span class="column-desc">{{ table.worker ? table.worker.userNm : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">관리상태</strong>
+								<span class="column-desc">{{ table.status ? table.status.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">데이터 생성 특성 분류</strong>
+								<span class="column-desc">{{ table.feature ? table.feature.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">데이터 LAYER</strong>
+								<span class="column-desc">{{ table.layer ? table.layer.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">데이터 이력관리유형</strong>
+								<span class="column-desc">{{ table.history ? table.history.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">데이터 처리(변경) 주기</strong>
+								<span class="column-desc">{{ table.cycle ? table.cycle.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">데이터 보관기간</strong>
+								<span class="column-desc">{{ table.retention ? table.retention.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">보안통제등급</strong>
+								<span class="column-desc">{{ table.security ? table.security.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">개인정보 식별가능 수준</strong>
+								<span class="column-desc">{{ table.privacy ? table.privacy.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">하위컬럼 수</strong>
+								<span class="column-desc">{{ table.columnCnt | number : '1.0-3' }}</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- //기본 구성 -->
+
+				<!-- 컬럼 구성 -->
+				<div class="tabcontent-area type-grid" [attr.aria-expanded]="selectedTabIndex === 1">
+					<div class="grid-block">
+
+						<div class="grid-table"
+							 grid-component
+							 #grid1
+							 *ngIf="columnList.length > 0"
+							 (selectedEvent)="columnGridSelect($event)">
+						</div>
+
+						<div class="nodata-grid"
+							 aria-hidden="false"
+							 *ngIf="columnList.length === 0">
+							<p class="txt-desc">{{ translateService.instant('TABLE.DETAIL.NODATA', '조회된 데이터가 없습니다.') }}</p>
+						</div>
+
+					</div>
+				</div>
+				<!-- //컬럼 구성 -->
+
+				<!-- 샘플 데이터 -->
+				<div class="tabcontent-area type-grid" [attr.aria-expanded]="selectedTabIndex === 2">
+					<div class="grid-block">
+
+						<div class="grid-table"
+							 grid-component
+							 #grid2
+							 *ngIf="sampleDataResultList.length > 0">
+						</div>
+
+						<div class="nodata-grid"
+							 aria-hidden="false"
+							 *ngIf="sampleDataResultList.length === 0">
+							<p class="txt-desc">{{ translateService.instant('TABLE.DETAIL.NODATA', '조회된 데이터가 없습니다.') }}</p>
+						</div>
+					</div>
+				</div>
+				<!-- //샘플 데이터 -->
+			</div>
+			<!-- //테이블 상세보기 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>
+
+<div table-edit
+	 *ngIf="editEnabled && isEditMode"
+	 [metaTableId]="metaTableId"
+	 (onCancel)="isEditMode = false;"
+	 (onDone)="tableEditDone($event)">
+</div>

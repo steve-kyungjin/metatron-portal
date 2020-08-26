@@ -1,0 +1,7 @@
+<label for="fileInput">{{ translateService.instant('FILE.INPUT.LABEL', '파일 찾기') }}</label>
+<input type="file" id="fileInput" class="input-file"
+	   #fileInput
+	   (click)="fileInput.value = null; findClick();"
+	   (change)="changeFile($event)"
+	   [multiple]="fileMaxLength > 1"
+	   [attr.accept]="acceptFileExt"/>

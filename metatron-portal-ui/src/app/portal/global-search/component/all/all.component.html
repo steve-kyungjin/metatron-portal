@@ -1,0 +1,248 @@
+<!-- 통합검색 -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="page-search">
+
+	<!-- 전체 검색결과가 없는 경우 -->
+	<div class="section-nodata" [attr.aria-hidden]="globalSearchService.searchResultCount !== 0">
+		<dl class="txt-nodata">
+			<dt>{{ translateService.instant('GLOBAL.SEARCH.NODATA.TITLE', '검색결과가 없으시다면?') }}</dt>
+			<dd>
+				<ul class="list-desc">
+					<li>{{ translateService.instant('GLOBAL.SEARCH.NODATA.DESC1', '단어의 철자가 정확한지 확인해 보세요.') }}</li>
+					<li>{{ translateService.instant('GLOBAL.SEARCH.NODATA.DESC2', '한글을 영어로, 혹은 영어를 한글로 입력했는지 다시 확인해 보세요.') }}</li>
+					<li>{{ translateService.instant('GLOBAL.SEARCH.NODATA.DESC3', '검색어의 단어 수를 줄이거나, 일반적인 검색어로 다시 검색해 보세요.') }}</li>
+					<li>{{ translateService.instant('GLOBAL.SEARCH.NODATA.DESC4', '두 단어 이상의 검색어인 경우, 띄어쓰기를 확인해 보세요.') }}</li>
+				</ul>
+			</dd>
+		</dl>
+	</div>
+	<!-- //전체 검색결과가 없는 경우 -->
+
+	<!-- TAB -->
+	<ul tab
+		*ngIf="globalSearchService.searchResultCount > 0"
+		[tabLabelList]="globalSearchService.resultPageTabList"
+		[selectIndex]="currentGlobalSearchTypeEnumIndex"
+		(oSelected)="selectedTab($event)">
+	</ul>
+	<!-- //TAB -->
+
+	<!-- 커뮤니케이션 -->
+	<dl class="search-content"
+		*ngIf="globalSearchService.searchResultCount > 0 && communicationEntity !== null">
+		<dt>{{ translateService.instant('GLOBAL.SEARCH.COMMUNICATION.TITLE', '커뮤니케이션') }}</dt>
+		<dd>
+			<ul class="list-result"
+				*ngIf="communicationEntity.contentsList.length > 0">
+				<li *ngFor="let content of communicationEntity.contentsList"
+					[class.type-thumb]="checkEmptyImageLink(content.source.imageLink)">
+					<span class="img-thumb"
+						  *ngIf="checkEmptyImageLink(content.source.imageLink)"
+						  [style.background-image]="'url(' + getCommunityImage(content.source.imageLink) + ')'">
+					</span>
+					<a href="javascript:;"
+					   class="link-title"
+					   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, content.source.postTitle, '커뮤니케이션'); goPage(content.source, content.type)">
+						{{ content.source.postTitle }}
+					</a>
+					<p class="txt-desc">
+						{{ content.source.postContent }}
+					</p>
+					<div class="data-info">
+						<span class="data-comment" aria-label="댓글 수">{{ content.source.commentCount }}</span>
+						<span class="data-user">{{ content.source.displayNm }}</span>
+					</div>
+				</li>
+			</ul>
+
+			<a href="javascript:;" class="link-more"
+			   *ngIf="communicationEntity.contentsList.length > 2"
+			   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, '커뮤니케이션 더보기'); searchForCommunityDetail()">{{ translateService.instant('GLOBAL.SEARCH.COMMUNICATION.TITLE', '커뮤니케이션') }} {{ translateService.instant('COMMON.MORE', '더보기') }}</a>
+
+			<!-- Nodata -->
+			<div class="nodata-search" aria-hidden="false"
+				 *ngIf="communicationEntity.contentsList.length === 0">
+				{{ translateService.instant('GLOBAL.SEARCH.NODATA', '검색결과가 없습니다.') }}
+			</div>
+			<!-- //Nodata -->
+		</dd>
+	</dl>
+	<!-- //커뮤니케이션 -->
+
+	<!-- 리포트 -->
+	<dl class="search-content"
+		*ngIf="globalSearchService.searchResultCount > 0 && reportAppEntity !== null">
+		<dt>{{ translateService.instant('GLOBAL.SEARCH.REPORT.TITLE', '리포트') }}</dt>
+		<dd>
+			<ul class="list-result"
+				*ngIf="reportAppEntity.contentsList.length > 0">
+				<li class="type-thumb"
+					*ngFor="let content of reportAppEntity.contentsList">
+					<span class="img-thumb" [style.background-image]="'url(' + getReportAppImage(content.source.mediaId) + ')'"></span>
+					<a href="javascript:;"
+					   class="link-title"
+					   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, content.source.appNm, '리포트'); goPage(content.source, content.type)">
+						{{ content.source.appNm }}
+					</a>
+					<p class="txt-desc">
+						{{ content.source.appSummary }}
+					</p>
+					<div class="data-info">
+						<span class="data-category">#{{ content.source.categories }}</span>
+						<span class="data-views" aria-label="조회 수">{{ content.source.usage | number: '1.0-3' }}</span>
+					</div>
+				</li>
+			</ul>
+
+			<a href="javascript:;" class="link-more"
+			   *ngIf="reportAppEntity.contentsList.length > 2"
+			   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, '리포트 더보기'); searchForReportAppDetail()">{{ translateService.instant('GLOBAL.SEARCH.REPORT.TITLE', '리포트 앱') }} {{ translateService.instant('COMMON.MORE', '더보기') }}</a>
+
+			<!-- Nodata -->
+			<div class="nodata-search" aria-hidden="false"
+				 *ngIf="reportAppEntity.contentsList.length === 0">
+				{{ translateService.instant('GLOBAL.SEARCH.NODATA', '검색결과가 없습니다.') }}
+			</div>
+			<!-- //Nodata -->
+
+		</dd>
+	</dl>
+	<!-- //리포트 -->
+
+	<!-- 분석 앱 -->
+	<dl class="search-content"
+		*ngIf="globalSearchService.searchResultCount > 0 && analysisAppEntity !== null">
+		<dt>{{ translateService.instant('GLOBAL.SEARCH.ANALYSIS.TITLE', '분석 앱') }}</dt>
+		<dd>
+			<ul class="list-result"
+				*ngIf="analysisAppEntity.contentsList.length > 0">
+				<li class="type-thumb"
+					*ngFor="let content of analysisAppEntity.contentsList">
+					<span class="img-thumb" [style.background-image]="'url(' + getAnalysisAppImage(content.source.mediaId) + ')'"></span>
+					<a href="javascript:;"
+					   class="link-title"
+					   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, content.source.appNm, '분석 앱'); goPage(content.source, content.type)">
+						{{ content.source.appNm }}
+					</a>
+					<p class="txt-desc">
+						{{ content.source.appSummary }}
+					</p>
+					<div class="data-info">
+						<span class="data-category">#{{ content.source.categories }}</span>
+						<span class="data-views" aria-label="조회 수">{{ content.source.usage | number : '1.0-3' }}</span>
+					</div>
+				</li>
+			</ul>
+
+			<a href="javascript:;" class="link-more"
+			   *ngIf="analysisAppEntity.contentsList.length > 2"
+			   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, '분석 앱 더보기'); searchForAnalysisAppDetail()">{{ translateService.instant('GLOBAL.SEARCH.ANALYSIS.TITLE', '분석 앱') }} {{ translateService.instant('COMMON.MORE', '더보기') }}</a>
+
+			<!-- Nodata -->
+			<div class="nodata-search" aria-hidden="false"
+				 *ngIf="analysisAppEntity.contentsList.length === 0">
+				{{ translateService.instant('GLOBAL.SEARCH.NODATA', '검색결과가 없습니다.') }}
+			</div>
+			<!-- //Nodata -->
+		</dd>
+	</dl>
+	<!-- //분석 앱 -->
+
+	<!-- 데이터 테이블 -->
+	<dl class="search-content"
+		*ngIf="globalSearchService.searchResultCount > 0 && metaTableEntity !== null">
+		<dt>{{ translateService.instant('GLOBAL.SEARCH.DATA.TABLE.TITLE', '데이터 테이블') }}</dt>
+		<dd>
+			<ul class="list-result"
+				*ngIf="metaTableEntity.contentsList.length > 0">
+				<li *ngFor="let content of metaTableEntity.contentsList">
+					<a href="javascript:;"
+					   class="link-title"
+					   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, content.source.logicalNm === null || content.source.logicalNm.trim() == '' ? content.source.physicalNm : content.source.logicalNm + ' / ' + content.source.physicalNm, '데이터 테이블'); selectedSubjectTable = content.source">
+						{{ content.source.logicalNm === null || content.source.logicalNm.trim() == '' ? content.source.physicalNm : content.source.logicalNm + ' / ' + content.source.physicalNm }}
+					</a>
+
+					<p class="txt-desc">
+						{{ content.source.description }}
+					</p>
+
+					<div class="data-info">
+						<span class="data-database" aria-label="데이터베이스">{{ content.source.databaseNm }}</span>
+						<span class="data-used" aria-label="최근 1개월 활용 수">{{ content.source.columnCnt }}</span>
+						<span class="txt-location">{{ content.source.subject }}</span>
+					</div>
+				</li>
+			</ul>
+
+			<a href="javascript:;" class="link-more"
+			   *ngIf="metaTableEntity.contentsList.length > 2"
+			   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, '데이터 테이블 더보기'); searchForMetaTableDetail()">{{ translateService.instant('GLOBAL.SEARCH.DATA.TABLE.TITLE', '데이터 테이블') }} {{ translateService.instant('COMMON.MORE', '더보기') }}</a>
+
+			<!-- Nodata -->
+			<div class="nodata-search" aria-hidden="false"
+				 *ngIf="metaTableEntity.contentsList.length === 0">
+				{{ translateService.instant('GLOBAL.SEARCH.NODATA', '검색결과가 없습니다.') }}
+			</div>
+			<!-- //Nodata -->
+		</dd>
+	</dl>
+	<!-- //데이터 테이블 -->
+
+	<!-- 데이터 컬럼 -->
+	<dl class="search-content"
+		*ngIf="globalSearchService.searchResultCount > 0 && metaColumnEntity !== null">
+		<dt>{{ translateService.instant('GLOBAL.SEARCH.DATA.COLUMN.TITLE', '데이터 컬럼') }}</dt>
+		<dd>
+			<ul class="list-result"
+				*ngIf="metaColumnEntity.contentsList.length > 0">
+				<li *ngFor="let content of metaColumnEntity.contentsList">
+					<a href="javascript:;"
+					   class="link-title"
+					   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, content.source.logicalNm === null || content.source.logicalNm.trim() == '' ? content.source.physicalNm : content.source.logicalNm + ' / ' + content.source.physicalNm, '데이터 컬럼'); selectedSubjectColumn = content.source;">
+						{{ content.source.logicalNm === null || content.source.logicalNm.trim() == '' ? content.source.physicalNm : content.source.logicalNm + ' / ' + content.source.physicalNm }}
+					</a>
+
+					<p class="txt-desc">
+						{{ content.source.description }}
+					</p>
+
+					<div class="data-info">
+						<span class="data-type"
+							  *ngIf="content.source.dataType">
+							{{ content.source.dataType }}
+						</span>
+						<span class="data-table" aria-label="테이블 수">{{ content.source.tableCnt }}</span>
+					</div>
+				</li>
+			</ul>
+
+			<a href="javascript:;" class="link-more"
+			   *ngIf="metaColumnEntity.contentsList.length > 2"
+			   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, '데이터 컬럼 더보기'); searchForMetaColumnDetail()">{{ translateService.instant('GLOBAL.SEARCH.DATA.COLUMN.TITLE', '데이터 컬럼') }} {{ translateService.instant('COMMON.MORE', '더보기') }}</a>
+
+			<!--Nodata -->
+			<div class="nodata-search" aria-hidden="false"
+				 *ngIf="metaColumnEntity.contentsList.length === 0">
+				{{ translateService.instant('GLOBAL.SEARCH.NODATA', '검색결과가 없습니다.') }}
+			</div>
+			<!-- //Nodata -->
+		</dd>
+	</dl>
+	<!-- //데이터 컬럼 -->
+
+</div>
+<!-- //통합검색 -->
+
+<div table-detail
+	 *ngIf="selectedSubjectTable !== null"
+	 [metaTableId]="selectedSubjectTable.id"
+	 (onRowSelected)="onTableDetailPopupColumnGridInSubjectColumnSelected($event)"
+	 (onCancel)="selectedSubjectTable = null;">
+</div>
+
+<div column-detail
+	 *ngIf="selectedSubjectColumn !== null"
+	 [metaColumnId]="selectedSubjectColumn.id"
+	 (onRowSelected)="onColumnDetailPopupTableGridInSubjectTableSelected($event)"
+	 (onCancel)="selectedSubjectColumn = null;">
+</div>

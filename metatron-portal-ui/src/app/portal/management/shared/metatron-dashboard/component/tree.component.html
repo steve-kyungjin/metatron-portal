@@ -1,0 +1,32 @@
+<!-- Loading -->
+<div class="component-loading type-sub" id="dtLoading">
+	<span class="bar"></span>
+</div>
+<!-- //Loading -->
+
+<div class="scroll">
+	<!-- 트리 메뉴 -->
+	<div class="component-tree">
+		<ul class="list-tree">
+
+			<!--
+				[D] 접힌 경우 : is-collpsed
+				[D] 펼친 경우 : is-expanded
+			-->
+			<li *ngFor="let node of nodes; let index = index;"
+				(click)="select(index, node)"
+				[style.padding-left]="node.depth === 0 ? '0px' : 15 * node.depth + 'px'">
+				<span class="tree-item" *ngIf="node.type === 'workbook'">
+					<span class="icon-tree"></span>
+					<label class="label">{{node.name}}</label>
+				</span>
+				<span class="tree-item" *ngIf="node.type !== 'workbook'" [class.is-collapsed]="node.isOpen === false" [class.is-expanded]="node.isOpen === true">
+					<span class="icon-tree"></span>
+					<label class="label">{{node.name}}</label>
+				</span>
+			</li>
+
+		</ul>
+	</div>
+	<!-- //트리 메뉴 -->
+</div>

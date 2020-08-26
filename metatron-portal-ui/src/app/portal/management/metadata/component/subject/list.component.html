@@ -1,0 +1,104 @@
+<!-- 앱 관리 -->
+<div class="page-app-register">
+
+	<div class="section-list">
+
+		<div class="button-area">
+			<a href="javascript:;"
+			   class="btn-action type-add"
+			   (click)="isEditMode = false; isShowCreateOrUpdateLayer = true;">
+				주제영역 등록
+			</a>
+		</div>
+
+		<!-- Title -->
+		<div class="title-area">
+			<h3 class="txt-title">목록({{ tableTotalElements | number : '1.0-3'}})</h3>
+			<div class="filter">
+				<!-- 검색 -->
+				<div class="component-search">
+					<input type="text"
+						   class="input-search"
+						   placeholder="검색어 입력 후 검색"
+						   #keyWordInputElement
+						   (blur)="keyWordInputElement.value = keyWord;"
+						   (keyup.enter)="search$.next(keyWordInputElement.value);"
+						   maxlength="255">
+					<button class="btn-search" aria-label="검색" (click)="search$.next(keyWordInputElement.value);"></button>
+				</div>
+				<!-- //검색 -->
+			</div>
+		</div>
+		<!-- //Title -->
+
+		<!-- 목록 -->
+		<table class="table-app">
+			<colgroup>
+				<col width="40%"/>
+				<col width="400"/>
+				<col width="160"/>
+				<col width="100"/>
+				<col width="60"/>
+			</colgroup>
+			<thead>
+			<tr>
+				<th>명칭</th>
+				<th>설명</th>
+				<th>상위 주제영역명</th>
+				<th>하위 주제영역 수</th>
+				<th>관리</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr *ngFor="let subject of list; let index = index;">
+				<td class="align-left">
+					<a href="javascript:;"
+					   class="link-app"
+					   [title]="subject.fqn"
+					   (click)="selectedSubject = subject; isEditMode = true; isShowCreateOrUpdateLayer = true;">
+						{{ subject.fqn }}
+					</a>
+				</td>
+				<td class="align-left">
+					<span class="txt-desc"
+						  [title]="subject.description">
+						{{ subject.description }}
+					</span>
+				</td>
+				<td>
+					<span class="txt-desc"
+						  [title]="subject.parentNm">
+						{{ subject.parentNm }}
+					</span>
+				</td>
+				<td>{{ subject.children.length | number : '1.0-3' }}</td>
+				<td>
+					<a href="javascript:;" class="btn-delete" aria-label="삭제" (click)="openDeleteSubjectConfirmModal(subject.id);"></a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<!-- //목록 -->
+
+		<!-- No Data -->
+		<div *ngIf="list.length === 0" class="app-nodata">
+			검색결과가 없습니다.
+		</div>
+		<!-- //No Data -->
+
+		<!-- Pagination -->
+		<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+		<!-- //Pagination -->
+
+	</div>
+
+</div>
+<!-- //앱 관리 -->
+
+<div subject-create-update
+	 *ngIf="isShowCreateOrUpdateLayer"
+	 [isEditMode]="isEditMode"
+	 [subjectId]="getSelectedSubjectId()"
+	 (onCancel)="isShowCreateOrUpdateLayer = false;"
+	 (onDone)="createSubjectDone()">
+</div>

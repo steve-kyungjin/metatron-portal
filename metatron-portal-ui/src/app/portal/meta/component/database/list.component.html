@@ -1,0 +1,161 @@
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="section-data">
+
+	<!-- 왼쪽 트리메뉴 -->
+	<div database-tree-block
+		 [class.list-area]="true"
+		 (onInstanceSelected)="onSelectedInstance($event)"
+		 (onInstanceAllSelected)="onInstanceAllSelected($event)">
+	</div>
+	<!-- //왼쪽 트리메뉴 -->
+
+	<!-- 오른쪽 컨텐츠 영역 -->
+	<div class="data-area">
+		<!-- 주제영역 설명 -->
+		<dl class="data-desc"
+			*ngIf="isInstanceAllSelected === true && selectedInstance === null">
+			<dt>전체</dt>
+			<dd>
+				DB 인스턴스는 데이터베이스를 구성하는 가장 큰 단위로 보통 DB 서버를 의미합니다.<br>
+				좌측 DB 인스턴스 선택 시, 해당 DB 인스턴스 내의 DW 데이터베이스 목록이 표시됩니다.
+			</dd>
+		</dl>
+		<dl class="data-desc"
+			*ngIf="isInstanceAllSelected === false && selectedInstance !== null">
+			<dt>{{ selectedInstance.logicalNm === null || selectedInstance.logicalNm.trim() == '' ? selectedInstance.physicalNm : selectedInstance.logicalNm + ' / ' + selectedInstance.physicalNm }}</dt>
+			<dd *ngIf="selectedInstance && selectedInstance.description">
+				{{ selectedInstance.description }}
+			</dd>
+		</dl>
+		<!-- //주제영역 설명 -->
+
+		<!-- 데이터 테이블 -->
+		<div class="data-table">
+			<div class="list-block">
+				<div class="title-area">
+					<h3 class="txt-title">목록({{ tableTotalElements | number : '1.0-3'}})</h3>
+					<div class="filter">
+
+						<!-- Select Box -->
+						<span class="txt-filter">데이터 LAYER</span>
+						<div common-select
+							 [className]="'type-filter type-data'"
+							 [items]="dataLayerItemList"
+							 (itemSelect)="onDataLayerSelect($event)">
+						</div>
+						<!-- //Select Box -->
+
+						<em class="bar"></em>
+
+						<!-- Select Box -->
+						<div common-select
+							 [className]="'type-filter'"
+							 [items]="targetSelectBoxItemList"
+							 (itemSelect)="targetSelect($event)">
+						</div>
+						<!-- Select Box -->
+
+						<!-- 검색 -->
+						<div class="component-search">
+							<input type="text"
+								   class="input-search"
+								   placeholder="검색어 입력 후 검색"
+								   #keyWordInputElement
+								   (keyup.enter)="search$.next(keyWordInputElement.value); tagging(TaggingType.SEARCH, TaggingAction.BTN, keyWordInputElement.value);"
+								   maxlength="255">
+							<button class="btn-search" aria-label="검색" (click)="search$.next(keyWordInputElement.value); tagging(TaggingType.SEARCH, TaggingAction.BTN, keyWordInputElement.value);"></button>
+						</div>
+						<!-- //검색 -->
+
+					</div>
+				</div>
+				<div class="table-header">
+					<div class="table-scroll">
+						<table class="table-data">
+							<colgroup>
+								<col width="*"/>
+								<col width="160"/>
+								<col width="160"/>
+							</colgroup>
+							<thead>
+							<tr>
+								<th class="align-left">명칭/설명</th>
+								<th>데이터 LAYER</th>
+								<th>테이블 수</th>
+							</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<div class="table-body">
+					<div class="table-scroll">
+						<table class="table-data">
+							<colgroup>
+								<col width="*"/>
+								<col width="160"/>
+								<col width="160"/>
+							</colgroup>
+							<tbody>
+							<tr *ngFor="let database of databaseList">
+								<td>
+									<a href="javascript:;"
+									   class="link-item"
+									   (click)="selectedDatabase = database; tagging(TaggingType.LIST, TaggingAction.ITEM, database.logicalNm === null || database.logicalNm.trim() == '' ? database.physicalNm : database.logicalNm + ' / ' + database.physicalNm)">
+										<strong class="txt-title">{{ database.logicalNm === null || database.logicalNm.trim() == '' ? database.physicalNm : database.logicalNm + ' / ' + database.physicalNm }}</strong>
+										<span class="txt-desc">
+								{{ database.description }}
+							</span>
+									</a>
+								</td>
+								<td>{{ database.layer ? database.layer.nmKr : '' }}</td>
+								<td>{{ database.tableCnt | number : '1.0-3' }}</td>
+							</tr>
+							</tbody>
+						</table>
+						<div class="pagination"
+							 [hidden]="databaseList.length === 0">
+
+							<!-- Pagination -->
+							<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+							<!-- //Pagination -->
+
+							<div common-select
+								 [className]="'type-filter type-top'"
+								 [items]="pageSizeList"
+								 (itemSelect)="onPageSizeSelect($event)">
+							</div>
+
+						</div>
+						<div class="nodata-search"
+							 *ngIf="databaseList.length === 0">
+							검색결과가 없습니다.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //데이터 테이블 -->
+	</div>
+	<!-- //오른쪽 컨텐츠 영역 -->
+</div>
+
+<div database-detail
+	 *ngIf="selectedDatabase !== null"
+	 [databaseId]="selectedDatabase.id"
+	 (onRowSelected)="OnSelectedSubjectTable($event)"
+	 (onCancel)="selectedDatabase = null;">
+</div>
+
+<div table-detail
+	 *ngIf="selectedSubjectTable !== null"
+	 [metaTableId]="selectedSubjectTable.id"
+	 (onRowSelected)="OnSelectedSubjectColumn($event)"
+	 (onCancel)="selectedSubjectTable = null;">
+</div>
+
+<div column-detail
+	 *ngIf="selectedSubjectColumn !== null"
+	 [metaColumnId]="selectedSubjectColumn.id"
+	 (onRowSelected)="OnSelectedSubjectTable($event)"
+	 (onCancel)="selectedSubjectColumn = null;">
+</div>

@@ -1,0 +1,83 @@
+<!-- LAYER POPUP -->
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+
+			<!-- 상단 버튼 영역 -->
+			<div class="section-button">
+				<a href="javascript:;" class="btn-basic" (click)="cancel()">취소</a>
+				<a href="javascript:;" class="btn-action" (click)="done()">적용</a>
+			</div>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">대시보드 선택하기</h1>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 대시보드 선택하기 -->
+			<div class="section-dashboard">
+
+				<!-- 목록 -->
+				<div class="list-area">
+					<!-- 트리 메뉴 -->
+					<tree #treeComp [nodes]="nodes" (select)="select($event)"></tree>
+					<!-- //트리 메뉴 -->
+				</div>
+				<!-- //목록 -->
+
+				<div class="dashboard-area">
+					<!-- No Data -->
+					<div *ngIf="dashBoards.length === 0" class="nodata-dashboard">
+						<p class="txt-desc">먼저 Dashboard를 조회할<br>workbook을 선택해 주세요.</p>
+					</div>
+					<!-- //No Data -->
+
+					<!-- 대시보드 목록 -->
+					<div *ngFor="let dashboard of dashBoards; let index = index;"
+						 [class.dashboard-block]="index > 0 ? true : false">
+
+						<div class="workbook-block" *ngIf="index === 0">
+							<div class="box-workbook">
+								<input type="radio" id="dashboardLayerComponentRadio{{index}}" class="input-radio" name="dashboard" [value]="dashboard"
+									   [checked]="dashboard.isSelected">
+								<label class="label" for="dashboardLayerComponentRadio{{index}}" (click)="selectDashboard(dashboard, $event)">
+                                    <span class="txt-workbook">
+                                        <em>workbook</em>
+                                    </span>
+									<strong class="txt-title">
+									<span>
+										<em>{{dashboard.name}}</em>
+									</span>
+									</strong>
+									<span class="total">{{dashBoards.length}}</span>
+								</label>
+							</div>
+						</div>
+
+						<div *ngIf="index > 0">
+							<div class="box-dashboard">
+								<!-- [D] id/for 동일한 값으로 적용 -->
+								<input type="radio" id="dashboardLayerComponentRadio{{index + 1}}" class="input-radio" name="dashboard" [value]="dashboard"
+									   [checked]="dashboard.isSelected">
+								<label class="label" for="dashboardLayerComponentRadio{{index + 1}}"
+									   [style.background-image]="'url(' + getDashBoardThumbnailImageByThumbnailUrl(dashboard.imageUrl) + ')'"
+									   (click)="selectDashboard(dashboard, $event)">
+									<span class="txt-name">{{dashboard.name}}</span>
+									<em class="bg-cover"></em>
+								</label>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- //대시보드 목록 -->
+
+			</div>
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>
+<!-- //LAYER POPUP -->

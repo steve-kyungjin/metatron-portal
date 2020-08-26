@@ -1,0 +1,10 @@
+<!-- CATEGORY -->
+<ul class="list-category">
+	<li *ngFor="let item of categoryList; let index = index">
+		<!-- [D] id/for 동일한 값 적용 -->
+		<!-- [D] 카테고리 색상 10가지 (클래스명 type-a ~ type-j) -->
+		<input type="radio" class="input-radio" [attr.id]="'category' + index" name="category" [checked]="item == currentCategory" (click)="categoryClick(index)">
+		<label class="label" [ngClass]="'type-' + getColor(index)" [attr.for]="'category' + index">{{ getName(item) }}</label>
+	</li>
+</ul>
+<!-- //CATEGORY -->

@@ -1,0 +1,185 @@
+<!-- LAYER POPUP -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<div class="section-button">
+				<a href="javascript:;"
+				   class="btn-basic"
+				   (click)="cancel()">
+					취소
+				</a>
+				<a href="javascript:;"
+				   class="btn-action"
+				   (click)="done()">
+					저장
+				</a>
+			</div>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">컬럼 수정하기</h1>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 컬럼 수정하기 -->
+			<div class="section-metadata type-modify">
+				<div class="main-area">
+					<table class="table-data">
+						<colgroup>
+							<col width="150"/>
+							<col width="*"/>
+						</colgroup>
+						<tbody>
+						<tr>
+							<th>
+								<label class="label">컬럼 논리명</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="컬럼 논리명을 입력하세요."
+									   [(ngModel)]="column.logicalNm">
+							</td>
+						</tr>
+						<tr [class.is-error]="column.isPhysicalNmValidation === true">
+							<th><label class="label">테이블 물리명</label></th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="테이블 물리명을 입력하세요."
+									   [(ngModel)]="column.physicalNm"
+									   (focus)="column.isPhysicalNmValidation = false;">
+							</td>
+						</tr>
+						<tr>
+							<th class="align-top"><label class="label">테이블 설명</label></th>
+							<td>
+								<textarea class="textarea"
+										  placeholder="테이블 설명을 입력하세요."
+										  [(ngModel)]="column.description">
+								</textarea>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="sub-area">
+					<table class="table-data">
+						<colgroup>
+							<col width="150"/>
+							<col width="*"/>
+						</colgroup>
+						<tbody>
+						<tr>
+							<th>
+								<label class="label">데이터 유형</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="데이터 유형을 입력하세요."
+									   [(ngModel)]="column.dataType">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">데이터 사이즈</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="데이터 사이즈를 입력하세요."
+									   input-mask="number"
+									   [(ngModel)]="column.dataSize">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">Primary Key 여부</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="primaryKeySelectValueList"
+									 (itemSelect)="selectPrimaryKey($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">NULL 허용 여부</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="nullableSelectValueList"
+									 (itemSelect)="selectNullable($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">개인정보항목</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="privacySelectValueList"
+									 (itemSelect)="selectPrivacy($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">개인정보 처리유형</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="privacyProcSelectValueList"
+									 (itemSelect)="selectPrivacyProc($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">Druid 컬럼유형</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="druidColumnSelectValueList"
+									 (itemSelect)="selectDruidColumn($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th class="align-top">
+								<label class="label">참조기준 정보추출 SQL</label>
+							</th>
+							<td>
+								<textarea class="textarea"
+										  placeholder="SQL을 입력하세요."
+										  [(ngModel)]="column.refSql">
+								</textarea>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- //컬럼 수정하기 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>
+<!-- //LAYER POPUP -->

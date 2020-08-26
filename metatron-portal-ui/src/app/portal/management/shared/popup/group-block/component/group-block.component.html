@@ -1,0 +1,41 @@
+<!-- [D] 해당 영역 노출 시 aria-expanded 값 true로 변경 -->
+<!-- 그룹 -->
+
+<!-- Loading -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="component-loading type-sub" aria-hidden="true">
+	<span class="bar"></span>
+</div>
+<!-- //Loading -->
+
+<!-- 검색 -->
+<div class="component-search">
+	<input type="text" class="input-search" placeholder="그룹명으로 찾기"
+		   #keyWordInputElement
+		   (keyup.enter)="search$.next(keyWordInputElement.value)"
+		   [ngModel]="keyWord"
+		   [maxlength]="255">
+	<button class="btn-search" aria-label="검색" (click)="search$.next(keyWordInputElement.value)"></button>
+</div>
+<!-- //검색 -->
+
+<!-- 검색 결과 없는 경우 -->
+<!-- [D] 검색 결과 없는 경우 aria-hidden 값 false로 변경 -->
+<div class="nodata" aria-hidden="false"
+	 *ngIf="list.length === 0">
+	<span>'{{keyWord}}'</span>에 대한 검색결과가 없습니다.
+</div>
+<!-- //검색 결과 없는 경우 -->
+
+<!-- 그룹 목록 -->
+<ul class="list-group">
+	<li *ngFor="let group of list; let index = index;">
+		<a href="javascript:;" class="item" (click)="selected(group)">{{ group.name }}</a>
+	</li>
+</ul>
+<!-- //그룹 목록 -->
+
+<!-- Pagination -->
+<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size" [range]="5"></div>
+<!-- //Pagination -->
+<!-- //그룹 -->

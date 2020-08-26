@@ -1,0 +1,88 @@
+<!-- DT 과제 -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="section-list">
+	<!-- 과제 등록 버튼 영역 -->
+	<div class="button-area">
+		<a href="javascript:;"
+		   class="btn-action type-add"
+		   *ngIf="enableCreate"
+		   (click)="tagging(TaggingType.LIST, TaggingAction.BTN, '과제 등록'); goCreatePage()">과제 등록</a>
+	</div>
+	<!-- //과제 등록 버튼 영역 -->
+
+	<!-- Title -->
+	<div class="title-area">
+		<div class="filter">
+			<!-- Select Box -->
+			<div common-select
+				 #selectBox
+				 [className]="'type-filter'"
+				 [items]="selectBoxYearListItem"
+				 (itemSelect)="oSelectedYear($event)">
+			</div>
+			<!-- //Select Box -->
+		</div>
+	</div>
+	<!-- //Title -->
+
+	<!-- 목록 -->
+	<table class="table-assignment">
+		<colgroup>
+			<col width="100"/>
+			<col width="*"/>
+			<col width="200"/>
+			<col width="120"/>
+			<col width="160"/>
+			<col width="100"/>
+		</colgroup>
+		<thead>
+		<tr>
+			<th>구분</th>
+			<th>과제명</th>
+			<th>기간</th>
+			<th>진행현황</th>
+			<th>담당부서</th>
+			<th>담당자</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr *ngFor="let project of list">
+			<td>{{ project.type.nmKr }}</td>
+			<td class="align-left">
+				<!--suppress JSUnnecessarySemicolon -->
+				<a href="javascript:;" class="link-assignment" [title]="project.name"
+				   (click)="tagging(TaggingType.LIST, TaggingAction.ITEM, project.name); goDetail(project.id)">
+					{{ project.name }}
+				</a>
+			</td>
+			<td>{{ project.startDate }}~{{ project.endDate }}</td>
+			<td>
+				<!--suppress JSUnresolvedVariable -->
+				<strong class="txt-status"
+						[class.step-a]="getProgressLabel(project.progress) === projectProgressLabel.PLANNING.toString()"
+						[class.step-b]="getProgressLabel(project.progress) === projectProgressLabel.DESIGN.toString()"
+						[class.step-c]="getProgressLabel(project.progress) === projectProgressLabel.DEVELOP.toString()"
+						[class.step-d]="getProgressLabel(project.progress) === projectProgressLabel.TEST.toString()"
+						[class.step-e]="getProgressLabel(project.progress) === projectProgressLabel.PRODUCT.toString()">
+					{{ getProgressLabel(project.progress).replace(' ', '-') }}
+				</strong>
+			</td>
+			<td>{{ project.workOrg ? project.workOrg.name : '' }}</td>
+			<td>{{ project.worker ? project.worker.userNm : '' }}</td>
+		</tr>
+		</tbody>
+	</table>
+	<!-- //목록 -->
+
+	<!-- No Data -->
+	<div class="app-nodata"
+		 *ngIf="list.length === 0">
+		등록된 과제가 없습니다.
+	</div>
+	<!-- //No Data -->
+
+	<!-- Pagination -->
+	<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+	<!-- //Pagination -->
+</div>
+<!-- DT 과제 -->

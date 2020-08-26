@@ -1,0 +1,74 @@
+<!-- LAYER POPUP -->
+<div class="layout-popup" [hidden]="!isShow">
+	<div class="layer-popup">
+		<div class="popup">
+			<!-- Popup Content -->
+			<div class="popup-content type-confirm">
+
+				<!-- 타이틀 영역 -->
+				<div class="section-title">
+					<h1 class="txt-title">{{ translateService.instant('USER.PROFILE.MY.INFO', '내 정보') }}</h1>
+				</div>
+				<!-- //타이틀 영역 -->
+
+				<!-- 닫기 버튼 -->
+				<a href="javascript:;" class="btn-close" [attr.aria-label]="translateService.instant('COMMON.CLOSE', '닫기')" (click)="closeClick()"></a>
+				<!-- //닫기 버튼 -->
+
+				<!-- 팝업 내용 -->
+				<div class="section-info">
+					<!-- 프로필 사진 -->
+					<div class="info-photo">
+						<span class="photo" [style.background-image]="'url(' + userService.getProfileImage(sessionInfo.getUser()) + ')'"></span>
+						<!--<div class="button-area">
+							업로드
+							<div class="form-upload">
+								<span class="btn-action">
+									<file-upload (change)="changeFile($event)"
+												 [accept]="['.jpg', '.png', '.jpeg', '.bmp']"
+												 [fileMaxLength]="1">
+									</file-upload>
+								</span>
+							</div>
+							//업로드
+							<a href="javascript:;" class="btn-basic" (click)="deleteClick()">{{ translateService.instant('COMMON.DELETE', '삭제') }}</a>
+						</div>-->
+						<!--<p class="txt-desc">
+							{{ translateService.instant('USER.PROFILE.FILE.SIZE.TEXT', '이미지 권장 사이즈') }}
+							<br>
+							{{ translateService.instant('USER.PROFILE.FILE.SIZE', '120*120px') }}
+						</p>-->
+					</div>
+					<!-- //프로필 사진 -->
+
+					<!-- 프로필 정보 -->
+					<div class="info-profile">
+						<ul class="list-info">
+							<li>
+								<span class="txt-label">{{ translateService.instant('USER.PROFILE.ID', '아이디') }}</span>
+								<span class="txt-data">{{ sessionInfo.getUser().userId }}</span>
+							</li>
+							<li>
+								<span class="txt-label">{{ translateService.instant('USER.PROFILE.NAME', '이름') }}</span>
+								<span class="txt-data">{{ sessionInfo.getUser().userNm }}</span>
+							</li>
+							<li>
+								<span class="txt-label">{{ translateService.instant('USER.PROFILE.DEPT', '소속') }}</span>
+								<span class="txt-data">{{ sessionInfo.getUser() && sessionInfo.getUser().org ? sessionInfo.getUser().orgNm : '' }}</span>
+							</li>
+							<li class="type-recently">
+								<span class="txt-label">{{ translateService.instant('USER.PROFILE.LOGIN.DATE', '최근 접속일') }}</span>
+								<span class="txt-data">{{ sessionInfo.user.lastLoginDate | date_format : 'YYYY-MM-DD HH:mm:ss' }}</span>
+							</li>
+						</ul>
+					</div>
+					<!-- //프로필 정보 -->
+				</div>
+				<!-- //팝업 내용 -->
+
+			</div>
+			<!-- //Popup Content -->
+		</div>
+	</div>
+</div>
+<!-- //LAYER POPUP -->

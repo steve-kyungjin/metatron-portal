@@ -1,0 +1,53 @@
+<!-- 사용자 조회 상세 -->
+<!-- 사용자 정보 -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="section-detail">
+	<a href="javascript:;" class="link-list" (click)="goListPage()">목록보기</a>
+	<div class="detail-area">
+		<!-- 프로필 사진 -->
+		<span class="img-user" [style.background-image]="'url(' + userService.getProfileImage(user) + ')'"></span>
+		<!-- //프로필 사진 -->
+
+		<!-- 프로필 정보 -->
+		<ul class="info-user">
+			<li>
+				<span class="label">이름</span>
+				<span class="txt-data">{{ user.userNm }}</span>
+			</li>
+			<li>
+				<span class="label">아이디</span>
+				<span class="txt-data">{{ user.userId }}</span>
+			</li>
+			<li>
+				<span class="label">전화번호</span>
+				<span class="txt-data">{{ user.celpTlno }}</span>
+			</li>
+			<li>
+				<span class="label">이메일</span>
+				<span class="txt-data">
+					<span class="link-email">{{ user.emailAddr }}</span>
+				</span>
+			</li>
+			<li>
+				<span class="label">관리자 여부</span>
+				<span class="txt-data">{{ user.admin ? '관리자' : '일반' }}</span>
+			</li>
+			<li>
+				<span class="label">최근 접속일</span>
+				<span class="txt-data">{{ user.lastLoginDate | date_format: 'YYYY-MM-DD HH:mm:ss' }}</span>
+			</li>
+			<li class="type-position">
+				<span class="label">권한</span>
+				<span class="txt-data">{{ connectIaNamePermissionWithComma(iaAndPermissionList) }}</span>
+			</li>
+			<li>
+				<span class="label">그룹({{ user.groupList === undefined ? 0 : user.groupList.length }})</span>
+				<span class="txt-data">{{ connectGroupNmWithCommaInGroupList(user.groupList) }}</span>
+			</li>
+		</ul>
+		<!-- //프로필 정보 -->
+	</div>
+	<a href="javascript:;" class="link-list" (click)="goListPage()">목록보기</a>
+</div>
+<!-- //사용자 정보 -->
+<!-- //사용자 조회 상세 -->

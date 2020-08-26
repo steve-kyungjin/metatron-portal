@@ -1,0 +1,364 @@
+<!-- LAYER POPUP -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<div class="section-button">
+				<a href="javascript:;"
+				   class="btn-basic"
+				   (click)="cancel()">
+					취소
+				</a>
+				<a href="javascript:;"
+				   class="btn-action"
+				   (click)="done()">
+					저장
+				</a>
+			</div>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title" *ngIf="isEditMode === false">연계 시스템 등록</h1>
+				<h1 class="txt-title" *ngIf="isEditMode === true">연계 시스템 수정</h1>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 컬럼 수정하기 -->
+			<div class="section-metadata type-modify">
+				<div class="main-area">
+					<table class="table-data">
+						<colgroup>
+							<col width="150"/>
+							<col width="*"/>
+						</colgroup>
+						<tbody>
+						<tr [class.is-error]="system.isStdNmValidation">
+							<th>
+								<label class="label">시스템 표준명</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="시스템 표준명을 입력하세요."
+									   maxlength="255"
+									   [(ngModel)]="system.stdNm"
+									   (focus)="system.isStdNmValidation = false;">
+							</td>
+						</tr>
+						<tr [class.is-error]="system.isFullNmValidation">
+							<th>
+								<label class="label">시스템 전체명</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="시스템 전체명을 입력하세요."
+									   maxlength="255"
+									   [(ngModel)]="system.fullNm"
+									   (focus)="system.isFullNmValidation = false;">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">시스템 설명</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="시스템 설명을 입력하세요."
+									   maxlength="3000"
+									   [(ngModel)]="system.description">
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="sub-area">
+					<table class="table-data">
+						<colgroup>
+							<col width="150"/>
+							<col width="*"/>
+						</colgroup>
+						<tbody>
+						<tr>
+							<th class="align-top">
+								<label class="label">상위 시스템</label>
+							</th>
+							<td>
+								<div class="form-subject">
+									<a href="javascript:;"
+									   class="btn-basic"
+									   (click)="isParentSystemSelectPopupOpen = true">
+										설정하기
+									</a>
+									<ul class="list-subject">
+										<li *ngIf="selectedParentSystem !== null && selectedParentSystem !== undefined">
+											<span class="txt-subject">{{ getSelectedParentSystemName() }}</span>
+											<a href="javascript:;"
+											   class="btn-delete"
+											   aria-label="삭제"
+											   (click)="deleteSelectedParentSystem()"></a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">운영/정보계 분류</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="operatingSystemAndInformationSystemClassificationCodeList"
+									 (itemSelect)="onOperatingSystemAndInformationSystemClassificationCodeSelect($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">연동방향</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="dataWarehouseInterlinkDirectionCodeList"
+									 (itemSelect)="onDataWarehouseInterlinkDirectionCodeSelect($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">연계목적</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="연계목적을 입력하세요."
+									   maxlength="255"
+									   [(ngModel)]="system.relPurpose">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">레벨구분</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="levelClassificationCodeList"
+									 (itemSelect)="onLevelClassificationCodeSelect($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">수집 IF 기술</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="수집 IF 기술을 입력하세요."
+									   maxlength="255"
+									   [(ngModel)]="system.inMethod">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">최소 수집 주기</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="수집 엔터티 수를 입력하세요."
+									   maxlength="255"
+									   [(ngModel)]="system.inFrequency">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">수집 엔터티 수</label>
+							</th>
+							<td>
+								<input type="text"
+									   input-mask="number"
+									   class="input-text"
+									   placeholder="수집 엔터티 수를 입력하세요."
+									   maxlength="9"
+									   [(ngModel)]="system.inEntityCnt">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">수집 용량/일</label>
+							</th>
+							<td>
+								<input type="text"
+									   input-mask="float"
+									   class="input-text"
+									   placeholder="수집 용량/일을 입력하세요."
+									   maxlength="9"
+									   [(ngModel)]="system.inSize">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">수집 용량 단위</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="수집 용량 단위를 입력하세요."
+									   maxlength="255"
+									   [(ngModel)]="system.inSizeUnit">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">제공 IF 기술</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="제공 IF 기술을 입력하세요."
+									   maxlength="255"
+									   [(ngModel)]="system.outMethod">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">최소 제공 주기</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="최소 제공 주기를 입력하세요."
+									   maxlength="255"
+									   [(ngModel)]="system.outFrequency">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">제공 엔터티 수</label>
+							</th>
+							<td>
+								<input type="text"
+									   input-mask="number"
+									   class="input-text"
+									   placeholder="제공 엔터티 수를 입력하세요."
+									   maxlength="9"
+									   [(ngModel)]="system.outEntityCnt">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">제공 용량/일</label>
+							</th>
+							<td>
+								<input type="text"
+									   input-mask="float"
+									   class="input-text"
+									   placeholder="제공 용량/일을 입력하세요."
+									   maxlength="9"
+									   [(ngModel)]="system.outSize">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">제공 용량 단위</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="제공 용량 단위를 입력하세요."
+									   maxlength="255"
+									   [(ngModel)]="system.outSizeUnit">
+							</td>
+						</tr>
+						<tr>
+							<th class="align-top">
+								<label class="label">관리 담당자</label>
+							</th>
+							<td>
+								<div class="form-member">
+									<a href="javascript:;"
+									   class="btn-basic"
+									   (click)="isOpenWorkerUserSelectPopup = true;">
+										설정하기
+									</a>
+									<ul class="list-member">
+										<li *ngIf="system && system.worker">
+											<span class="bg-member" [style.background-image]="'url(' + userService.getProfileImage(system.worker)  + ')'"></span>
+											<span class="txt-member">{{ system.worker.userNm }} {{ system.worker.orgNm === '' ? '' : '(' + system.worker.orgNm + ')' }}</span>
+											<a href="javascript:;"
+											   class="btn-delete"
+											   aria-label="삭제"
+											   (click)="deleteSystemWorker()">
+											</a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="align-top">
+								<label class="label">관리 담당자(지원)</label>
+							</th>
+							<td>
+								<div class="form-member">
+									<a href="javascript:;"
+									   class="btn-basic"
+									   (click)="isOpenCoWorkerUserSelectPopup = true;">
+										설정하기
+									</a>
+									<ul class="list-member">
+										<li *ngIf="system && system.coworker">
+											<span class="bg-member" [style.background-image]="'url(' + userService.getProfileImage(system.coworker)  + ')'"></span>
+											<span class="txt-member">{{ system.coworker.userNm }} {{ system.coworker.orgNm === '' ? '' : '(' + system.coworker.orgNm + ')' }}</span>
+											<a href="javascript:;"
+											   class="btn-delete"
+											   aria-label="삭제"
+											   (click)="deleteSystemCoWorker()">
+											</a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- //컬럼 수정하기 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>
+<!-- //LAYER POPUP -->
+
+<div user-select
+	 *ngIf="isOpenWorkerUserSelectPopup"
+	 [isUserMultipleSelectMode]="false"
+	 (oDone)="doneWorkerUserSelectPopup($event)"
+	 (oClose)="closeWorkerUserSelectPopup()">
+</div>
+
+<div user-select
+	 *ngIf="isOpenCoWorkerUserSelectPopup"
+	 [isUserMultipleSelectMode]="false"
+	 (oDone)="doneCoWorkerUserSelectPopup($event)"
+	 (oClose)="closeCoWorkerUserSelectPopup()">
+</div>
+
+<system-select *ngIf="isParentSystemSelectPopupOpen"
+			   [isUserMultipleSelectMode]="false"
+			   [notSelectionSystemIdList]="notSelectionSystemIdList"
+			   (oClose)="parentSystemSelectCancel()"
+			   (oDone)="parentSystemSelectComplete($event)">
+</system-select>

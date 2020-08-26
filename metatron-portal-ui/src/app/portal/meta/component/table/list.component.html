@@ -1,0 +1,37 @@
+<!-- 데이터 탐색 -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="section-data">
+	<!-- 왼쪽 트리메뉴 -->
+	<div class="list-area">
+
+		<!-- TAB -->
+		<ul class="list-tab">
+			<li [attr.aria-selected]="isSubjectMode === true">
+				<a href="javascript:;"
+				   class="link-tab"
+				   (click)="isSubjectMode = true; tableService.pageSizeChangeNoti()">
+					주제영역
+				</a>
+			</li>
+			<li [attr.aria-selected]="isSubjectMode === false">
+				<a href="javascript:;"
+				   class="link-tab"
+				   (click)="isSubjectMode = false; databaseService.pageSizeChangeNoti()">
+					데이터베이스
+				</a>
+			</li>
+		</ul>
+		<!-- //TAB -->
+
+		<subject-tree [hidden]="isSubjectMode === false" (onSubjectSelect)="subjectSelect($event)"></subject-tree>
+		<database-tree [hidden]="isSubjectMode === true"></database-tree>
+
+	</div>
+	<!-- //왼쪽 트리메뉴 -->
+
+	<!-- 오른쪽 컨텐츠 영역 -->
+	<div subject-content [attr.aria-hidden]="isSubjectMode === false"></div>
+	<div database-content [attr.aria-hidden]="isSubjectMode === true"></div>
+	<!-- //오른쪽 컨텐츠 영역 -->
+</div>
+<!-- //데이터 탐색 -->

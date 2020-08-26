@@ -1,0 +1,415 @@
+<!-- 조건 입력 -->
+<!-- [D] 조건이 없는 경우 aria-expanded : true -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon, HtmlFormInputWithoutLabel, JSUnresolvedVariable, HtmlUnknownAttribute -->
+<div class="section-condition" [attr.aria-expanded]="modules.length === 0">
+	<div class="title-area">
+		<h3 class="txt-title">실행조건입력</h3>
+		<a href="javascript:;" class="btn-reset" (click)="reset()">초기화</a>
+	</div>
+
+	<div class="condition-area" [attr.aria-expanded]="isConditionFolding">
+		<ul class="form-condition" *ngFor="let module of modules">
+
+			<!-- ------------------------------------------------------------------------------------------------------------- -->
+			<!-- ------------------------------------------------- 1 --------------------------------------------------------- -->
+			<!-- ------------------------------------------------------------------------------------------------------------- -->
+			<!-- TEXT -->
+			<li *ngIf="module[0] != undefined && module[0].namespace === 'TEXT'">
+				<label class="txt-label">{{ module[0].name }}</label>
+				<input type="text"
+					   class="input-text"
+					   placeholder=""
+					   [class.is-error]="!module[0].isSuccess"
+					   [(ngModel)]="module[0].input"
+					   (focus)="module[0].isSuccess = true;">
+				<p class="txt-desc" *ngIf="module[0].description && module[0].description !== ''">* {{ module[0].description }}</p>
+			</li>
+			<!-- //TEXT -->
+			<!-- NUMBER -->
+			<li *ngIf="module[0] != undefined && module[0].namespace === 'NUMBER'">
+				<label class="txt-label">{{ module[0].name }}</label>
+				<input type="text"
+					   input-mask="number"
+					   class="input-text"
+					   placeholder=""
+					   [class.is-error]="!module[0].isSuccess"
+					   [(ngModel)]="module[0].input"
+					   (focus)="module[0].isSuccess = true;">
+				<p class="txt-desc" *ngIf="module[0].description && module[0].description !== ''">* {{ module[0].description }}</p>
+			</li>
+			<!-- //NUMBER -->
+			<!-- ARRAY -->
+			<li *ngIf="module[0] != undefined && module[0].namespace === 'ARRAY'">
+				<label class="txt-label">{{ module[0].name }}</label>
+				<input type="text"
+					   class="input-text"
+					   placeholder=""
+					   [class.is-error]="!module[0].isSuccess"
+					   [(ngModel)]="module[0].input"
+					   (focus)="module[0].isSuccess = true;">
+				<p class="txt-desc" *ngIf="module[0].description && module[0].description !== ''">* {{ module[0].description }}</p>
+			</li>
+			<!-- //ARRAY -->
+			<!-- SELECT -->
+			<li *ngIf="module[0] != undefined && module[0].namespace === 'SELECT'">
+				<label class="txt-label">{{ module[0].name }}</label>
+				<!-- Select Box -->
+				<div common-select
+					 [class.is-error]="!module[0].isSuccess"
+					 [items]="module[0].selectValues == undefined ? [] : module[0].selectValues"
+					 [placeholder]="'선택할 값이 없습니다.'"
+					 (itemSelect)="module[0].isSuccess = true; module[0].input = $event.value;">
+				</div>
+				<!-- //Select Box -->
+				<p class="txt-desc" *ngIf="module[0].description && module[0].description !== ''">* {{ module[0].description }}</p>
+			</li>
+			<!-- //SELECT -->
+			<!-- DATE -->
+			<li *ngIf="module[0] != undefined && module[0].namespace === 'DATE'">
+				<label class="txt-label">{{ module[0].name }}</label>
+				<div class="component-datepicker" [class.is-error]="!module[0].isSuccess">
+					<div class="box-datepicker">
+						<input input-datepicker
+							   type="text"
+							   readonly="readonly"
+							   #dateElement
+							   (oSelected)="module[0].input = dateElement.value"
+							   [datepicker]="{ 'dataFormat': 'yyyyMMdd', 'timeFormat': 'HH:mm:ss', 'useTimePicker': false }"
+							   [(ngModel)]="module[0].input"
+							   (focus)="module[0].isSuccess = true;">
+					</div>
+				</div>
+				<p class="txt-desc" *ngIf="module[0].description && module[0].description !== ''">* {{ module[0].description }}</p>
+			</li>
+			<!-- //DATE -->
+			<!-- DATETIME -->
+			<li *ngIf="module[0] != undefined && module[0].namespace === 'DATETIME'">
+				<label class="txt-label">{{ module[0].name }}</label>
+				<div class="component-datepicker" [class.is-error]="!module[0].isSuccess">
+					<div class="box-datepicker">
+						<input input-datepicker
+							   type="text"
+							   readonly="readonly"
+							   #dateElement
+							   (oSelected)="module[0].input = dateElement.value"
+							   [datepicker]="{ 'dataFormat': 'yyyyMMdd', 'timeFormat': 'HH:mm:ss', 'useTimePicker': true }"
+							   [(ngModel)]="module[0].input"
+							   (focus)="module[0].isSuccess = true;">
+					</div>
+				</div>
+				<p class="txt-desc" *ngIf="module[0].description && module[0].description !== ''">* {{ module[0].description }}</p>
+			</li>
+			<!-- //DATETIME -->
+			<!-- CUSTOM -->
+			<li *ngIf="module[0] != undefined && module[0].moduleType === 'CUSTOM'">
+				<label class="txt-label">{{ module[0].name }}</label>
+				<div class="form-regist">
+					<div class="regist-input">
+						<input type="text"
+							   class="input-text"
+							   placeholder=""
+							   readonly
+							   [class.is-error]="!module[0].isSuccess"
+							   [ngModel]="module[0].label">
+					</div>
+					<div class="regist-button">
+						<a href="javascript:;" class="btn-basic" (click)="showCustomVariableSelectLayer(module[0])">선택</a>
+					</div>
+				</div>
+				<p class="txt-desc" *ngIf="module[0].description && module[0].description !== ''">* {{ module[0].description }}</p>
+			</li>
+			<!-- //CUSTOM -->
+			<!-- ------------------------------------------------------------------------------------------------------------- -->
+			<!-- ------------------------------------------------ //1 -------------------------------------------------------- -->
+			<!-- ------------------------------------------------------------------------------------------------------------- -->
+
+			<!-- ------------------------------------------------------------------------------------------------------------- -->
+			<!-- ------------------------------------------------- 2 --------------------------------------------------------- -->
+			<!-- ------------------------------------------------------------------------------------------------------------- -->
+			<!-- TEXT -->
+			<li *ngIf="module[1] != undefined && module[1].namespace === 'TEXT'">
+				<label class="txt-label">{{ module[1].name }}</label>
+				<input type="text"
+					   class="input-text"
+					   placeholder=""
+					   [class.is-error]="!module[1].isSuccess"
+					   [(ngModel)]="module[1].input"
+					   (focus)="module[1].isSuccess = true;">
+				<p class="txt-desc" *ngIf="module[1].description && module[1].description !== ''">* {{ module[1].description }}</p>
+			</li>
+			<!-- //TEXT -->
+			<!-- NUMBER -->
+			<li *ngIf="module[1] != undefined && module[1].namespace === 'NUMBER'">
+				<label class="txt-label">{{ module[1].name }}</label>
+				<input type="text"
+					   input-mask="number"
+					   class="input-text"
+					   placeholder=""
+					   [class.is-error]="!module[1].isSuccess"
+					   [(ngModel)]="module[1].input"
+					   (focus)="module[1].isSuccess = true;">
+				<p class="txt-desc" *ngIf="module[1].description && module[1].description !== ''">* {{ module[1].description }}</p>
+			</li>
+			<!-- //NUMBER -->
+			<!-- ARRAY -->
+			<li *ngIf="module[1] != undefined && module[1].namespace === 'ARRAY'">
+				<label class="txt-label">{{ module[1].name }}</label>
+				<input type="text"
+					   class="input-text"
+					   placeholder=""
+					   [class.is-error]="!module[1].isSuccess"
+					   [(ngModel)]="module[1].input"
+					   (focus)="module[1].isSuccess = true;">
+				<p class="txt-desc" *ngIf="module[1].description && module[1].description !== ''">* {{ module[1].description }}</p>
+			</li>
+			<!-- //ARRAY -->
+			<!-- SELECT -->
+			<li *ngIf="module[1] != undefined && module[1].namespace === 'SELECT'">
+				<label class="txt-label">{{ module[1].name }}</label>
+				<!-- Select Box -->
+				<div common-select
+					 [class.is-error]="!module[1].isSuccess"
+					 [items]="module[1].selectValues == undefined ? [] : module[1].selectValues"
+					 [placeholder]="'선택할 값이 없습니다.'"
+					 (itemSelect)="module[1].isSuccess = true; module[1].input = $event.value;">
+				</div>
+				<!-- //Select Box -->
+				<p class="txt-desc" *ngIf="module[1].description && module[1].description !== ''">* {{ module[1].description }}</p>
+			</li>
+			<!-- //SELECT -->
+			<!-- DATE -->
+			<li *ngIf="module[1] != undefined && module[1].namespace === 'DATE'">
+				<label class="txt-label">{{ module[1].name }}</label>
+				<div class="component-datepicker" [class.is-error]="!module[1].isSuccess">
+					<div class="box-datepicker">
+						<input input-datepicker
+							   type="text"
+							   readonly="readonly"
+							   #dateElement
+							   (oSelected)="module[1].input = dateElement.value"
+							   [datepicker]="{ 'dataFormat': 'yyyyMMdd', 'timeFormat': 'HH:mm:ss', 'useTimePicker': false }"
+							   [(ngModel)]="module[1].input"
+							   (focus)="module[1].isSuccess = true;">
+					</div>
+				</div>
+				<p class="txt-desc" *ngIf="module[1].description && module[1].description !== ''">* {{ module[1].description }}</p>
+			</li>
+			<!-- //DATE -->
+			<!-- DATETIME -->
+			<li *ngIf="module[1] != undefined && module[1].namespace === 'DATETIME'">
+				<label class="txt-label">{{ module[1].name }}</label>
+				<div class="component-datepicker" [class.is-error]="!module[1].isSuccess">
+					<div class="box-datepicker">
+						<input input-datepicker
+							   type="text"
+							   readonly="readonly"
+							   #dateElement
+							   (oSelected)="module[1].input = dateElement.value"
+							   [datepicker]="{ 'dataFormat': 'yyyyMMdd', 'timeFormat': 'HH:mm:ss', 'useTimePicker': true }"
+							   [(ngModel)]="module[1].input"
+							   (focus)="module[1].isSuccess = true;">
+					</div>
+				</div>
+				<p class="txt-desc" *ngIf="module[1].description && module[1].description !== ''">* {{ module[1].description }}</p>
+			</li>
+			<!-- //DATETIME -->
+			<!-- CUSTOM -->
+			<li *ngIf="module[1] != undefined && module[1].moduleType === 'CUSTOM'">
+				<label class="txt-label">{{ module[1].name }}</label>
+				<div class="form-regist">
+					<div class="regist-input">
+						<input type="text"
+							   class="input-text"
+							   placeholder=""
+							   readonly
+							   [class.is-error]="!module[1].isSuccess"
+							   [ngModel]="module[1].label">
+					</div>
+					<div class="regist-button">
+						<a href="javascript:;" class="btn-basic" (click)="showCustomVariableSelectLayer(module[1])">선택</a>
+					</div>
+				</div>
+				<p class="txt-desc" *ngIf="module[1].description && module[1].description !== ''">* {{ module[1].description }}</p>
+			</li>
+			<!-- //CUSTOM -->
+			<!-- ------------------------------------------------------------------------------------------------------------- -->
+			<!-- ------------------------------------------------ //2 -------------------------------------------------------- -->
+			<!-- ------------------------------------------------------------------------------------------------------------- -->
+
+			<!-- ------------------------------------------------------------------------------------------------------------- -->
+			<!-- ------------------------------------------------- 3 --------------------------------------------------------- -->
+			<!-- ------------------------------------------------------------------------------------------------------------- -->
+			<!-- TEXT -->
+			<li *ngIf="module[2] != undefined && module[2].namespace === 'TEXT'">
+				<label class="txt-label">{{ module[2].name }}</label>
+				<input type="text"
+					   class="input-text"
+					   placeholder=""
+					   [class.is-error]="!module[2].isSuccess"
+					   [(ngModel)]="module[2].input"
+					   (focus)="module[2].isSuccess = true;">
+				<p class="txt-desc" *ngIf="module[2].description && module[2].description !== ''">* {{ module[2].description }}</p>
+			</li>
+			<!-- //TEXT -->
+			<!-- NUMBER -->
+			<li *ngIf="module[2] != undefined && module[2].namespace === 'NUMBER'">
+				<label class="txt-label">{{ module[2].name }}</label>
+				<input type="text"
+					   input-mask="number"
+					   class="input-text"
+					   placeholder=""
+					   [class.is-error]="!module[2].isSuccess"
+					   [(ngModel)]="module[2].input"
+					   (focus)="module[2].isSuccess = true;">
+				<p class="txt-desc" *ngIf="module[2].description && module[2].description !== ''">* {{ module[2].description }}</p>
+			</li>
+			<!-- //NUMBER -->
+			<!-- ARRAY -->
+			<li *ngIf="module[2] != undefined && module[2].namespace === 'ARRAY'">
+				<label class="txt-label">{{ module[2].name }}</label>
+				<input type="text"
+					   class="input-text"
+					   placeholder=""
+					   [class.is-error]="!module[2].isSuccess"
+					   [(ngModel)]="module[2].input"
+					   (focus)="module[2].isSuccess = true;">
+				<p class="txt-desc" *ngIf="module[2].description && module[2].description !== ''">* {{ module[2].description }}</p>
+			</li>
+			<!-- //ARRAY -->
+			<!-- SELECT -->
+			<li *ngIf="module[2] != undefined && module[2].namespace === 'SELECT'">
+				<label class="txt-label">{{ module[2].name }}</label>
+				<!-- Select Box -->
+				<div common-select
+					 [class.is-error]="!module[2].isSuccess"
+					 [items]="module[2].selectValues == undefined ? [] : module[2].selectValues"
+					 [placeholder]="'선택할 값이 없습니다.'"
+					 (itemSelect)="module[2].isSuccess = true; module[2].input = $event.value;">
+				</div>
+				<!-- //Select Box -->
+				<p class="txt-desc" *ngIf="module[2].description && module[2].description !== ''">* {{ module[2].description }}</p>
+			</li>
+			<!-- //SELECT -->
+			<!-- DATE -->
+			<li *ngIf="module[2] != undefined && module[2].namespace === 'DATE'">
+				<label class="txt-label">{{ module[2].name }}</label>
+				<div class="component-datepicker" [class.is-error]="!module[2].isSuccess">
+					<div class="box-datepicker">
+						<input input-datepicker
+							   type="text"
+							   readonly="readonly"
+							   #dateElement
+							   (oSelected)="module[2].input = dateElement.value"
+							   [datepicker]="{ 'dataFormat': 'yyyyMMdd', 'timeFormat': 'HH:mm:ss', 'useTimePicker': false }"
+							   [(ngModel)]="module[2].input"
+							   (focus)="module[2].isSuccess = true;">
+					</div>
+				</div>
+				<p class="txt-desc" *ngIf="module[2].description && module[2].description !== ''">* {{ module[2].description }}</p>
+			</li>
+			<!-- //DATE -->
+			<!-- DATETIME -->
+			<li *ngIf="module[2] != undefined && module[2].namespace === 'DATETIME'">
+				<label class="txt-label">{{ module[2].name }}</label>
+				<div class="component-datepicker" [class.is-error]="!module[2].isSuccess">
+					<div class="box-datepicker">
+						<input input-datepicker
+							   type="text"
+							   readonly="readonly"
+							   #dateElement
+							   (oSelected)="module[2].input = dateElement.value"
+							   [datepicker]="{ 'dataFormat': 'yyyyMMdd', 'timeFormat': 'HH:mm:ss', 'useTimePicker': true }"
+							   [(ngModel)]="module[2].input"
+							   (focus)="module[2].isSuccess = true;">
+					</div>
+				</div>
+				<p class="txt-desc" *ngIf="module[2].description && module[2].description !== ''">* {{ module[2].description }}</p>
+			</li>
+			<!-- //DATETIME -->
+			<!-- CUSTOM -->
+			<li *ngIf="module[2] != undefined && module[2].moduleType === 'CUSTOM'">
+				<label class="txt-label">{{ module[2].name }}</label>
+				<div class="form-regist">
+					<div class="regist-input">
+						<input type="text"
+							   class="input-text"
+							   placeholder=""
+							   readonly
+							   [class.is-error]="!module[2].isSuccess"
+							   [ngModel]="module[2].label">
+					</div>
+					<div class="regist-button">
+						<a href="javascript:;" class="btn-basic" (click)="showCustomVariableSelectLayer(module[2])">선택</a>
+					</div>
+				</div>
+				<p class="txt-desc" *ngIf="module[2].description && module[2].description !== ''">* {{ module[2].description }}</p>
+			</li>
+			<!-- //CUSTOM -->
+			<!-- ------------------------------------------------------------------------------------------------------------- -->
+			<!-- ------------------------------------------------ //3 -------------------------------------------------------- -->
+			<!-- ------------------------------------------------------------------------------------------------------------- -->
+
+		</ul>
+	</div>
+
+	<!-- 실행 -->
+	<div class="start-area">
+		<input type="text"
+			   input-mask="number1"
+			   class="input-text"
+			   (focus)="extractParseParameter.isValidationMax = false;"
+			   [(ngModel)]="extractParseParameter.max"
+			   [class.is-error]="extractParseParameter.isValidationMax">
+		<a href="javascript:;" class="btn-action type-start" (click)="execute()">실행</a>
+	</div>
+	<!-- //실행 -->
+
+	<a href="javascript:;" class="btn-condition-expand" (click)="isConditionFolding = !isConditionFolding;"></a>
+</div>
+<!-- //조건 입력 -->
+
+<!-- Query 결과 -->
+<div class="section-query">
+
+	<div class="title-area">
+		<h3 class="txt-title">Query 결과</h3>
+		<a href="javascript:;" class="btn-basic type-download" (click)="downloadExcel()">엑셀 다운로드</a>
+	</div>
+
+	<!-- Query -->
+	<div class="query-area">
+
+		<!-- Query fail -->
+		<div *ngIf="isQueryFail"
+			 class="nodata-query">
+			<p class="txt-desc">
+				조회에 실패했습니다.
+			</p>
+		</div>
+		<!-- //Query fail -->
+
+		<!-- No Data -->
+		<div *ngIf="!isQueryFail && !isResultEmpty"
+			 class="nodata-query">
+			<p class="txt-desc">
+				데이터가 없습니다.
+			</p>
+		</div>
+		<!-- //No Data -->
+
+		<!-- Query 영역 -->
+		<div grid-component #grid class="component-query"></div>
+		<!-- //Query 영역 -->
+
+	</div>
+	<!-- //Query -->
+</div>
+<!-- //Query 결과 -->
+
+<div custom-variable-select-layer
+	 *ngIf="selectedCustomVariable !== null"
+	 [callBackFn]="customVariableSelectLayerCallBackFn"
+	 [extractCustomVariableModule]="selectedCustomVariable"
+	 (onCancel)="selectedCustomVariable = null;"
+	 (onComplete)="completeCustomVariableSelect($event)">
+</div>

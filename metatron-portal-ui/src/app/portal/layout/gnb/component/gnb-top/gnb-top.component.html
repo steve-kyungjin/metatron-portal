@@ -1,0 +1,29 @@
+<!-- 타이틀 영역 -->
+<!--suppress NsUnresolvedStyleClassReference -->
+<div class="section-title">
+	<div class="title-area">
+		<!-- Location -->
+		<div class="location">
+			<em *ngFor="let data of gnbIndicator.navigations" class="item">{{data}}</em>
+		</div>
+		<!-- //Location -->
+
+		<!-- Title -->
+		<div class="title">
+			<h3 class="txt-title">
+				{{gnbIndicator.title}}
+				<a *ngIf="showNewWindowIcon"
+				   href="javascript:;"
+				   class="btn-blank"
+				   (click)="openNewWindow()"
+				   aria-label="새창으로 보기">
+				</a>
+			</h3>
+			<p class="txt-desc">
+				{{gnbIndicator.description}}
+			</p>
+		</div>
+		<!-- //Title -->
+	</div>
+</div>
+<!-- //타이틀 영역 -->

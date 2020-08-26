@@ -1,0 +1,84 @@
+<div class="section-list">
+	<!-- Title -->
+	<div class="title-area">
+		<a href="javascript:;" class="link-step" [attr.aria-selected]="selectedRequestRoleStatus == requestRoleAllStatus"
+		   (click)="execRequestRoleStatusFilter(requestRoleAllStatus)">전체({{requestAllCount}})</a>
+		<a href="javascript:;" class="link-step" [attr.aria-selected]="selectedRequestRoleStatus == requestRoleRequestStatus"
+		   (click)="execRequestRoleStatusFilter(requestRoleRequestStatus)">승인대기({{waitingApprovalCount}})</a>
+		<a href="javascript:;" class="link-step" [attr.aria-selected]="selectedRequestRoleStatus == requestRoleAcceptStatus"
+		   (click)="execRequestRoleStatusFilter(requestRoleAcceptStatus)">승인완료({{approvalCompletedCount}})</a>
+		<div class="filter">
+			<!-- 검색 -->
+			<div class="component-search">
+				<input type="text" class="input-search" placeholder="이름, 아이디로 검색"
+					   #searchWord
+					   (keyup.enter)="searchClick(searchWord.value)"
+					   maxlength="255">
+				<button class="btn-search" (click)="searchClick(searchWord.value)" aria-label="검색"></button>
+			</div>
+			<!-- //검색 -->
+		</div>
+	</div>
+	<!-- //Title -->
+
+	<!-- 목록 -->
+	<table class="table-approve">
+		<colgroup>
+			<col width="90"/>
+			<col width="*"/>
+			<col width="120"/>
+			<col width="120"/>
+			<col width="140"/>
+			<col width="160"/>
+			<col width="110"/>
+			<col width="60"/>
+		</colgroup>
+		<thead>
+		<tr>
+			<th>구분</th>
+			<th>신청앱</th>
+			<th>이름</th>
+			<th>아이디</th>
+			<th>조직</th>
+			<th>신청일</th>
+			<th>승인</th>
+			<th>관리</th>
+		</tr>
+		</thead>
+		<tbody>
+
+		<tr *ngFor="let requestRole of requestRoleList" [class.type-complete]="requestRole.status === requestRoleAcceptStatus.toString()">
+			<td>{{requestRole.analysisApp ? '분석 앱' : '리포트'}}</td>
+			<td class="align-left">{{requestRole.analysisApp ? requestRole.analysisApp.appNm : requestRole.reportApp.appNm}}</td>
+			<td>
+				<span class="txt-name">{{requestRole.user.userNm}}</span>
+			</td>
+			<td>{{requestRole.user.userId}}</td>
+			<td>{{requestRole.user.orgNm}}</td>
+			<td>{{requestRole.createdDate | date_format : 'YYYY-MM-DD HH:mm:ss'}}</td>
+			<td *ngIf="requestRole.status === requestRoleRequestStatus.toString()">
+				<a href="javascript:;" class="link-status" (click)="acceptRoleRequest(requestRole)">승인대기</a>
+			</td>
+			<td *ngIf="requestRole.status === requestRoleAcceptStatus.toString()">
+				<strong class="txt-status">승인완료</strong>
+			</td>
+			<td>
+				<a *ngIf="requestRole.status === requestRoleRequestStatus.toString()" href="javascript:;" class="btn-delete" aria-label="삭제" (click)="deleteRoleRequest(requestRole.id)"></a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<!-- //목록 -->
+
+	<!-- No Data -->
+	<div class="list-nodata"
+		 *ngIf="requestRoleList.length === 0">
+		등록된 권한이 없습니다.
+	</div>
+	<!-- //No Data -->
+
+	<!-- Pagination -->
+	<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+	<!-- //Pagination -->
+</div>
+

@@ -1,0 +1,401 @@
+<!-- 앱플레이스 상세 -->
+<div class="page-app-place">
+
+	<!-- CONTAINER -->
+	<div class="section-container">
+		<!-- 앱 상세 -->
+		<div class="app-area">
+			<div class="app-content">
+
+				<div class="button-back type-top">
+					<a href="javascript:;" class="link-list" (click)="listViewClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.LIST.VIEW', '목록보기'))">
+						{{ translateService.instant('COMMON.LIST.VIEW', '목록보기') }}
+					</a>
+				</div>
+				<!-- 앱 상세 정보 -->
+				<div class="app-detail">
+					<strong class="txt-title">
+						{{ analysisApp.appNm }}
+						<span class="txt-category" *ngFor="let item of categories"># {{ item.nmKr }}</span>
+					</strong>
+					<p class="txt-desc">
+						{{ analysisApp.summary }}
+					</p>
+					<ul class="list-info">
+						<li>
+							<span class="txt-label">{{ translateService.instant('ANALYSIS.APP.DETAIL.VERSION', '버전') }}:</span>
+							<span class="txt-data">{{ analysisApp.ver }}</span>
+						</li>
+						<li>
+							<span class="txt-label">{{ translateService.instant('ANALYSIS.APP.DETAIL.UPDATE', '업데이트') }}:</span>
+							<span class="txt-data">{{ analysisApp.updatedDate | date_format : 'YYYY-MM-DD HH:mm:ss' }}</span>
+						</li>
+						<li>
+							<span class="txt-label">{{ translateService.instant('ANALYSIS.APP.DETAIL.CREATOR', '등록자') }}:</span>
+							<span class="txt-data">
+								{{ analysisApp.createdBy ? analysisApp.createdBy.userNm : '' }}
+								{{ analysisApp.createdBy && analysisApp.createdBy.orgNm !== '' ? '(' + analysisApp.createdBy.orgNm + ')' : '' }}
+							</span>
+						</li>
+					</ul>
+					<dl class="app-install">
+						<dt>{{ translateService.instant('ANALYSIS.APP.DETAIL.USER.COUNT', '사용자 수') }}</dt>
+						<dd>{{ analysisApp.usage | number:'' }}</dd>
+					</dl>
+					<!--<dl class="app-usage">-->
+					<!--<dt>{{ translateService.instant('ANALYSIS.APP.DETAIL.EXEC.RATE', '앱 실행율(최근 30일 기준)') }}</dt>-->
+					<!--<dd>150%</dd>-->
+					<!--</dl>-->
+					<div class="app-button" *ngIf="appAuth > -1">
+						<button type="button" class="btn-basic" (click)="requestAuthClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.BUTTON.AUTH.REQUEST', '권한 신청'))" *ngIf="appAuth == AppAuth.DISABLE">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.BUTTON.AUTH.REQUEST', '권한 신청') }}
+						</button>
+						<button type="button" class="btn-basic" (click)="appDeleteClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.BUTTON.DELETE', '분석 앱에서 삭제'))" *ngIf="appAuth == AppAuth.ADDED">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.BUTTON.DELETE', '분석 앱에서 삭제') }}
+						</button>
+						<button type="button" class="btn-action type-start" (click)="appExecClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.BUTTON.EXEC', '앱 실행'))" *ngIf="appAuth == AppAuth.ADDED">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.BUTTON.EXEC', '분석 앱 실행') }}
+						</button>
+						<button type="button" class="btn-action type-add" (click)="appAddClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.BUTTON.ADD', '분석 앱에 추가') )" *ngIf="appAuth != AppAuth.ADDED" [disabled]="appAuth == AppAuth.DISABLE">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.BUTTON.ADD', '분석 앱에 추가') }}
+						</button>
+					</div>
+				</div>
+				<!-- //앱 상세 정보 -->
+
+				<!-- 앱 소개, 사용자 리뷰, 버전 정보 -->
+				<div class="app-info">
+					<!-- TAB -->
+					<ul class="list-tab" #tabInfo id="tabInfo">
+						<li class="is-selected"><a href="javascript:;" class="btn-tab" (click)="scrollTo(tabInfo); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.TAB.INFO', '앱 소개'))">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.TAB.INFO', '앱 소개') }}</a></li>
+						<li><a href="javascript:;" class="btn-tab" (click)="scrollTo(tabReview); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.TAB.REVIEW', '사용자 리뷰'))">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.TAB.REVIEW', '사용자 리뷰') }}({{ totalReviewCnt }})</a></li>
+						<li><a href="javascript:;" class="btn-tab" (click)="scrollTo(tabVersion); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.TAB.VERSION', '버전 정보'))">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.TAB.VERSION', '버전 정보') }}</a></li>
+					</ul>
+					<!-- //TAB -->
+					<!-- 앱 소개 -->
+					<div class="tab-content type-app">
+						<p class="txt-introduce" [innerHTML]="lineBreakOrTabOrSpaceCharacter(analysisApp.contents)">
+						</p>
+						<!-- 앱 미리보기 -->
+						<div class="app-preview" *ngIf="imageList && imageList.length > 0">
+							<image-list [imageList]="imageList" (itemClick)="imageClick($event); tagging(TaggingType.DETAIL, TaggingAction.ITEM, $event.title)"></image-list>
+						</div>
+						<!-- //앱 미리보기 -->
+					</div>
+					<!-- //앱 소개 -->
+
+					<!-- TAB -->
+					<ul class="list-tab" #tabReview>
+						<li><a href="javascript:;" class="btn-tab" (click)="scrollTo(tabInfo); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.TAB.INFO', '앱 소개'))">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.TAB.INFO', '앱 소개') }}</a></li>
+						<li class="is-selected"><a href="javascript:;" class="btn-tab" (click)="scrollTo(tabReview); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.TAB.REVIEW', '사용자 리뷰'))">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.TAB.REVIEW', '사용자 리뷰') }}({{ totalReviewCnt }})</a></li>
+						<li><a href="javascript:;" class="btn-tab" (click)="scrollTo(tabVersion); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.TAB.VERSION', '버전 정보'))">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.TAB.VERSION', '버전 정보') }}</a></li>
+					</ul>
+					<!-- //TAB -->
+					<!-- 사용자 리뷰 -->
+					<div class="tab-content type-review">
+						<!-- 리뷰 작성 -->
+						<!-- [D] 리뷰 작성 펼칠 때 aria-expanded 값 true로 변경 -->
+						<div class="form-review" [attr.aria-expanded]="showReviewForm" [hidden]="appAuth != AppAuth.ADDED">
+							<a href="javascript:;" class="btn-review" (click)="appAuth == AppAuth.ADDED ? showReviewForm = !showReviewForm : '';
+							tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.REVIEW.CREATE', '리뷰 작성하기'), '리뷰')">
+								{{ translateService.instant('ANALYSIS.APP.DETAIL.REVIEW.CREATE', '리뷰 작성하기') }}</a>
+
+							<!-- 리뷰 작성 폼 -->
+							<div class="form">
+								<span class="img-user"
+									  [style.background-image]="'url(' + userService.getProfileImage(sessionInfo.user) + ')'"></span>
+								<textarea class="textarea-review" [(ngModel)]="reviewText" [maxlength]="maxReviewLength"></textarea>
+								<div class="button">
+									<button type="button" class="btn-basic" (click)="reviewCreateCancelClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.CANCEL', '취소'), '리뷰')">
+										{{ translateService.instant('COMMON.CANCEL', '취소') }}
+									</button>
+									<button type="button" class="btn-action" (click)="reviewCreateClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.SAVE', '저장'), '리뷰')">
+										{{ translateService.instant('COMMON.SAVE', '저장') }}
+									</button>
+								</div>
+							</div>
+							<!-- //리뷰 작성 폼 -->
+						</div>
+						<!-- //리뷰 작성 -->
+
+						<!--
+							리뷰 작성이 안되는 경우
+							[D] 노출이 될 경우 aria-hidden 값 false로 변경
+						-->
+						<div class="no-review" [attr.aria-hidden]="appAuth == AppAuth.ADDED">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.REVIEW.ALLOW.CREATE', '리뷰는 앱을 사용한 사용자만 작성이 가능합니다.') }}
+						</div>
+						<!-- //리뷰 작성이 안되는 경우 -->
+
+						<div *ngIf="reviews && reviews.length">
+							<!-- 리뷰 목록 -->
+							<!-- [D] 본인이 작성한 리뷰 또는 답글의 경우 type-my 클래스 추가 -->
+							<ul class="list-review">
+								<li *ngFor="let item of reviews">
+									<div class="review" [class.type-my]="item.isMine" [attr.aria-hidden]="item.isView">
+										<span class="img-user"
+											  [style.background-image]="'url(' + userService.getProfileImage(item.user) + ')'"></span>
+										<span class="txt-user">
+											{{ item.user.userNm }}
+											{{ item.user && item.user.org ? '(' + item.user.org.name + ')' : '' }}
+											<em>{{ item.createdDate | date_format : 'YYYY-MM-DD HH:mm:ss' }}</em>
+										</span>
+										<p class="txt-review" [innerHTML]="lineBreakOrTabOrSpaceCharacter(item.contents)">
+										</p>
+										<!-- 확장 영역 -->
+										<div class="extend">
+											<a href="javascript:;" class="btn-extend" (click)="item.isView = false; tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.MODIFY', '수정'), '리뷰')">
+												{{ translateService.instant('COMMON.MODIFY', '수정') }}
+											</a>
+											<a href="javascript:;" class="btn-extend" (click)="reviewDeleteClick(item); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.DELETE', '삭제'), '리뷰')">
+												{{ translateService.instant('COMMON.DELETE', '삭제') }}
+											</a>
+										</div>
+										<!-- //확장 영역 -->
+
+										<!-- 리뷰 작성 폼 -->
+										<!-- 리뷰 내용 수정 시 aria-hidden 값 false로 변경 -->
+										<div class="form">
+											<span class="img-user"
+												  [style.background-image]="'url(' + userService.getProfileImage(item.user) + ')'"></span>
+											<textarea class="textarea-review" [(ngModel)]="item.contents" [maxlength]="maxReviewLength"></textarea>
+											<div class="button">
+												<button type="button" class="btn-basic" (click)="reviewCancelClick(item); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.CANCEL', '취소'), '리뷰')">
+													{{ translateService.instant('COMMON.CANCEL', '취소') }}
+												</button>
+												<button type="button" class="btn-action" (click)="reviewSaveClick(item); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.SAVE', '저장'), '리뷰')">
+													{{ translateService.instant('COMMON.SAVE', '저장') }}
+												</button>
+											</div>
+										</div>
+										<!-- //리뷰 작성 폼 -->
+									</div>
+
+									<!-- 답변 -->
+									<!-- [D] 답변 펼칠 때 aria-expanded 값 true로 변경 -->
+									<div *ngIf="enableAnswer">
+										<div class="reply" [attr.aria-expanded]="reply.showReply" *ngFor="let reply of item.children" [attr.aria-hidden]="reply.isView">
+											<a href="javascript:;" [ngClass]="reply.id ? 'btn-reply' : 'btn-add-reply'"
+											   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, '리뷰,' +
+											    !reply.id ? translateService.instant('ANALYSIS.APP.DETAIL.REVIEW.ANSWER.ADD', '답변 추가') :
+												( reply.showReply ? translateService.instant('ANALYSIS.APP.DETAIL.REVIEW.ANSWER.HIDDEN', '답변 숨기기')
+												: translateService.instant('ANALYSIS.APP.DETAIL.REVIEW.ANSWER.SHOW', '답변 보기')));
+												reply.showReply = !reply.showReply">
+												{{ !reply.id ? translateService.instant('ANALYSIS.APP.DETAIL.REVIEW.ANSWER.ADD', '답변 추가') :
+												( reply.showReply ? translateService.instant('ANALYSIS.APP.DETAIL.REVIEW.ANSWER.HIDDEN', '답변 숨기기')
+												: translateService.instant('ANALYSIS.APP.DETAIL.REVIEW.ANSWER.SHOW', '답변 보기')) }}</a>
+											<!-- 답변 내용 -->
+											<div class="reply-content">
+												<div class="review" [class.type-my]="reply.isMine">
+												<span class="img-user"
+													  [style.background-image]="'url(' + userService.getProfileImage(reply.user) + ')'"></span>
+													<span class="txt-user">
+														{{ reply.user ? reply.user.userNm : '' }}
+														{{ reply.user && reply.user.org ? '(' + reply.user.org.name + ')' : '' }}
+														<em>{{ reply.createdDate | date_format : 'YYYY-MM-DD HH:mm:ss' }}</em>
+													</span>
+													<p class="txt-review" [innerHTML]="lineBreakOrTabOrSpaceCharacter(reply.contents)">
+													</p>
+													<!-- 확장 영역 -->
+													<div class="extend">
+														<a href="javascript:;" class="btn-extend" (click)="reply.isView = false; tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.MODIFY', '수정'), '답변')">
+															{{ translateService.instant('COMMON.MODIFY', '수정') }}
+														</a>
+														<a href="javascript:;" class="btn-extend" (click)="reviewDeleteClick(reply); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.DELETE', '삭제'), '답변')">
+															{{ translateService.instant('COMMON.DELETE', '삭제') }}
+														</a>
+													</div>
+													<!-- //확장 영역 -->
+
+													<!-- 답변 작성 폼 -->
+													<!-- 답변 내용 수정 시 aria-hidden 값 false로 변경 -->
+													<div class="form">
+												<span class="img-user"
+													  [style.background-image]="'url(' + userService.getProfileImage(reply.user) + ')'"></span>
+														<textarea class="textarea-review" [(ngModel)]="reply.contents" [maxlength]="maxReviewLength"></textarea>
+														<div class="button">
+															<button type="button" class="btn-basic" (click)="replyCancelClick(reply); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.CANCEL', '취소'), '답변')">
+																{{ translateService.instant('COMMON.CANCEL', '취소') }}
+															</button>
+															<button type="button" class="btn-action" (click)="replySaveClick(reply); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.SAVE', '저장'), '답변')">
+																{{ translateService.instant('COMMON.SAVE', '저장') }}
+															</button>
+														</div>
+													</div>
+													<!-- //답변 작성 폼 -->
+												</div>
+											</div>
+											<!-- //답변 내용 -->
+										</div>
+									</div>
+									<!-- //답변 -->
+								</li>
+							</ul>
+							<!-- //리뷰 목록 -->
+
+							<!-- 리뷰 더보기 -->
+							<a href="javascript:;" class="btn-more" *ngIf="!isLastReview" (click)="reviewListMoreClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.REVIEW.LIST.MORE', '리뷰 더보기'))">
+								{{ translateService.instant('ANALYSIS.APP.DETAIL.REVIEW.LIST.MORE', '리뷰 더보기') }}</a>
+							<!-- //리뷰 더보기 -->
+						</div>
+
+						<!-- No Data -->
+						<div class="review-nodata" *ngIf="!reviews || !reviews.length">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.REVIEW.LIST.NODATA', '등록된 리뷰가 없습니다.') }}
+						</div>
+						<!-- //No Data -->
+					</div>
+
+					<!-- //사용자 리뷰 -->
+
+					<!-- TAB -->
+					<ul class="list-tab" #tabVersion>
+						<li><a href="javascript:;" class="btn-tab" (click)="scrollTo(tabInfo); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.TAB.INFO', '앱 소개'))">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.TAB.INFO', '앱 소개') }}</a></li>
+						<li><a href="javascript:;" class="btn-tab" (click)="scrollTo(tabReview); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.TAB.REVIEW', '사용자 리뷰'))">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.TAB.REVIEW', '사용자 리뷰') }}({{ totalReviewCnt }})</a></li>
+						<li class="is-selected"><a href="javascript:;" class="btn-tab" (click)="scrollTo(tabVersion); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('ANALYSIS.APP.DETAIL.TAB.VERSION', '버전 정보'))">
+							{{ translateService.instant('ANALYSIS.APP.DETAIL.TAB.VERSION', '버전 정보') }}</a></li>
+					</ul>
+					<!-- //TAB -->
+					<!-- 버전 정보 -->
+					<div class="tab-content type-version">
+						<p class="txt-version" [innerHTML]="lineBreakOrTabOrSpaceCharacter(analysisApp.verInfo)">
+						</p>
+
+					</div>
+					<!-- //버전 정보 -->
+				</div>
+				<!-- //앱 소개, 사용자 리뷰, 버전 정보 -->
+
+				<div class="button-back type-bottom">
+					<a href="javascript:;" class="link-list" (click)="listViewClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.LIST.VIEW', '목록보기'))">
+						{{ translateService.instant('COMMON.LIST.VIEW', '목록보기') }}
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- //앱 상세 -->
+
+		<!-- ASIDE -->
+		<div class="aside-area">
+			<!-- 카테고리 -->
+			<div class="aside-content">
+				<div class="top-block">
+					<h3 class="txt-title">{{ translateService.instant('COMMON.CATEGORY', '카테고리') }}</h3>
+				</div>
+				<!-- CATEGORY -->
+				<analysis-app-category [isRadio]="false" [categoryList]="totalCategories"
+									   (selectCategory)="selectCategory($event); tagging(TaggingType.DETAIL, TaggingAction.ITEM, translateService.instant('COMMON.CATEGORY', '카테고리') + ',' + $event.nmKr)"></analysis-app-category>
+				<!-- //CATEGORY -->
+			</div>
+
+			<!-- 사용자 추가 앱 탑3 -->
+			<div class="aside-content">
+				<div class="top-block">
+					<h3 class="txt-title">
+						{{ translateService.instant('ANALYSIS.APP.SIDE.RELATED', '관련') }}
+						{{ translateService.instant('ANALYSIS.APP.SIDE.ADD.APP.TITLE', '인기 앱') }}
+					</h3>
+				</div>
+				<ol class="list-app" *ngIf="addAppList && addAppList.length">
+					<li *ngFor="let item of addAppList; let index = index">
+						<a href="javascript:;" class="link-app" (click)="appClick(item); tagging(TaggingType.DETAIL, TaggingAction.ITEM, translateService.instant('ANALYSIS.APP.SIDE.ADD.APP.TITLE', '인기 앱') + ',' +item.appNm)">
+							<em class="txt-num">{{ index + 1 }}</em>
+							<strong class="txt-title">{{ item.appNm }}</strong>
+							<span class="txt-category">{{ analysisAppService.getCategoryNames(item) }}</span>
+						</a>
+					</li>
+				</ol>
+				<!-- No Data -->
+				<div class="nodata" *ngIf="!addAppList || !addAppList.length">
+					{{ translateService.instant('COMMON.NODATA', '데이터가 없습니다.') }}
+				</div>
+				<!-- //No Data -->
+			</div>
+			<!--//사용자 추가 앱 탑3 -->
+
+			<!-- 최신 앱 탑3 -->
+			<div class="aside-content">
+				<div class="top-block">
+					<h3 class="txt-title">
+						{{ translateService.instant('ANALYSIS.APP.SIDE.RELATED', '관련') }}
+						{{ translateService.instant('ANALYSIS.APP.SIDE.NEWEST.APP.TITLE', '최신 앱') }}
+					</h3>
+				</div>
+				<ol class="list-app" *ngIf="latestAppList && latestAppList.length">
+					<li *ngFor="let item of latestAppList; let index = index">
+						<a href="javascript:;" class="link-app" (click)="appClick(item); tagging(TaggingType.DETAIL, TaggingAction.ITEM, translateService.instant('ANALYSIS.APP.SIDE.NEWEST.APP.TITLE', '최신 앱') + ',' + item.appNm)">
+							<em class="txt-num">{{ index + 1 }}</em>
+							<strong class="txt-title">{{ item.appNm }}</strong>
+							<span class="txt-category">{{ analysisAppService.getCategoryNames(item) }}</span>
+						</a>
+					</li>
+				</ol>
+				<!-- No Data -->
+				<div class="nodata" *ngIf="!latestAppList || !latestAppList.length">
+					{{ translateService.instant('COMMON.NODATA', '데이터가 없습니다.') }}
+				</div>
+				<!-- //No Data -->
+			</div>
+			<!--//최신 앱 탑3 -->
+
+		</div>
+		<!-- //ASIDE -->
+	</div>
+	<!-- //CONTAINER -->
+
+</div>
+<!-- //앱플레이스 상세 -->
+
+<!-- 권한 신청 LAYER POPUP -->
+<div class="layout-popup" [hidden]="!showRequestRolePopup">
+	<div class="layer-popup">
+		<div class="popup">
+			<!-- Popup Content -->
+			<div class="popup-content type-confirm">
+
+				<!-- 타이틀 영역 -->
+				<div class="section-title">
+					<h1 class="txt-title">{{ translateService.instant('ANALYSIS.APP.DETAIL.ROLE.POPUP.TITLE', '권한 신청하기') }}</h1>
+				</div>
+				<!-- //타이틀 영역 -->
+
+				<!-- 닫기 버튼 -->
+				<a href="javascript:;" class="btn-close"
+				   [attr.aria-label]="translateService.instant('COMMON.CLOSE', '닫기')" (click)="showRequestRolePopup = false"></a>
+				<!-- //닫기 버튼 -->
+
+				<!-- 팝업 내용 -->
+				<div class="section-popup">
+					<!-- 안내 문구 -->
+					<div class="content-area">
+						<div class="confirm-block">
+							<strong class="txt-title">{{ analysisApp.appNm }}</strong>
+							<p class="txt-desc" [innerHTML]="translateService.instant('ANALYSIS.APP.DETAIL.ROLE.POPUP.CONTENT', '신청')">
+							</p>
+						</div>
+					</div>
+					<!-- //안내 문구 -->
+
+					<!-- 버튼 영역 -->
+					<div class="button-area">
+						<a href="javascript:;" class="btn-basic" (click)="showRequestRolePopup = false">{{ translateService.instant('COMMON.CLOSE', '닫기') }}</a>
+						<a href="javascript:;" class="btn-action" (click)="requestRoleClick()">{{ translateService.instant('COMMON.REQUEST', '신청') }}</a>
+					</div>
+					<!-- //버튼 영역 -->
+				</div>
+				<!-- //팝업 내용 -->
+
+			</div>
+			<!-- //Popup Content -->
+		</div>
+	</div>
+</div>
+<!-- //LAYER POPUP -->

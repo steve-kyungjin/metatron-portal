@@ -1,0 +1,67 @@
+<!-- 통합검색 -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="page-search">
+
+	<!-- 전체 검색결과가 없는 경우 -->
+	<div class="section-nodata" [attr.aria-hidden]="globalSearchService.searchResultCount !== 0">
+		<dl class="txt-nodata">
+			<dt>{{ translateService.instant('GLOBAL.SEARCH.NODATA.TITLE', '검색결과가 없으시다면?') }}</dt>
+			<dd>
+				<ul class="list-desc">
+					<li>{{ translateService.instant('GLOBAL.SEARCH.NODATA.DESC1', '단어의 철자가 정확한지 확인해 보세요.') }}</li>
+					<li>{{ translateService.instant('GLOBAL.SEARCH.NODATA.DESC2', '한글을 영어로, 혹은 영어를 한글로 입력했는지 다시 확인해 보세요.') }}</li>
+					<li>{{ translateService.instant('GLOBAL.SEARCH.NODATA.DESC3', '검색어의 단어 수를 줄이거나, 일반적인 검색어로 다시 검색해 보세요.') }}</li>
+					<li>{{ translateService.instant('GLOBAL.SEARCH.NODATA.DESC4', '두 단어 이상의 검색어인 경우, 띄어쓰기를 확인해 보세요.') }}</li>
+				</ul>
+			</dd>
+		</dl>
+	</div>
+	<!-- //전체 검색결과가 없는 경우 -->
+
+	<!-- TAB -->
+	<ul tab
+		*ngIf="globalSearchService.searchResultCount > 0"
+		[tabLabelList]="globalSearchService.resultPageTabList"
+		[selectIndex]="currentGlobalSearchTypeEnumIndex"
+		(oSelected)="selectedTab($event)">
+	</ul>
+	<!-- //TAB -->
+
+	<!-- 커뮤니케이션 -->
+	<div class="detail-content">
+		<ul class="list-result"
+			*ngIf="analysisAppEntity.contentsList.length > 0">
+			<li class="type-thumb"
+				*ngFor="let content of analysisAppEntity.contentsList">
+				<!--suppress CssUnknownTarget -->
+				<span class="img-thumb" [style.background-image]="'url(' + getAnalysisAppImage(content.source.mediaId) + ')'"></span>
+				<a href="javascript:;"
+				   class="link-title"
+				   (click)="tagging(TaggingType.DETAIL, TaggingAction.BTN, content.source.appNm, '분석 앱'); goPage(content.source, content.type)">
+					{{ content.source.appNm }}
+				</a>
+				<p class="txt-desc">
+					{{ content.source.appSummary }}
+				</p>
+				<div class="data-info">
+					<span class="data-category">#{{ content.source.categories }}</span>
+					<span class="data-views" aria-label="조회 수">{{ content.source.usage | number : '1.0-3' }}</span>
+				</div>
+			</li>
+		</ul>
+
+		<!-- Nodata -->
+		<div class="nodata-search" aria-hidden="false"
+			 *ngIf="analysisAppEntity.contentsList.length === 0">
+			{{ translateService.instant('GLOBAL.SEARCH.NODATA', '검색결과가 없습니다.') }}
+		</div>
+		<!-- //Nodata -->
+
+		<!-- Pagination -->
+		<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+		<!-- //Pagination -->
+	</div>
+	<!-- //커뮤니케이션 -->
+
+</div>
+<!-- //통합검색 -->

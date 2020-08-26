@@ -1,0 +1,70 @@
+<div class="section-list">
+	<!-- Title -->
+	<div class="title-area">
+		<h3 class="txt-title">목록({{ page.totalElements }})</h3>
+		<div class="filter">
+			<!-- 검색 -->
+			<div class="component-search">
+				<input type="text" class="input-search" placeholder="이름, 아이디로 검색"
+					   [ngModel]="keyWord"
+					   #keyWordInputElement
+					   (keyup.enter)="search$.next(keyWordInputElement.value)"
+					   [maxlength]="255">
+				<button class="btn-search" aria-label="검색" (click)="search$.next(keyWordInputElement.value)"></button>
+			</div>
+			<!-- //검색 -->
+		</div>
+	</div>
+	<!-- //Title -->
+
+	<!-- 목록 -->
+	<table class="table-list">
+		<colgroup>
+			<col width="10%"/>
+			<col width="16%"/>
+			<col width="20%"/>
+			<col width="140"/>
+			<col width="180"/>
+			<col width="120"/>
+		</colgroup>
+		<thead>
+		<tr>
+			<th>이름</th>
+			<th>아이디</th>
+			<th>이메일</th>
+			<th>관리자 구분</th>
+			<th>최근 접속일</th>
+			<th>관리자</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr *ngFor="let user of list; let index = index;">
+			<td>
+				<a href="javascript:;" class="link-detail" (click)="goDetailPage(user.userId)">{{ user.userNm }}</a>
+			</td>
+			<td>{{ user.userId }}</td>
+			<td>{{ user.emailAddr }}</td>
+			<td>{{ user.admin ? '관리자' : '일반' }}</td>
+			<td>{{ user.lastLoginDate | date_format : 'YYYY-MM-DD HH:mm:ss' }}</td>
+			<td>
+				<span class="check-admin">
+					<input type="checkbox" [attr.id]="'check_' + index" class="input-checkbox" [checked]="user.admin" (change)="adminCheckChange(user)">
+					<label class="label" [attr.for]="'check_' + index"></label>
+				</span>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<!-- //목록 -->
+
+	<!-- No Data -->
+	<div class="list-nodata"
+		 *ngIf="list.length === 0">
+		등록된 사용자가 없습니다.
+	</div>
+	<!-- //No Data -->
+
+	<!-- Pagination -->
+	<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+	<!-- //Pagination -->
+</div>

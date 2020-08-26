@@ -1,0 +1,58 @@
+<!-- 앱 관리 -->
+<div class="page-app-register">
+
+	<!-- 유형 선택 -->
+	<div class="section-type">
+		<span class="register-desc">만들고자 하는 앱의 <strong>유형</strong>을 선택해 주세요.</span>
+
+		<!-- 유형 -->
+		<ul class="list-type">
+			<li>
+				<!--suppress JSUnnecessarySemicolon -->
+				<a href="javascript:;" class="link-url"
+				   (click)="sendAppTypeToReportAppEnterInformationCreatePage(ANALYSIS_APP_HEADER_TYPE.URL)">
+					<strong class="txt-title">URL 입력형</strong>
+					<span class="txt-desc">
+						연결하고자 하는 서비스의 URL를 입력하여<br>
+						해당 서비스를 자유롭게 이용할 수 있습니다.
+					</span>
+				</a>
+			</li>
+			<li>
+				<!--suppress JSUnnecessarySemicolon -->
+				<a href="javascript:;" class="link-dashboard"
+				   (click)="sendAppTypeToReportAppEnterInformationCreatePage(ANALYSIS_APP_HEADER_TYPE.METATRON)">
+					<strong class="txt-title">메타트론 형</strong>
+					<span class="txt-desc">
+						메타트론에서 만들어진 워크북, 대시보드를 선택하여<br>
+						앱을 등록할 수 있습니다.
+                    </span>
+				</a>
+			</li>
+			<li>
+				<!--suppress JSUnnecessarySemicolon -->
+				<a href="javascript:;" class="link-extraction"
+				   (click)="sendAppTypeToReportAppEnterInformationCreatePage(ANALYSIS_APP_HEADER_TYPE.EXTRACT)">
+					<strong class="txt-title">데이터 추출형</strong>
+					<span class="txt-desc">
+                        포탈에서 제공하는 템플릿을 이용해<br>
+                        데이터를 추출할 수 있습니다.
+                    </span>
+				</a>
+			</li>
+		</ul>
+		<!-- //유형 -->
+
+		<!-- 버튼 영역 -->
+		<div class="button-area">
+			<button type="button" class="btn-basic"
+					(click)="routerLink('view/management/report-app')">
+				취소
+			</button>
+		</div>
+		<!-- //버튼 영역 -->
+	</div>
+	<!-- //유형 선택 -->
+
+</div>
+<!-- //앱 관리 -->

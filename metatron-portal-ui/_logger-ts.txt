@@ -1,0 +1,6 @@
+this.logger.trace(`[${this['__proto__'].constructor.name}] ...`);
+this.logger.debug(`[${this['__proto__'].constructor.name}] ...`);
+this.logger.info(`[${this['__proto__'].constructor.name}] ...`);
+this.logger.log(`[${this['__proto__'].constructor.name}] ...`);
+this.logger.warn(`[${this['__proto__'].constructor.name}] ...`);
+this.logger.error(`[${this[ '__proto__' ].constructor.name}] error`, error);

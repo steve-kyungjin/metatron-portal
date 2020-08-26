@@ -1,0 +1,225 @@
+<!-- INTRO WRAP -->
+<!--suppress HtmlFormInputWithoutLabel -->
+<div class="dtp-intro-wrap">
+
+	<!-- QUICK COMM. -->
+	<quick-menu [attr.aria-expanded]="showQuick" [isShow]="showQuick" (show)="showQuick = $event" (showUserProfile)="showUserProfile = $event" (createPost)="createPost()"></quick-menu>
+	<!-- //QUICK COMM. -->
+
+	<div class="layout-intro">
+		<div class="section-intro">
+			<!-- LOGO -->
+			<h1 class="logo" aria-label="DT Portal" id="introH1Tag"></h1>
+			<!-- //LOGO -->
+
+			<!-- 포커스 아웃 처리를 위한 엘리먼트 화면상에는 보이지 않음 -->
+			<input type="text" id="focusOutTarget" style="top: -9999px; position:relative;">
+
+			<!--
+				통합검색
+				[D] Inputbox에 focus가 되면 is-activated 클래스 추가
+			-->
+			<div class="layout-search" [class.is-activated]="isKeyWordInputFocus">
+				<!--suppress HtmlFormInputWithoutLabel -->
+				<input type="text" class="input-search" spellcheck="false" id="keyWordInputElement" autocomplete="off"
+					   #templateScopeSearchInput
+					   (focus)="keyWordInputElementIndex = -1; isKeyWordInputFocus = true;"
+					   (blur)="blurKeyWordInputElement()"
+					   (mouseover)="isKeyWordInputElementMouseOver= true;"
+					   (mouseleave)="isKeyWordInputElementMouseOver = false;"
+					   (keyup)="keyWordAutoComplete(templateScopeSearchInput.value, $event)"
+					   maxlength="100">
+				<button type="button" class="btn-search" aria-label="검색"
+						(click)="tagging(TaggingType.SEARCH, TaggingAction.BTN, templateScopeSearchInput.value); executeGlobalSearch(templateScopeSearchInput.value);"></button>
+
+				<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+				<!-- 0. 자동 완성 -->
+				<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+				<div class="component-autocomplete"
+					 *ngIf="isKeyWordInputFocus && templateScopeSearchInput.value.length > 0 && globalSearchService.getKeyWordAutoCompleteCookieSaveStatusFlagValue() === true && globalSearchService.getKeyWordCookieSaveStatusFlagValue() === true"
+					 (blur)="blurKeyWordAutoCompleteElement()"
+					 (mouseover)="isKeyWordAutoCompleteElementMouseOver = true;"
+					 (mouseleave)="isKeyWordAutoCompleteElementMouseOver = false; keyWordInputElementMouseOver(-1); keyWordInputElementIndex = -1;"
+					 [attr.aria-expanded]="true">
+					<!-- 자동완성 목록 -->
+					<ul class="list-autocomplete" *ngIf="globalSearchService.keyWordList.length > 0">
+						<li *ngFor="let keyWordAutoComplete of globalSearchService.keyWordList; let index = index;">
+							<!--suppress XmlDuplicatedId -->
+							<a href="javascript:;" class="link-autocomplete"
+							   id="keyWordInputElement{{index}}"
+							   (mouseover)="keyWordInputElementMouseOver(index)"
+							   [innerHTML]="keyWordAutoComplete"
+							   (click)="clickKeyWordAutoCompleteList(keyWordAutoComplete)"></a>
+						</li>
+					</ul>
+					<!-- //자동완성 목록 -->
+					<!-- 저장된 검색어 목록 -->
+					<ul *ngIf="globalSearchService.getKeyWordCookieSaveStatusFlagValue() === true && templateScopeSearchInput.value.length > 0 && globalSearchService.getKeyWordListInCookie().length > 0" class="list-save">
+						<li *ngFor="let item of globalSearchService.getKeyWordListInCookie(); let index = index;">
+							<!--suppress XmlDuplicatedId -->
+							<a href="javascript:;" class="link-autocomplete"
+							   id="keyWordInputElement{{index + globalSearchService.keyWordList.length}}"
+							   (mouseover)="keyWordInputElementMouseOver(index + globalSearchService.keyWordList.length)"
+							   (click)="clickKeyWordAutoCompleteList(item)">{{item}}</a>
+							<a href="javascript:;" class="btn-del" aria-label="검색어 삭제" (click)="removeKeyWordListInCookieByIndex(index)"></a>
+						</li>
+					</ul>
+					<!-- //저장된 검색어 목록 -->
+					<!-- 옵션 -->
+					<div class="option-block">
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordCookieSaveStatusFlagValue() === false"
+						   (click)="enableKeyWordListCookieSave();">{{ translateService.instant('GLOBAL.SEARCH.SEARCHTEXT.SAVE.ON', '검색어 저장 켜기') }}</a>
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordCookieSaveStatusFlagValue() === true"
+						   (click)="disableKeyWordListCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.SEARCHTEXT.SAVE.ON', '검색어 저장 끄기') }}</a>
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordAutoCompleteCookieSaveStatusFlagValue() === false"
+						   (click)="enableKeyWordAutoCompleteCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.AUTOCOMPLETE.ON', '자동완성 켜기') }}</a>
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordAutoCompleteCookieSaveStatusFlagValue() === true"
+						   (click)="disableKeyWordAutoCompleteCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.AUTOCOMPLETE.OFF', '자동완성 끄기') }}</a>
+					</div>
+					<!-- //옵션 -->
+				</div>
+
+				<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+				<!-- 1. 자동 완성 -->
+				<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+				<div class="component-autocomplete"
+					 *ngIf="isKeyWordInputFocus && templateScopeSearchInput.value.length > 0 && globalSearchService.keyWordList.length > 0 && globalSearchService.getKeyWordAutoCompleteCookieSaveStatusFlagValue() === true && globalSearchService.getKeyWordCookieSaveStatusFlagValue() === false"
+					 (blur)="blurKeyWordAutoCompleteElement()"
+					 (mouseover)="isKeyWordAutoCompleteElementMouseOver = true;"
+					 (mouseleave)="isKeyWordAutoCompleteElementMouseOver = false; keyWordInputElementMouseOver(-1); keyWordInputElementIndex = -1;"
+					 [attr.aria-expanded]="true">
+					<!-- 자동완성 목록 -->
+					<ul class="list-autocomplete">
+						<li *ngFor="let keyWordAutoComplete of globalSearchService.keyWordList; let index = index;">
+							<!--suppress XmlDuplicatedId -->
+							<a href="javascript:;" class="link-autocomplete"
+							   id="keyWordInputElement{{index}}"
+							   (mouseover)="keyWordInputElementMouseOver(index)"
+							   [innerHTML]="keyWordAutoComplete"
+							   (click)="clickKeyWordAutoCompleteList(keyWordAutoComplete)"></a>
+						</li>
+					</ul>
+					<!-- //저장된 검색어 목록 -->
+					<!-- 옵션 -->
+					<div class="option-block">
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordCookieSaveStatusFlagValue() === false"
+						   (click)="enableKeyWordListCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.SEARCHTEXT.SAVE.ON', '검색어 저장 켜기') }}</a>
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordCookieSaveStatusFlagValue() === true"
+						   (click)="disableKeyWordListCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.SEARCHTEXT.SAVE.ON', '검색어 저장 끄기') }}</a>
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordAutoCompleteCookieSaveStatusFlagValue() === false"
+						   (click)="enableKeyWordAutoCompleteCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.AUTOCOMPLETE.ON', '자동완성 켜기') }}</a>
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordAutoCompleteCookieSaveStatusFlagValue() === true"
+						   (click)="disableKeyWordAutoCompleteCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.AUTOCOMPLETE.OFF', '자동완성 끄기') }}</a>
+					</div>
+					<!-- //옵션 -->
+				</div>
+
+				<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+				<!-- 2. 자동 완성 -->
+				<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+				<div class="component-autocomplete"
+					 *ngIf="isKeyWordInputFocus && templateScopeSearchInput.value.length > 0 && globalSearchService.getKeyWordAutoCompleteCookieSaveStatusFlagValue() === false && globalSearchService.getKeyWordCookieSaveStatusFlagValue() === true"
+					 (blur)="blurKeyWordAutoCompleteElement()"
+					 (mouseover)="isKeyWordAutoCompleteElementMouseOver = true;"
+					 (mouseleave)="isKeyWordAutoCompleteElementMouseOver = false; keyWordInputElementMouseOver(-1); keyWordInputElementIndex = -1;"
+					 [attr.aria-expanded]="true">
+					<!-- 저장된 검색어 목록 -->
+					<ul class="list-save"
+						*ngIf="globalSearchService.getKeyWordCookieSaveStatusFlagValue() === true && templateScopeSearchInput.value.length > 0 && globalSearchService.getKeyWordListInCookie().length > 0">
+						<li *ngFor="let item of globalSearchService.getKeyWordListInCookie(); let index = index;">
+							<!--suppress XmlDuplicatedId -->
+							<a href="javascript:;" class="link-autocomplete"
+							   id="keyWordInputElement{{index + globalSearchService.keyWordList.length}}"
+							   (mouseleave)="keyWordInputElementMouseOver(index)"
+							   (click)="clickKeyWordAutoCompleteList(item)">{{item}}</a>
+							<a href="javascript:;" class="btn-del" aria-label="검색어 삭제" (click)="removeKeyWordListInCookieByIndex(index)"></a>
+						</li>
+					</ul>
+					<!-- //저장된 검색어 목록 -->
+					<!-- 옵션 -->
+					<div class="option-block">
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordCookieSaveStatusFlagValue() === false"
+						   (click)="enableKeyWordListCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.SEARCHTEXT.SAVE.ON', '검색어 저장 켜기') }}</a>
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordCookieSaveStatusFlagValue() === true"
+						   (click)="disableKeyWordListCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.SEARCHTEXT.SAVE.ON', '검색어 저장 끄기') }}</a>
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordAutoCompleteCookieSaveStatusFlagValue() === false"
+						   (click)="enableKeyWordAutoCompleteCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.AUTOCOMPLETE.ON', '자동완성 켜기') }}</a>
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordAutoCompleteCookieSaveStatusFlagValue() === true"
+						   (click)="disableKeyWordAutoCompleteCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.AUTOCOMPLETE.OFF', '자동완성 끄기') }}</a>
+					</div>
+					<!-- //옵션 -->
+				</div>
+
+
+				<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+				<!-- 3. 자동 완성 -->
+				<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+				<div class="component-autocomplete"
+					 *ngIf="isKeyWordInputFocus && templateScopeSearchInput.value.length > 0 && globalSearchService.getKeyWordAutoCompleteCookieSaveStatusFlagValue() === false && globalSearchService.getKeyWordCookieSaveStatusFlagValue() === false"
+					 (blur)="blurKeyWordAutoCompleteElement()"
+					 (mouseover)="isKeyWordAutoCompleteElementMouseOver = true;"
+					 (mouseleave)="isKeyWordAutoCompleteElementMouseOver = false; keyWordInputElementMouseOver(-1); keyWordInputElementIndex = -1;"
+					 [attr.aria-expanded]="true">
+					<!-- 옵션 -->
+					<div class="option-block">
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordCookieSaveStatusFlagValue() === false"
+						   (click)="enableKeyWordListCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.SEARCHTEXT.SAVE.ON', '검색어 저장 켜기') }}</a>
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordCookieSaveStatusFlagValue() === true"
+						   (click)="disableKeyWordListCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.SEARCHTEXT.SAVE.ON', '검색어 저장 끄기') }}</a>
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordAutoCompleteCookieSaveStatusFlagValue() === false"
+						   (click)="enableKeyWordAutoCompleteCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.AUTOCOMPLETE.ON', '자동완성 켜기') }}</a>
+						<a href="javascript:;" class="btn-option"
+						   *ngIf="globalSearchService.getKeyWordAutoCompleteCookieSaveStatusFlagValue() === true"
+						   (click)="disableKeyWordAutoCompleteCookieSave()">{{ translateService.instant('GLOBAL.SEARCH.AUTOCOMPLETE.OFF', '자동완성 끄기') }}</a>
+					</div>
+					<!-- //옵션 -->
+				</div>
+				<!-- //통합검색 -->
+
+			</div>
+
+			<!-- Main Content -->
+			<main-content></main-content>
+			<!-- //Main Content -->
+		</div>
+	</div>
+	<!-- //INTRO WRAP -->
+
+	<!-- LNB -->
+	<lnb></lnb>
+	<!-- //LNB -->
+
+	<div class="layout-user" [class.is-quick]="showQuick">
+		<!-- 공지알림 -->
+		<notice-layer-main></notice-layer-main>
+		<!-- //공지알림 -->
+
+		<!-- 사용자 도움말 -->
+		<!--<a href="javascript:;" class="btn-user-help" aria-selected="true" (click)="showHelp = !showHelp" aria-label="사용자 도움말 보기"></a>-->
+		<!-- //사용자 도움말 -->
+
+		<!-- 사용자 정보 -->
+		<user-profile (showQuick)="showQuick = true"></user-profile>
+		<!-- //사용자 정보 -->
+	</div>
+
+	<!--<help [isShow]="showHelp" (close)="showHelp = false"></help>-->
+
+	<profile-detail-layer [isShow]="showUserProfile" (close)="profileDetailClose()"></profile-detail-layer>
+
+</div>

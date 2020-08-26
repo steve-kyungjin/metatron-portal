@@ -1,0 +1,86 @@
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<a href="javascript:;" class="btn-close" aria-label="닫기"
+			   (click)="cancel()"></a>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">데이터 표준 단어집 상세보기</h1>
+				<span class="txt-sub">{{ dictionary ? dictionary.nmEn === undefined || dictionary.nmEn.trim() === '' ? dictionary.nmKr : dictionary.nmKr + ' (' + dictionary.nmEn + ')' : '' }}</span>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 테이블 상세보기 -->
+			<div class="section-metadata">
+				<div class="top-area">
+					<!-- 탭 메뉴 -->
+					<ul class="list-tab">
+						<li [attr.aria-selected]="true">
+							<a href="javascript:;" class="link-tab">기본정보</a>
+						</li>
+					</ul>
+					<!-- //탭 메뉴 -->
+				</div>
+				<!-- 기본 구성 -->
+				<div class="tabcontent-area"
+					 [attr.aria-expanded]="true">
+					<div class="detail-block">
+						<ul class="list-default">
+							<li>
+								<strong class="column-label">한글명</strong>
+								<span class="column-desc">{{ dictionary ? dictionary.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">영문명</strong>
+								<span class="column-desc">{{ dictionary ? dictionary.nmEn : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">영문 약어</strong>
+								<span class="column-desc">{{ dictionary ? dictionary.abbr : '' }}</span>
+							</li>
+						</ul>
+						<ul class="list-default">
+							<li>
+								<strong class="column-label">정의</strong>
+								<span class="column-desc">{{ dictionary ? dictionary.description : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">카테고리</strong>
+								<span class="column-desc">{{ dictionary && dictionary.category ? dictionary.category.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">분류어 여부</strong>
+								<span class="column-desc">{{ dictionary ? dictionary.classifiYn ? 'Y' : 'N' : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">동음이의어 여부</strong>
+								<span class="column-desc">{{ dictionary ? dictionary.homonymYn ? 'Y' : 'N' : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">복합어 여부</strong>
+								<span class="column-desc">{{ dictionary ? dictionary.compoundYn ? 'Y' : 'N' : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">컬럼 생성 활용</strong>
+								<span class="column-desc">{{ dictionary ? dictionary.useColYn ? 'Y' : 'N' : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">비즈니스 용어 활용</strong>
+								<span class="column-desc">{{ dictionary ? dictionary.useBizYn ? 'Y' : 'N' : '' }}</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- //기본 구성 -->
+
+			</div>
+			<!-- //테이블 상세보기 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>

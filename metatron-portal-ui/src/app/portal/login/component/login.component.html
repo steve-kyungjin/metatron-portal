@@ -1,0 +1,56 @@
+<!-- LOGIN WRAP -->
+<div class="dtp-login-wrap">
+
+	<!-- 로그인 영역 -->
+	<div class="section-login">
+
+		<h1 class="logo">
+			<span class="blind">{{ translateService.instant('DT.PORTAL', 'DT Portal') }}</span>
+		</h1>
+
+		<!-- 로그인 -->
+		<div class="login-area">
+
+			<input type="text" class="input-login" placeholder="{{ translateService.instant('ENTER.ID.PLACEHOLDER', 'Enter ID') }}"
+				   #inputUserId
+				   [(ngModel)]="userId" [disabled]="disableInput"
+				   (keyup.enter)="login()"/>
+
+			<input type="password" class="input-login" placeholder="{{ translateService.instant('ENTER.PASSWORD.PLACEHOLDER', 'Enter Password') }}"
+				   [(ngModel)]="password" [disabled]="disableInput"
+				   (keyup.enter)="login()"/>
+
+			<!-- 로그인 오류 메세지 -->
+			<!--
+                [D] 오류 메세지 노출할 경우 is_activated 클래스 추가
+            -->
+			<div class="alert-block"
+				 [ngClass]="{'is_activated': loginError }"
+				 [innerHTML]="errorMsg"></div>
+			<!-- //로그인 오류 메세지 -->
+
+			<!-- 로그인 ID 저장 -->
+			<div class="save-block">
+				<input type="checkbox" id="save-id" class="input-checkbox"
+					   [(ngModel)]="checkUserId"/>
+				<label for="save-id" class="label">{{ translateService.instant('REMEMBER.ID', 'ID 기억하기') }}</label>
+			</div>
+			<!-- //로그인 ID 저장 -->
+
+			<button type="button" class="btn-login" [disabled]="disableInput"
+					(click)="login()">{{ translateService.instant('LOGIN', '로그인') }}
+			</button>
+		</div>
+		<!-- 로그인 -->
+	</div>
+	<!-- //로그인 영역 -->
+
+	<!-- COPYRIGHT -->
+	<div class="section-copy">
+		Copyright &copy; Enxtu, Ltd. All rights reserved.
+	</div>
+	<!-- //COPYRIGHT -->
+
+</div>
+<!-- //LOGIN WRAP -->
+<div style="display:none;color: #fff;">{{ appBuildDate }}</div>

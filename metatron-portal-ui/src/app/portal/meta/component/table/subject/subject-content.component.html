@@ -1,0 +1,139 @@
+<!-- 주제영역 설명 -->
+<!--suppress NsUnresolvedStyleClassReference -->
+<dl class="data-desc"
+	*ngIf="selectedSubject !== null">
+	<dt>{{ getSelectedSubjectName() }}</dt>
+	<dd *ngIf="selectedSubject && selectedSubject.description">
+		{{ selectedSubject.description }}
+	</dd>
+</dl>
+<!-- //주제영역 설명 -->
+
+<!-- 데이터 테이블 -->
+<div class="data-table">
+	<div class="list-block">
+		<div class="title-area">
+			<h3 class="txt-title">데이터 테이블({{ tableTotalElements | number : '1.0-3'}})</h3>
+			<div class="filter">
+
+				<!-- Select Box -->
+				<span class="txt-filter">데이터 LAYER</span>
+				<div common-select
+					 #selectBox
+					 [className]="'type-filter type-data'"
+					 [items]="dataLayerItemList"
+					 (itemSelect)="onDataLayerSelect($event)">
+				</div>
+				<!-- //Select Box -->
+
+				<em class="bar"></em>
+
+				<!-- Select Box -->
+				<div common-select
+					 #selectBox
+					 [className]="'type-filter'"
+					 [items]="targetSelectBoxItemList"
+					 (itemSelect)="targetSelect($event)">
+				</div>
+				<!-- //Select Box -->
+				<!-- 검색 -->
+				<div class="component-search">
+					<input type="text"
+						   class="input-search"
+						   placeholder="검색어 입력 후 검색"
+						   #keyWordInputElement
+						   (keyup.enter)="search$.next(keyWordInputElement.value); tagging(TaggingType.SEARCH, TaggingAction.BTN, keyWordInputElement.value);"
+						   maxlength="255">
+					<button class="btn-search" aria-label="검색" (click)="search$.next(keyWordInputElement.value); tagging(TaggingType.SEARCH, TaggingAction.BTN, keyWordInputElement.value);"></button>
+				</div>
+				<!-- //검색 -->
+			</div>
+		</div>
+		<div class="table-header">
+			<div class="table-scroll">
+				<table class="table-data">
+					<colgroup>
+						<col width="*"/>
+						<col width="160"/>
+						<col width="160"/>
+					</colgroup>
+					<thead>
+					<tr>
+						<th class="align-left">명칭/설명</th>
+						<th>데이터베이스명</th>
+						<th>하위 컬럼 수</th>
+					</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<div class="table-body">
+			<div class="table-scroll">
+				<table class="table-data">
+					<colgroup>
+						<col width="*"/>
+						<col width="160"/>
+						<col width="160"/>
+					</colgroup>
+					<tbody>
+					<tr *ngFor="let table of subjectTableList">
+						<td>
+							<!--suppress JSUnnecessarySemicolon -->
+							<a href="javascript:;"
+							   class="link-item"
+							   (click)="selectedSubjectTable = table;">
+								<strong class="txt-title" *ngIf="table.logicalNm === undefined && table.physicalNm === undefined"></strong>
+								<strong class="txt-title" *ngIf="table.logicalNm !== undefined && table.physicalNm !== undefined">{{ table.logicalNm }} / {{ table.physicalNm }}</strong>
+								<strong class="txt-title" *ngIf="table.logicalNm === undefined && table.physicalNm !== undefined">{{ table.physicalNm }}</strong>
+								<strong class="txt-title" *ngIf="table.logicalNm !== undefined && table.physicalNm === undefined">{{ table.logicalNm }}</strong>
+								<span class="txt-desc">
+							{{ table.description }}
+						</span>
+							</a>
+						</td>
+						<td>{{ table.databasePhysicalNm }}</td>
+						<td>{{ table.columnCnt }}</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<div class="pagination"
+					 [hidden]="subjectTableList.length === 0">
+
+					<!-- Pagination -->
+					<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+					<!-- //Pagination -->
+
+					<div common-select
+						 [className]="'type-filter type-top'"
+						 [items]="pageSizeList"
+						 (itemSelect)="onPageSizeSelect($event)">
+					</div>
+
+				</div>
+
+				<!-- No Data -->
+				<div class="nodata-search"
+					 *ngIf="subjectTableList.length === 0">
+					검색결과가 없습니다.
+				</div>
+				<!-- //No Data -->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //데이터 테이블 -->
+
+<div table-detail
+	 *ngIf="selectedSubjectTable !== null"
+	 [metaTableId]="selectedSubjectTable.id"
+	 (onRowSelected)="OnSelectedSubjectColumn($event)"
+	 (onCancel)="selectedSubjectTable = null;">
+</div>
+
+<div column-detail
+	 *ngIf="selectedSubjectColumn !== null"
+	 [metaColumnId]="selectedSubjectColumn.id"
+	 (onRowSelected)="OnSelectedSubjectTable($event)"
+	 (onCancel)="selectedSubjectColumn = null;">
+</div>

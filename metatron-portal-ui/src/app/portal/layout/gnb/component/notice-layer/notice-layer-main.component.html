@@ -1,0 +1,15 @@
+<!-- 요청 등록 -->
+<notice-layer [type]="NoticeType.REQUESTED" [badgeCount]="requestedCnt" [isShow]="showRequested" [noticeList]="requestedList" [layerTitle]="layerTitleRequested" (onShow)="showNotice(0)" *ngIf="show"></notice-layer>
+<!-- //요청 등록 -->
+
+<!-- 요청 처리중 -->
+<notice-layer [type]="NoticeType.PROGRESS" [badgeCount]="progressCnt" [isShow]="showProgress" [noticeList]="progressList" [layerTitle]="layerTitleProgress" (onShow)="showNotice(1)" *ngIf="show"></notice-layer>
+<!-- //요청 처리중 -->
+
+<!-- 요청 처리중 -->
+<notice-layer [type]="NoticeType.COMPLETED" [badgeCount]="completedCnt" [isShow]="showCompleted" [noticeList]="completedList" [layerTitle]="layerTitleCompleted" (onShow)="showNotice(2)" *ngIf="show"></notice-layer>
+<!-- //요청 처리중 -->
+
+<!-- 공지 알림 -->
+<notice-layer [type]="NoticeType.DEFAULT" [badgeCount]="noticeCnt" [isShow]="showDefaultNotice" [noticeList]="noticeList" [layerTitle]="layerTitleDefaultNotice" (onShow)="showNotice(3)" *ngIf="show"></notice-layer>
+<!-- //공지 알림 -->

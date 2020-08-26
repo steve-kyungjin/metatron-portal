@@ -1,0 +1,65 @@
+<!--suppress NsUnresolvedStyleClassReference -->
+<div class="section-list">
+	<!-- Title -->
+	<div class="title-area">
+		<h3 class="txt-title">목록({{ page.totalElements | number: '1.0-3' }})</h3>
+		<div class="filter">
+			<!-- 검색 -->
+			<div class="component-search">
+				<input type="text" class="input-search" placeholder="검색"
+					   [ngModel]="keyWord"
+					   #keyWordInputElement
+					   (keyup.enter)="search$.next(keyWordInputElement.value)"
+					   [maxlength]="255">
+				<button class="btn-search" aria-label="검색" (click)="search$.next(keyWordInputElement.value)"></button>
+			</div>
+			<!-- //검색 -->
+		</div>
+	</div>
+	<!-- //Title -->
+
+	<!-- 목록 -->
+	<table class="table-list">
+		<colgroup>
+			<col width="110">
+			<col width="110">
+			<col width="*">
+			<col width="15%">
+			<col width="15%">
+			<col width="200">
+		</colgroup>
+		<thead>
+		<tr>
+			<th>구분</th>
+			<th>접근 경로</th>
+			<th>접속 IP</th>
+			<th>접속자 ID</th>
+			<th>접속자 이름</th>
+			<th>접속 시간</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!--suppress SpellCheckingInspection -->
+		<tr *ngFor="let connent of list">
+			<td>{{ connent.type }}</td>
+			<td>{{ connent.endpoint }}</td>
+			<td>{{ connent.accessIp }}</td>
+			<td>{{ connent.accessUserId }}</td>
+			<td>{{ connent.accessUserNm }}</td>
+			<td>{{ connent.accessTime | date_format : 'YYYY-MM-DD HH:mm:ss' }}</td>
+		</tr>
+		</tbody>
+	</table>
+	<!-- //목록 -->
+
+	<!-- No Data -->
+	<div class="list-nodata"
+		 *ngIf="list.length === 0">
+		검색된 결과가 없습니다.
+	</div>
+	<!-- //No Data -->
+
+	<!-- Pagination -->
+	<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+	<!-- //Pagination -->
+</div>

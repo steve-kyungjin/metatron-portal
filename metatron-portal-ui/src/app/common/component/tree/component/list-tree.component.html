@@ -1,0 +1,53 @@
+<!-- Loading -->
+<!--suppress NsUnresolvedStyleClassReference, RedundantConditionalExpressionJS -->
+<div class="component-loading type-sub" [attr.id]="UUID">
+	<span class="bar"></span>
+</div>
+<!-- //Loading -->
+
+<div class="scroll">
+	<!-- 트리 메뉴 -->
+	<div class="component-tree">
+		<ul class="list-tree">
+
+			<!--
+				[D] 접힌 경우 : is-collpsed
+				[D] 펼친 경우 : is-expanded
+			-->
+			<li *ngFor="let node of nodes; let index = index;"
+				[style.padding-left]="node.depth === 0 ? '0px' : 15 * node.depth + 'px'">
+
+				<!-- 자식이 있으면 -->
+				<span class="tree-item"
+					  *ngIf="node.hasChildren === true"
+					  [class.is-collapsed]="node.isOpen === false"
+					  [class.is-expanded]="node.isOpen === true">
+					<span class="icon-tree"
+						  (click)="select(index, node, 'folder')">
+					</span>
+					<label class="label"
+						   (click)="select(index, node, 'subject')">
+						{{ node.name }}
+					</label>
+				</span>
+				<!-- //자식이 있으면 -->
+
+				<!-- 자식이 없으면 -->
+				<span class="tree-item"
+					  *ngIf="node.hasChildren === false">
+					<span class="icon-tree"
+						  (click)="select(index, node, 'subject')">
+					</span>
+					<label class="label"
+						   (click)="select(index, node, 'subject')">
+						{{ node.name }}
+					</label>
+				</span>
+				<!-- //자식이 없으면 -->
+
+			</li>
+
+		</ul>
+	</div>
+	<!-- //트리 메뉴 -->
+</div>

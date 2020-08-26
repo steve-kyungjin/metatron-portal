@@ -1,0 +1,6 @@
+<li *ngFor="let tab of tabLabelList; let index = index;"
+	[attr.aria-selected]="selectIndex === index">
+	<a href="javascript:;" class="link-tab"
+	   [attr.id]="usedToGenerateElementIdOfTapLabel + index"
+	   (click)="selected(tab.index)">{{tab.label}}</a>
+</li>

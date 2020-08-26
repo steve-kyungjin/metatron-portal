@@ -1,0 +1,11 @@
+<!--suppress NsUnresolvedStyleClassReference -->
+<div report-extract-app
+	 class="page-data-extract"
+	 #extractAppComp
+	 [style.display]="isExtractApp === true ? 'block' : 'none'">
+</div>
+
+<div [style.display]="isExtractApp === false ? 'block' : 'none'" class="section-iframe">
+	<iframe name="siteFrame" #siteFrame frameborder="0" scrolling="auto" class="iframe-area"></iframe>
+	<form name="metatronForm" #metatronForm action="" method="post" target="siteFrame"></form>
+</div>

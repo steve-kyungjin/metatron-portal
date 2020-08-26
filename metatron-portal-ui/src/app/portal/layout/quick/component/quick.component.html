@@ -1,0 +1,130 @@
+<!-- QUICK COMM. -->
+<!-- [D] QUICK 노출 시 aria-expanded 값 true로 변경 -->
+<div class="layout-quick" [attr.aria-expanded]="isShow">
+	<!-- 사용자 정보 -->
+	<div class="section-user">
+		<a href="javascript:;" class="btn-close" aria-label="Quick Close" (click)="isShow = false; show.emit(false)"></a>
+		<a href="javascript:;" class="link-popup" style="display:block" (click)="showUserProfile.emit(true); tagging(TaggingType.GNB, TaggingAction.BTN, translateService.instant('QUICK.MENU.USER.PROFILE', '정보수정'))">
+			<span class="img-user" [style.background-image]="'url(' + userService.getProfileImage(sessionInfo.getUser()) + ')'"></span>
+			<span class="info-user">
+				<em class="txt-id">{{ sessionInfo.getUser().userId }}</em>
+				<em class="txt-name">{{ sessionInfo.getUser().userNm }}</em>
+			</span>
+		</a>
+		<a href="javascript:;" class="btn-modify" (click)="logoutClick(); tagging(TaggingType.GNB, TaggingAction.BTN, translateService.instant('QUICK.MENU.LOGOUT', '로그아웃'))">{{ translateService.instant('QUICK.MENU.LOGOUT', '로그아웃') }}</a>
+	</div>
+	<!-- 설정 -->
+	<!--<div class="section-setting">-->
+		<!--&lt;!&ndash; 현재 화면 설정 &ndash;&gt;-->
+		<!--<div class="save-area">-->
+			<!--<span class="txt-label">{{ translateService.instant('QUICK.MENU.START.CONFIG.TITLE', '시작화면 설정') }}</span>-->
+			<!--<a href="javascript:;" class="btn-save" (click)="configStartPage(); tagging(TaggingType.QUICK, TaggingAction.BTN, translateService.instant('QUICK.MENU.START.CONFIG.QUICK.MENU.START.CONFIG.TEXT1', '현 화면을') + ' ' + translateService.instant('QUICK.MENU.START.CONFIG.TEXT2', '시작화면으로'))">-->
+				<!--<span >{{ translateService.instant('QUICK.MENU.START.CONFIG.TEXT1', '현 화면을') }}<br>{{ translateService.instant('QUICK.MENU.START.CONFIG.TEXT2', '시작화면으로') }}</span>-->
+			<!--</a>-->
+		<!--</div>-->
+		<!--&lt;!&ndash; 언어 선택 &ndash;&gt;-->
+		<!--<div class="language-area">-->
+			<!--<span class="txt-label">{{ translateService.instant('QUICK.MENU.LANGUAGE.TITLE', '언어 설정') }}</span>-->
+			<!--<div class="language-block">-->
+				<!--<span class="txt-language" (click)="isOpenLang = !isOpenLang">-->
+					<!--{{ currentLang['label'] }}-->
+				<!--</span>-->
+				<!--&lt;!&ndash; 목록 &ndash;&gt;-->
+				<!--&lt;!&ndash; [D] 레이어 노출 시 aria-expanded 값 true로 변경 &ndash;&gt;-->
+				<!--&lt;!&ndash; [D] 선택 된 언어 a태그에 is-selected 클래스 추가 &ndash;&gt;-->
+				<!--<div class="layer-language" [attr.aria-expanded]="isOpenLang">-->
+					<!--<a *ngFor="let item of langList" href="javascript:;"-->
+					   <!--[class.is-selected]="currentLang['code'] == item['code']"-->
+					   <!--(click)="langClick(item['code'])">{{ item['label'] }}</a>-->
+				<!--</div>-->
+				<!--&lt;!&ndash; //목록 &ndash;&gt;-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--&lt;!&ndash; //언어 선택 &ndash;&gt;-->
+	<!--</div>-->
+	<!-- //설정 -->
+
+	<!-- 탭메뉴 -->
+	<div class="section-tab" *ngIf="showCommunity">
+		<ul class="list-tab">
+			<!-- [D] 탭 노출 시 aria-expanded 값 true로 변경 -->
+			<li *ngFor="let item of menus; let i = index" [attr.aria-expanded]="item['clicked']">
+				<a href="javascript:;" class="btn-tab" (click)="menuClick(i); tagging(TaggingType.QUICK, TaggingAction.BTN, item['title'])">{{ item['title'] }}</a>
+				<div class="tab-content">
+					<ul class="list-lately">
+						<li *ngFor="let child of item['children']" (click)="menuItemClick(child['url']); tagging(TaggingType.QUICK, TaggingAction.ITEM, child['content'], item['title'])">
+							<a href="javascript:;" class="link-item">
+								<span class="txt-title">{{ child['content'] }}</span>
+								<span class="txt-date" *ngIf="child['createdBy'] == null">{{ child['date'] }}</span>
+								<span class="info-reply" *ngIf="child['createdBy'] != null">
+									<em class="txt-date">{{ child['date'] }}</em>
+									<em class="txt-name">{{ child['createdBy'] }}</em>
+								</span>
+							</a>
+						</li>
+					</ul>
+					<!-- No Data -->
+					<!-- [D] Hide : aria-hidden = true -->
+					<div class="nodata-lately" *ngIf="!item['children'] || !item['children'].length">
+						{{ translateService.instant('QUICK.NODATA', '최근 작성한 글이 없습니다.') }}
+					</div>
+					<!-- //No Data -->
+				</div>
+			</li>
+		</ul>
+	</div>
+	<!-- //탭메뉴 -->
+
+	<!-- 퀵 링크 -->
+	<div class="section-link" *ngIf="showCommunity">
+		<a href="javascript:;" (click)="noticeClick(); tagging(TaggingType.QUICK, TaggingAction.BTN, translateService.instant('QUICK.MENU.MIDDLE.MENU1', '시스템 운영 공지'))" class="link-quick">{{ translateService.instant('QUICK.MENU.MIDDLE.MENU1', '시스템 운영 공지') }}</a>
+		<div class="request-area" *ngIf="showRequest">
+			<ul class="request-area">
+				<li><a href="javascript:;" (click)="bottomMenuClick(0); tagging(TaggingType.QUICK, TaggingAction.BTN, translateService.instant('QUICK.MENU.BOTTOM.MENU1', '데이터 수집 요청'))"
+					   class="link-data-collection" [attr.title]="translateService.instant('QUICK.MENU.BOTTOM.MENU1.DESC', '')"><span>{{ translateService.instant('QUICK.MENU.BOTTOM.MENU1', '데이터 수집 요청') }}</span></a></li>
+				<li><a href="javascript:;" (click)="bottomMenuClick(3); tagging(TaggingType.QUICK, TaggingAction.BTN, translateService.instant('QUICK.MENU.BOTTOM.MENU4', '데이터 추출 요청'))"
+					   class="link-data-extract" [attr.title]="translateService.instant('QUICK.MENU.BOTTOM.MENU4.DESC', '')"><span>{{ translateService.instant('QUICK.MENU.BOTTOM.MENU4', '데이터 추출 요청') }}</span></a></li>
+				<li><a href="javascript:;" (click)="bottomMenuClick(4); tagging(TaggingType.QUICK, TaggingAction.BTN, translateService.instant('QUICK.MENU.BOTTOM.MENU5', '데이터 검증 요청'))"
+					   class="link-data-verification" [attr.title]="translateService.instant('QUICK.MENU.BOTTOM.MENU5.DESC', '')"><span>{{ translateService.instant('QUICK.MENU.BOTTOM.MENU5', '데이터 검증 요청') }}</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- //퀵 링크 -->
+</div>
+<!-- //QUICK COMM. -->
+
+<!-- LAYER POPUP -->
+<div class="layout-popup" [hidden]="!showRequestPopup">
+	<div class="layer-popup">
+		<div class="popup">
+			<!-- Popup Content -->
+			<div class="popup-content">
+				<!-- 상단 버튼 영역 -->
+				<div class="section-button">
+					<a href="javascript:;" class="btn-basic" (click)="requestPopupCancelClick()">{{ translateService.instant('COMMON.CANCEL', '취소') }}</a>
+					<a href="javascript:;" class="btn-action" (click)="requestPopupCreateClick()">{{ translateService.instant('COMMON.SAVE', '저장') }}</a>
+				</div>
+				<!-- //상단 버튼 영역 -->
+
+				<!-- 타이틀 영역 -->
+				<div class="section-title">
+					<h1 class="txt-title">{{ requestPopupTitle }}</h1>
+				</div>
+				<!-- //타이틀 영역 -->
+
+				<!-- 데이터 수집 요청 -->
+				<div class="section-request">
+					<p class="txt-desc">
+						{{ requestPopupDesc }}
+					</p>
+					<input type="text" class="input-text" [attr.placeholder]="translateService.instant('QUICK.MENU.REQUEST.POPUP.PLACEHOLDER.TITLE', '제목을 입력하세요.')" [(ngModel)]="requestTitle">
+					<!--<div common-editor [placeholder]="translateService.instant('QUICK.MENU.REQUEST.POPUP.PLACEHOLDER.CONTENT', '요청 내용을 입력하세요.')"></div>-->
+					<textarea class="textarea" [attr.placeholder]="translateService.instant('QUICK.MENU.REQUEST.POPUP.PLACEHOLDER.CONTENT', '요청 내용을 입력하세요.')" [(ngModel)]="requestContent"></textarea>
+				</div>
+				<!-- //데이터 수집 요청 -->
+			</div>
+			<!-- //Popup Content -->
+		</div>
+	</div>
+</div>
+<!-- //LAYER POPUP -->

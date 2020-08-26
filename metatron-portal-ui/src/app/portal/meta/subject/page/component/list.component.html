@@ -1,0 +1,134 @@
+<div class="section-data">
+
+	<!-- 왼쪽 트리메뉴 -->
+	<div subject-tree-block
+		 [class.list-area]="true"
+		 (OnAllSelected)="onAllSelected()"
+		 (OnSubjectSelected)="onSubjectSelected($event)">
+	</div>
+
+	<!-- 오른쪽 컨텐츠 영역 -->
+	<div class="data-area">
+		<!-- 주제영역 설명 -->
+		<dl class="data-desc"
+			*ngIf="treeNodeSelectedSubject === null">
+			<dt>전체</dt>
+			<dd>
+				주제영역은 데이터를 업무 흐름 중심으로 최상위 수준의 그룹을 구성한 것입니다. 좌측에서 주제영역 분류 선택시, 해당 주제영역 분류 내의 주제영역 목록이 표시됩니다.
+			</dd>
+		</dl>
+		<dl class="data-desc"
+			*ngIf="treeNodeSelectedSubject !== null">
+			<dt>{{ treeNodeSelectedSubject.value.nmKr }}</dt>
+			<dd *ngIf="treeNodeSelectedSubject && treeNodeSelectedSubject.value.description">
+				{{ treeNodeSelectedSubject.value.description }}
+			</dd>
+		</dl>
+		<!-- //주제영역 설명 -->
+
+		<!-- 데이터 테이블 -->
+		<div class="data-table">
+			<div class="list-block">
+				<!-- Title -->
+				<div class="title-area">
+					<h3 class="txt-title">목록({{ tableTotalElements | number : '1.0-3'}})</h3>
+					<div class="filter">
+						<!-- 검색 -->
+						<div class="component-search">
+							<input type="text"
+								   class="input-search"
+								   placeholder="검색어 입력 후 검색"
+								   #keyWordInputElement
+								   (blur)="keyWordInputElement.value = keyWord;"
+								   (keyup.enter)="search$.next(keyWordInputElement.value); tagging(TaggingType.SEARCH, TaggingAction.BTN, keyWordInputElement.value)"
+								   maxlength="255">
+							<button class="btn-search" aria-label="검색" (click)="search$.next(keyWordInputElement.value); tagging(TaggingType.SEARCH, TaggingAction.BTN, keyWordInputElement.value)"></button>
+						</div>
+						<!-- //검색 -->
+					</div>
+				</div>
+				<!-- //Title -->
+
+				<!-- Table Header -->
+				<div class="table-header">
+					<div class="table-scroll">
+						<table class="table-data">
+							<colgroup>
+								<col width="*"/>
+								<col width="200"/>
+								<col width="200"/>
+							</colgroup>
+							<thead>
+							<tr>
+								<th class="align-left">명칭/설명</th>
+								<th>상위 주제영역명</th>
+								<th>하위 주제영역 수</th>
+							</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<!-- //Table Header -->
+				<!-- Table Body -->
+				<div class="table-body">
+					<div class="table-scroll">
+						<table class="table-data">
+							<colgroup>
+								<col width="*"/>
+								<col width="200"/>
+								<col width="200"/>
+							</colgroup>
+							<tbody>
+							<tr *ngFor="let subject of list">
+								<td>
+									<a href="javascript:;"
+									   class="link-item"
+									   (click)="selectedSubject = subject; tagging(TaggingType.LIST, TaggingAction.ITEM, subject ? subject.nmKr + '(' + subject.nmEn + ')' : '')">
+										<strong class="txt-title">{{ subject.fqn }}</strong>
+										<span class="txt-desc">
+											{{ subject.description }}
+										</span>
+									</a>
+								</td>
+								<td>{{ subject.parentNm }}</td>
+								<td>{{ subject.children.length | number : '1.0-3' }}</td>
+							</tr>
+							</tbody>
+						</table>
+
+						<div class="pagination"
+							 [hidden]="list.length === 0">
+
+							<!-- Pagination -->
+							<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+							<!-- //Pagination -->
+
+							<div common-select
+								 [className]="'type-filter type-top'"
+								 [items]="pageSizeList"
+								 (itemSelect)="onPageSizeSelect($event)">
+							</div>
+
+						</div>
+
+						<!-- No Data -->
+						<div class="nodata-search"
+							 *ngIf="list.length === 0">
+							검색결과가 없습니다.
+						</div>
+						<!-- //No Data -->
+					</div>
+				</div>
+				<!-- //Table Body -->
+			</div>
+		</div>
+		<!-- //데이터 테이블 -->
+	</div>
+	<!-- //오른쪽 컨텐츠 영역 -->
+</div>
+
+<div subject-detail
+	 *ngIf="selectedSubject !== null"
+	 [subjectId]="selectedSubject.id"
+	 (onCancel)="selectedSubject = null;">
+</div>

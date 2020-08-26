@@ -1,0 +1,69 @@
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<div class="section-button">
+				<a href="javascript:;" class="btn-basic" (click)="cancel()">취소</a>
+				<a href="javascript:;" class="btn-action" (click)="create()">저장</a>
+			</div>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">카테고리 추가</h1>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 카테고리 추가 -->
+			<div class="section-category">
+				<table class="table-data">
+					<colgroup>
+						<col width="80"/>
+						<col width="*"/>
+					</colgroup>
+					<tbody>
+					<tr [class.is-error]="validation.isCdValidationFail">
+						<th><label class="label">코드</label></th>
+						<td>
+							<input type="text" class="input-text" placeholder="영문(대문자) 3글자의 코드를 입력해 주세요."
+								   [(ngModel)]="category.cd"
+								   (focus)="validation.isCdValidationFail = false;"
+								   [maxlength]="3">
+						</td>
+					</tr>
+					<tr [class.is-error]="validation.isNmKrValidationFail">
+						<th><label class="label">국문</label></th>
+						<td>
+							<input type="text" class="input-text" placeholder="카테고리 국문명을 입력해 주세요."
+								   [(ngModel)]="category.nmKr"
+								   (focus)="validation.isNmKrValidationFail = false;"
+								   [maxlength]="16">
+						</td>
+					</tr>
+					<tr [class.is-error]="validation.isNmEnValidationFail">
+						<th><label class="label">영문</label></th>
+						<td>
+							<input type="text" class="input-text" placeholder="카테고리 영문명을 입력해 주세요."
+								   [(ngModel)]="category.nmEn"
+								   (focus)="validation.isNmEnValidationFail = false;"
+								   [maxlength]="16">
+						</td>
+					</tr>
+					<tr [class.is-error]="validation.isCdDescValidationFail">
+						<th><label class="label">설명</label></th>
+						<td>
+							<input type="text" class="input-text" placeholder="설명을 입력해 주세요."
+								   [(ngModel)]="category.cdDesc"
+								   (focus)="validation.isCdDescValidationFail = false;"
+								   [maxlength]="85">
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- //카테고리 추가 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>

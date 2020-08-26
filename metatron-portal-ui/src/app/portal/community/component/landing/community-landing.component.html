@@ -1,0 +1,241 @@
+<!-- 커뮤니케이션 -->
+<div class="page-communication">
+
+	<!-- 전체 현황 -->
+	<div class="section-status">
+		<!-- 개인별 -->
+		<div class="status-area type-individual">
+			<div class="title-block">
+				<h3 class="txt-title">{{ translateService.instant('COMMUNITY.LANDING.SUB.TITLE2', '개인별 요청 및 Q&A 현황') }}</h3>
+			</div>
+			<ul class="status-block">
+				<li class="type-title">
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE1', '요청 등록') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(0, 2)" class="txt-total">{{ displayCount(summaryMy.all) }}</a>
+				</li>
+				<li>
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE2', '미진행') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(0, 3)" class="txt-total">{{ displayCount(summaryMy.notProcess) }}</a>
+				</li>
+				<li>
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE3', '진행중') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(0, 4)" class="txt-total">{{ displayCount(summaryMy.process) }}</a>
+				</li>
+				<li>
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE4', '완료') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(0, 5)" class="txt-total">{{ displayCount(summaryMy.complete) }}</a>
+				</li>
+				<li class="type-title">
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE5', 'Q&A 등록') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(1, 3)" class="txt-total">{{ displayCount(summaryMy.qnaAll) }}</a>
+				</li>
+				<li>
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE6', '미답변') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(1, 1)" class="txt-total">{{ displayCount(summaryMy.qnaNoAnswer) }}</a>
+				</li>
+				<li>
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE9', '답변') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(1, 2)" class="txt-total">{{ displayCount(summaryMy.qnaAnswer) }}</a>
+				</li>
+			</ul>
+		</div>
+		<!-- 개인별 -->
+
+		<!-- 전체 -->
+		<div class="status-area type-all">
+			<div class="title-block">
+				<h3 class="txt-title">{{ translateService.instant('COMMUNITY.LANDING.SUB.TITLE1', '전체 요청 및 Q&A 현황') }}</h3>
+			</div>
+			<ul class="status-block">
+				<li class="type-title">
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE1', '요청 등록') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(0, 0)" class="txt-total">{{ displayCount(summaryAll.all) }}</a>
+				</li>
+				<li>
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE2', '미진행') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(0, 6)" class="txt-total">{{ displayCount(summaryAll.notProcess) }}</a>
+				</li>
+				<li>
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE3', '진행중') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(0, 7)" class="txt-total">{{ displayCount(summaryAll.process) }}</a>
+				</li>
+				<li>
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE4', '완료') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(0, 8)" class="txt-total">{{ displayCount(summaryAll.complete) }}</a>
+				</li>
+				<li class="type-title">
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE5', 'Q&A 등록') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(1, 0)" class="txt-total">{{ displayCount(summaryAll.qnaAll) }}</a>
+				</li>
+				<li>
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE6', '미답변') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(1, 4)" class="txt-total">{{ displayCount(summaryAll.qnaNoAnswer) }}</a>
+				</li>
+				<li>
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE9', '답변') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(1, 5)" class="txt-total">{{ displayCount(summaryAll.qnaAnswer) }}</a>
+				</li>
+			</ul>
+		</div>
+		<!-- 전체 -->
+
+		<!-- 가이드 -->
+		<div class="status-area type-guide">
+			<div class="title-block">
+				<h3 class="txt-title">{{ translateService.instant('COMMUNITY.LANDING.SUB.TITLE3', '가이드/공지 현황') }}</h3>
+			</div>
+			<ul class="status-block">
+				<li>
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE7', '가이드/팁') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(2, 4, 'guide')" class="txt-total">{{ displayCount(summaryNotice.guide) }}</a>
+				</li>
+				<li>
+					<strong class="txt-label">{{ translateService.instant('COMMUNITY.LANDING.TOTAL.COUNT.TITLE8', '공지사항') }}</strong>
+					<a href="javascript:;" (click)="changeCategory(2, 3, 'notice')" class="txt-total">{{ displayCount(summaryNotice.notice) }}</a>
+				</li>
+			</ul>
+		</div>
+		<!-- 가이드 -->
+	</div>
+	<!-- //전체 현황 -->
+
+	<!-- 요청 및 문의, 공지 및 가이드, Q&A -->
+	<div class="section-board">
+		<!-- TAB -->
+		<ul class="list-tab">
+			<li *ngFor="let item of categoryList; let index = index;" [class.is-selected]="item['checked']">
+				<a href="javascript:;" class="btn-tab" (click)="changeCategory(index)">{{ item['title'] }}</a>
+			</li>
+		</ul>
+		<!-- //TAB -->
+
+		<!-- Tab Content -->
+		<div class="tab-content">
+			<div class="comm-content">
+				<!-- 탐색 조건 -->
+				<div class="filter-area">
+					<div class="title-block">
+						<h3 class="txt-title">{{ translateService.instant('COMMUNITY.LANDING.SUB.TITLE4', '탐색 조건') }}</h3>
+					</div>
+					<ul class="list-filter">
+						<li *ngFor="let item of filterList; let index = index;">
+							<input type="radio" [attr.id]="'filter' + index" class="input-radio" [checked]="item['checked']" (change)="changeFilter(index)">
+							<label [attr.for]="'filter' + index" class="txt-label">{{ item['title'] }}</label>
+						</li>
+					</ul>
+				</div>
+				<!-- //탐색 조건 -->
+
+				<!-- 게시판 목록 -->
+				<div class="table-area">
+					<!-- 카테고리, 검색 -->
+					<div class="search-block">
+						<!-- Select Box -->
+						<div common-select
+							 [className]="'type-filter type-data'"
+							 [items]="boardList"
+							 [showAll]="true"
+							 (itemSelect)="boardSelect($event)">
+						</div>
+						<!-- //Select Box -->
+
+						<div class="filter">
+							<!-- 검색 -->
+							<div class="component-search">
+								<input type="text" class="input-search"
+									   #searchInput
+									   [attr.placeholder]="category == PostType.WORKFLOW ? translateService.instant('COMMUNITY.LIST.SEARCH.PLACEHOLDER.WORKFLOW', '제목, 내용, 등록자, 담당자로 검색') : translateService.instant('COMMUNITY.LIST.SEARCH.PLACEHOLDER', '제목, 내용, 등록자로 검색')"
+									   (keyup.enter)="searchClick(searchInput.value)"
+									   [(ngModel)]="searchInputText"
+									   [maxlength]="255">
+								<button class="btn-search" [attr.aria-label]="translateService.instant('COMMON.SEARCH', '검색')" (click)="searchClick(searchInput.value)"></button>
+							</div>
+							<!-- //검색 -->
+							<!-- 정렬 -->
+							<ul class="list-sort">
+								<!-- [D] id/for 값 동일하게 적용 -->
+								<li *ngFor="let item of sortList; let index = index;">
+									<input type="radio" class="input-radio" [attr.id]="'sort' + index" name="sort" [value]="item['sort']" [(ngModel)]="sort" (change)="changeSort(index)">
+									<label class="label" [attr.for]="'sort' + index">{{ item['title'] }}</label>
+								</li>
+							</ul>
+							<!-- //정렬 -->
+						</div>
+					</div>
+					<!-- //카테고리, 검색 -->
+
+					<!-- 목록 -->
+					<table class="table-communication">
+						<colgroup>
+							<col width="10%" />
+							<col width="*" />
+							<col width="100" *ngIf="category == PostType.WORKFLOW"/>
+							<col width="10%" />
+							<col width="10%" *ngIf="category == PostType.WORKFLOW"/>
+							<col width="10%" *ngIf="category == PostType.WORKFLOW"/>
+							<col width="100" />
+							<col width="80" />
+						</colgroup>
+						<thead>
+						<tr>
+							<th>{{ translateService.instant('COMMUNITY.LIST.TABLE.COL0', '카테고리') }}</th>
+							<th>{{ translateService.instant('COMMUNITY.LIST.TABLE.COL1', '제목') }}</th>
+							<th *ngIf="category == PostType.WORKFLOW">{{ translateService.instant('COMMUNITY.LIST.TABLE.COL2', '상태') }}</th>
+							<th>{{ translateService.instant('COMMUNITY.LIST.TABLE.COL3', '등록자') }}</th>
+							<th *ngIf="category == PostType.WORKFLOW">{{ translateService.instant('COMMUNITY.LIST.TABLE.COL4', '담당자') }}</th>
+							<th *ngIf="category == PostType.WORKFLOW">{{ translateService.instant('COMMUNITY.LIST.TABLE.COL7', '처리자') }}</th>
+							<th>{{ translateService.instant('COMMUNITY.LIST.TABLE.COL5', '등록일') }}</th>
+							<th>{{ translateService.instant('COMMUNITY.LIST.TABLE.COL6', '조회') }}</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr *ngFor="let item of postList">
+							<td>{{ item.master.name }}</td>
+							<td class="align-left">
+								<a href="javascript:;" class="link-comm" [attr.title]="item.title" (click)="postClick(item); tagging(TaggingType.LIST, TaggingAction.ITEM, item.title)">
+									<span class="txt-comment" *ngIf="item.master.replyYn">[{{ item.replyCnt }}]</span>
+									<span class="txt-title">{{ item.title }}</span>
+								</a>
+							</td>
+							<td *ngIf="category == PostType.WORKFLOW">
+								<!--
+                                    [D] 상태 클래스명 정의
+                                    type-a : 요청등록
+                                    type-b : 요청취소
+                                    type-c : 요청처리중
+                                    type-d : 요청처리완료
+                                    type-e : 요청완료확인
+                                -->
+								<span [ngClass]="item.className" *ngIf="item.status">
+									{{ item.master.secondaryType && item.status == Status.PROGRESS ? translateService.instant('COMMUNITY.STATUS.PROGRESS.' + item.master.secondaryType, '요청타입') : '' }} {{ translateService.instant('COMMUNITY.STATUS.' + item.status.toUpperCase(), '요청상태') }}
+								</span>
+							</td>
+							<td>{{ item.createdBy.userNm }}{{ item.createdBy.orgNm ? '(' + item.createdBy.orgNm + ')' : '' }}</td>
+							<td *ngIf="category == PostType.WORKFLOW">{{ item.worker ? item.worker.userNm : translateService.instant('COMMUNITY.UNSPECIFIED', '(미지정)') }}{{ item.worker && item.worker.orgNm ? '(' + item.worker.orgNm + ')' : '' }}</td>
+							<td *ngIf="category == PostType.WORKFLOW"><span class="txt-manager" [attr.title]="communityService.getCoworkersText(item)">{{ communityService.getCoworkersText(item) }}</span></td>
+							<td>{{ item.createdDate | date_format : 'YYYY-MM-DD' }}</td>
+							<td>{{ item.viewCnt | number : '1.0-3' }}</td>
+						</tr>
+						</tbody>
+					</table>
+					<!-- //목록 -->
+
+					<!-- No Data -->
+					<div class="nodata-communication" *ngIf="postList && !postList.length">
+						{{ translateService.instant('COMMUNITY.LIST.NODATA', '등록된 글이 없습니다.') }}
+					</div>
+					<!-- //No Data -->
+
+					<!-- Pagination -->
+					<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+					<!-- //Pagination -->
+				</div>
+				<!-- //게시판 목록 -->
+			</div>
+		</div>
+		<!-- //Tab Content -->
+	</div>
+	<!-- //요청 및 문의, 공지 및 가이드, Q&A -->
+
+</div>
+<!-- //커뮤니케이션 -->

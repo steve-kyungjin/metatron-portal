@@ -1,0 +1,123 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "metatron-portal-ui"
+  },
+  "apps": [
+    {
+      "name": "default",
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "assets/images/favicon-mp.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "",
+      "styles": [
+        "../node_modules/codemirror/lib/codemirror.css",
+        "../node_modules/codemirror/addon/hint/show-hint.css",
+        "../node_modules/codemirror/addon/hint/show-hint.js",
+        "../node_modules/codemirror/addon/hint/sql-hint.js",
+        "../node_modules/codemirror/addon/dialog/dialog.css",
+        "../node_modules/codemirror/addon/search/matchesonscrollbar.css",
+        "../node_modules/codemirror/addon/dialog/dialog.js",
+        "../node_modules/codemirror/addon/search/searchcursor.js",
+        "../node_modules/codemirror/addon/search/search.js",
+        "../node_modules/codemirror/addon/scroll/annotatescrollbar.js",
+        "../node_modules/codemirror/addon/search/matchesonscrollbar.js",
+        "../node_modules/codemirror/addon/search/jump-to-line.js",
+        "../node_modules/codemirror/addon/comment/continuecomment.js",
+        "../node_modules/codemirror/addon/comment/comment.js",
+        "../node_modules/air-datepicker/dist/css/datepicker.css",
+        "./assets/sample/css/polaris.v2.css",
+        "../node_modules/toastr/build/toastr.css",
+        "../node_modules/swiper/dist/css/swiper.css",
+        "./assets/lib/summernote/summernote-lite.css",
+        "./assets/css/mp.css"
+      ],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "./assets/lib/grid/slickgrid.all.js",
+        "./assets/lib/grid/slick.headerbuttons.js",
+        "./assets/lib/grid/slick.headermenu.js",
+        "./assets/lib/sha512.js",
+        "../node_modules/codemirror/lib/codemirror.js",
+        "../node_modules/codemirror/mode/sql/sql.js",
+        "../node_modules/toastr/build/toastr.min.js",
+        "../node_modules/swiper/dist/js/swiper.js",
+        "./assets/lib/echarts.common.min.js",
+        "./assets/lib/air-datepicker/datepicker.js",
+        "./assets/lib/air-datepicker/language/datepicker.ko.js",
+        "./assets/lib/summernote/summernote-lite.js",
+        "./assets/lib/summernote/lang/summernote-ko-KR.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "local": "environments/environment.ts",
+        "dev": "environments/environment.dev.ts",
+        "stg": "environments/environment.stg.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "component": {
+      "flat": false,
+      "spec": false,
+      "inlineStyle": false,
+      "inlineTemplate": false
+    },
+    "class": {
+      "spec": false
+    },
+    "directive": {
+      "flat": false,
+      "spec": false
+    },
+    "guard": {
+      "flat": false,
+      "spec": false
+    },
+    "interface": {
+      "prefix": ""
+    },
+    "module": {
+      "flat": false,
+      "spec": false
+    },
+    "pipe": {
+      "flat": false,
+      "spec": false
+    },
+    "service": {
+      "flat": false,
+      "spec": false
+    },
+    "serve": {
+      "port": 4300,
+      "host": "localhost"
+    }
+  },
+  "warnings": {
+    "nodeDeprecation": true,
+    "packageDeprecation": true,
+    "versionMismatch": true
+  }
+}

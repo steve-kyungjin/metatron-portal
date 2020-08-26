@@ -1,0 +1,98 @@
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<div class="section-button">
+				<a href="javascript:;"
+				   class="btn-basic"
+				   (click)="closeClick()">
+					취소
+				</a>
+				<a href="javascript:;"
+				   class="btn-action"
+				   (click)="doneClick()"
+				   *ngIf="isUserMultipleSelectMode === true">
+					적용
+				</a>
+			</div>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">주제영역 설정하기</h1>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 그룹 설정하기 -->
+			<div class="section-authority type-organization">
+				<!-- 왼쪽 목록 -->
+				<div class="list-area">
+					<!-- 조직 -->
+					<div class="organization-block" aria-expanded="true">
+						<!-- 조직 목록 -->
+						<div class="list-organization">
+							<subject-tree (onSubjectSelect)="subjectSelect($event)"></subject-tree>
+						</div>
+						<!-- //조직 목록 -->
+					</div>
+					<!-- //조직 -->
+				</div>
+				<!-- //왼쪽 목록 -->
+
+				<!-- 오른쪽 선택 된 목록 -->
+				<div *ngIf="isUserMultipleSelectMode"
+					 class="result-area">
+					<!-- 선택된 사용자 -->
+					<!-- [D] 단일 선택일 때 'selected-block' 영역 제거 -->
+					<div class="selected-block">
+						<div class="title">
+							<h3 class="txt-title">선택된 주제영역({{ selectList.length }})</h3>
+							<a href="javascript:;"
+							   class="btn-delete"
+							   (click)="allDeleteSelectedList()">
+								전체삭제
+							</a>
+						</div>
+						<div class="table-body">
+							<table class="table-list">
+								<colgroup>
+									<col width="*"/>
+									<col width="60"/>
+								</colgroup>
+								<tbody>
+								<tr *ngFor="let subject of selectList; let index = index;">
+									<th class="align-left">
+										<strong>{{ subject.nmKr }}</strong>
+									</th>
+									<td>
+										<a href="javascript:;"
+										   class="btn-delete"
+										   aria-label="삭제"
+										   (click)="deleteSelectedSubject(index)">
+										</a>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+
+							<!-- No Data -->
+							<!-- [D] 데이터 없는 경우 aria-hidden 값 false로 변경 -->
+							<div class="nodata"
+								 aria-hidden="true"
+								 *ngIf="selectList.length === 0">
+								선택된 주제영역이 없습니다.
+							</div>
+							<!-- //No Data -->
+						</div>
+					</div>
+					<!-- //선택된 사용자 -->
+				</div>
+				<!-- //선택 된 목록 -->
+			</div>
+			<!-- //그룹 설정하기 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>

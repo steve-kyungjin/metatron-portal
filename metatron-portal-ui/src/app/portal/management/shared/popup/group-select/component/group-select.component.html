@@ -1,0 +1,78 @@
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<div class="section-button">
+				<a href="javascript:;" class="btn-basic" (click)="closeClick()">취소</a>
+				<a href="javascript:;" class="btn-action" (click)="doneClick()">적용</a>
+			</div>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">그룹 설정하기</h1>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 그룹 설정하기 -->
+			<div class="section-authority type-group">
+				<!-- 왼쪽 목록 -->
+				<div class="list-area">
+					<div group-block
+						 [attr.aria-expanded]="true"
+						 (oSelected)="groupSelected($event)">
+					</div>
+					<!-- //그룹 -->
+				</div>
+				<!-- //왼쪽 목록 -->
+
+				<!-- 오른쪽 선택 된 목록 -->
+				<div class="result-area">
+					<!-- 선택된 사용자 -->
+					<!-- [D] 단일 선택일 때 'selected-block' 영역 제거 -->
+					<div class="selected-block">
+						<div class="title">
+							<h3 class="txt-title">선택된 그룹({{ selectedGroupList.length }})</h3>
+							<a href="javascript:;" class="btn-delete"
+							   (click)="allDeleteSelectedGroupList()">전체삭제</a>
+						</div>
+						<div class="table-body">
+							<table class="table-list">
+								<colgroup>
+									<!--<col width="158"/>-->
+									<col width="*"/>
+									<col width="60"/>
+								</colgroup>
+								<tbody>
+								<tr *ngFor="let group of selectedGroupList; let index = index;">
+									<th class="align-left">
+										<strong>{{ group.name }}({{ group.memberCnt }})</strong>
+									</th>
+									<!--<td class="align-left">{{ group.memberCnt }}</td>-->
+									<td>
+										<a href="javascript:;" class="btn-delete" aria-label="삭제"
+										   (click)="deleteSelectedUser(index)"></a>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+
+							<!-- No Data -->
+							<!-- [D] 데이터 없는 경우 aria-hidden 값 false로 변경 -->
+							<div class="nodata" aria-hidden="true"
+								 *ngIf="selectedGroupList.length === 0">
+								선택된 사용자가 없습니다.
+							</div>
+							<!-- //No Data -->
+						</div>
+					</div>
+					<!-- //선택된 사용자 -->
+				</div>
+				<!-- //선택 된 목록 -->
+			</div>
+			<!-- //그룹 설정하기 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>

@@ -1,0 +1,105 @@
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<div class="section-button">
+				<a href="javascript:;" class="btn-basic" (click)="onCancel.emit()">취소</a>
+				<a *ngIf="extractCustomVariableModule?.multiple"
+				   href="javascript:;"
+				   class="btn-action"
+				   (click)="complete()">
+					적용
+				</a>
+			</div>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">{{extractCustomVariableModule?.name}} 선택하기</h1>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 그룹 설정하기 -->
+			<div class="section-authority type-group type-none">
+				<!-- 왼쪽 목록 -->
+				<div class="list-area">
+					<!-- [D] 해당 영역 노출 시 aria-expanded 값 true로 변경 -->
+					<!-- 그룹 -->
+					<div class="group-block" aria-expanded="true">
+						<!-- 검색 -->
+						<div class="component-search">
+							<input type="text" class="input-search" placeholder="검색" [(ngModel)]="keyWord">
+							<button class="btn-search" aria-label="검색"></button>
+						</div>
+						<!-- //검색 -->
+
+						<!-- 검색 결과 없는 경우 -->
+						<!-- [D] 검색 결과 없는 경우 aria-hidden 값 false로 변경 -->
+						<div class="nodata" aria-hidden="true">
+							<span>'그룹명'</span>에 대한 검색결과가 없습니다.
+						</div>
+						<!-- //검색 결과 없는 경우 -->
+
+						<!-- 그룹 목록 -->
+						<ul class="list-group">
+							<li *ngFor="let customVariable of customVariables | filter:keyWord">
+								<a href="javascript:;" class="item" (click)="select(customVariable)">{{ customVariable.label }}</a>
+							</li>
+						</ul>
+						<!-- //그룹 목록 -->
+
+					</div>
+					<!-- //그룹 -->
+				</div>
+				<!-- //왼쪽 목록 -->
+
+				<!-- 오른쪽 선택 된 목록 -->
+				<div class="result-area" *ngIf="extractCustomVariableModule?.multiple">
+					<!-- 선택된 사용자 -->
+					<!-- [D] 단일 선택일 때 'selected-block' 영역 제거 -->
+					<div class="selected-block">
+						<div class="title">
+							<h3 class="txt-title">선택된 {{extractCustomVariableModule?.name}}({{selectedCustomVariables.length}})</h3>
+							<a href="javascript:;" class="btn-delete" (click)="clearSelectedCustomVariables()">전체삭제</a>
+						</div>
+						<div class="table-body">
+							<table class="table-list">
+								<colgroup>
+									<col width="*"/>
+									<col width="60"/>
+								</colgroup>
+								<tbody>
+								<tr *ngFor="let selectedCustomVariable of selectedCustomVariables; let index = index;">
+									<th class="align-left">
+										<strong>{{selectedCustomVariable.label}}</strong>
+									</th>
+
+									<td>
+										<a href="javascript:;"
+										   class="btn-delete"
+										   aria-label="삭제"
+										   (click)="deleteSelectedCustomVariable(index)">
+										</a>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+
+							<!-- No Data -->
+							<!-- [D] 데이터 없는 경우 aria-hidden 값 false로 변경 -->
+							<div class="nodata" aria-hidden="true">
+								선택된 사용자가 없습니다.
+							</div>
+							<!-- //No Data -->
+						</div>
+					</div>
+					<!-- //선택된 사용자 -->
+				</div>
+				<!-- //선택 된 목록 -->
+			</div>
+			<!-- //그룹 설정하기 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>

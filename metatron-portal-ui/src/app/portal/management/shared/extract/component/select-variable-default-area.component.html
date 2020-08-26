@@ -1,0 +1,60 @@
+<div class="form-var">
+	<table class="table-var">
+		<colgroup>
+			<col width="120"/>
+			<col width="*"/>
+		</colgroup>
+		<tbody>
+		<tr [class.is-error]="isValidationDefaultVariable">
+			<th>기본 변수 선택</th>
+			<td>
+				<!-- Select Box -->
+				<div common-select
+					 [items]="defaultVariableSelectValues"
+					 (itemSelect)="changeDefaultVariable($event)">
+				</div>
+				<!-- //Select Box -->
+			</td>
+		</tr>
+		<tr [class.is-error]="isNameValidation">
+			<th>이름</th>
+			<td>
+				<input type="text"
+					   class="input-text"
+					   placeholder=""
+					   #nameEl
+					   (focus)="isNameValidation = false"
+					   [(ngModel)]="queryExpression.name">
+			</td>
+		</tr>
+		<tr [class.is-error]="isDescriptionValidation">
+			<th>설명</th>
+			<td>
+				<input type="text"
+					   class="input-text"
+					   placeholder=""
+					   #descriptionEl
+					   (focus)="isDescriptionValidation = false"
+					   [(ngModel)]="queryExpression.description">
+			</td>
+		</tr>
+		<tr>
+			<th>Argument(인자)</th>
+			<td>
+				<input type="text"
+					   class="input-text"
+					   placeholder=""
+					   #argumentEl
+					   [(ngModel)]="queryExpression.argument">
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+
+<!-- 변수 미리보기 -->
+<div class="preview-var">
+	<h2 class="txt-title">변수 미리보기</h2>
+	<input type="text" class="input-text" [value]="makePreviewVariable()" readonly>
+</div>
+<!-- //변수 미리보기 -->

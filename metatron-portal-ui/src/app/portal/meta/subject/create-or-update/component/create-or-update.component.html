@@ -1,0 +1,161 @@
+<!-- LAYER POPUP -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<div class="section-button">
+				<a href="javascript:;"
+				   class="btn-basic"
+				   (click)="cancel()">
+					취소
+				</a>
+				<a href="javascript:;"
+				   class="btn-action"
+				   (click)="done()">
+					저장
+				</a>
+			</div>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title" *ngIf="isEditMode === false">데이터 주제영역 등록</h1>
+				<h1 class="txt-title" *ngIf="isEditMode === true">데이터 주제영역 수정</h1>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 컬럼 수정하기 -->
+			<div class="section-metadata type-modify">
+				<div class="main-area">
+					<table class="table-data">
+						<colgroup>
+							<col width="150"/>
+							<col width="*"/>
+						</colgroup>
+						<tbody>
+						<tr>
+							<th class="align-top">
+								<label class="label">상위 주제영역</label>
+							</th>
+							<td>
+								<div class="form-subject">
+									<a href="javascript:;"
+									   class="btn-basic"
+									   (click)="isParentSubjectSelectPopupOpen = true">
+										설정하기
+									</a>
+									<ul class="list-subject">
+										<li *ngFor="let subject of selectedParentSubjectList; let index = index;">
+											<span class="txt-subject">{{ subject.nmKr }}</span>
+											<a href="javascript:;"
+											   class="btn-delete"
+											   aria-label="삭제"
+											   (click)="deleteSubjectByIndex(index)"></a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr [class.is-error]="subject.isCriteriaIdValidation">
+							<th>
+								<label class="label">주제영역 분류 기준</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="criteriaSelectValueList"
+									 [dimmed]="selectedParentSubjectList.length > 0"
+									 (itemSelect)="subject.isCriteriaIdValidation = false; parentCriteriaSelect($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="sub-area">
+					<table class="table-data">
+						<colgroup>
+							<col width="150"/>
+							<col width="*"/>
+						</colgroup>
+						<tbody>
+						<tr [class.is-error]="subject.isNmKrValidation">
+							<th>
+								<label class="label">한글명</label>
+							</th>
+							<td>
+								<!-- maxlength="255" ... -->
+								<input type="text"
+									   class="input-text"
+									   placeholder="한글명을 입력하세요."
+									   [(ngModel)]="subject.nmKr"
+									   (focus)="subject.isNmKrValidation = false;">
+							</td>
+						</tr>
+						<tr [class.is-error]="subject.isNmEnValidation">
+							<th>
+								<label class="label">영문명</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="영문명을 입력하세요."
+									   maxlength="255"
+									   [(ngModel)]="subject.nmEn"
+									   (focus)="subject.isNmEnValidation = false;">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">설명</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="설명을 입력하세요."
+									   maxlength="3000"
+									   [(ngModel)]="subject.description">
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="sub-area">
+					<table class="table-data">
+						<colgroup>
+							<col width="150"/>
+							<col width="*"/>
+						</colgroup>
+						<tbody>
+						<tr>
+							<th>
+								<label class="label">레벨구분</label>
+							</th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="레벨구분을 입력하세요."
+									   maxlength="255"
+									   [(ngModel)]="subject.level">
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- //컬럼 수정하기 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>
+<!-- //LAYER POPUP -->
+
+<subject-select *ngIf="isParentSubjectSelectPopupOpen"
+				[isUserMultipleSelectMode]="false"
+				[defaultSelectList]="selectedParentSubjectList"
+				(oClose)="parentSubjectSelectClose()"
+				(oDone)="parentSubjectSelectDone($event)">
+</subject-select>

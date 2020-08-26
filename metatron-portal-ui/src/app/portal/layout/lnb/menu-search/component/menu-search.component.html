@@ -1,0 +1,18 @@
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<input type="text"
+	   class="input-search"
+	   [placeholder]="translateService.instant('LNB.SEARCH.PLACEHOLDER', '메뉴 검색')"
+	   #searchInput
+	   (keyup)="search$.next(searchInput.value)">
+
+<!-- 검색 결과 -->
+<!-- [D] 검색결과 레이어 노출 시 aria-expanded 값 true로 변경 -->
+<ul class="layer-result"
+	[attr.aria-expanded]="textSearchResults.length > 0">
+	<li *ngFor="let result of textSearchResults">
+		<a href="javascript:;"
+		   class="link-result"
+		   (click)="textSearchResultClick(result)">{{result.name}}</a>
+	</li>
+</ul>
+<!-- //검색 결과 -->

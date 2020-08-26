@@ -1,0 +1,93 @@
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<a href="javascript:;" class="btn-close" aria-label="닫기"
+			   (click)="cancel()"></a>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">데이터베이스 상세보기</h1>
+				<span class="txt-sub">{{ database.logicalNm === undefined || database.logicalNm.trim() == '' ? database.physicalNm : database.logicalNm + ' / ' + database.physicalNm }}</span>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 테이블 상세보기 -->
+			<div class="section-metadata">
+				<div class="top-area">
+					<!-- 탭 메뉴 -->
+					<ul class="list-tab">
+						<li [attr.aria-selected]="selectedTabIndex === 0">
+							<a href="javascript:;" class="link-tab"
+							   (click)="changeTab(0)">기본정보</a>
+						</li>
+						<li [attr.aria-selected]="selectedTabIndex === 1">
+							<a href="javascript:;" class="link-tab"
+							   (click)="changeTab(1);">테이블 구성</a>
+						</li>
+					</ul>
+					<!-- //탭 메뉴 -->
+				</div>
+				<!-- 기본 구성 -->
+				<div class="tabcontent-area" [attr.aria-expanded]="selectedTabIndex === 0">
+					<div class="detail-block">
+						<ul class="list-default">
+							<li>
+								<strong class="column-label">데이터베이스 논리명</strong>
+								<span class="column-desc">{{ database.logicalNm }}</span>
+							</li>
+							<li>
+								<strong class="column-label">데이터베이스 물리명</strong>
+								<span class="column-desc">{{ database.physicalNm }}</span>
+							</li>
+							<li>
+								<strong class="column-label">데이터베이스 논리명 설명</strong>
+								<span class="column-desc">{{ database.description }}</span>
+							</li>
+						</ul>
+						<ul class="list-default">
+							<li>
+								<strong class="column-label">데이터 LAYER</strong>
+								<span class="column-desc">{{ database.layer ? database.layer.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">관리목적</strong>
+								<span class="column-desc">{{ database.purpose ? database.purpose.nmKr : '' }}</span>
+							</li>
+							<li>
+								<strong class="column-label">테이블 수</strong>
+								<span class="column-desc">{{ database.tableCnt | number : '1.0-3' }}</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- //기본 구성 -->
+
+				<!-- 컬럼 구성 -->
+				<div class="tabcontent-area type-grid" [attr.aria-expanded]="selectedTabIndex === 1">
+					<div class="grid-block">
+
+						<div class="grid-table"
+							 grid-component
+							 #grid1
+							 *ngIf="tableList.length > 0"
+							 (selectedEvent)="columnGridSelect($event)">
+						</div>
+
+						<div class="nodata-grid" aria-hidden="false" *ngIf="tableList.length === 0">
+							<p class="txt-desc">{{ translateService.instant('DATABASE.DETAIL.NODATA', '조회된 데이터가 없습니다.') }}</p>
+						</div>
+
+					</div>
+				</div>
+				<!-- //컬럼 구성 -->
+
+			</div>
+			<!-- //테이블 상세보기 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>

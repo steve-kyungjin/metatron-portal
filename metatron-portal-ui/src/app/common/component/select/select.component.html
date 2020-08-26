@@ -1,0 +1,25 @@
+<!-- Select Box -->
+<div class="component-select {{ className }}" [attr.aria-disabled]="dimmed">
+	<span class="label" (click)="selectClick()">
+		{{ currentLabel }}
+	</span>
+	<!-- [D] 셀렉트 박스 선택 시 aria-expanded 값 true로 변경 -->
+	<div class="layer-select" [attr.aria-expanded]="isOpen">
+		<!-- Loading -->
+		<div class="loading-area" [attr.aria-hidden]="!isLoading">
+			<div class="component-loading type-sub">
+				<span class="bar"></span>tar
+			</div>
+		</div>
+		<!-- //Loading -->
+
+		<ul class="list-options" [hidden]="isLoading">
+			<li *ngFor="let item of items; let index = index;">
+				<input [type]="allowMultiSelect ? 'checkbox' : 'radio'" [attr.id]="'select_' + uuid + index" class="input-radio" [attr.name]="uuid" (click)="itemClick(item)"
+					   [checked]="item.checked">
+				<label [attr.for]="'select_' + uuid + index" class="item-option">{{ item.label }}</label>
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- //Select Box -->

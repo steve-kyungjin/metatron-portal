@@ -1,0 +1,103 @@
+<!-- 앱 관리 -->
+<div class="page-app-register">
+
+	<div class="section-list">
+		<!-- 앱 등록 버튼 영역 -->
+		<div class="button-area">
+			<a href="javascript:;" class="btn-action type-add"
+			   (click)="routerLink('view/management/report-app/report/register-step1')">앱 등록</a>
+		</div>
+		<!-- //앱 등록 버튼 영역 -->
+
+		<!-- Title -->
+		<div class="title-area">
+			<h3 class="txt-title">목록({{ page.totalElements | number : '1.0-3' }})</h3>
+			<div class="filter">
+				<!-- Select Box -->
+				<span class="txt-filter">카테고리</span>
+				<div common-select
+					 [className]="'type-filter'"
+					 [items]="categoryList"
+					 [showAll]="true"
+					 (itemSelect)="categorySelect($event)">
+				</div>
+				<!-- //Select Box -->
+				<em class="bar"></em>
+				<!-- 검색 -->
+				<div class="component-search">
+					<input type="text" class="input-search" placeholder="앱 이름으로 검색"
+						   [(ngModel)]="searchText"
+						   (keyup.enter)="search$.next()"
+						   maxlength="255">
+					<button class="btn-search" aria-label="검색" (click)="search$.next(searchText)"></button>
+				</div>
+				<!-- //검색 -->
+			</div>
+		</div>
+		<!-- //Title -->
+
+		<!-- 목록 -->
+		<table class="table-app">
+			<colgroup>
+				<col width="100"/>
+				<col width="160"/>
+				<col width="*"/>
+				<col width="180"/>
+				<col width="180"/>
+				<col width="80"/>
+				<col width="60"/>
+				<col width="80"/>
+			</colgroup>
+			<thead>
+			<tr>
+				<th>유형</th>
+				<th>카테고리</th>
+				<th>앱 이름</th>
+				<th>등록자</th>
+				<th>등록일</th>
+				<th>사용 수</th>
+				<th>상태</th>
+				<th>관리</th>
+			</tr>
+			</thead>
+			<tbody>
+			<!-- [D] 상태값이 OFF인 경우 aria-disabled 값 true로 변경 -->
+			<tr *ngFor="let item of reportAppList; let index = index;" [attr.aria-disabled]="!item.useYn">
+				<td *ngIf="item.extractHeader">데이터 추출형</td>
+				<td *ngIf="item.metatronHeader">메타트론 형</td>
+				<td *ngIf="item.urlHeader">URL 입력형</td>
+				<td [title]="getCategoryConcat(item.categories)">
+					<div class="txt-category">
+						{{ getCategoryConcat(item.categories) }}
+					</div>
+				</td>
+				<td class="align-left">
+					<span class="link-app" title="{{item.appNm}}" (click)="goDetail(item.id)">{{item.appNm}}</span>
+				</td>
+				<td>{{item.createdBy == undefined ? '' : item.createdBy.userNm}}</td>
+				<td>{{item.createdDate | date_format : 'YYYY-MM-DD HH:mm:ss'}}</td>
+				<td>{{item.usage | number : '1.0-3'}}</td>
+				<td>
+					<strong class="txt-status">{{item.useYn ? 'ON' : 'OFF'}}</strong>
+				</td>
+				<td>
+					<a href="javascript:;" class="btn-modify" aria-label="수정" (click)="sendAppIdToReportAppEnterInformationModifyPage(item.id);"></a>
+					<a href="javascript:;" class="btn-delete" aria-label="삭제" (click)="openDeleteReportAppConfirmModal(item.id);"></a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<!-- //목록 -->
+
+		<!-- No Data -->
+		<div *ngIf="reportAppList.length === 0" class="app-nodata">
+			등록된 앱이 없습니다.
+		</div>
+		<!-- //No Data -->
+
+		<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+		<!-- //Pagination -->
+	</div>
+
+</div>
+<!-- //앱 관리 -->

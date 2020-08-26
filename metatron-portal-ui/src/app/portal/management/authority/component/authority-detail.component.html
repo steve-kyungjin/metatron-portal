@@ -1,0 +1,95 @@
+<!-- 권한 관리 -->
+<!--suppress HtmlFormInputWithoutLabel, NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="page-management-authority">
+
+	<!-- 상세 -->
+	<div class="section-detail">
+
+		<div class="button-area">
+			<a href="javascript:;" class="link-list" (click)="listViewClick()">{{ translateService.instant('COMMON.LIST.VIEW', '목록보기') }}</a>
+		</div>
+
+		<div class="detail-area">
+			<table class="table-detail">
+				<colgroup>
+					<col width="100"/>
+					<col width="*"/>
+				</colgroup>
+				<tbody>
+				<tr>
+					<th *ngIf="authority.type == ROLE_GROUP_TYPE_GENERAL"><span class="txt-label">{{ translateService.instant('MANAGEMENT.AUTHORITY.TABLE.TITLE.GROUP_NAME', '그룹명') }}</span></th>
+					<th *ngIf="authority.type == ROLE_GROUP_TYPE_ORG"><span class="txt-label">{{ translateService.instant('MANAGEMENT.AUTHORITY.TABLE.TITLE.ORG_NAME', '조직명') }}</span></th>
+					<td>{{ authority.name }}</td>
+				</tr>
+				<tr>
+					<th><span class="txt-label">{{ translateService.instant('MANAGEMENT.AUTHORITY.TABLE.TITLE.DESC', '설명') }}</span></th>
+					<td>{{ authority.description }}</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<div class="extend-table">
+				<table class="table-detail">
+					<colgroup>
+						<col width="110"/>
+						<col width="*"/>
+					</colgroup>
+					<tbody>
+					<tr>
+						<th class="align-top"><span class="txt-label">{{ translateService.instant('MANAGEMENT.AUTHORITY.DETAIL.TITLE', '권한 설정하기') }}</span></th>
+						<td>
+							<div class="set-authority">
+								<table class="table-setting">
+									<colgroup>
+										<col width="88"/>
+										<col width="*"/>
+									</colgroup>
+									<tbody>
+									<tr *ngFor="let item of authorityList; let index = index;">
+										<th [attr.rowspan]="item.rowSpan"
+											class="align-top"
+											*ngIf="item.title">
+											<span class="txt-label">{{ item.title }}</span>
+										</th>
+										<td>
+											<dl class="list-setting">
+												<dt>{{ item.subTitle }}</dt>
+												<dd>
+													<div class="set-radio"
+														 *ngFor="let authItem of item.authorityList">
+														<input *ngIf="item.iaCode !== layoutService.iaCodes.appPlaceIaCode || ( authItem.value === -1 || authItem.value === 'RO' )"
+															   type="radio"
+															   [attr.id]="'authItem-radio-' + authItem.value + '-' + index"
+															   [attr.name]="'authItem-radio-' + index"
+															   [checked]="item.selectedPermission == authItem['value']"
+															   [attr.value]="authItem['value']"
+															   (change)="permissionChange($event, item)">
+														<label class="label"
+															   *ngIf="item.iaCode !== layoutService.iaCodes.appPlaceIaCode || ( authItem.value === -1 || authItem.value === 'RO' )"
+															   [attr.for]="'authItem-radio-' + authItem.value + '-' + index">
+															{{ authItem['label'] }}
+														</label>
+													</div>
+												</dd>
+											</dl>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<a href="javascript:;" class="btn-action" (click)="saveClick()">{{ translateService.instant('COMMON.SAVE', '저장') }}</a>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<a href="javascript:;" class="link-list" (click)="listViewClick()">{{ translateService.instant('COMMON.LIST.VIEW', '목록보기') }}</a>
+
+	</div>
+	<!-- //상세 -->
+
+</div>
+<!-- //권한 관리 -->

@@ -1,0 +1,129 @@
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon, HtmlFormInputWithoutLabel, HtmlUnknownAttribute -->
+<h2 class="txt-title">
+	사용하실 <strong>변수</strong>를 선택하세요.
+</h2>
+
+<div class="var-option">
+	<a href="javascript:;" class="btn-basic type-var" (click)="selectedCustomVariable = null; isShow = true;">변수 등록</a>
+	<ul class="list-option">
+		<li>
+			<input type="radio"
+				   id="singleOrMultipleSelectRadio01"
+				   name="singleOrMultipleSelectRadio"
+				   class="input-radio"
+				   [checked]="isSingle"
+				   (click)="checked(true);">
+			<label class="label"
+				   for="singleOrMultipleSelectRadio01">싱글</label>
+		</li>
+		<li>
+			<input type="radio"
+				   id="singleOrMultipleSelectRadio02"
+				   name="singleOrMultipleSelectRadio"
+				   class="input-radio"
+				   [checked]="!isSingle"
+				   (click)="checked(false);">
+			<label class="label"
+				   for="singleOrMultipleSelectRadio02">멀티</label>
+		</li>
+	</ul>
+</div>
+
+<!-- 목록 -->
+<div class="var-list">
+	<table class="table-var">
+		<colgroup>
+			<col width="180"/>
+			<col width="*"/>
+		</colgroup>
+		<thead>
+		<tr>
+			<th>변수</th>
+			<th>내용</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr *ngFor="let customVariable of customVariables" (click)="selectedCustomVariable = customVariable">
+			<td class="align-center">
+				<span class="txt-var">{{ customVariable.name }}</span>
+			</td>
+			<td>
+				<div class="var-desc">
+					<span class="txt-desc">{{ customVariable.description }}</span>
+					<span class="button-desc">
+						<a href="javascript:;" class="btn-modify" aria-label="수정" (click)="$event.stopPropagation(); selectedCustomVariable = customVariable; isShow = true;"></a>
+						<a href="javascript:;" class="btn-delete" aria-label="삭제" (click)="$event.stopPropagation(); deleteCustomVariable(customVariable.id)"></a>
+					</span>
+				</div>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+<!-- //목록 -->
+
+<!-- Pagination -->
+<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size" [range]="5"></div>
+<!-- //Pagination -->
+
+<!-- No Data -->
+<div class="nodata" *ngIf="customVariables.length === 0">
+	검색결과가 없습니다.
+</div>
+<!-- //No Data -->
+
+<div class="form-var">
+	<table class="table-var">
+		<colgroup>
+			<col width="50"/>
+			<col width="*"/>
+			<col width="50"/>
+			<col width="*"/>
+		</colgroup>
+		<tbody>
+		<tr>
+			<th>이름</th>
+			<td>
+				<input type="text"
+					   class="input-text"
+					   placeholder=""
+					   (focus)="isValidationName = false;"
+					   [class.is-error]="isValidationName"
+					   [(ngModel)]="queryExpression.name">
+			</td>
+			<th>설명</th>
+			<td>
+				<input type="text"
+					   class="input-text"
+					   placeholder=""
+					   (focus)="isValidationDescription = false;"
+					   [class.is-error]="isValidationDescription"
+					   [(ngModel)]="queryExpression.description">
+			</td>
+		</tr>
+		<tr>
+			<th>인자</th>
+			<td colspan="3">
+				<input type="text"
+					   class="input-text"
+					   placeholder=""
+					   [(ngModel)]="queryExpression.argument">
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+
+<!-- 변수 미리보기 -->
+<div class="preview-var">
+	<h2 class="txt-title">변수 미리보기</h2>
+	<input type="text" class="input-text" [value]="selectedCustomVariable === null ? '' : makePreviewVariable()" readonly>
+</div>
+<!-- //변수 미리보기 -->
+
+<div extract-custom-variable-layer
+	 *ngIf="isShow"
+	 [defaultCustomVariable]="selectedCustomVariable"
+	 (onClose)="isShow = false;"
+	 (onDone)="isShow = false; completeCreateCustomVariable()">
+</div>

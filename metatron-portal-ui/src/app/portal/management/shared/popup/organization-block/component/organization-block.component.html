@@ -1,0 +1,63 @@
+<!--suppress NsUnresolvedStyleClassReference, JSCheckFunctionSignatures, JSUnnecessarySemicolon -->
+
+<!-- 검색 -->
+<div class="component-search">
+	<input type="text"
+		   class="input-search"
+		   placeholder="조직명으로 찾기"
+		   #keyWordInputElement
+		   (blur)="keyWordInputElement.value = keyWord;"
+		   (keyup.enter)="search$.next(keyWordInputElement.value)"
+		   maxlength="255">
+	<button class="btn-search" aria-label="검색" (click)="search$.next(keyWordInputElement.value)"></button>
+</div>
+<!-- //검색 -->
+
+<!-- 검색 결과 없는 경우 -->
+<!-- [D] 검색 결과 없는 경우 aria-hidden 값 false로 변경 -->
+<div class="nodata"
+	 *ngIf="keyWord.length > 0 && list.length === 0"
+	 [attr.aria-hidden]="false">
+	<span>'{{ keyWord }}'</span>에 대한 검색결과가 없습니다.
+</div>
+<!-- //검색 결과 없는 경우 -->
+
+<!-- 조직 목록 -->
+<div class="list-organization"
+	 [style.display]="keyWord.length > 0 ? 'none' : 'block'">
+
+	<!-- 트리 메뉴 -->
+	<list-tree [nodes]="nodes"
+			   [enableDivideIntoTowEvents]="true"
+			   (onFolderSelect)="onFolderSelect($event)"
+			   (onSubjectSelect)="onSubjectSelect($event)">
+	</list-tree>
+	<!-- //트리 메뉴 -->
+</div>
+<!-- //조직 목록 -->
+
+<!-- 조직 검색 결과 -->
+<div class="search-result"
+	 [style.display]="keyWord.length > 0 ? 'block' : 'none'">
+
+	<div class="component-loading type-sub" [attr.id]="UUID">
+		<span class="bar"></span>
+	</div>
+
+	<!-- 그룹 목록 -->
+	<ul class="list-result">
+		<li *ngFor="let org of list; let index = index;">
+			<a href="javascript:;"
+			   class="item"
+			   (click)="selected(org)">
+				{{ org.name }}
+			</a>
+		</li>
+	</ul>
+	<!-- //그룹 목록 -->
+
+	<!-- Pagination -->
+	<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size" [range]="5"></div>
+	<!-- //Pagination -->
+</div>
+<!-- //조직 검색 결과 -->

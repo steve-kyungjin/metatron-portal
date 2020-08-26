@@ -1,0 +1,241 @@
+<!-- LAYER POPUP -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="layer-popup">
+	<div class="popup">
+		<!-- Popup Content -->
+		<div class="popup-content">
+			<!-- 상단 버튼 영역 -->
+			<div class="section-button">
+				<a href="javascript:;"
+				   class="btn-basic"
+				   (click)="cancel()">
+					취소
+				</a>
+				<a href="javascript:;"
+				   class="btn-action"
+				   (click)="done()">
+					저장
+				</a>
+			</div>
+			<!-- //상단 버튼 영역 -->
+
+			<!-- 타이틀 영역 -->
+			<div class="section-title">
+				<h1 class="txt-title">테이블 수정하기</h1>
+			</div>
+			<!-- //타이틀 영역 -->
+
+			<!-- 테이블 수정하기 -->
+			<div class="section-metadata type-modify">
+				<div class="main-area">
+					<table class="table-data">
+						<colgroup>
+							<col width="150"/>
+							<col width="*"/>
+						</colgroup>
+						<tbody>
+						<tr>
+							<th><label class="label">테이블 논리명</label></th>
+							<td>
+								<input type="text" class="input-text" placeholder="테이블 논리명을 입력하세요." [(ngModel)]="table.logicalNm">
+							</td>
+						</tr>
+						<tr [class.is-error]="table.isPhysicalNmValidation === true">
+							<th><label class="label">테이블 물리명</label></th>
+							<td>
+								<input type="text"
+									   class="input-text"
+									   placeholder="테이블 물리명을 입력하세요."
+									   [(ngModel)]="table.physicalNm"
+									   (focus)="table.isPhysicalNmValidation = false;">
+							</td>
+						</tr>
+						<tr>
+							<th class="align-top"><label class="label">테이블 설명</label></th>
+							<td>
+								<textarea class="textarea" placeholder="테이블 설명을 입력하세요." [(ngModel)]="table.description"></textarea>
+							</td>
+						</tr>
+						<tr [class.is-error]="table.isSubjectListValidation">
+							<th class="align-top"><label class="label">주제영역</label></th>
+							<td>
+								<div class="form-subject">
+									<a href="javascript:;"
+									   class="btn-basic"
+									   (click)="isSubjectSelectPopupOpen = true; table.isSubjectListValidation = false;">
+										설정하기
+									</a>
+									<ul class="list-subject">
+										<li *ngFor="let subject of subjectList; let index = index;">
+											<span class="txt-subject" [title]="subject.nmKr">{{ subject.nmKr }}</span>
+											<a href="javascript:;"
+											   class="btn-delete"
+											   aria-label="삭제"
+											   (click)="deleteSubjectByIndex(index)"></a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="sub-area">
+					<table class="table-data">
+						<colgroup>
+							<col width="150"/>
+							<col width="*"/>
+						</colgroup>
+						<tbody>
+						<tr>
+							<th class="align-top">
+								<label class="label">관리 담당자</label>
+							</th>
+							<td>
+								<div class="form-member">
+									<a href="javascript:;"
+									   class="btn-basic"
+									   (click)="isOpenWorkerUserSelectPopup = true;">
+										설정하기
+									</a>
+									<ul class="list-member">
+										<li *ngIf="table && table.worker">
+											<span class="bg-member" [style.background-image]="'url(' + userService.getProfileImage(table.worker)  + ')'"></span>
+											<span class="txt-member">{{ table.worker.userNm }} {{ table.worker.orgNm === '' ? '' : '(' + table.worker.orgNm + ')' }}</span>
+											<a href="javascript:;"
+											   class="btn-delete"
+											   aria-label="삭제"
+											   (click)="deleteTableWorkerByIndex()">
+											</a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">관리상태</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="statusSelectValueList"
+									 (itemSelect)="selectStatus($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">데이터 생성 특성 분류</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="featureSelectValueList"
+									 (itemSelect)="selectFeature($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">데이터 LAYER</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="layerSelectValueList"
+									 (itemSelect)="selectLayer($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">데이터 이력관리유형</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="historySelectValueList"
+									 (itemSelect)="selectHistory($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">데이터 처리(변경) 주기</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="cycleSelectValueList"
+									 (itemSelect)="selectCycle($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">데이터 보관기간</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="retentionSelectValueList"
+									 (itemSelect)="selectRetention($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">보안통제등급</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="securitySelectValueList"
+									 (itemSelect)="selectSecurity($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="label">개인정보 식별가능 수준</label>
+							</th>
+							<td>
+								<!-- Select Box -->
+								<div common-select
+									 [items]="privacySelectValueList"
+									 (itemSelect)="selectPrivacy($event)">
+								</div>
+								<!-- //Select Box -->
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- //테이블 수정하기 -->
+		</div>
+		<!-- //Popup Content -->
+	</div>
+</div>
+<!-- //LAYER POPUP -->
+
+<div user-select
+	 *ngIf="isOpenWorkerUserSelectPopup"
+	 [isUserMultipleSelectMode]="false"
+	 (oDone)="doneWorkerUserSelectPopup($event)"
+	 (oClose)="closeWorkerUserSelectPopup()">
+</div>
+
+<subject-select *ngIf="isSubjectSelectPopupOpen"
+				[defaultSelectList]="subjectList"
+				(oClose)="closeSubjectSelect()"
+				(oDone)="doneSubjectSelect($event)">
+</subject-select>

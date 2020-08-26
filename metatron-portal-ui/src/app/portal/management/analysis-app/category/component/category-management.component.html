@@ -1,0 +1,79 @@
+<!-- 그룹 관리 -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="section-list">
+	<!-- Title -->
+	<div class="title-area">
+		<h3 class="txt-title">목록({{categoryList.length}})</h3>
+		<a href="javascript:;" class="btn-action type-add" (click)="isCreateCategoryLayerShow = true;">추가하기</a>
+	</div>
+	<!-- //Title -->
+
+	<!-- 카테고리 목록 -->
+	<ul class="list-category">
+		<li *ngFor="let category of categoryList; let index = index;">
+			<!--
+                [D] 수정 모드
+                aria-hidden : true
+                aria-expanded : true
+            -->
+			<div class="control-move">
+				<button type="button" class="btn-up" aria-label="위로 이동"
+						[disabled]="isCategoryEditMode"
+						(click)="increaseCategoryOrderValue(index);"></button>
+				<button type="button" class="btn-down" aria-label="아래로 이동"
+						[disabled]="isCategoryEditMode"
+						(click)="reduceCategoryOrderValue(index);"></button>
+			</div>
+			<div class="txt-category" aria-hidden="false" [attr.id]="uuid + index + '-display-input'">
+				<span class="txt-code">{{category.cd}}</span>
+				<span class="txt-ko">{{category.nmKr}}</span>
+				<span class="txt-en">{{category.nmEn}}</span>
+				<span class="txt-desc">{{category.cdDesc}} ({{ category.extra }})</span>
+				<a href="javascript:;" class="btn-modify" aria-label="수정" (click)="changeEditModeByCategoryElementIndex(index)"></a>
+			</div>
+			<a href="javascript:;" class="btn-delete" aria-label="삭제" (click)="deleteByCategoryId(category)"></a>
+
+			<!-- 수정 모드 -->
+			<div class="form-edit" aria-expanded="false" [attr.id]="uuid + index + '-edit-mode-input'">
+				<input type="text" class="input-text type-code" placeholder="코드"
+					   [(ngModel)]="category.cd"
+					   [maxlength]="3"
+					   (focus)="category.isCdValidationFail = false;"
+					   [class.is-error]="category.isCdValidationFail">
+				<input type="text" class="input-text type-category" placeholder="국문"
+					   [(ngModel)]="category.nmKr"
+					   [maxlength]="16"
+					   (focus)="category.isNmKrValidationFail = false;"
+					   [class.is-error]="category.isNmKrValidationFail">
+				<input type="text" class="input-text type-category" placeholder="영문"
+					   [(ngModel)]="category.nmEn"
+					   [maxlength]="16"
+					   (focus)="category.isNmEnValidationFail = false;"
+					   [class.is-error]="category.isNmEnValidationFail">
+				<input type="text" class="input-text type-description" placeholder="설명"
+					   [(ngModel)]="category.cdDesc"
+					   [maxlength]="85"
+					   (focus)="category.isCdDescValidationFail = false;"
+					   [class.is-error]="category.isCdDescValidationFail">
+				<a href="javascript:;" class="btn-cancel" aria-label="취소" (click)="changeViewModeByCategoryElementIndex(index)"></a>
+				<a href="javascript:;" class="btn-save" aria-label="저장" (click)="updateByCategoryElementIndex(index)"></a>
+			</div>
+			<!-- //수정 모드 -->
+		</li>
+	</ul>
+	<!-- //카테고리 목록 -->
+
+	<!-- No Data -->
+	<div *ngIf="categoryList.length === 0" class="list-nodata">
+		등록된 카테고리가 없습니다.
+	</div>
+	<!-- //No Data -->
+</div>
+<!-- //그룹 관리 -->
+
+<!-- 카테고리 추가 팝업 -->
+<div *ngIf="isCreateCategoryLayerShow"
+	 create-category-layer
+	 (oHide)="isCreateCategoryLayerShow = false"
+	 (oComplete)="isCreateCategoryLayerShow = false; createCategory($event);"></div>
+<!-- //카테고리 추가 팝업 -->

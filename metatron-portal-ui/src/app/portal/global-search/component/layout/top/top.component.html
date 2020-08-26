@@ -1,0 +1,6 @@
+<!-- 검색 결과 -->
+<div class="section-result" [innerHTML]="translateService.instant('GLOBAL.SEARCH.RESULT', { result: keyWordWhenDisplaySearchResult, resultCount: keyWordListLengthWhenDisplaySearchResult | number: '1.0-3'})">
+	<!--<strong>'</strong><strong class="txt-keyword">{{keyWordWhenDisplaySearchResult}}</strong><strong>'</strong>에&nbsp;대한&nbsp;<strong>{{ keyWordListLengthWhenDisplaySearchResult | number: '1.0-3' }}</strong>건의&nbsp;검색결과&nbsp;입니다.-->
+	<!--<strong>'</strong><strong class="txt-keyword">Data</strong><strong>'</strong>에 대한 검색결과가 없습니다.-->
+</div>
+<!-- //검색 결과 -->

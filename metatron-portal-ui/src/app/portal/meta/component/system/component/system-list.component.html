@@ -1,0 +1,119 @@
+<!-- 데이터 탐색 -->
+<!--suppress NsUnresolvedStyleClassReference, JSUnnecessarySemicolon -->
+<div class="page-data-search">
+	<div class="section-list">
+		<!-- 데이터 테이블 -->
+		<div class="data-table">
+			<!-- Title -->
+			<div class="title-area">
+				<h3 class="txt-title">목록({{ totalElements | number : '1.0-3'}})</h3>
+				<div class="filter">
+
+					<!-- Select Box -->
+					<span class="txt-filter">운영/정보계 분류</span>
+					<div common-select
+						 [className]="'type-filter type-info'"
+						 [items]="operatingSystemAndInformationSystemClassificationCodeList"
+						 (itemSelect)="onOperatingSystemAndInformationSystemClassificationCodeSelect($event)">
+					</div>
+					<!-- //Select Box -->
+
+					<!-- Select Box -->
+					<span class="txt-filter">연동방향</span>
+					<div common-select
+						 [className]="'type-filter type-direction'"
+						 [items]="dataWarehouseInterlinkDirectionCodeList"
+						 (itemSelect)="onDataWarehouseInterlinkDirectionCodeSelect($event)">
+					</div>
+					<!-- //Select Box -->
+
+					<em class="bar"></em>
+
+					<!-- Select Box -->
+					<div common-select
+						 [className]="'type-filter'"
+						 [items]="defaultTargetList"
+						 (itemSelect)="onTargetSelect($event)">
+					</div>
+					<!-- //Select Box -->
+
+					<!-- 검색 -->
+					<div class="component-search">
+						<input type="text"
+							   class="input-search"
+							   placeholder="검색어 입력 후 검색"
+							   #keyWordInputElement
+							   (keyup.enter)="search$.next(keyWordInputElement.value); tagging(TaggingType.SEARCH, TaggingAction.BTN, keyWordInputElement.value)"
+							   maxlength="255">
+						<button class="btn-search" aria-label="검색" (click)="search$.next(keyWordInputElement.value); tagging(TaggingType.SEARCH, TaggingAction.BTN, keyWordInputElement.value)"></button>
+					</div>
+					<!-- //검색 -->
+				</div>
+			</div>
+			<!-- //Title -->
+
+			<!-- 목록 -->
+			<table class="table-data">
+				<colgroup>
+					<col width="*"/>
+					<col width="160"/>
+					<col width="160"/>
+				</colgroup>
+				<thead>
+				<tr>
+					<th class="align-left">명칭/설명</th>
+					<th>관리담당자</th>
+					<th>연동방향</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr *ngFor="let system of list">
+					<td>
+						<a href="javascript:;"
+						   class="link-item"
+						   (click)="selectedSystem = system; tagging(TaggingType.LIST, TaggingAction.ITEM, system.stdNm === undefined || system.stdNm.trim() === '' ? system.fullNm : system.stdNm + ( system.fullNm === undefined ? '' : system.fullNm.trim() === '' ? '' : system.fullNm))">
+							<strong class="txt-title">{{ system.stdNm === undefined || system.stdNm.trim() === '' ? system.fullNm : system.stdNm + ( system.fullNm === undefined ? '' : system.fullNm.trim() === '' ? '' : ' / ' + system.fullNm ) }}</strong>
+							<span class="txt-desc">
+								{{ system.description }}
+						</span>
+						</a>
+					</td>
+					<td>{{ system.worker ? system.worker.userNm : '' }}</td>
+					<td>{{ system && system.direction? system.direction.nmKr : '' }}</td>
+				</tr>
+				</tbody>
+			</table>
+			<!-- //목록 -->
+
+			<div class="pagination"
+				 [hidden]="list.length === 0">
+
+				<!-- Pagination -->
+				<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+				<!-- //Pagination -->
+
+				<div common-select
+					 [className]="'type-filter type-top'"
+					 [items]="pageSizeList"
+					 (itemSelect)="onPageSizeSelect($event)">
+				</div>
+
+			</div>
+
+			<!-- No Data -->
+			<div class="nodata-search"
+				 *ngIf="list.length === 0">
+				검색결과가 없습니다.
+			</div>
+			<!-- //No Data -->
+		</div>
+		<!-- //데이터 테이블 -->
+	</div>
+</div>
+<!-- //데이터 탐색 -->
+
+<div system-detail
+	 *ngIf="selectedSystem !== null"
+	 [systemId]="selectedSystem.id"
+	 (onCancel)="selectedSystem = null;">
+</div>

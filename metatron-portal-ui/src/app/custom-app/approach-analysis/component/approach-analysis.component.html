@@ -1,0 +1,293 @@
+<link rel="stylesheet" href="https://gis.tango.sktelecom.com/mapgeo/build/mapgeo.min.css"/>
+
+<!--<div class="dtp-wrap" style="min-width:auto;min-height:auto;">-->
+<div class="dtp-wrap">
+	<!-- 지도앱 -->
+	<div class="page-app-map">
+
+		<!-- 주소 검색 -->
+		<div class="section-filter">
+			<!-- 시,도 -->
+			<div common-select [items]="sidoList" [placeholder]="translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.SELECT.PLACEHOLDER.SIDO', '시/도')"
+				 [dimmed]="dimmedSido" [isLoading]="loadingSido" [showAll]="true" (itemSelect)="sidoSelect($event)"></div>
+			<!-- //시, 도 -->
+
+			<!-- 구 -->
+			<div common-select [items]="sigunguList" [placeholder]="translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.SELECT.PLACEHOLDER.SIGUNGU', '시/군/구')"
+				 [dimmed]="dimmedSigungu" [isLoading]="loadingSigungu" [showAll]="true" (itemSelect)="sigunguSelect($event)" *ngIf="showSigungu"></div>
+			<!-- //구 -->
+
+			<!-- 동,읍,면 -->
+			<div common-select [items]="dongList" [placeholder]="translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.SELECT.PLACEHOLDER.DONG', '읍/면/동')"
+				 [dimmed]="dimmedDong" [isLoading]="loadingDong" [showAll]="true" [allowMultiSelect]="true" (itemSelects)="dongSelect($event)"></div>
+			<!-- //동,읍,면 -->
+
+			<!-- 우편번호 -->
+			<div common-select [items]="zipcodeList" [placeholder]="translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.SELECT.PLACEHOLDER.ZIPCODE', '우편번호')"
+				 [dimmed]="dimmedZipcode" [isLoading]="loadingZipcode" [showAll]="true" [allowMultiSelect]="true" (itemSelects)="zipcodeSelect($event)"></div>
+			<!-- //우편번호 -->
+
+			<a href="javascript:;" class="btn-action" (click)="searchClick()">{{ translateService.instant('COMMON.LOOKUP', '조회') }}</a>
+
+			<span class="txt-info">{{ translateService.instant('CUSTOM.APP.APPROACH.INFO', '인구수: SKT LTE 단말기 가입자 기준') }}</span>
+		</div>
+		<!-- //주소 검색 -->
+
+		<!-- Summary -->
+		<ul class="section-summary">
+			<li>
+				<span class="txt-label">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.TITLE1', '가용율') }}</span>
+				<strong class="txt-data type-a">{{ totalAvailability }}%</strong>
+				<ul class="list-data">
+					<li>{{ translateService.instant('CUSTOM.APP.APPROACH.TOTAL.SUB1.TITLE1', '세대수') }} <strong>{{ totalAvailFirst | number : '1.0-0' }}</strong></li>
+					<li>{{ translateService.instant('CUSTOM.APP.APPROACH.TOTAL.SUB1.TITLE2', '가용세대수') }} <strong>{{ totalAvailSecond | number : '1.0-0' }}</strong></li>
+				</ul>
+			</li>
+			<li>
+				<span class="txt-label">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.TITLE4', '비가용율') }}</span>
+				<strong class="txt-data type-b">{{ totalInactive }}%</strong>
+				<ul class="list-data">
+					<li>{{ translateService.instant('CUSTOM.APP.APPROACH.TOTAL.SUB2.TITLE1', '세대수') }} <strong>{{ totalInactiveFirst | number : '1.0-0' }}</strong></li>
+					<li>{{ translateService.instant('CUSTOM.APP.APPROACH.TOTAL.SUB2.TITLE2', '비가용세대수') }} <strong>{{ totalInactiveSecond | number : '1.0-0' }}</strong></li>
+				</ul>
+			</li>
+			<li>
+				<span class="txt-label">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.TITLE2', '침투율') }}</span>
+				<strong class="txt-data type-c">{{ totalPenetration }}%</strong>
+				<ul class="list-data">
+					<li>{{ translateService.instant('CUSTOM.APP.APPROACH.TOTAL.SUB3.TITLE1', '가입자수') }} <strong>{{ totalPenetrationFirst | number : '1.0-0' }}</strong></li>
+					<li>{{ translateService.instant('CUSTOM.APP.APPROACH.TOTAL.SUB3.TITLE2', 'B판매') }} <strong>{{ totalPenetrationSecond | number : '1.0-0' }}</strong></li>
+					<li>{{ translateService.instant('CUSTOM.APP.APPROACH.TOTAL.SUB3.TITLE3', 'T판매') }} <strong>{{ totalPenetrationThird | number : '1.0-0' }}</strong></li>
+				</ul>
+			</li>
+			<li>
+				<span class="txt-label">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.TITLE3', '결합율') }}</span>
+				<strong class="txt-data type-d">{{ totalCombination }}%</strong>
+				<ul class="list-data">
+					<li>{{ translateService.instant('CUSTOM.APP.APPROACH.TOTAL.SUB4.TITLE1', '유무선 결합건수') }} <strong>{{ totalCombinationFirst | number : '1.0-0' }}</strong></li>
+					<li>{{ translateService.instant('CUSTOM.APP.APPROACH.TOTAL.SUB4.TITLE2', 'B판매') }} <strong>{{ totalCombinationSecond | number : '1.0-0' }}</strong></li>
+					<li>{{ translateService.instant('CUSTOM.APP.APPROACH.TOTAL.SUB4.TITLE3', 'T판매') }} <strong>{{ totalCombinationThird | number : '1.0-0' }}</strong></li>
+				</ul>
+			</li>
+			<li>
+				<span class="txt-label">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.TITLE5', '인구수') }}</span>
+				<strong class="txt-data type-e">{{ totalPopulation }}</strong>
+			</li>
+		</ul>
+		<!-- //Summary -->
+
+		<!-- 지도, 우편번호 -->
+		<div class="section-map">
+			<!-- 지도 영역 -->
+			<div class="map-area">
+				<div class="toggle-block">
+					<span class="txt-label">라벨 표시</span>
+					<span class="toggle">
+							<button class="label is-activated" [class.is-activated]="showMapText" (click)="showMapTextChange()">
+								<span class="txt-on">ON</span>
+								<span class="txt-off">OFF</span>
+							</button>
+						</span>
+				</div>
+				<div class="map-block" id="mgMap"></div>
+			</div>
+			<!-- //지도 영역 -->
+
+			<!-- 그래프 영역 -->
+			<div class="graph-area">
+				<!-- No Data -->
+				<div class="nodata-map" [attr.aria-hidden]="!showChartNodata">
+					<p class="txt-desc">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.NODATA', '조회된 데이터가 없습니다.') }}</p>
+				</div>
+				<!-- //No Data -->
+				<!-- 기간설정 -->
+				<div class="component-datepicker">
+					<div class="box-datepicker">
+						<input type="text" id="minMaxDate" type="text" readonly="readonly">
+					</div>
+				</div>
+				<!-- //기간설정 -->
+				<!-- 숫자 -->
+				<span class="txt-num">{{ totalExceptDateCount }}</span>
+				<!-- //숫자 -->
+				<!-- Graph -->
+				<div class="graph-block" id="chart">
+
+				</div>
+				<!-- //Graph -->
+			</div>
+			<!-- //그래프 영역 -->
+		</div>
+		<!-- //지도, 우편번호 -->
+
+		<!-- 가용율 / 비가용율 -->
+		<div class="section-graph">
+			<div class="graph-area">
+				<div class="title-block">
+					<h3 class="txt-title">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.TITLE1', '가용율') }} / {{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.TITLE4', '비가용율') }}</h3>
+					<!-- 정렬 -->
+					<div common-select [placeholder]="translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.SORT.PLACEHOLDER', '정렬 선택')" [items]="sortList1" (itemSelect)="sortSelect1($event)"></div>
+					<!-- //정렬 -->
+				</div>
+				<!-- 그래프 영역 -->
+				<div class="graph-block">
+					<!-- No Data -->
+					<div class="nodata-map" [attr.aria-hidden]="!showChartNodata1">
+						<p class="txt-desc">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.NODATA', '조회된 데이터가 없습니다.') }}</p>
+					</div>
+					<!-- //No Data -->
+					<!-- Graph -->
+					<div class="graph" id="chart1">
+					</div>
+					<!-- //Graph -->
+				</div>
+				<!-- //그래프 영역 -->
+			</div>
+		</div>
+		<!-- //가용율 / 비가용율 -->
+
+		<!-- 침투율 / 결합율 -->
+		<div class="section-graph">
+			<div class="graph-area">
+				<div class="title-block">
+					<h3 class="txt-title">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.TITLE2', '침투율') }} / {{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.TITLE3', '결합율') }}</h3>
+					<!-- 정렬 -->
+					<div common-select [placeholder]="translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.SORT.PLACEHOLDER', '정렬 선택')" [items]="sortList2" (itemSelect)="sortSelect2($event)"></div>
+					<!-- //정렬 -->
+				</div>
+				<!-- 그래프 영역 -->
+				<div class="graph-block">
+					<!-- No Data -->
+					<div class="nodata-map" [attr.aria-hidden]="!showChartNodata2">
+						<p class="txt-desc">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.NODATA', '조회된 데이터가 없습니다.') }}</p>
+					</div>
+					<!-- //No Data -->
+					<!-- Graph -->
+					<div class="graph" id="chart2">
+					</div>
+					<!-- //Graph -->
+				</div>
+				<!-- //그래프 영역 -->
+			</div>
+		</div>
+		<!-- //침투율 / 결합율 -->
+
+		<!-- 인구증가추이 -->
+		<div class="section-graph">
+			<div class="graph-area">
+				<div class="title-block">
+					<h3 class="txt-title">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.TITLE5', '인구증가추이') }}</h3>
+					<!-- 정렬 -->
+					<div common-select [placeholder]="translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.CHART.SORT.PLACEHOLDER', '정렬 선택')" [items]="sortList3" (itemSelect)="sortSelect3($event)"></div>
+					<!-- //정렬 -->
+				</div>
+				<!-- 그래프 영역 -->
+				<div class="graph-block">
+					<!-- No Data -->
+					<div class="nodata-map" [attr.aria-hidden]="!showChartNodata5">
+						<p class="txt-desc">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.NODATA', '조회된 데이터가 없습니다.') }}</p>
+					</div>
+					<!-- //No Data -->
+					<!-- Graph -->
+					<div class="graph" id="chart5">
+					</div>
+					<!-- //Graph -->
+				</div>
+				<!-- //그래프 영역 -->
+			</div>
+		</div>
+		<!-- //인구증가추이 -->
+
+		<!-- 건물 리스트 -->
+		<div class="section-data" [attr.aria-hidden]="!showGridContainer">
+			<!-- 커버리지 정보 -->
+			<div class="coverage-area">
+				<div class="title-block">
+					<h3 class="txt-title">{{ now | date_format : '\'YY년 ' }}{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.COVERAGE.TITLE', '커버리지 정보') }}</h3>
+				</div>
+				<!-- 그리드 영역 -->
+				<div class="table-block">
+					<!-- Grid -->
+					<!-- //Grid -->
+
+					<table class="table-map" [hidden]="showGridNodata2">
+						<colgroup>
+							<col width="*"/>
+							<col width="160"/>
+							<col width="160"/>
+							<col width="160"/>
+							<col width="160"/>
+							<col width="160"/>
+							<col width="160"/>
+							<col width="160"/>
+						</colgroup>
+						<thead>
+						<tr>
+							<th>{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.GRID.COVERAGE.HEADER1', '사업명') }}</th>
+							<th>{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.GRID.COVERAGE.HEADER2', '세대수') }}</th>
+							<th>{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.GRID.COVERAGE.HEADER3', '초고속 가입자수') }}</th>
+							<th>{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.GRID.COVERAGE.HEADER4', '침투율(%)') }}</th>
+							<th>{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.GRID.COVERAGE.HEADER5', 'B판매 초고속 가입자수') }}</th>
+							<th>{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.GRID.COVERAGE.HEADER6', 'B판매 침투율(%)') }}</th>
+							<th>{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.GRID.COVERAGE.HEADER7', 'T판매 초고속 가입자수') }}</th>
+							<th>{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.GRID.COVERAGE.HEADER8', 'T판매 침투율(%)') }}</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr *ngFor="let item of coverageList; let index = index;" [class.type-sum]="item.isTotal">
+							<td>{{ item.label }}</td>
+							<td class="align-right">{{ addComma(item.maxGenCnt) }}</td>
+							<td class="align-right">{{ addComma(item.shspdInetLnCnt) }}</td>
+							<td class="align-right">{{ rateToPercent(item.infiltrationRate) }}</td>
+							<td class="align-right">{{ addComma(item.tshspdInetLnCnt) }}</td>
+							<td class="align-right">{{ rateToPercent(item.binfiltrationRate) }}</td>
+							<td class="align-right">{{ addComma(item.bshspdInetLnCnt) }}</td>
+							<td class="align-right">{{ rateToPercent(item.tinfiltrationRate) }}</td>
+						</tr>
+						</tbody>
+					</table>
+
+					<!-- No Data -->
+					<div class="nodata-map" [attr.aria-hidden]="!showGridNodata2">
+						<p class="txt-desc">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.NODATA', '조회된 데이터가 없습니다.') }}</p>
+					</div>
+					<!-- //No Data -->
+				</div>
+				<!-- //그리드 영역 -->
+			</div>
+			<!-- //커버리지 정보 -->
+
+			<!-- 건물 리스트 -->
+			<div class="building-area">
+				<div class="title-block">
+					<h3 class="txt-title">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.GRID.BUILDING.TITLE', '건물리스트') }}</h3>
+					<a href="javascript:;" class="btn-basic type-download" (click)="csvDownload('건물리스트', grid1)">{{ translateService.instant('COMMON.DOWNLOAD.EXCEL', 'EXCEL 다운로드')
+						}}</a>
+				</div>
+
+				<!-- 그리드 영역 -->
+				<div class="grid-block">
+					<!-- No Data -->
+					<div class="nodata-map" [attr.aria-hidden]="!showGridNodata1">
+						<p class="txt-desc">{{ translateService.instant('CUSTOM.APP.APPROACH.ANALYSIS.NODATA', '조회된 데이터가 없습니다.') }}</p>
+					</div>
+					<!-- //No Data -->
+					<!-- Grid -->
+					<div class="grid-table" grid-component #grid1>
+
+					</div>
+				</div>
+				<!-- //그리드 영역 -->
+			</div>
+			<!-- //건물 리스트 -->
+		</div>
+		<!-- //건물 리스트 -->
+
+		<!-- 가구주소기반실적통계 -->
+		<div class="section-external">
+			<iframe src="https://olap.sktelecom.com:8081/login/olapPopup.do?USER_ID=1105546&OBJ_ID=WEB_30003&PJT_NM=SKT" frameborder="0"></iframe>
+		</div>
+		<!-- //가구주소기반실적통계 -->
+	</div>
+	<!-- //지도앱 -->
+</div>
