@@ -1,0 +1,557 @@
+{
+  "settings": {
+    "index": {
+      "analysis": {
+        "analyzer": {
+          "korean": {
+            "type": "custom",
+            "tokenizer": "seunjeon_default_tokenizer"
+          }
+        },
+        "tokenizer": {
+          "seunjeon_default_tokenizer": {
+            "type": "mecab_ko_standard_tokenizer",
+            "mecab_args": "/usr/local/lib/mecab/dic/mecab-ko-dic"
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "communication": {
+      "properties": {
+        "autocomplete": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "postTitle": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "postContent": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "imageLink": {
+          "type": "text",
+          "fielddata": true
+        },
+        "displayNm": {
+          "type": "text",
+          "fielddata": true,
+          "analyzer": "korean"
+        },
+        "postLink": {
+          "type": "text",
+          "fielddata": true,
+          "analyzer": "korean"
+        },
+        "commentCount": {
+          "type": "long"
+        },
+        "createdDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "indexDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm"
+        }
+      }
+    },
+    "project": {
+      "properties": {
+        "autocomplete": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "name": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "summary": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "projectType": {
+          "type": "text",
+          "fielddata": true
+        },
+        "worker": {
+          "type": "text",
+          "fielddata": true
+        },
+        "workOrg": {
+          "type": "text",
+          "fielddata": true
+        },
+        "progress": {
+          "type": "text",
+          "fielddata": true,
+          "analyzer": "korean"
+        },
+        "createdDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "indexDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm"
+        }
+      }
+    },
+    "report-app": {
+      "properties": {
+        "autocomplete": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "appNm": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "appSummary": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "categories": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "appId": {
+          "type": "text",
+          "fielddata": true
+        },
+        "mediaId": {
+          "type": "text",
+          "fielddata": true
+        },
+        "usage": {
+          "type": "long"
+        },
+        "createdDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "indexDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm"
+        }
+      }
+    },
+    "analysis-app": {
+      "properties": {
+        "autocomplete": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "appNm": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "appSummary": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "categories": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "appId": {
+          "type": "text",
+          "fielddata": true
+        },
+        "mediaId": {
+          "type": "text",
+          "fielddata": true
+        },
+        "usage": {
+          "type": "long"
+        },
+        "createdDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "indexDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm"
+        }
+      }
+    },
+    "autocomplete": {
+      "properties": {
+        "autocomplete": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        }
+      }
+    },
+    "meta-table": {
+      "properties": {
+        "autocomplete": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "physicalNm": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "logicalNm": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "description": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "layer": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "databaseNm": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "subject": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "firstCreated": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "cycle": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "history": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "retention": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "historyType": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "security": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "privacy": {
+          "type": "text",
+          "fielddata": true
+        },
+        "columnCnt": {
+          "type": "long"
+        },
+        "createdDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "indexDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm"
+        }
+      }
+    },
+    "meta-column": {
+      "properties": {
+        "autocomplete": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "fqn": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "physicalNm": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "logicalNm": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "description": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "refTable": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "refSql": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "dataType": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "dataSize": {
+          "type": "long"
+        },
+        "primaryKey": {
+          "type": "boolean"
+        },
+        "nullable": {
+          "type": "boolean"
+        },
+        "privacy": {
+          "type": "text",
+          "fielddata": true
+        },
+        "privacyProc": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "stdFieldId": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "analyzer": "korean"
+        },
+        "tableCnt": {
+          "type": "long"
+        },
+        "createdDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "indexDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm"
+        }
+      }
+    }
+  }
+}

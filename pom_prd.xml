@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>app.metatron.portal</groupId>
+    <artifactId>metatron-portal</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>metatron-portal-server</module>
+    </modules>
+
+    <properties>
+
+        <!-- common properties -->
+        <java.version>1.8</java.version>
+        <javas.version>1.8</javas.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- common library versions -->
+
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <!-- 임시로 사용할 내부 Maven Repository -->
+        <repository>
+            <id>project.local</id>
+            <name>project</name>
+            <url>file:${project.basedir}/repository</url>
+        </repository>
+        <!--<repository>-->
+        <!--<id>metatron-nexus-snapshots</id>-->
+        <!--<name>metatron Nexus Snapshots Repository</name>-->
+        <!--<url>http://13.124.208.49:8081/repository/maven-snapshots</url>-->
+        <!--<snapshots>-->
+        <!--<enabled>true</enabled>-->
+        <!--</snapshots>-->
+        <!--</repository>-->
+        <repository>
+            <id>jboss-maven2-release-repository</id>
+            <name>Jboss Maven release repository</name>
+            <url>	https://repository.jboss.org/nexus/content/repositories/releases/</url>
+        </repository>
+
+    </repositories>
+
+</project>
