@@ -86,9 +86,9 @@ spring:
   datasource:
     platform: mysql
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://52.231.189.217:3306/portal?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-    username: portal
-    password: portal1234$$
+    url: jdbc:mysql://localhost:3306/portal?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
     max-active: 10
     max-idle: 10
     min-idle: 10
@@ -112,6 +112,41 @@ spring:
 #          auto: create
 #          auto: update
           import_files: /sql/init-oauth-spec.sql,/sql/init-mp-common.sql,/sql/init-mp-ia.sql,/sql/init-mp-user-prd.sql,/sql/init-mp-comm.sql
+
+---
+spring:
+  profiles: incross-db
+  # DB
+  datasource:
+    platform: mysql
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/portal?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: portal_user
+    password: portal_user_00
+    max-active: 10
+    max-idle: 10
+    min-idle: 10
+    initial-size: 10
+    test-on-borrow: false
+    test-on-return: false
+    test-while-idle: true
+    max-wait: 1000
+    validation-query: SELECT 1
+  jpa:
+    database: mysql
+    show-sql: false
+    hibernate:
+      #      ddl-auto: create
+      #      show-sql: true
+      naming_strategy: org.hibernate.cfg.EJB3NamingStrategy
+    properties:
+      hibernate:
+        format_sql: false
+        hbm2ddl:
+          #          auto: create
+          #          auto: update
+          import_files: /sql/init-oauth-spec.sql,/sql/init-mp-common.sql,/sql/init-mp-ia.sql,/sql/init-mp-user-prd.sql,/sql/init-mp-comm.sql
+
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # Server Profile
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

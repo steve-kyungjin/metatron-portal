@@ -39,7 +39,8 @@
         "../node_modules/toastr/build/toastr.css",
         "../node_modules/swiper/dist/css/swiper.css",
         "./assets/lib/summernote/summernote-lite.css",
-        "./assets/css/mp.css"
+        "./assets/css/mp.css",
+        "./assets/css/project/project.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
