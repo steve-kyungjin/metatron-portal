@@ -83,7 +83,9 @@
 			-->
 			<ul class="section-lnb">
 				<li class="link-home is-selected"><a href="javascript:;" aria-label="홈"></a></li>
-				<li class="link-comm" aria-expanded="true">
+
+				<!-- 메뉴 관리로 추가 된 유형 -->
+				<li class="link-custom" aria-expanded="true">
 					<a href="javascript:;" aria-label="커뮤니케이션"></a>
 					<!-- LNB 확장 -->
 					<div class="lnb-expand">
@@ -172,6 +174,98 @@
 					</div>
 					<!-- //LNB 확장 -->
 				</li>
+				<!-- //메뉴 관리로 추가 된 유형 -->
+
+				<li class="link-comm" aria-expanded="false">
+					<a href="javascript:;" aria-label="커뮤니케이션"></a>
+					<!-- LNB 확장 -->
+					<div class="lnb-expand">
+						<!-- 메뉴 정보 -->
+						<div class="info-area">
+							<h2 class="txt-title">
+								커뮤니케이션
+								<a href="javascript:;" class="link-comm-all">전체 현황</a>
+							</h2>
+							<p class="txt-desc">
+								Infra Center Data와 관련된<br>
+								기사와 자료를 공유하고<br>
+								의견을 나눌 수 있는 공간입니다.
+							</p>
+						</div>
+						<!-- //메뉴 정보 -->
+						<!-- 검색,메뉴 영역 -->
+						<div class="expand-area">
+							<!-- 검색 -->
+							<div class="component-search type-auto">
+								<input type="text" class="input-search" placeholder="메뉴 검색">
+
+								<!-- 검색 결과 -->
+								<!-- [D] 검색결과 레이어 노출 시 aria-expanded 값 true로 변경 -->
+								<ul class="layer-result" aria-expanded="false">
+									<li><a href="javascript:;" class="link-result">검색결과1</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과2</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과3</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과4</a></li>
+									<li><a href="javascript:;" class="link-result">검색결과5</a></li>
+								</ul>
+								<!-- //검색 결과 -->
+							</div>
+							<!-- //검색 -->
+
+							<!-- 메뉴 목록 -->
+							<div class="menu-block">
+								<dl class="list-menu">
+									<dt>
+										DT커뮤니티
+										<span class="info-total" title="최근 2일동안 등록된 DT커뮤니티 게시글은 총 12건 입니다.">12</span>
+									</dt>
+									<dd>
+										<ul>
+											<li><a href="javascript:;" class="link-menu">권한승인관리</a></li>
+											<li><a href="javascript:;" class="link-menu">사용자조회</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="list-menu">
+									<dt>
+										데이터 활용 Tip
+										<span class="info-total" title="최근 2일동안 등록된 DT커뮤니티 게시글은 총 12건 입니다.">2</span>
+									</dt>
+									<dd>
+										<ul>
+											<li><a href="javascript:;" class="link-menu">권한승인관리</a></li>
+											<li><a href="javascript:;" class="link-menu">사용자조회</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="list-menu">
+									<dt>
+										요청 및 문의
+										<span class="info-total" title="최근 2일동안 등록된 DT커뮤니티 게시글은 총 12건 입니다.">999</span>
+									</dt>
+									<dd>
+										<ul>
+											<li><a href="javascript:;" class="link-menu">권한승인관리</a></li>
+											<li><a href="javascript:;" class="link-menu">사용자조회</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<!-- //메뉴 목록 -->
+
+							<!-- 퀵 버튼 -->
+							<div class="button-block">
+								<button type="button" class="btn-lnb-quick">시스템 운영 공지</button>
+								<button type="button" class="btn-lnb-quick">필요 소프트웨어</button>
+								<button type="button" class="btn-lnb-quick">Data Infra FAQ</button>
+							</div>
+							<!-- //퀵 버튼 -->
+						</div>
+						<!-- //검색,메뉴 영역 -->
+					</div>
+					<!-- //LNB 확장 -->
+				</li>
+
 				<li class="link-my" aria-expanded="false">
 					<a href="javascript:;" aria-label="마이앱"></a>
 					<!-- LNB 확장 -->
@@ -313,6 +407,7 @@
 					</div>
 					<!-- //LNB 확장 -->
 				</li>
+
 				<li class="link-app" aria-expanded="false">
 					<a href="javascript:;" aria-label="앱플레이스"></a>
 					<!-- LNB 확장 -->
@@ -528,6 +623,7 @@
 					</div>
 					<!-- //LNB 확장 -->
 				</li>
+
 				<li class="link-meta" aria-expanded="false">
 					<a href="javascript:;" aria-label="메타데이터"></a>
 					<!-- LNB 확장 -->
@@ -589,6 +685,7 @@
 					</div>
 					<!-- //LNB 확장 -->
 				</li>
+
 				<li class="link-portal" aria-expanded="false">
 					<a href="javascript:;" aria-label="포탈 어드민"></a>
 					<!-- LNB 확장 -->
@@ -657,6 +754,7 @@
 					</div>
 					<!-- //LNB 확장 -->
 				</li>
+
 				<li class="link-all">
 					<a href="javascript:;" aria-label="전체메뉴"></a>
 				</li>

@@ -170,6 +170,23 @@
 			}
 		}
 	}
+	.link-custom {
+		> a {
+			&:before {
+				margin:-10px 0 0 -11px;
+
+				@include get-sprite($icon_lnb_comm);
+			}
+		}
+		.lnb-expand {
+			.info-area .txt-title:before {
+				@include get-sprite($icon_title_comm);
+			}
+			.info-area .txt-desc:before {
+				display:none;
+			}
+		}
+	}
 	.link-all {
 		&:before {
 			display:block;
@@ -821,6 +838,7 @@
 /***************************************************************************************
    LNB - Communication Expand
 ***************************************************************************************/
+.layout-lnb .link-custom .lnb-expand,
 .layout-lnb .link-comm .lnb-expand {
 	.info-area .txt-title {
 		.link-comm-all {
