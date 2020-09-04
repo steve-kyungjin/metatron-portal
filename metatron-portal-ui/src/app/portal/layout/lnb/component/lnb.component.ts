@@ -97,7 +97,7 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 	 * @param className
 	 */
 	public showSubMenu(className: string, menu: Menu.Entity = null): void {
-		if (menu && menu.children.length < 1) {
+		if (menu && menu.children.length < 1 && menu.id != this.layoutService.iaCodes.managementIaCode) {
 			return;
 		}
 		this.changeDisplayValue(className, true);
@@ -109,7 +109,7 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 	 * @param className
 	 */
 	public hideSubMenu(className: string, menu: Menu.Entity = null): void {
-		if (menu && menu.children.length < 1) {
+		if (menu && menu.children.length < 1 && menu.id != this.layoutService.iaCodes.managementIaCode) {
 			return;
 		}
 		this.changeDisplayValue(className, false);

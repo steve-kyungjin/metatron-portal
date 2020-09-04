@@ -147,19 +147,19 @@ export class IntroComponent extends AbstractComponent implements OnInit, OnDestr
 		super.ngOnInit();
 
 		// 검색어 입력
-		// this.subscriptions.push(
-		// 	this.autoComplete$
-		// 		.debounceTime(200)
-		// 		.switchMap((value) => Observable.of<AutoComplete>(value))
-		// 		.subscribe((value: AutoComplete) => {
-		// 			this.keyWordInputElementMouseOver(-1);
-		// 			this.keyWordInputElementIndex = -1;
-		// 			this.isKeyWordInputFocus = false;
-		// 			this.isKeyWordInputFocus = true;
-		// 			document.getElementById('keyWordInputElement').focus();
-		// 			this.globalSearchService.autoComplete(value.keyWord, value.keyboardEvent);
-		// 		})
-		// );
+		this.subscriptions.push(
+			this.autoComplete$
+				.debounceTime(200)
+				.switchMap((value) => Observable.of<AutoComplete>(value))
+				.subscribe((value: AutoComplete) => {
+					this.keyWordInputElementMouseOver(-1);
+					this.keyWordInputElementIndex = -1;
+					this.isKeyWordInputFocus = false;
+					this.isKeyWordInputFocus = true;
+					document.getElementById('keyWordInputElement').focus();
+					this.globalSearchService.autoComplete(value.keyWord, value.keyboardEvent);
+				})
+		);
 
 		const scope = this;
 		document

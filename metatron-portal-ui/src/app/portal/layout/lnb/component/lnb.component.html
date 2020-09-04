@@ -20,7 +20,7 @@
 			</a>
 
 			<!-- LNB 확장 -->
-			<div class="lnb-expand">
+			<div class="lnb-expand" *ngIf="menu.id != layoutService.iaCodes.managementIaCode">
 				<!-- 메뉴 정보 -->
 				<div class="info-area">
 					<h2 class="txt-title">
@@ -67,6 +67,177 @@
 						<button type="button" class="btn-lnb-quick" (click)="tagging(TaggingType.LNB, TaggingAction.BTN, '시스템 운영 공지'); goPage(true, true, false, 'view/community/notice')">{{ translateService.instant('LNB.COMMUNITY.NOTICE', '시스템 운영 공지') }}</button>
 					</div>
 					<!-- //퀵 버튼 -->
+				</div>
+				<!-- //검색,메뉴 영역 -->
+			</div>
+			<!-- //LNB 확장 -->
+
+			<!-- LNB 확장 -->
+			<div class="lnb-expand" *ngIf="menu.id == layoutService.iaCodes.managementIaCode">
+				<!-- 메뉴 정보 -->
+				<div class="info-area">
+					<h2 class="txt-title">{{ translateService.instant('LNB.MANAGEMENT.TITLE', '포탈 관리') }}</h2>
+					<p class="txt-desc" [innerHTML]="translateService.instant('LNB.MANAGEMENT.DESC', '')">
+					</p>
+				</div>
+				<!-- //메뉴 정보 -->
+				<!-- 검색,메뉴 영역 -->
+				<div class="expand-area">
+					<!-- 검색 -->
+					<div menu-search-input
+						 [expanded]="elementRef.nativeElement.querySelector('.link-portal').getAttribute('aria-portal') === null ? 'false' : elementRef.nativeElement.querySelector('.link-portal').getAttribute('aria-expanded')"
+						 [menuIaCode]="['IA9999']"
+						 (oClick)="clickSubMenuPageSearchResult($event)">
+					</div>
+					<!-- //검색 -->
+
+					<!-- 메뉴 목록 -->
+					<div class="menu-block">
+						<dl class="list-menu">
+							<dt>{{ translateService.instant('LNB.MANAGEMENT.USER', '사용자 관리') }}</dt>
+							<dd>
+								<ul>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/users')">
+											{{ translateService.instant('LNB.MANAGEMENT.USER.SUB1', '사용자 조회') }}
+										</a>
+									</li>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/groups')">
+											{{ translateService.instant('LNB.MANAGEMENT.USER.SUB2', '그룹 관리') }}
+										</a>
+									</li>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/authority')">
+											{{ translateService.instant('LNB.MANAGEMENT.USER.SUB3', '권한 관리') }}
+										</a>
+									</li>
+								</ul>
+							</dd>
+						</dl>
+						<dl class="list-menu">
+							<dt>{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE', '추천 리포트/앱 관리') }}</dt>
+							<dd>
+								<ul>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/authority/request-approval')">
+											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB1', '권한승인') }}
+										</a>
+									</li>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/report-app/report')">
+											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB2', '리포트 관리') }}
+										</a>
+									</li>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/analysis-app/app')">
+											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB3', '분석 앱 관리') }}
+										</a>
+									</li>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/report-app/category')">
+											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB4', '리포트 카테고리 관리') }}
+										</a>
+									</li>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/analysis-app/category')">
+											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB5', '분석 앱 카테고리 관리') }}
+										</a>
+									</li>
+								</ul>
+							</dd>
+						</dl>
+
+						<dl class="list-menu">
+							<dt>{{ translateService.instant('LNB.MANAGEMENT.META', '메타데이터 관리') }}</dt>
+							<dd>
+								<ul>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, '/view/management/metadata/temp/subject')">
+											{{ translateService.instant('LNB.MANAGEMENT.META.SUB1', '데이터 주제영역(임시)') }}
+										</a>
+									</li>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, '/view/management/metadata/temp/dictionary')">
+											{{ translateService.instant('LNB.MANAGEMENT.META.SUB2', '데이터 표준 단어집(임시)') }}
+										</a>
+									</li>
+									<li *ngIf="isManagementMetaMenuShow">
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, '/view/management/metadata/subject')">
+											{{ translateService.instant('LNB.MANAGEMENT.META.SUB3', '데이터 주제영역') }}
+										</a>
+									</li>
+									<li *ngIf="isManagementMetaMenuShow">
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, '/view/management/metadata/system')">
+											{{ translateService.instant('LNB.MANAGEMENT.META.SUB4', '연계 시스템') }}
+										</a>
+									</li>
+								</ul>
+							</dd>
+						</dl>
+
+
+						<dl class="list-menu">
+							<dt>{{ translateService.instant('LNB.MANAGEMENT.MENU', '메뉴 관리') }}</dt>
+							<dd>
+								<ul>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/menu')">
+											{{ translateService.instant('LNB.MANAGEMENT.MENU.SUB1', '메뉴관리') }}
+										</a>
+									</li>
+								</ul>
+							</dd>
+						</dl>
+						<dl class="list-menu">
+							<dt>{{ translateService.instant('LNB.MANAGEMENT.LOG', '사용자 로그 조회') }}</dt>
+							<dd>
+								<ul>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/log/connect')">
+											{{ translateService.instant('LNB.MANAGEMENT.LOG.SUB1', '사용자 접속 로그') }}
+										</a>
+									</li>
+									<li>
+										<a href="javascript:;"
+										   class="link-menu"
+										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/log/app')">
+											{{ translateService.instant('LNB.MANAGEMENT.LOG.SUB2', '앱 로그') }}
+										</a>
+									</li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					<!-- //메뉴 목록 -->
 				</div>
 				<!-- //검색,메뉴 영역 -->
 			</div>
