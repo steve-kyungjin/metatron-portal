@@ -311,6 +311,7 @@
         "PATH.PLACEHOLDER": "Please enter page URL.",
         "ORDER.TITLE": "Menu order",
         "ICON.TITLE": "Icons",
+        "BOTTOM.MENU": "Bottom menu",
         "NODATA": "You can select the menu to manage or add a <br> 2,3depth menu."
       },
       "VALIDATION": {

@@ -29,6 +29,10 @@ public class IAEntity extends AbstractEntity{
     @Column(length = 255)
     private String iaDesc;
 
+    /** IA 상세 설명 - 한글 */
+    @Column(length = 4000)
+    private String iaDetailDesc;
+
     /** depth */
     @Column(length = 100 ,nullable = false)
     private Integer depth;
@@ -57,6 +61,15 @@ public class IAEntity extends AbstractEntity{
     /** 순서 */
     @Column(length = 50)
     private Integer iaOrder;
+
+    /** 추가 메뉴 */
+    @Type(type = "yes_no")
+    @Column(nullable = false, columnDefinition="char(1) default 'N'")
+    private Boolean extraYn;
+
+    /** 아이콘 */
+    @Column(length = 20)
+    private String icon;
 
     /** parent */
     @JsonIgnore
@@ -177,6 +190,30 @@ public class IAEntity extends AbstractEntity{
 
     public void setRoleRels(List<RoleGroupIARelEntity> roleRels) {
         this.roleRels = roleRels;
+    }
+
+    public String getIaDetailDesc() {
+        return iaDetailDesc;
+    }
+
+    public void setIaDetailDesc(String iaDetailDesc) {
+        this.iaDetailDesc = iaDetailDesc;
+    }
+
+    public Boolean getExtraYn() {
+        return extraYn;
+    }
+
+    public void setExtraYn(Boolean extraYn) {
+        this.extraYn = extraYn;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public int getChildrenCnt() {

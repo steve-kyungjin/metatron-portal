@@ -39,6 +39,11 @@ public class MenuVO implements Serializable {
     private String desc;
 
     /**
+     * 상세 설명
+     */
+    private String detailDesc;
+
+    /**
      * 외부/내부 여부
      */
     private boolean external;
@@ -76,6 +81,10 @@ public class MenuVO implements Serializable {
     private Object extra;
 
     private AppType appType;
+
+    private boolean extraMenu;
+
+    private String icon;
 
     public AppType getAppType() {
         return appType;
@@ -165,11 +174,35 @@ public class MenuVO implements Serializable {
         this.desc = desc;
     }
 
+    public String getDetailDesc() {
+        return detailDesc;
+    }
+
+    public void setDetailDesc(String detailDesc) {
+        this.detailDesc = detailDesc;
+    }
+
     public String getMedia() {
         return media;
     }
 
     public void setMedia(String media) {
         this.media = media;
+    }
+
+    public boolean isExtraMenu() {
+        return extraMenu;
+    }
+
+    public void setExtraMenu(boolean extraMenu) {
+        this.extraMenu = extraMenu;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

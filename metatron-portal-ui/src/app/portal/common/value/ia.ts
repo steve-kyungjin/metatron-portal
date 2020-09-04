@@ -38,6 +38,11 @@ export namespace Ia {
 		iaDesc: string;
 
 		/**
+		 * IA 설명(1depth) - 한글
+		 * */
+		iaDetailDesc: string;
+
+		/**
 		 * depth
 		 */
 		depth: number;
@@ -62,6 +67,8 @@ export namespace Ia {
 		 * 순서
 		 */
 		iaOrder: number;
+
+		icon: string;
 
 		childrenCnt: number;
 	}

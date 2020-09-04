@@ -7,43 +7,26 @@
     -->
 	<ul class="section-lnb">
 
-		<li class="link-home menuFirstDepth"
-			*ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.introIaCode) === true"
-			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).id"
-			[title]="layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).name"
+		<li class="menuFirstDepth" [ngClass]="menu.icon" *ngFor="let menu of menus"
+			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === menu.id"
+			[title]="menu.name"
 			[attr.aria-expanded]="false"
-			(mouseover)="showSubMenu('link-home')"
-			(mouseleave)="hideSubMenu('link-home')">
+			(mouseover)="showSubMenu(menu.icon, menu)"
+			(mouseleave)="hideSubMenu(menu.icon, menu)">
 
 			<a href="javascript:;"
-			   aria-label="홈"
-			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).path)">
+			   [attr.aria-label]="menu.name"
+			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, menu.name); goPage(menu.id, menu.link, menu.external, menu.path)">
 			</a>
-		</li>
 
-		<li class="link-comm menuFirstDepth"
-			*ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.communityIaCode) === true"
-			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).id"
-			[attr.aria-expanded]="false"
-			(mouseover)="showSubMenu('link-comm')"
-			(mouseleave)="hideSubMenu('link-comm')">
-
-			<!--suppress JSUnnecessarySemicolon -->
-			<a href="javascript:;"
-			   aria-label="커뮤니케이션"
-			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).path)">
-			</a>
 			<!-- LNB 확장 -->
 			<div class="lnb-expand">
 				<!-- 메뉴 정보 -->
 				<div class="info-area">
 					<h2 class="txt-title">
-						{{ layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).name }}
-						<a href="javascript:;" class="link-comm-all"
-						   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).path)">
-						{{ translateService.instant('LNB.TOTAL.STATUS', '전체 현황') }}</a>
+						{{ menu.name }}
 					</h2>
-					<p class="txt-desc" [innerHTML]="translateService.instant('LNB.COMMUNITY.DESC', '')">
+					<p class="txt-desc" [innerHTML]="menu.detailDesc">
 					</p>
 				</div>
 				<!-- //메뉴 정보 -->
@@ -51,24 +34,24 @@
 				<div class="expand-area">
 
 					<div menu-search-input
-						 [expanded]="elementRef.nativeElement.querySelector('.link-comm').getAttribute('aria-expanded') === null ? 'false' : elementRef.nativeElement.querySelector('.link-comm').getAttribute('aria-expanded')"
-						 [menuIaCode]="[layoutService.iaCodes.communityIaCode]"
+						 [expanded]="elementRef.nativeElement.querySelector('.' + menu.icon).getAttribute('aria-expanded') === null ? 'false' : elementRef.nativeElement.querySelector('.' + menu.icon).getAttribute('aria-expanded')"
+						 [menuIaCode]="[menu.id]"
 						 (oClick)="tagging(TaggingType.LNB, TaggingAction.ITEM, $event.name); clickSubMenuPageSearchResult($event)">
 					</div>
 
 					<!-- 메뉴 목록 -->
 					<div class="menu-block">
-						<dl class="list-menu" *ngFor="let menu of getMenuDisplayYList(layoutService.iaCodes.communityIaCode)">
+						<dl class="list-menu" *ngFor="let child of getMenuDisplayYList(menu.id)">
 							<dt>
-								{{ menu.name }}
-								<span class="info-total" [attr.title]="translateService.instant('LNB.COMMUNITY.RECENT.DESC', {name: menu.name, count: menu.extra})">{{ menu.extra }}</span>
+								{{ child.name }}
+								<span class="info-total" [attr.title]="translateService.instant('LNB.COMMUNITY.RECENT.DESC', {name: child.name, count: child.extra})">{{ child.extra }}</span>
 							</dt>
 							<dd>
 								<ul>
 									<li>
 										<a href="javascript:;"
 										   class="link-menu"
-										   *ngFor="let children of menu.children"
+										   *ngFor="let children of child.children"
 										   (click)="tagging(TaggingType.LNB, TaggingAction.BTN, children.name); goPage(children.id, children.link, children.external, children.path)">
 											{{ children.name }}
 										</a>
@@ -89,584 +72,680 @@
 			</div>
 			<!-- //LNB 확장 -->
 		</li>
+<!--		<li class="link-home menuFirstDepth"-->
+<!--			*ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.introIaCode) === true"-->
+<!--			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).id"-->
+<!--			[title]="layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).name"-->
+<!--			[attr.aria-expanded]="false"-->
+<!--			(mouseover)="showSubMenu('link-home')"-->
+<!--			(mouseleave)="hideSubMenu('link-home')">-->
 
-		<li class="link-my menuFirstDepth"
-			*ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.myAppSpaceIaCode) === true"
-			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).id"
-			[attr.aria-expanded]="false"
-			(mouseover)="showSubMenu('link-my')"
-			(mouseleave)="hideSubMenu('link-my')">
+<!--			<a href="javascript:;"-->
+<!--			   aria-label="홈"-->
+<!--			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).path)">-->
+<!--			</a>-->
+<!--		</li>-->
 
-			<a href="javascript:;"
-			   aria-label="나의 리포트/앱"
-			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).path)">
-			</a>
-			<!-- LNB 확장 -->
-			<div class="lnb-expand">
-				<!-- 메뉴 정보 -->
-				<div class="info-area">
-					<h2 class="txt-title">{{ translateService.instant('LNB.MY.APPS.TITLE', '나의 리포트/앱') }}</h2>
-					<p class="txt-desc" [innerHTML]="translateService.instant('LNB.MY.APPS.DESC', '')">
-					</p>
-				</div>
-				<!-- //메뉴 정보 -->
-				<!-- 검색,메뉴 영역 -->
-				<div class="expand-area">
+<!--		<li class="link-home menuFirstDepth"-->
+<!--			*ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.introIaCode) === true"-->
+<!--			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).id"-->
+<!--			[title]="layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).name"-->
+<!--			[attr.aria-expanded]="false"-->
+<!--			(mouseover)="showSubMenu('link-home')"-->
+<!--			(mouseleave)="hideSubMenu('link-home')">-->
 
-					<div menu-search-input
-						 [expanded]="elementRef.nativeElement.querySelector('.link-my').getAttribute('aria-expanded') === null ? 'false' : elementRef.nativeElement.querySelector('.link-my').getAttribute('aria-expanded')"
-						 [menuIaCode]="[layoutService.iaCodes.myAppSpaceIaCode]"
-						 (oClick)="tagging(TaggingType.LNB, TaggingAction.ITEM, $event.name); clickSubMenuPageSearchResult($event)">
-					</div>
+<!--			<a href="javascript:;"-->
+<!--			   aria-label="홈"-->
+<!--			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.introIaCode).path)">-->
+<!--			</a>-->
+<!--		</li>-->
 
-					<!-- 썸네일형 메뉴 목록 -->
-					<div class="thumb-block">
-						<!-- 마이 리포트 -->
-						<dl class="thumb-report">
-							<dt>
-								<span>{{ layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].name }}</span>
-								<a href="javascript:;"
-								   class="link-more"
-								   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '관리'); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].id, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].link, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].external, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].path)">
-									{{ translateService.instant('LNB.MANAGEMENT', '관리') }}
-								</a>
-							</dt>
-							<dd>
-								<div class="thumb">
-									<a href="javascript:;"
-									   class="link-my"
-									   *ngFor="let menu of getMyAppList(layoutService.iaCodes.myAppSpaceReportAppIaCode)">
-										<span class="img-thumb">
-											<em [style.background-image]="'url(' + getMediaPath(menu.media) + ')'"
-												(click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goReportAppPage(menu.id, menu.link, menu.external, menu.path)"></em>
-										</span>
-										<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
-										<span class="txt-title"
-											  [attr.title]="menu.name"
-											  (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goReportAppPage(menu.id, menu.link, menu.external, menu.path)">
-											{{ menu.name }}
-										</span>
-									</a>
-								</div>
-								<!-- No Data -->
-								<div class="nodata"
-									 *ngIf="getMyAppList(layoutService.iaCodes.myAppSpaceReportAppIaCode).length === 0">
-									<a href="javascript:;"
-									   class="btn-app"
-									   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '추천 리포트에서 자주 사용할 리포트를<br>나의 리포트에 추가해보세요.'); goPage(null, true, false, getReportAppMenu().path)"></a>
-									<p class="txt-desc" [innerHTML]="translateService.instant('LNB.MY.APPS.REPORT.NODATA.DESC', '')">
-									</p>
-									<a href="javascript:;"
-									   class="link-appplace"
-									   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '추천 리포트 바로가기'); goPage(null, true, false, getReportAppMenu().path)">
-										{{ translateService.instant('LNB.MY.APPS.REPORT.LINK', '추천 리포트 바로가기') }}
-									</a>
-								</div>
-								<!-- //No Data -->
-							</dd>
-						</dl>
-						<!-- //마이 리포트 -->
+<!--		<li class="link-comm menuFirstDepth"-->
+<!--			*ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.communityIaCode) === true"-->
+<!--			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).id"-->
+<!--			[attr.aria-expanded]="false"-->
+<!--			(mouseover)="showSubMenu('link-comm')"-->
+<!--			(mouseleave)="hideSubMenu('link-comm')">-->
 
-						<!-- 마이 분석 앱 -->
-						<dl class="thumb-analysis">
-							<dt>
-								<span>{{ layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].name }}</span>
-								<a href="javascript:;"
-								   class="link-more"
-								   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '관리'); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].id, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].link, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].external, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].path)">
-									{{ translateService.instant('LNB.MANAGEMENT', '관리') }}
-								</a>
-							</dt>
-							<dd>
-								<div class="thumb">
-									<a href="javascript:;"
-									   class="link-my"
-									   *ngFor="let menu of getMyAppList(layoutService.iaCodes.myAppSpaceAnalysisAppIaCode)">
-										<span class="img-thumb">
-											<em [style.background-image]="'url(' + getMediaPath(menu.media) + ')'"
-												(click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goAnalysisAppPage(menu.id, menu.link, menu.external, menu.path)"></em>
-										</span>
-										<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
-										<span class="txt-title"
-											  [attr.title]="menu.name"
-											  (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goAnalysisAppPage(menu.id, menu.link, menu.external, menu.path)">
-											{{ menu.name }}
-										</span>
-									</a>
-								</div>
-								<!-- No Data -->
-								<div class="nodata"
-									 *ngIf="getMyAppList(layoutService.iaCodes.myAppSpaceAnalysisAppIaCode).length === 0">
-									<a href="javascript:;"
-									   class="btn-app"
-									   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '추천 분석 앱에서 자주 사용할 분석 앱을<br>나의 분석 앱에 추가해보세요.'); goPage(null, true, false, getAnalysisAppMenu().path)"></a>
-									<p class="txt-desc" [innerHTML]="translateService.instant('LNB.MY.APPS.APP.NODATA.DESC', '')">
-									</p>
-									<a href="javascript:;"
-									   class="link-appplace"
-									   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '추천 분석 앱 바로가기'); goPage(null, true, false, getAnalysisAppMenu().path)">
-										{{ translateService.instant('LNB.MY.APPS.APP.LINK', '추천 분석 앱 바로가기') }}
-									</a>
-								</div>
-								<!-- //No Data -->
-							</dd>
-						</dl>
-						<!-- //마이 분석 앱 -->
-					</div>
-					<!-- //썸네일형 메뉴 목록 -->
-				</div>
-				<!-- //검색,메뉴 영역 -->
-			</div>
-			<!-- //LNB 확장 -->
-		</li>
+<!--			&lt;!&ndash;suppress JSUnnecessarySemicolon &ndash;&gt;-->
+<!--			<a href="javascript:;"-->
+<!--			   aria-label="커뮤니케이션"-->
+<!--			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).path)">-->
+<!--			</a>-->
+<!--			&lt;!&ndash; LNB 확장 &ndash;&gt;-->
+<!--			<div class="lnb-expand">-->
+<!--				&lt;!&ndash; 메뉴 정보 &ndash;&gt;-->
+<!--				<div class="info-area">-->
+<!--					<h2 class="txt-title">-->
+<!--						{{ layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).name }}-->
+<!--						<a href="javascript:;" class="link-comm-all"-->
+<!--						   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.communityIaCode).path)">-->
+<!--						{{ translateService.instant('LNB.TOTAL.STATUS', '전체 현황') }}</a>-->
+<!--					</h2>-->
+<!--					<p class="txt-desc" [innerHTML]="translateService.instant('LNB.COMMUNITY.DESC', '')">-->
+<!--					</p>-->
+<!--				</div>-->
+<!--				&lt;!&ndash; //메뉴 정보 &ndash;&gt;-->
+<!--				&lt;!&ndash; 검색,메뉴 영역 &ndash;&gt;-->
+<!--				<div class="expand-area">-->
 
-		<li class="link-app menuFirstDepth"
-			*ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.appPlaceIaCode) === true"
-			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).id"
-			[attr.aria-expanded]="false"
-			(mouseover)="showSubMenu('link-app')"
-			(mouseleave)="hideSubMenu('link-app')">
+<!--					<div menu-search-input-->
+<!--						 [expanded]="elementRef.nativeElement.querySelector('.link-comm').getAttribute('aria-expanded') === null ? 'false' : elementRef.nativeElement.querySelector('.link-comm').getAttribute('aria-expanded')"-->
+<!--						 [menuIaCode]="[layoutService.iaCodes.communityIaCode]"-->
+<!--						 (oClick)="tagging(TaggingType.LNB, TaggingAction.ITEM, $event.name); clickSubMenuPageSearchResult($event)">-->
+<!--					</div>-->
 
-			<a href="javascript:;"
-			   aria-label="추천 리포트/앱"
-			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).path)">
-			</a>
-			<!-- LNB 확장 -->
-			<div class="lnb-expand">
-				<!-- 메뉴 정보 -->
-				<div class="info-area">
-					<h2 class="txt-title">{{ translateService.instant('LNB.APP.PLACE.TITLE', '추천 리포트/앱') }}</h2>
-					<p class="txt-desc" [innerHTML]="translateService.instant('LNB.APP.PLACE.DESC', '')">
-					</p>
-				</div>
-				<!-- //메뉴 정보 -->
-				<!-- 검색,메뉴 영역 -->
-				<div class="expand-area">
+<!--					&lt;!&ndash; 메뉴 목록 &ndash;&gt;-->
+<!--					<div class="menu-block">-->
+<!--						<dl class="list-menu" *ngFor="let menu of getMenuDisplayYList(layoutService.iaCodes.communityIaCode)">-->
+<!--							<dt>-->
+<!--								{{ menu.name }}-->
+<!--								<span class="info-total" [attr.title]="translateService.instant('LNB.COMMUNITY.RECENT.DESC', {name: menu.name, count: menu.extra})">{{ menu.extra }}</span>-->
+<!--							</dt>-->
+<!--							<dd>-->
+<!--								<ul>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   *ngFor="let children of menu.children"-->
+<!--										   (click)="tagging(TaggingType.LNB, TaggingAction.BTN, children.name); goPage(children.id, children.link, children.external, children.path)">-->
+<!--											{{ children.name }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--								</ul>-->
+<!--							</dd>-->
+<!--						</dl>-->
+<!--					</div>-->
+<!--					&lt;!&ndash; //메뉴 목록 &ndash;&gt;-->
 
-					<div menu-search-input
-						 [expanded]="elementRef.nativeElement.querySelector('.link-app').getAttribute('aria-expanded') === null ? 'false' : elementRef.nativeElement.querySelector('.link-app').getAttribute('aria-expanded')"
-						 [menuIaCode]="[layoutService.iaCodes.appPlaceIaCode]"
-						 (oClick)="tagging(TaggingType.LNB, TaggingAction.ITEM, $event.name); clickSubMenuPageSearchResult($event)">
-					</div>
+<!--					&lt;!&ndash; 퀵 버튼 &ndash;&gt;-->
+<!--					<div class="button-block">-->
+<!--						<button type="button" class="btn-lnb-quick" (click)="tagging(TaggingType.LNB, TaggingAction.BTN, '시스템 운영 공지'); goPage(true, true, false, 'view/community/notice')">{{ translateService.instant('LNB.COMMUNITY.NOTICE', '시스템 운영 공지') }}</button>-->
+<!--					</div>-->
+<!--					&lt;!&ndash; //퀵 버튼 &ndash;&gt;-->
+<!--				</div>-->
+<!--				&lt;!&ndash; //검색,메뉴 영역 &ndash;&gt;-->
+<!--			</div>-->
+<!--			&lt;!&ndash; //LNB 확장 &ndash;&gt;-->
+<!--		</li>-->
 
-					<!-- 인기/최신 리포트,분석 앱 목록 -->
-					<div class="recently-block">
-						<!-- 마이 리포트 -->
-						<dl class="thumb-report">
-							<dt>
-								<span>{{ getReportAppMenu().name }}</span>
-								<a href="javascript:;"
-								   class="link-more"
-								   *ngIf="getReportAppMenu() !== null"
-								   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '전체보기'); goPage(getReportAppMenu().id, getReportAppMenu().link, getReportAppMenu().external, getReportAppMenu().path)">
-									{{ translateService.instant('COMMON.VIEW.ALL', '전체보기') }}
-								</a>
-							</dt>
-							<dd>
-								<!-- 인기 -->
-								<div class="popular-list">
-									<strong class="txt-title">
-										<span>
-											<em>{{ translateService.instant('LNB.APP.PLACE.FAVORITE', '인기') }}</em> {{ getReportAppMenu().name }}
-										</span>
-									</strong>
-									<ol class="list-popular"
-										*ngIf="getReportAppPopularList().length > 0">
-										<li *ngFor="let menu of getReportAppPopularList(); let index = index;">
-											<a href="javascript:;" class="link-item">
-												<span class="img-thumb">
-													<em [style.background-image]="'url(' + getMediaPath(menu.media) + ')'"
-														(click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goReportAppPage(menu.id, menu.link, menu.external, menu.path, false)"></em>
-												</span>
-												<span class="txt-title">
-													<em class="txt-num">{{ index + 1 }}</em>
-														<span class="txt-app"
-															  [attr.title]="menu.name"
-															  (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goReportAppPage(menu.id, menu.link, menu.external, menu.path, false)">
-															{{ menu.name }}
-														</span>
-													</span>
-												<span class="txt-category">{{ connectCategoryNameWithCommaInExtraList(menu.extra) }}</span>
-											</a>
-										</li>
-									</ol>
-									<!-- No Data -->
-									<div class="nodata"
-										 *ngIf="getReportAppPopularList().length === 0">
-										<p class="txt-desc">{{ translateService.instant('LNB.APP.PLACE.FAVORITE.REPORT.NODATA', '등록된 리포트가 없습니다.') }}</p>
-									</div>
-									<!-- //No Data -->
-								</div>
-								<!-- //인기 -->
-								<!-- 최신 -->
-								<div class="new-list">
-									<strong class="txt-title">
-										<span>
-											<em>{{ translateService.instant('LNB.APP.PLACE.RECENT', '최신') }}</em> {{ getReportAppMenu().name }}
-										</span>
-									</strong>
-									<div class="thumb">
-										<a href="javascript:;"
-										   class="link-my"
-										   *ngFor="let menu of getReportAppLatestList(); let index = index;">
-											<span class="img-thumb">
-												<em [style.background-image]="'url(' + getMediaPath(menu.media) + ')'"
-													(click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goAnalysisAppPage(menu.id, menu.link, menu.external, menu.path, false)">
-												</em>
-											</span>
-											<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
-											<span class="txt-title"
-												  [attr.title]="menu.name"
-												  (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goAnalysisAppPage(menu.id, menu.link, menu.external, menu.path, false)">
-												{{ menu.name }}
-											</span>
-										</a>
-									</div>
-									<!-- No Data -->
-									<div class="nodata"
-										 *ngIf="getReportAppLatestList().length === 0">
-										<p class="txt-desc">{{ translateService.instant('LNB.APP.PLACE.RECENT.REPORT.NODATA', '등록된 최신 리포트가 없습니다.') }}</p>
-									</div>
-									<!-- //No Data -->
-								</div>
-								<!-- //최신 -->
-							</dd>
-						</dl>
-						<!-- //마이 리포트 -->
+<!--		<li class="link-my menuFirstDepth"-->
+<!--			*ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.myAppSpaceIaCode) === true"-->
+<!--			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).id"-->
+<!--			[attr.aria-expanded]="false"-->
+<!--			(mouseover)="showSubMenu('link-my')"-->
+<!--			(mouseleave)="hideSubMenu('link-my')">-->
 
-						<!-- 마이 분석 앱 -->
-						<dl class="thumb-analysis">
-							<dt>
-								<span>{{ getAnalysisAppMenu().name }}</span>
-								<a href="javascript:;"
-								   class="link-more"
-								   *ngIf="getAnalysisAppMenu() !== null"
-								   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '전체보기'); goPage(getAnalysisAppMenu().id, getAnalysisAppMenu().link, getAnalysisAppMenu().external, getAnalysisAppMenu().path)">
-									{{ translateService.instant('COMMON.VIEW.ALL', '전체보기') }}
-								</a>
-							</dt>
-							<dd>
-								<!-- 인기 -->
-								<div class="popular-list">
-									<strong class="txt-title">
-										<span>
-											<em>{{ translateService.instant('LNB.APP.PLACE.FAVORITE', '인기') }}</em> {{ getAnalysisAppMenu().name }}
-										</span>
-									</strong>
-									<ol class="list-popular"
-										*ngIf="getAnalysisAppPopularList().length > 0">
-										<li *ngFor="let menu of getAnalysisAppPopularList(); let index = index;">
-											<a href="javascript:;"
-											   class="link-item">
-												<span class="img-thumb">
-													<em [style.background-image]="'url(' + getMediaPath(menu.media) + ')'"
-														(click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goPage(menu.id, menu.link, menu.external, menu.path)"></em>
-												</span>
-												<span class="txt-title">
-													<em class="txt-num">{{ index + 1 }}</em>
-													<span class="txt-app"
-														  [attr.title]="menu.name"
-														  (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goPage(menu.id, menu.link, menu.external, menu.path)">
-														{{ menu.name }}
-													</span>
-												</span>
-												<span class="txt-category">{{ connectCategoryNameWithCommaInExtraList(menu.extra) }}</span>
-											</a>
-										</li>
-									</ol>
-									<!-- No Data -->
-									<div class="nodata"
-										 *ngIf="getAnalysisAppPopularList().length === 0">
-										<p class="txt-desc">{{ translateService.instant('LNB.APP.PLACE.FAVORITE.APP.NODATA', '등록된 분석 앱이 없습니다.') }}</p>
-									</div>
-									<!-- //No Data -->
-								</div>
-								<!-- //인기 -->
-								<!-- 최신 -->
-								<div class="new-list">
-									<strong class="txt-title">
-										<span>
-											<em>{{ translateService.instant('LNB.APP.PLACE.RECENT', '최신') }}</em> {{ getAnalysisAppMenu().name }}
-										</span>
-									</strong>
-									<div class="thumb">
-										<a href="javascript:;"
-										   class="link-my"
-										   *ngFor="let menu of getAnalysisAppLatestList(); let index = index;">
-											<span class="img-thumb">
-												<em [style.background-image]="'url(' + getMediaPath(menu.media) + ')'"
-													(click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goPage(menu.id, menu.link, menu.external, menu.path)"></em>
-											</span>
-											<!-- [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 -->
-											<span class="txt-title"
-												  [attr.title]="menu.name"
-												  (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goPage(menu.id, menu.link, menu.external, menu.path)">
-												{{ menu.name }}
-											</span>
-										</a>
-									</div>
-									<!-- No Data -->
-									<div class="nodata"
-										 *ngIf="getAnalysisAppLatestList().length === 0">
-										<p class="txt-desc">{{ translateService.instant('LNB.APP.PLACE.RECENT.APP.NODATA', '등록된 최신 분석 앱이 없습니다.') }}</p>
-									</div>
-									<!-- //No Data -->
-								</div>
-								<!-- //최신 -->
-							</dd>
-						</dl>
-						<!-- //마이 분석 앱 -->
-					</div>
-					<!-- //리포트,분석 앱 목록 -->
-				</div>
-				<!-- //검색,메뉴 영역 -->
-			</div>
-			<!-- //LNB 확장 -->
-		</li>
+<!--			<a href="javascript:;"-->
+<!--			   aria-label="나의 리포트/앱"-->
+<!--			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).path)">-->
+<!--			</a>-->
+<!--			&lt;!&ndash; LNB 확장 &ndash;&gt;-->
+<!--			<div class="lnb-expand">-->
+<!--				&lt;!&ndash; 메뉴 정보 &ndash;&gt;-->
+<!--				<div class="info-area">-->
+<!--					<h2 class="txt-title">{{ translateService.instant('LNB.MY.APPS.TITLE', '나의 리포트/앱') }}</h2>-->
+<!--					<p class="txt-desc" [innerHTML]="translateService.instant('LNB.MY.APPS.DESC', '')">-->
+<!--					</p>-->
+<!--				</div>-->
+<!--				&lt;!&ndash; //메뉴 정보 &ndash;&gt;-->
+<!--				&lt;!&ndash; 검색,메뉴 영역 &ndash;&gt;-->
+<!--				<div class="expand-area">-->
 
-		<li class="link-meta menuFirstDepth"
-			*ngIf="layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode) !== null && layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.metadataIaCode)"
-			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).id"
-			[attr.aria-expanded]="false"
-			(mouseover)="showSubMenu('link-meta')"
-			(mouseleave)="hideSubMenu('link-meta')">
+<!--					<div menu-search-input-->
+<!--						 [expanded]="elementRef.nativeElement.querySelector('.link-my').getAttribute('aria-expanded') === null ? 'false' : elementRef.nativeElement.querySelector('.link-my').getAttribute('aria-expanded')"-->
+<!--						 [menuIaCode]="[layoutService.iaCodes.myAppSpaceIaCode]"-->
+<!--						 (oClick)="tagging(TaggingType.LNB, TaggingAction.ITEM, $event.name); clickSubMenuPageSearchResult($event)">-->
+<!--					</div>-->
 
-			<a href="javascript:;"
-			   aria-label="데이터 웨어하우스 데이터"
-			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).path)">
-			</a>
-			<!-- LNB 확장 -->
-			<div class="lnb-expand">
-				<!-- 메뉴 정보 -->
-				<div class="info-area">
-					<h2 class="txt-title">{{ translateService.instant('LNB.META.TITLE', '메타데이터') }}</h2>
-					<p class="txt-desc" [innerHTML]="translateService.instant('LNB.META.DESC', '')">
-					</p>
-				</div>
-				<!-- //메뉴 정보 -->
-				<!-- 검색,메뉴 영역 -->
-				<div class="expand-area">
+<!--					&lt;!&ndash; 썸네일형 메뉴 목록 &ndash;&gt;-->
+<!--					<div class="thumb-block">-->
+<!--						&lt;!&ndash; 마이 리포트 &ndash;&gt;-->
+<!--						<dl class="thumb-report">-->
+<!--							<dt>-->
+<!--								<span>{{ layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].name }}</span>-->
+<!--								<a href="javascript:;"-->
+<!--								   class="link-more"-->
+<!--								   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '관리'); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].id, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].link, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].external, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[0].path)">-->
+<!--									{{ translateService.instant('LNB.MANAGEMENT', '관리') }}-->
+<!--								</a>-->
+<!--							</dt>-->
+<!--							<dd>-->
+<!--								<div class="thumb">-->
+<!--									<a href="javascript:;"-->
+<!--									   class="link-my"-->
+<!--									   *ngFor="let menu of getMyAppList(layoutService.iaCodes.myAppSpaceReportAppIaCode)">-->
+<!--										<span class="img-thumb">-->
+<!--											<em [style.background-image]="'url(' + getMediaPath(menu.media) + ')'"-->
+<!--												(click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goReportAppPage(menu.id, menu.link, menu.external, menu.path)"></em>-->
+<!--										</span>-->
+<!--										&lt;!&ndash; [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 &ndash;&gt;-->
+<!--										<span class="txt-title"-->
+<!--											  [attr.title]="menu.name"-->
+<!--											  (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goReportAppPage(menu.id, menu.link, menu.external, menu.path)">-->
+<!--											{{ menu.name }}-->
+<!--										</span>-->
+<!--									</a>-->
+<!--								</div>-->
+<!--								&lt;!&ndash; No Data &ndash;&gt;-->
+<!--								<div class="nodata"-->
+<!--									 *ngIf="getMyAppList(layoutService.iaCodes.myAppSpaceReportAppIaCode).length === 0">-->
+<!--									<a href="javascript:;"-->
+<!--									   class="btn-app"-->
+<!--									   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '추천 리포트에서 자주 사용할 리포트를<br>나의 리포트에 추가해보세요.'); goPage(null, true, false, getReportAppMenu().path)"></a>-->
+<!--									<p class="txt-desc" [innerHTML]="translateService.instant('LNB.MY.APPS.REPORT.NODATA.DESC', '')">-->
+<!--									</p>-->
+<!--									<a href="javascript:;"-->
+<!--									   class="link-appplace"-->
+<!--									   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '추천 리포트 바로가기'); goPage(null, true, false, getReportAppMenu().path)">-->
+<!--										{{ translateService.instant('LNB.MY.APPS.REPORT.LINK', '추천 리포트 바로가기') }}-->
+<!--									</a>-->
+<!--								</div>-->
+<!--								&lt;!&ndash; //No Data &ndash;&gt;-->
+<!--							</dd>-->
+<!--						</dl>-->
+<!--						&lt;!&ndash; //마이 리포트 &ndash;&gt;-->
 
-					<div menu-search-input
-						 [expanded]="elementRef.nativeElement.querySelector('.link-meta').getAttribute('aria-expanded') === null ? 'false' : elementRef.nativeElement.querySelector('.link-meta').getAttribute('aria-expanded')"
-						 [menuIaCode]="[layoutService.iaCodes.metadataIaCode]"
-						 (oClick)="tagging(TaggingType.LNB, TaggingAction.ITEM, $event.name); clickSubMenuPageSearchResult($event)">
-					</div>
+<!--						&lt;!&ndash; 마이 분석 앱 &ndash;&gt;-->
+<!--						<dl class="thumb-analysis">-->
+<!--							<dt>-->
+<!--								<span>{{ layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].name }}</span>-->
+<!--								<a href="javascript:;"-->
+<!--								   class="link-more"-->
+<!--								   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '관리'); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].id, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].link, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].external, layoutService.getMenuByIaCode(layoutService.iaCodes.myAppSpaceIaCode).children[1].path)">-->
+<!--									{{ translateService.instant('LNB.MANAGEMENT', '관리') }}-->
+<!--								</a>-->
+<!--							</dt>-->
+<!--							<dd>-->
+<!--								<div class="thumb">-->
+<!--									<a href="javascript:;"-->
+<!--									   class="link-my"-->
+<!--									   *ngFor="let menu of getMyAppList(layoutService.iaCodes.myAppSpaceAnalysisAppIaCode)">-->
+<!--										<span class="img-thumb">-->
+<!--											<em [style.background-image]="'url(' + getMediaPath(menu.media) + ')'"-->
+<!--												(click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goAnalysisAppPage(menu.id, menu.link, menu.external, menu.path)"></em>-->
+<!--										</span>-->
+<!--										&lt;!&ndash; [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 &ndash;&gt;-->
+<!--										<span class="txt-title"-->
+<!--											  [attr.title]="menu.name"-->
+<!--											  (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goAnalysisAppPage(menu.id, menu.link, menu.external, menu.path)">-->
+<!--											{{ menu.name }}-->
+<!--										</span>-->
+<!--									</a>-->
+<!--								</div>-->
+<!--								&lt;!&ndash; No Data &ndash;&gt;-->
+<!--								<div class="nodata"-->
+<!--									 *ngIf="getMyAppList(layoutService.iaCodes.myAppSpaceAnalysisAppIaCode).length === 0">-->
+<!--									<a href="javascript:;"-->
+<!--									   class="btn-app"-->
+<!--									   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '추천 분석 앱에서 자주 사용할 분석 앱을<br>나의 분석 앱에 추가해보세요.'); goPage(null, true, false, getAnalysisAppMenu().path)"></a>-->
+<!--									<p class="txt-desc" [innerHTML]="translateService.instant('LNB.MY.APPS.APP.NODATA.DESC', '')">-->
+<!--									</p>-->
+<!--									<a href="javascript:;"-->
+<!--									   class="link-appplace"-->
+<!--									   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '추천 분석 앱 바로가기'); goPage(null, true, false, getAnalysisAppMenu().path)">-->
+<!--										{{ translateService.instant('LNB.MY.APPS.APP.LINK', '추천 분석 앱 바로가기') }}-->
+<!--									</a>-->
+<!--								</div>-->
+<!--								&lt;!&ndash; //No Data &ndash;&gt;-->
+<!--							</dd>-->
+<!--						</dl>-->
+<!--						&lt;!&ndash; //마이 분석 앱 &ndash;&gt;-->
+<!--					</div>-->
+<!--					&lt;!&ndash; //썸네일형 메뉴 목록 &ndash;&gt;-->
+<!--				</div>-->
+<!--				&lt;!&ndash; //검색,메뉴 영역 &ndash;&gt;-->
+<!--			</div>-->
+<!--			&lt;!&ndash; //LNB 확장 &ndash;&gt;-->
+<!--		</li>-->
 
-					<!-- 메뉴 목록 -->
-					<div class="menu-block">
-						<dl class="list-menu"
-							*ngFor="let menu of getMenuDisplayYList(layoutService.iaCodes.metadataIaCode)">
-							<dt>{{ menu.name }}</dt>
-							<dd>
-								<ul>
-									<li>
-										<a href="javascript:;" class="link-menu"
-										   *ngFor="let children of menu.children"
-										   (click)="tagging(TaggingType.LNB, TaggingAction.BTN, children.name); goPage(children.id, children.link, children.external, children.path)">{{ children.name }} </a>
-									</li>
-								</ul>
-							</dd>
-						</dl>
-					</div>
-					<!-- //메뉴 목록 -->
-				</div>
-				<!-- //검색,메뉴 영역 -->
-			</div>
-			<!-- //LNB 확장 -->
-		</li>
+<!--		<li class="link-app menuFirstDepth"-->
+<!--			*ngIf="layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.appPlaceIaCode) === true"-->
+<!--			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).id"-->
+<!--			[attr.aria-expanded]="false"-->
+<!--			(mouseover)="showSubMenu('link-app')"-->
+<!--			(mouseleave)="hideSubMenu('link-app')">-->
 
-		<li class="link-portal menuFirstDepth"
-			*ngIf="layoutService.getMenuByIaCode(layoutService.iaCodes.managementIaCode) !== null && layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.managementIaCode) && sessionInfo.getUser().admin"
-			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.managementIaCode).id"
-			[attr.aria-expanded]="false"
-			(mouseover)="showSubMenu('link-portal')"
-			(mouseleave)="hideSubMenu('link-portal')">
+<!--			<a href="javascript:;"-->
+<!--			   aria-label="추천 리포트/앱"-->
+<!--			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.appPlaceIaCode).path)">-->
+<!--			</a>-->
+<!--			&lt;!&ndash; LNB 확장 &ndash;&gt;-->
+<!--			<div class="lnb-expand">-->
+<!--				&lt;!&ndash; 메뉴 정보 &ndash;&gt;-->
+<!--				<div class="info-area">-->
+<!--					<h2 class="txt-title">{{ translateService.instant('LNB.APP.PLACE.TITLE', '추천 리포트/앱') }}</h2>-->
+<!--					<p class="txt-desc" [innerHTML]="translateService.instant('LNB.APP.PLACE.DESC', '')">-->
+<!--					</p>-->
+<!--				</div>-->
+<!--				&lt;!&ndash; //메뉴 정보 &ndash;&gt;-->
+<!--				&lt;!&ndash; 검색,메뉴 영역 &ndash;&gt;-->
+<!--				<div class="expand-area">-->
 
-			<a href="javascript:;"
-			   aria-label="포탈 관리"
-			   (click)="$event.stopPropagation(); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.managementIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.managementIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.managementIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.managementIaCode).path)">
-			</a>
-			<!-- LNB 확장 -->
-			<div class="lnb-expand">
-				<!-- 메뉴 정보 -->
-				<div class="info-area">
-					<h2 class="txt-title">{{ translateService.instant('LNB.MANAGEMENT.TITLE', '포탈 관리') }}</h2>
-					<p class="txt-desc" [innerHTML]="translateService.instant('LNB.MANAGEMENT.DESC', '')">
-					</p>
-				</div>
-				<!-- //메뉴 정보 -->
-				<!-- 검색,메뉴 영역 -->
-				<div class="expand-area">
-					<!-- 검색 -->
-					<div menu-search-input
-						 [expanded]="elementRef.nativeElement.querySelector('.link-portal').getAttribute('aria-portal') === null ? 'false' : elementRef.nativeElement.querySelector('.link-portal').getAttribute('aria-expanded')"
-						 [menuIaCode]="['IA9999']"
-						 (oClick)="clickSubMenuPageSearchResult($event)">
-					</div>
-					<!-- //검색 -->
+<!--					<div menu-search-input-->
+<!--						 [expanded]="elementRef.nativeElement.querySelector('.link-app').getAttribute('aria-expanded') === null ? 'false' : elementRef.nativeElement.querySelector('.link-app').getAttribute('aria-expanded')"-->
+<!--						 [menuIaCode]="[layoutService.iaCodes.appPlaceIaCode]"-->
+<!--						 (oClick)="tagging(TaggingType.LNB, TaggingAction.ITEM, $event.name); clickSubMenuPageSearchResult($event)">-->
+<!--					</div>-->
 
-					<!-- 메뉴 목록 -->
-					<div class="menu-block">
-						<dl class="list-menu">
-							<dt>{{ translateService.instant('LNB.MANAGEMENT.USER', '사용자 관리') }}</dt>
-							<dd>
-								<ul>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/users')">
-											{{ translateService.instant('LNB.MANAGEMENT.USER.SUB1', '사용자 조회') }}
-										</a>
-									</li>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/groups')">
-											{{ translateService.instant('LNB.MANAGEMENT.USER.SUB2', '그룹 관리') }}
-										</a>
-									</li>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/authority')">
-											{{ translateService.instant('LNB.MANAGEMENT.USER.SUB3', '권한 관리') }}
-										</a>
-									</li>
-								</ul>
-							</dd>
-						</dl>
-						<dl class="list-menu">
-							<dt>{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE', '추천 리포트/앱 관리') }}</dt>
-							<dd>
-								<ul>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/authority/request-approval')">
-											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB1', '권한승인') }}
-										</a>
-									</li>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/report-app/report')">
-											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB2', '리포트 관리') }}
-										</a>
-									</li>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/analysis-app/app')">
-											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB3', '분석 앱 관리') }}
-										</a>
-									</li>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/report-app/category')">
-											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB4', '리포트 카테고리 관리') }}
-										</a>
-									</li>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/analysis-app/category')">
-											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB5', '분석 앱 카테고리 관리') }}
-										</a>
-									</li>
-								</ul>
-							</dd>
-						</dl>
+<!--					&lt;!&ndash; 인기/최신 리포트,분석 앱 목록 &ndash;&gt;-->
+<!--					<div class="recently-block">-->
+<!--						&lt;!&ndash; 마이 리포트 &ndash;&gt;-->
+<!--						<dl class="thumb-report">-->
+<!--							<dt>-->
+<!--								<span>{{ getReportAppMenu().name }}</span>-->
+<!--								<a href="javascript:;"-->
+<!--								   class="link-more"-->
+<!--								   *ngIf="getReportAppMenu() !== null"-->
+<!--								   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '전체보기'); goPage(getReportAppMenu().id, getReportAppMenu().link, getReportAppMenu().external, getReportAppMenu().path)">-->
+<!--									{{ translateService.instant('COMMON.VIEW.ALL', '전체보기') }}-->
+<!--								</a>-->
+<!--							</dt>-->
+<!--							<dd>-->
+<!--								&lt;!&ndash; 인기 &ndash;&gt;-->
+<!--								<div class="popular-list">-->
+<!--									<strong class="txt-title">-->
+<!--										<span>-->
+<!--											<em>{{ translateService.instant('LNB.APP.PLACE.FAVORITE', '인기') }}</em> {{ getReportAppMenu().name }}-->
+<!--										</span>-->
+<!--									</strong>-->
+<!--									<ol class="list-popular"-->
+<!--										*ngIf="getReportAppPopularList().length > 0">-->
+<!--										<li *ngFor="let menu of getReportAppPopularList(); let index = index;">-->
+<!--											<a href="javascript:;" class="link-item">-->
+<!--												<span class="img-thumb">-->
+<!--													<em [style.background-image]="'url(' + getMediaPath(menu.media) + ')'"-->
+<!--														(click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goReportAppPage(menu.id, menu.link, menu.external, menu.path, false)"></em>-->
+<!--												</span>-->
+<!--												<span class="txt-title">-->
+<!--													<em class="txt-num">{{ index + 1 }}</em>-->
+<!--														<span class="txt-app"-->
+<!--															  [attr.title]="menu.name"-->
+<!--															  (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goReportAppPage(menu.id, menu.link, menu.external, menu.path, false)">-->
+<!--															{{ menu.name }}-->
+<!--														</span>-->
+<!--													</span>-->
+<!--												<span class="txt-category">{{ connectCategoryNameWithCommaInExtraList(menu.extra) }}</span>-->
+<!--											</a>-->
+<!--										</li>-->
+<!--									</ol>-->
+<!--									&lt;!&ndash; No Data &ndash;&gt;-->
+<!--									<div class="nodata"-->
+<!--										 *ngIf="getReportAppPopularList().length === 0">-->
+<!--										<p class="txt-desc">{{ translateService.instant('LNB.APP.PLACE.FAVORITE.REPORT.NODATA', '등록된 리포트가 없습니다.') }}</p>-->
+<!--									</div>-->
+<!--									&lt;!&ndash; //No Data &ndash;&gt;-->
+<!--								</div>-->
+<!--								&lt;!&ndash; //인기 &ndash;&gt;-->
+<!--								&lt;!&ndash; 최신 &ndash;&gt;-->
+<!--								<div class="new-list">-->
+<!--									<strong class="txt-title">-->
+<!--										<span>-->
+<!--											<em>{{ translateService.instant('LNB.APP.PLACE.RECENT', '최신') }}</em> {{ getReportAppMenu().name }}-->
+<!--										</span>-->
+<!--									</strong>-->
+<!--									<div class="thumb">-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-my"-->
+<!--										   *ngFor="let menu of getReportAppLatestList(); let index = index;">-->
+<!--											<span class="img-thumb">-->
+<!--												<em [style.background-image]="'url(' + getMediaPath(menu.media) + ')'"-->
+<!--													(click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goAnalysisAppPage(menu.id, menu.link, menu.external, menu.path, false)">-->
+<!--												</em>-->
+<!--											</span>-->
+<!--											&lt;!&ndash; [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 &ndash;&gt;-->
+<!--											<span class="txt-title"-->
+<!--												  [attr.title]="menu.name"-->
+<!--												  (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goAnalysisAppPage(menu.id, menu.link, menu.external, menu.path, false)">-->
+<!--												{{ menu.name }}-->
+<!--											</span>-->
+<!--										</a>-->
+<!--									</div>-->
+<!--									&lt;!&ndash; No Data &ndash;&gt;-->
+<!--									<div class="nodata"-->
+<!--										 *ngIf="getReportAppLatestList().length === 0">-->
+<!--										<p class="txt-desc">{{ translateService.instant('LNB.APP.PLACE.RECENT.REPORT.NODATA', '등록된 최신 리포트가 없습니다.') }}</p>-->
+<!--									</div>-->
+<!--									&lt;!&ndash; //No Data &ndash;&gt;-->
+<!--								</div>-->
+<!--								&lt;!&ndash; //최신 &ndash;&gt;-->
+<!--							</dd>-->
+<!--						</dl>-->
+<!--						&lt;!&ndash; //마이 리포트 &ndash;&gt;-->
 
-						<dl class="list-menu">
-							<dt>{{ translateService.instant('LNB.MANAGEMENT.META', '메타데이터 관리') }}</dt>
-							<dd>
-								<ul>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, '/view/management/metadata/temp/subject')">
-											{{ translateService.instant('LNB.MANAGEMENT.META.SUB1', '데이터 주제영역(임시)') }}
-										</a>
-									</li>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, '/view/management/metadata/temp/dictionary')">
-											{{ translateService.instant('LNB.MANAGEMENT.META.SUB2', '데이터 표준 단어집(임시)') }}
-										</a>
-									</li>
-									<li *ngIf="isManagementMetaMenuShow">
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, '/view/management/metadata/subject')">
-											{{ translateService.instant('LNB.MANAGEMENT.META.SUB3', '데이터 주제영역') }}
-										</a>
-									</li>
-									<li *ngIf="isManagementMetaMenuShow">
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, '/view/management/metadata/system')">
-											{{ translateService.instant('LNB.MANAGEMENT.META.SUB4', '연계 시스템') }}
-										</a>
-									</li>
-								</ul>
-							</dd>
-						</dl>
+<!--						&lt;!&ndash; 마이 분석 앱 &ndash;&gt;-->
+<!--						<dl class="thumb-analysis">-->
+<!--							<dt>-->
+<!--								<span>{{ getAnalysisAppMenu().name }}</span>-->
+<!--								<a href="javascript:;"-->
+<!--								   class="link-more"-->
+<!--								   *ngIf="getAnalysisAppMenu() !== null"-->
+<!--								   (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, '전체보기'); goPage(getAnalysisAppMenu().id, getAnalysisAppMenu().link, getAnalysisAppMenu().external, getAnalysisAppMenu().path)">-->
+<!--									{{ translateService.instant('COMMON.VIEW.ALL', '전체보기') }}-->
+<!--								</a>-->
+<!--							</dt>-->
+<!--							<dd>-->
+<!--								&lt;!&ndash; 인기 &ndash;&gt;-->
+<!--								<div class="popular-list">-->
+<!--									<strong class="txt-title">-->
+<!--										<span>-->
+<!--											<em>{{ translateService.instant('LNB.APP.PLACE.FAVORITE', '인기') }}</em> {{ getAnalysisAppMenu().name }}-->
+<!--										</span>-->
+<!--									</strong>-->
+<!--									<ol class="list-popular"-->
+<!--										*ngIf="getAnalysisAppPopularList().length > 0">-->
+<!--										<li *ngFor="let menu of getAnalysisAppPopularList(); let index = index;">-->
+<!--											<a href="javascript:;"-->
+<!--											   class="link-item">-->
+<!--												<span class="img-thumb">-->
+<!--													<em [style.background-image]="'url(' + getMediaPath(menu.media) + ')'"-->
+<!--														(click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goPage(menu.id, menu.link, menu.external, menu.path)"></em>-->
+<!--												</span>-->
+<!--												<span class="txt-title">-->
+<!--													<em class="txt-num">{{ index + 1 }}</em>-->
+<!--													<span class="txt-app"-->
+<!--														  [attr.title]="menu.name"-->
+<!--														  (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goPage(menu.id, menu.link, menu.external, menu.path)">-->
+<!--														{{ menu.name }}-->
+<!--													</span>-->
+<!--												</span>-->
+<!--												<span class="txt-category">{{ connectCategoryNameWithCommaInExtraList(menu.extra) }}</span>-->
+<!--											</a>-->
+<!--										</li>-->
+<!--									</ol>-->
+<!--									&lt;!&ndash; No Data &ndash;&gt;-->
+<!--									<div class="nodata"-->
+<!--										 *ngIf="getAnalysisAppPopularList().length === 0">-->
+<!--										<p class="txt-desc">{{ translateService.instant('LNB.APP.PLACE.FAVORITE.APP.NODATA', '등록된 분석 앱이 없습니다.') }}</p>-->
+<!--									</div>-->
+<!--									&lt;!&ndash; //No Data &ndash;&gt;-->
+<!--								</div>-->
+<!--								&lt;!&ndash; //인기 &ndash;&gt;-->
+<!--								&lt;!&ndash; 최신 &ndash;&gt;-->
+<!--								<div class="new-list">-->
+<!--									<strong class="txt-title">-->
+<!--										<span>-->
+<!--											<em>{{ translateService.instant('LNB.APP.PLACE.RECENT', '최신') }}</em> {{ getAnalysisAppMenu().name }}-->
+<!--										</span>-->
+<!--									</strong>-->
+<!--									<div class="thumb">-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-my"-->
+<!--										   *ngFor="let menu of getAnalysisAppLatestList(); let index = index;">-->
+<!--											<span class="img-thumb">-->
+<!--												<em [style.background-image]="'url(' + getMediaPath(menu.media) + ')'"-->
+<!--													(click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goPage(menu.id, menu.link, menu.external, menu.path)"></em>-->
+<!--											</span>-->
+<!--											&lt;!&ndash; [D] 툴팁 제공을 위해 title 속성에 타이틀명 적용 &ndash;&gt;-->
+<!--											<span class="txt-title"-->
+<!--												  [attr.title]="menu.name"-->
+<!--												  (click)="tagging(TaggingType.LNB, TaggingAction.ITEM, menu.name); goPage(menu.id, menu.link, menu.external, menu.path)">-->
+<!--												{{ menu.name }}-->
+<!--											</span>-->
+<!--										</a>-->
+<!--									</div>-->
+<!--									&lt;!&ndash; No Data &ndash;&gt;-->
+<!--									<div class="nodata"-->
+<!--										 *ngIf="getAnalysisAppLatestList().length === 0">-->
+<!--										<p class="txt-desc">{{ translateService.instant('LNB.APP.PLACE.RECENT.APP.NODATA', '등록된 최신 분석 앱이 없습니다.') }}</p>-->
+<!--									</div>-->
+<!--									&lt;!&ndash; //No Data &ndash;&gt;-->
+<!--								</div>-->
+<!--								&lt;!&ndash; //최신 &ndash;&gt;-->
+<!--							</dd>-->
+<!--						</dl>-->
+<!--						&lt;!&ndash; //마이 분석 앱 &ndash;&gt;-->
+<!--					</div>-->
+<!--					&lt;!&ndash; //리포트,분석 앱 목록 &ndash;&gt;-->
+<!--				</div>-->
+<!--				&lt;!&ndash; //검색,메뉴 영역 &ndash;&gt;-->
+<!--			</div>-->
+<!--			&lt;!&ndash; //LNB 확장 &ndash;&gt;-->
+<!--		</li>-->
+
+<!--		<li class="link-meta menuFirstDepth"-->
+<!--			*ngIf="layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode) !== null && layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.metadataIaCode)"-->
+<!--			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).id"-->
+<!--			[attr.aria-expanded]="false"-->
+<!--			(mouseover)="showSubMenu('link-meta')"-->
+<!--			(mouseleave)="hideSubMenu('link-meta')">-->
+
+<!--			<a href="javascript:;"-->
+<!--			   aria-label="데이터 웨어하우스 데이터"-->
+<!--			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.metadataIaCode).path)">-->
+<!--			</a>-->
+<!--			&lt;!&ndash; LNB 확장 &ndash;&gt;-->
+<!--			<div class="lnb-expand">-->
+<!--				&lt;!&ndash; 메뉴 정보 &ndash;&gt;-->
+<!--				<div class="info-area">-->
+<!--					<h2 class="txt-title">{{ translateService.instant('LNB.META.TITLE', '메타데이터') }}</h2>-->
+<!--					<p class="txt-desc" [innerHTML]="translateService.instant('LNB.META.DESC', '')">-->
+<!--					</p>-->
+<!--				</div>-->
+<!--				&lt;!&ndash; //메뉴 정보 &ndash;&gt;-->
+<!--				&lt;!&ndash; 검색,메뉴 영역 &ndash;&gt;-->
+<!--				<div class="expand-area">-->
+
+<!--					<div menu-search-input-->
+<!--						 [expanded]="elementRef.nativeElement.querySelector('.link-meta').getAttribute('aria-expanded') === null ? 'false' : elementRef.nativeElement.querySelector('.link-meta').getAttribute('aria-expanded')"-->
+<!--						 [menuIaCode]="[layoutService.iaCodes.metadataIaCode]"-->
+<!--						 (oClick)="tagging(TaggingType.LNB, TaggingAction.ITEM, $event.name); clickSubMenuPageSearchResult($event)">-->
+<!--					</div>-->
+
+<!--					&lt;!&ndash; 메뉴 목록 &ndash;&gt;-->
+<!--					<div class="menu-block">-->
+<!--						<dl class="list-menu"-->
+<!--							*ngFor="let menu of getMenuDisplayYList(layoutService.iaCodes.metadataIaCode)">-->
+<!--							<dt>{{ menu.name }}</dt>-->
+<!--							<dd>-->
+<!--								<ul>-->
+<!--									<li>-->
+<!--										<a href="javascript:;" class="link-menu"-->
+<!--										   *ngFor="let children of menu.children"-->
+<!--										   (click)="tagging(TaggingType.LNB, TaggingAction.BTN, children.name); goPage(children.id, children.link, children.external, children.path)">{{ children.name }} </a>-->
+<!--									</li>-->
+<!--								</ul>-->
+<!--							</dd>-->
+<!--						</dl>-->
+<!--					</div>-->
+<!--					&lt;!&ndash; //메뉴 목록 &ndash;&gt;-->
+<!--				</div>-->
+<!--				&lt;!&ndash; //검색,메뉴 영역 &ndash;&gt;-->
+<!--			</div>-->
+<!--			&lt;!&ndash; //LNB 확장 &ndash;&gt;-->
+<!--		</li>-->
+
+<!--		<li class="link-portal menuFirstDepth"-->
+<!--			*ngIf="layoutService.getMenuByIaCode(layoutService.iaCodes.managementIaCode) !== null && layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.managementIaCode) && sessionInfo.getUser().admin"-->
+<!--			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.managementIaCode).id"-->
+<!--			[attr.aria-expanded]="false"-->
+<!--			(mouseover)="showSubMenu('link-portal')"-->
+<!--			(mouseleave)="hideSubMenu('link-portal')">-->
+
+<!--			<a href="javascript:;"-->
+<!--			   aria-label="포탈 관리"-->
+<!--			   (click)="$event.stopPropagation(); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.managementIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.managementIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.managementIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.managementIaCode).path)">-->
+<!--			</a>-->
+<!--			&lt;!&ndash; LNB 확장 &ndash;&gt;-->
+<!--			<div class="lnb-expand">-->
+<!--				&lt;!&ndash; 메뉴 정보 &ndash;&gt;-->
+<!--				<div class="info-area">-->
+<!--					<h2 class="txt-title">{{ translateService.instant('LNB.MANAGEMENT.TITLE', '포탈 관리') }}</h2>-->
+<!--					<p class="txt-desc" [innerHTML]="translateService.instant('LNB.MANAGEMENT.DESC', '')">-->
+<!--					</p>-->
+<!--				</div>-->
+<!--				&lt;!&ndash; //메뉴 정보 &ndash;&gt;-->
+<!--				&lt;!&ndash; 검색,메뉴 영역 &ndash;&gt;-->
+<!--				<div class="expand-area">-->
+<!--					&lt;!&ndash; 검색 &ndash;&gt;-->
+<!--					<div menu-search-input-->
+<!--						 [expanded]="elementRef.nativeElement.querySelector('.link-portal').getAttribute('aria-portal') === null ? 'false' : elementRef.nativeElement.querySelector('.link-portal').getAttribute('aria-expanded')"-->
+<!--						 [menuIaCode]="['IA9999']"-->
+<!--						 (oClick)="clickSubMenuPageSearchResult($event)">-->
+<!--					</div>-->
+<!--					&lt;!&ndash; //검색 &ndash;&gt;-->
+
+<!--					&lt;!&ndash; 메뉴 목록 &ndash;&gt;-->
+<!--					<div class="menu-block">-->
+<!--						<dl class="list-menu">-->
+<!--							<dt>{{ translateService.instant('LNB.MANAGEMENT.USER', '사용자 관리') }}</dt>-->
+<!--							<dd>-->
+<!--								<ul>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/users')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.USER.SUB1', '사용자 조회') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/groups')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.USER.SUB2', '그룹 관리') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/authority')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.USER.SUB3', '권한 관리') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--								</ul>-->
+<!--							</dd>-->
+<!--						</dl>-->
+<!--						<dl class="list-menu">-->
+<!--							<dt>{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE', '추천 리포트/앱 관리') }}</dt>-->
+<!--							<dd>-->
+<!--								<ul>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/authority/request-approval')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB1', '권한승인') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/report-app/report')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB2', '리포트 관리') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/analysis-app/app')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB3', '분석 앱 관리') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/report-app/category')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB4', '리포트 카테고리 관리') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/analysis-app/category')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.APP.PLACE.SUB5', '분석 앱 카테고리 관리') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--								</ul>-->
+<!--							</dd>-->
+<!--						</dl>-->
+
+<!--						<dl class="list-menu">-->
+<!--							<dt>{{ translateService.instant('LNB.MANAGEMENT.META', '메타데이터 관리') }}</dt>-->
+<!--							<dd>-->
+<!--								<ul>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, '/view/management/metadata/temp/subject')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.META.SUB1', '데이터 주제영역(임시)') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, '/view/management/metadata/temp/dictionary')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.META.SUB2', '데이터 표준 단어집(임시)') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--									<li *ngIf="isManagementMetaMenuShow">-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, '/view/management/metadata/subject')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.META.SUB3', '데이터 주제영역') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--									<li *ngIf="isManagementMetaMenuShow">-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, '/view/management/metadata/system')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.META.SUB4', '연계 시스템') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--								</ul>-->
+<!--							</dd>-->
+<!--						</dl>-->
 
 
-						<dl class="list-menu">
-							<dt>{{ translateService.instant('LNB.MANAGEMENT.MENU', '메뉴 관리') }}</dt>
-							<dd>
-								<ul>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/menu')">
-											{{ translateService.instant('LNB.MANAGEMENT.MENU.SUB1', '메뉴관리') }}
-										</a>
-									</li>
-								</ul>
-							</dd>
-						</dl>
-						<dl class="list-menu">
-							<dt>{{ translateService.instant('LNB.MANAGEMENT.LOG', '사용자 로그 조회') }}</dt>
-							<dd>
-								<ul>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/log/connect')">
-											{{ translateService.instant('LNB.MANAGEMENT.LOG.SUB1', '사용자 접속 로그') }}
-										</a>
-									</li>
-									<li>
-										<a href="javascript:;"
-										   class="link-menu"
-										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/log/app')">
-											{{ translateService.instant('LNB.MANAGEMENT.LOG.SUB2', '앱 로그') }}
-										</a>
-									</li>
-								</ul>
-							</dd>
-						</dl>
-					</div>
-					<!-- //메뉴 목록 -->
-				</div>
-				<!-- //검색,메뉴 영역 -->
-			</div>
-			<!-- //LNB 확장 -->
-		</li>
+<!--						<dl class="list-menu">-->
+<!--							<dt>{{ translateService.instant('LNB.MANAGEMENT.MENU', '메뉴 관리') }}</dt>-->
+<!--							<dd>-->
+<!--								<ul>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/menu')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.MENU.SUB1', '메뉴관리') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--								</ul>-->
+<!--							</dd>-->
+<!--						</dl>-->
+<!--						<dl class="list-menu">-->
+<!--							<dt>{{ translateService.instant('LNB.MANAGEMENT.LOG', '사용자 로그 조회') }}</dt>-->
+<!--							<dd>-->
+<!--								<ul>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/log/connect')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.LOG.SUB1', '사용자 접속 로그') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--									<li>-->
+<!--										<a href="javascript:;"-->
+<!--										   class="link-menu"-->
+<!--										   (click)="$event.stopPropagation(); goPage(null, true, false, 'view/management/log/app')">-->
+<!--											{{ translateService.instant('LNB.MANAGEMENT.LOG.SUB2', '앱 로그') }}-->
+<!--										</a>-->
+<!--									</li>-->
+<!--								</ul>-->
+<!--							</dd>-->
+<!--						</dl>-->
+<!--					</div>-->
+<!--					&lt;!&ndash; //메뉴 목록 &ndash;&gt;-->
+<!--				</div>-->
+<!--				&lt;!&ndash; //검색,메뉴 영역 &ndash;&gt;-->
+<!--			</div>-->
+<!--			&lt;!&ndash; //LNB 확장 &ndash;&gt;-->
+<!--		</li>-->
 
-		<li class="link-all"
-			*ngIf="layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode) !== null && layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.siteMapIaCode)"
-			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).id"
-			[title]="layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).name">
-			<a href="javascript:;"
-			   aria-label="전체 서비스"
-			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).path)"></a>
-		</li>
+<!--		<li class="link-all"-->
+<!--			*ngIf="layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode) !== null && layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.siteMapIaCode)"-->
+<!--			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).id"-->
+<!--			[title]="layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).name">-->
+<!--			<a href="javascript:;"-->
+<!--			   aria-label="전체 서비스"-->
+<!--			   (click)="$event.stopPropagation(); tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).name); goPage(layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).id, layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).link, layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).external, layoutService.getMenuByIaCode(layoutService.iaCodes.siteMapIaCode).path)"></a>-->
+<!--		</li>-->
 
 	</ul>
 

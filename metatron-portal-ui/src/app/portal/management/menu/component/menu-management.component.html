@@ -50,6 +50,14 @@
 						<input type="text" class="input-text" [attr.placeholder]="translateService.instant('MANAGEMENT.MENU.DETAIL.DESC.PLACEHOLDER', '메뉴에 대한 간략한 설명을 입력하세요.')" [(ngModel)]="currentMenu.iaDesc">
 					</td>
 				</tr>
+				<tr *ngIf="currentMenu.depth == 1 && currentMenu.displayYn">
+					<th class="align-top">
+						<label class="label">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.DESC.DETAIL.TITLE', '메뉴 상세 설명') }}</label>
+					</th>
+					<td>
+						<textarea class="textarea" [(ngModel)]="currentMenu.iaDetailDesc"></textarea>
+					</td>
+				</tr>
 				</tbody>
 			</table>
 			<!-- //기본정보 폼 -->
@@ -131,6 +139,37 @@
 					</th>
 					<td>
 						<input type="text" class="input-text type-order" [(ngModel)]="currentMenu.iaOrder">
+					</td>
+				</tr>
+				<tr *ngIf="currentMenu.depth == 1 && currentMenu.displayYn">
+					<th>
+						<label class="label">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.ICON.TITLE', '메뉴 아이콘') }}</label>
+					</th>
+					<td>
+						<div class="set-icon">
+							<!-- Select Box -->
+							<div common-select
+								 [className]="'type-filter'"
+								 [items]="iconList"
+								 (itemSelect)="iconSelect($event)">
+							</div>
+							<!-- //Select Box -->
+
+							<div class="preview-icon">
+								<!--
+									[D] 아이콘 클래스명
+									link-home : Home
+									link-comm : 커뮤니티
+									link-my : 마이 메뉴
+									link-app : App
+									link-meta : 메타
+									link-portal : Admin
+									link-all : 전체 메뉴
+									link-custom : 게시판 (신규)
+								-->
+								<i class="icon-preview" [ngClass]="currentMenu.icon"></i>
+							</div>
+						</div>
 					</td>
 				</tr>
 				</tbody>
