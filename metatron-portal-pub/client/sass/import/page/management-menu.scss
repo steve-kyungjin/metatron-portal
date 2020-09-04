@@ -180,28 +180,28 @@
 				.icon-preview {
 					vertical-align:middle !important;
 
-					&.type-a {
+					&.link-home {
 						@include get-sprite($icon_lnb_home);
 					}
-					&.type-b {
+					&.link-comm {
 						@include get-sprite($icon_lnb_comm);
 					}
-					&.type-c {
+					&.link-my {
 						@include get-sprite($icon_lnb_my);
 					}
-					&.type-d {
+					&.link-app {
 						@include get-sprite($icon_lnb_app);
 					}
-					&.type-e {
+					&.link-meta {
 						@include get-sprite($icon_lnb_datasearch);
 					}
-					&.type-f {
+					&.link-portal {
 						@include get-sprite($icon_lnb_admin);
 					}
-					&.type-g {
+					&.link-all {
 						@include get-sprite($icon_lnb_all);
 					}
-					&.type-h {
+					&.link-custom {
 						@include get-sprite($icon_lnb_comm);
 					}
 				}
