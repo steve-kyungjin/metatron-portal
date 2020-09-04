@@ -296,6 +296,7 @@
         "NAME.PLACEHOLDER": "Please enter a menu name.",
         "DESC.TITLE": "Menu description",
         "DESC.PLACEHOLDER": "Please provide a brief description of the menu.",
+        "DESC.DETAIL.TITLE": "Detail menu description",
         "PROPERTY.TITLE": "Menu Properties",
         "MENU_TYPE.TITLE": "Menu type",
         "MENU_TYPE.TEXT1": "Create new page",
@@ -309,6 +310,7 @@
         "PATH.TITLE": "Page path",
         "PATH.PLACEHOLDER": "Please enter page URL.",
         "ORDER.TITLE": "Menu order",
+        "ICON.TITLE": "Icons",
         "NODATA": "You can select the menu to manage or add a <br> 2,3depth menu."
       },
       "VALIDATION": {
