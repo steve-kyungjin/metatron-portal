@@ -12,7 +12,7 @@ module.exports = function (grunt) {
 					outputStyle: 'compressed'
 				},
 				files: {
-					'client/css/mp.css': 'client/sass/style.scss'
+					'client/css/dtp.css': 'client/sass/style.scss'
 				}
 			}
 		},

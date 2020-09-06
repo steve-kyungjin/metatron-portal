@@ -36,6 +36,10 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 	 */
 	public isManagementMetaMenuShow: boolean = false;
 
+	public menus: Array<Menu.Entity>;
+
+	public bottomMenus: Array<Menu.Entity>;
+
 	/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
      | Component
      |-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
@@ -71,6 +75,12 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 
 	public ngOnInit(): void {
 		this.isManagementMetaMenuShow = !EnvironmentUtil.isProductionMode();
+		this.menus = this.layoutService.menus.filter(value => {
+			return value.display && !value.extraMenu;
+		});
+		this.bottomMenus = this.layoutService.menus.filter(value => {
+			return value.extraMenu;
+		});
 	}
 
 	public ngOnDestroy(): void {
@@ -86,7 +96,10 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 	 *
 	 * @param className
 	 */
-	public showSubMenu(className: string): void {
+	public showSubMenu(className: string, menu: Menu.Entity = null): void {
+		if (menu && menu.children.length < 1 && menu.id != this.layoutService.iaCodes.managementIaCode) {
+			return;
+		}
 		this.changeDisplayValue(className, true);
 	}
 
@@ -95,7 +108,10 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 	 *
 	 * @param className
 	 */
-	public hideSubMenu(className: string): void {
+	public hideSubMenu(className: string, menu: Menu.Entity = null): void {
+		if (menu && menu.children.length < 1 && menu.id != this.layoutService.iaCodes.managementIaCode) {
+			return;
+		}
 		this.changeDisplayValue(className, false);
 	}
 

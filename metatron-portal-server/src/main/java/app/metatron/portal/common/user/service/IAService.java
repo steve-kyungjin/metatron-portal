@@ -2,16 +2,14 @@ package app.metatron.portal.common.user.service;
 
 import app.metatron.portal.common.constant.Const;
 import app.metatron.portal.common.service.AbstractGenericService;
-import app.metatron.portal.common.user.domain.IADto;
-import app.metatron.portal.common.user.domain.IAEntity;
-import app.metatron.portal.common.user.domain.MenuVO;
+import app.metatron.portal.common.user.domain.*;
 import app.metatron.portal.common.user.repository.IARepository;
 import app.metatron.portal.portal.analysis.domain.AnalysisAppEntity;
+import app.metatron.portal.portal.analysis.service.AnalysisAppRecommendService;
+import app.metatron.portal.portal.analysis.service.AnalysisAppService;
 import app.metatron.portal.portal.log.domain.AppLogEntity;
 import app.metatron.portal.portal.report.domain.ReportAppEntity;
 import app.metatron.portal.portal.report.service.ReportAppRecommendService;
-import app.metatron.portal.portal.analysis.service.AnalysisAppRecommendService;
-import app.metatron.portal.portal.analysis.service.AnalysisAppService;
 import app.metatron.portal.portal.report.service.ReportAppService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +87,27 @@ public class IAService extends AbstractGenericService<IAEntity, String> {
             ia.setParent(parent);
         }
         this.setCreateUserInfo(ia);
-        return iaRepository.save(ia);
+        iaRepository.save(ia);
+
+        // 1depth 메뉴일 경우 권한 추가
+        if (ia.getDepth() == 1) {
+            List<RoleGroupDto.IA> iaAndPermissions = new ArrayList<>();
+            RoleGroupDto.IA iaAndPermission = new RoleGroupDto.IA();
+            iaAndPermission.setIaId(ia.getId());
+            iaAndPermission.setPermission(PermissionType.RW.toString());
+            iaAndPermissions.add(iaAndPermission);
+            roleGroupService.addIAPermission(Const.RoleGroup.DEFAULT_USER, iaAndPermissions);
+
+            iaAndPermissions = new ArrayList<>();
+            iaAndPermission = new RoleGroupDto.IA();
+            iaAndPermission.setIaId(ia.getId());
+            iaAndPermission.setPermission(PermissionType.SA.toString());
+            iaAndPermissions.add(iaAndPermission);
+
+            roleGroupService.addIAPermission(Const.RoleGroup.SYSTEM_ADMIN, iaAndPermissions);
+        }
+
+        return ia;
     }
 
     /**
@@ -243,11 +261,14 @@ public class IAService extends AbstractGenericService<IAEntity, String> {
         menu.setId(ia.getId());
         menu.setName(ia.getIaNm());
         menu.setDesc(ia.getIaDesc());
+        menu.setDetailDesc(ia.getIaDetailDesc());
         menu.setPath(ia.getPath());
         menu.setExternal(ia.getExternalYn());
         menu.setLink(ia.getLinkYn());
         menu.setDisplay(ia.getDisplayYn());
         menu.setPermission(permission);
+        menu.setExtraMenu(ia.getExtraYn());
+        menu.setIcon(ia.getIcon());
         return menu;
     }
 

@@ -151,6 +151,14 @@
 									<input type="text" class="input-text" placeholder="메뉴에 대한 간략한 설명을 입력하세요.">
 								</td>
 							</tr>
+							<tr>
+								<th class="align-top">
+									<label class="label">메뉴설명</label>
+								</th>
+								<td>
+									<textarea class="textarea" placeholder="설명을 입력하세요."></textarea>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 					<!-- //기본정보 폼 -->
@@ -215,6 +223,48 @@
 								</th>
 								<td>
 									<input type="text" class="input-text type-order">
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="label">메뉴 아이콘</label>
+								</th>
+								<td>
+									<div class="set-icon">
+										<!-- Select Box -->
+										<div class="component-select">
+											<span class="label">아이콘 선택</span>
+											<!-- [D] 셀렉트 박스 선택 시 aria-expanded 값 true로 변경 -->
+											<div class="layer-select" aria-expanded="false">
+												<ul class="list-options">
+													<li>
+														<input type="radio" id="radio1" class="input-radio" name="selectoption" checked>
+														<label for="radio1" class="item-option">데이터 베이스</label>
+													</li>
+													<li>
+														<input type="radio" id="radio2" class="input-radio" name="selectoption">
+														<label for="radio2" class="item-option">데이터 베이스</label>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<!-- //Select Box -->
+
+										<div class="preview-icon">
+											<!--
+												[D] 아이콘 클래스명
+												link-home : Home
+												link-comm : 커뮤니티
+												link-my : 마이 메뉴
+												link-app : App
+												link-meta : 메타
+												link-portal : Admin
+												link-all : 전체 메뉴
+												link-custom : 게시판 (신규)
+											-->
+											<i class="icon-preview link-home"></i>
+										</div>
+									</div>
 								</td>
 							</tr>
 						</tbody>

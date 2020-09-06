@@ -33,12 +33,14 @@ export namespace Menu {
 		external: boolean;
 		path: string;
 		desc: string;
+		detailDesc: string;
 		link: boolean;
 		permission: string;
 		children: Array<Children>;
 		display: boolean;
 		appType: APP_TYPE;
-		extra: any;
+		extraMenu: boolean;
+		icon: string;
 
 		constructor() {
 		}
