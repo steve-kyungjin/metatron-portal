@@ -103,7 +103,7 @@ public class Const {
 
     // 이메일 관련
     public static class Email {
-        public static final String ADDRESS_SYSTEM = "minsary@exntu.com";
+        public static final String ADDRESS_SYSTEM = "admin@incross.com";
 
         public static final String TEMPLATE_REQUEST_REG = "REQUEST_REG";
         public static final String TEMPLATE_REQUEST_MOD = "REQUEST_MOD";
