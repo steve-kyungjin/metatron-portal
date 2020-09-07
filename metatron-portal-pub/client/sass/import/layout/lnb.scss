@@ -173,14 +173,14 @@
 	.link-custom {
 		> a {
 			&:before {
-				margin:-10px 0 0 -11px;
+				margin:-9px 0 0 -8px;
 
-				@include get-sprite($icon_lnb_comm);
+				@include get-sprite($icon_lnb_board);
 			}
 		}
 		.lnb-expand {
 			.info-area .txt-title:before {
-				@include get-sprite($icon_title_comm);
+				@include get-sprite($icon_lnb_board);
 			}
 			.info-area .txt-desc:before {
 				display:none;
@@ -241,15 +241,15 @@
 /***************************************************************************************
    LNB - Expand
 ***************************************************************************************/
-.link-comm .lnb-expand .expand-area .menu-block .list-menu > dt:before {
-	@include get-sprite($icon_lnb_link);
-}
 .link-meta .lnb-expand .expand-area .menu-block .list-menu > dt:before {
 	@include get-sprite($icon_lnb_meta);
 }
 .link-portal .lnb-expand .expand-area .menu-block .list-menu > dt:before {
 	@include get-sprite($icon_lnb_portal);
 }
+.link-comm .lnb-expand .expand-area .menu-block .list-menu > dt:before,
+.link-my .lnb-expand .expand-area .menu-block .list-menu > dt:before,
+.link-app .lnb-expand .expand-area .menu-block .list-menu > dt:before,
 .link-custom .lnb-expand .expand-area .menu-block .list-menu > dt:before {
 	@include get-sprite($icon_lnb_link);
 }
