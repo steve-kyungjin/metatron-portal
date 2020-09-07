@@ -483,6 +483,34 @@ public class RoleGroupService extends AbstractGenericService<RoleGroupEntity, St
         }
     }
 
+    /**
+     * IA별 권한 추가
+     * @param roleGroupId
+     * @param iaAndPermissions
+     * @return
+     */
+    public boolean addIAPermission(String roleGroupId, List<RoleGroupDto.IA> iaAndPermissions) {
+        List<RoleGroupIARelEntity> iaRels = new ArrayList<>();
+        RoleGroupEntity roleGroup = roleGroupRepository.findOne(roleGroupId);
+        if( iaAndPermissions != null && iaAndPermissions.size() > 0 ) {
+            for( RoleGroupDto.IA ip : iaAndPermissions ) {
+                if( !StringUtils.isEmpty(ip.getPermission()) ) {
+                    RoleGroupIARelEntity rel = new RoleGroupIARelEntity();
+                    IAEntity ia = iaService.get(ip.getIaId());
+                    rel.setRoleGroup(roleGroup);
+                    rel.setIa(ia);
+                    rel.setPermission(PermissionType.valueOf(ip.getPermission().toUpperCase()));
+                    this.setCreateUserInfo(rel);
+                    iaRels.add(rel);
+                }
+            }
+            iaRels = roleGroupIARelRepository.save(iaRels);
+            return iaRels != null && iaRels.size() > 0;
+        } else {
+            return true;
+        }
+    }
+
 
     /**
      * 시스템 어드민 권한(특수) 부여

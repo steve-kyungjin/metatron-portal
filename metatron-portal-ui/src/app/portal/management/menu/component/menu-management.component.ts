@@ -13,6 +13,7 @@ import {MenuManagement} from '../value/menu-management.value';
 import {Alert} from '../../../../common/util/alert-util';
 import {Validate} from '../../../../common/util/validate-util';
 import {Loading} from '../../../../common/util/loading-util';
+import {SelectValue} from "../../../../common/component/select/select.value";
 
 @Component({
 	selector: 'menu',
@@ -53,6 +54,8 @@ export class MenuManagementComponent extends AbstractComponent implements OnInit
 
 	public errorMenuName: boolean;
 	public errorPath: boolean;
+
+	public iconList: Array<SelectValue> = [];
 
 	/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     | Constructor
@@ -141,6 +144,14 @@ export class MenuManagementComponent extends AbstractComponent implements OnInit
 	 */
 	public menuNameChange($event) {
 		this.treeComponent.selected.name = $event.target.value;
+	}
+
+	/**
+	 * 메뉴 아이콘 변경 이벤트
+	 * @param item
+	 */
+	public iconSelect(item: SelectValue) {
+		this.currentMenu.icon = item.value;
 	}
 
 	/**
@@ -382,11 +393,25 @@ export class MenuManagementComponent extends AbstractComponent implements OnInit
 		this.currentMenu = <MenuManagement.Entity>this.treeComponent.selected.value;
 		this.currentNavigate = this.getMenuNavigate(this.currentMenu.parentId);
 
-		if (this.currentMenu.depth < 1 || this.currentMenu.depth > 2 || !this.currentMenu.editYn || !this.currentMenu.id) {
-			this.enableAdd = false;
-		} else {
-			this.enableAdd = true;
-		}
+		// if (this.currentMenu.depth < 1 || this.currentMenu.depth > 2 || !this.currentMenu.editYn || !this.currentMenu.id) {
+		// 	this.enableAdd = false;
+		// } else {
+		// 	this.enableAdd = true;
+		// }
+		this.enableAdd = true;
+		this.setIcon(this.currentMenu);
+	}
+
+	/**
+	 * 아이콘 선택
+	 * @param menu
+	 */
+	private setIcon(menu: MenuManagement.Entity) {
+		let icons = ['link-home', 'link-comm', 'link-my', 'link-app', 'link-meta', 'link-portal', 'link-all', 'link-custom'];
+
+		this.iconList = icons.map(value => {
+			return new SelectValue(value, value, value == menu.icon);
+		});
 	}
 
 }

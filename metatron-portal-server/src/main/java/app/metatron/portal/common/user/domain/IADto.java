@@ -36,6 +36,10 @@ public class IADto {
         // not available
         private boolean editYn = true;
 
+        private String icon;
+        private boolean extraYn = false;
+        private String iaDetailDesc;
+
         @Size(max = 200)
         private String path;
 
@@ -70,6 +74,10 @@ public class IADto {
 
         // not available
         private boolean editYn = true;
+
+        private String icon;
+        private boolean extraYn = false;
+        private String iaDetailDesc;
 
         @Size(max = 200)
         private String path;
