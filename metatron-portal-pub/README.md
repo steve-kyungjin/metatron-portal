@@ -21,7 +21,7 @@ $ npm install
 
 ## *NPM 스크립트*
 
-##### `PUB` 스크립트
+##### `PUB` 스크립트 (npm run '스크립트')
 
 - `sprite`
   - 이미지 sprite 실행
@@ -32,7 +32,7 @@ $ npm install
 - `watch`
   - SASS / 이미지 변경 감지 후 **자동** 빌드 실행
 
-##### `UI` 스크립트
+##### `UI` 스크립트 (npm run '스크립트')
 
 - `ui:sprite:build`
   - 이미지 sprite 실행
