@@ -67,7 +67,7 @@
 					<!-- //메뉴 목록 -->
 
 					<!-- 퀵 버튼 -->
-					<div class="button-block">
+					<div class="button-block" *ngIf="menu.id == layoutService.iaCodes.communityIaCode">
 						<button type="button" class="btn-lnb-quick" (click)="tagging(TaggingType.LNB, TaggingAction.BTN, '시스템 운영 공지'); goPage(menu.id, true, false, 'view/community/notice')">{{ translateService.instant('LNB.COMMUNITY.NOTICE', '시스템 운영 공지') }}</button>
 					</div>
 					<!-- //퀵 버튼 -->
