@@ -371,8 +371,13 @@
 					margin-top:20px;
 				}
 
+				&.type-link {
+					dt:before {
+						display:none;
+					}
+				}
+
 				> dt {
-					position:relative;
 					height:40px;
 					padding:0 12px;
 					background-color:#3a4150;
@@ -391,15 +396,7 @@
 					}
 					> a {
 						display:block;
-						position:absolute;
-						left:0;
-						top:0;
-						width:100%;
-						height:100%;
-						padding:0 12px;
 						color:#fff;
-
-						@extend %box-sizing;
 					}
 				}
 				> dd {
