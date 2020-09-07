@@ -103,6 +103,9 @@ export class MenuManagementComponent extends AbstractComponent implements OnInit
 		menu.childrenCnt = 0;
 		menu.displayYn = true;
 		menu.parentId = currentTreeItem.id;
+		if (menu.depth == 1) {
+			menu.icon = 'link-custom';
+		}
 		currentTreeItem.isOpen = true;
 
 		if (currentTreeItem.hasChildren) {
@@ -147,6 +150,15 @@ export class MenuManagementComponent extends AbstractComponent implements OnInit
 	}
 
 	/**
+	 * 게시판 여부 변경 이벤트
+	 */
+	public communityChange() {
+		if (this.currentMenu.isCommunity && Validate.isEmpty(this.currentMenu.path)) {
+			this.currentMenu.path = '/view/community/';
+		}
+	}
+
+	/**
 	 * 메뉴 아이콘 변경 이벤트
 	 * @param item
 	 */
@@ -170,6 +182,15 @@ export class MenuManagementComponent extends AbstractComponent implements OnInit
 			Alert.warning(`${this.translateService.instant(`COMMON.MESSAGE.REQUIRED.ENTER.INFORMATION`, `필수 정보를 입력해주세요.`)}`);
 			this.errorPath = true;
 			return;
+		}
+
+		if (this.currentMenu.isCommunity) {
+			let basePath = '/view/community/';
+			if (!this.currentMenu.path.startsWith(basePath) || this.currentMenu.path.length == basePath.length) {
+				Alert.warning(`${this.translateService.instant(`MANAGEMENT.MENU.DETAIL.VALIDATE.COMMUNITY`, ``)}`);
+				this.errorPath = true;
+				return;
+			}
 		}
 
 		if (this.currentMenu.id) {
@@ -400,6 +421,15 @@ export class MenuManagementComponent extends AbstractComponent implements OnInit
 		// }
 		this.enableAdd = true;
 		this.setIcon(this.currentMenu);
+		if (this.currentMenu.linkYn) {
+			if (this.currentMenu.path.startsWith('/view/community')) {
+				this.currentMenu.isCommunity = true;
+			} else {
+				this.currentMenu.isCommunity = false;
+			}
+		} else {
+			this.currentMenu.isCommunity = false;
+		}
 	}
 
 	/**

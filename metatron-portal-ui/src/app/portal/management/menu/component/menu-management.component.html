@@ -133,12 +133,12 @@
 						<input type="text" class="input-text" [attr.placeholder]="translateService.instant('MANAGEMENT.MENU.DETAIL.PATH.PLACEHOLDER', '페이지 URL를 입력하세요.')" [(ngModel)]="currentMenu.path" [disabled]="!currentMenu.linkYn" [class.is-error]="errorPath" (focus)="errorPath = false;">
 					</td>
 				</tr>
-				<tr>
+				<tr *ngIf="currentMenu.linkYn">
 					<th>
-						<label class="label">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.ORDER.TITLE', '메뉴 순서') }}</label>
+						<label class="label">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.COMMUNITY.TITLE', '게시판 여부') }}</label>
 					</th>
 					<td>
-						<input type="text" class="input-text type-order" [(ngModel)]="currentMenu.iaOrder">
+						<input type="checkbox" [(ngModel)]="currentMenu.isCommunity" (change)="communityChange()">
 					</td>
 				</tr>
 				<tr *ngIf="currentMenu.depth == 1 && currentMenu.displayYn">
@@ -149,7 +149,6 @@
 						<div class="set-icon">
 							<!-- Select Box -->
 							<div common-select
-								 [className]="'type-filter'"
 								 [items]="iconList"
 								 (itemSelect)="iconSelect($event)">
 							</div>
@@ -170,6 +169,14 @@
 								<i class="icon-preview" [ngClass]="currentMenu.icon"></i>
 							</div>
 						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label class="label">{{ translateService.instant('MANAGEMENT.MENU.DETAIL.ORDER.TITLE', '메뉴 순서') }}</label>
+					</th>
+					<td>
+						<input type="text" class="input-text type-order" [(ngModel)]="currentMenu.iaOrder">
 					</td>
 				</tr>
 				</tbody>

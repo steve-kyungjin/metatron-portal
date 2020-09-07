@@ -312,6 +312,8 @@
         "ORDER.TITLE": "Menu order",
         "ICON.TITLE": "Icons",
         "BOTTOM.MENU": "Bottom menu",
+        "COMMUNITY.TITLE": "Community Y/N",
+        "VALIDATE.COMMUNITY": "In the case of a community page, the URL must be in the form of'/view/community/{slug}'",
         "NODATA": "You can select the menu to manage or add a <br> 2,3depth menu."
       },
       "VALIDATION": {

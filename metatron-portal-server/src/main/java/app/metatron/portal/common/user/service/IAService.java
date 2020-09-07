@@ -7,6 +7,9 @@ import app.metatron.portal.common.user.repository.IARepository;
 import app.metatron.portal.portal.analysis.domain.AnalysisAppEntity;
 import app.metatron.portal.portal.analysis.service.AnalysisAppRecommendService;
 import app.metatron.portal.portal.analysis.service.AnalysisAppService;
+import app.metatron.portal.portal.communication.domain.CommDto;
+import app.metatron.portal.portal.communication.domain.CommMasterEntity;
+import app.metatron.portal.portal.communication.service.CommMasterService;
 import app.metatron.portal.portal.log.domain.AppLogEntity;
 import app.metatron.portal.portal.report.domain.ReportAppEntity;
 import app.metatron.portal.portal.report.service.ReportAppRecommendService;
@@ -45,6 +48,9 @@ public class IAService extends AbstractGenericService<IAEntity, String> {
 
     @Autowired
     private ReportAppRecommendService reportAppRecommendService;
+
+    @Autowired
+    private CommMasterService masterService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -107,6 +113,25 @@ public class IAService extends AbstractGenericService<IAEntity, String> {
             roleGroupService.addIAPermission(Const.RoleGroup.SYSTEM_ADMIN, iaAndPermissions);
         }
 
+        // 게시판 추가
+        if (!StringUtils.isEmpty(ia.getPath()) && ia.getPath().startsWith("/view/community/")) {
+            String slug = ia.getPath().substring(16);
+
+            CommMasterEntity m = masterService.getOneBySlug(slug);
+            if (m == null) {
+                CommDto.Master master = new CommDto.Master();
+                master.setName(slug);
+                master.setSlug(slug);
+                master.setPrePath("/community");
+                master.setPostType("GENERAL");
+                master.setListType("LIST");
+                master.setSection("A");
+                master.setDispOrder(1);
+                masterService.addMaster(master);
+            }
+
+        }
+
         return ia;
     }
 
@@ -134,6 +159,14 @@ public class IAService extends AbstractGenericService<IAEntity, String> {
         IAEntity ia = iaRepository.findOne(iaId);
         if( ia.getChildren() != null && ia.getChildren().size() > 0 ) {
             return false;
+        }
+
+        IAEntity iaEntity = iaRepository.findOne(iaId);
+        // depth 1 인 경우 role group 삭제
+        if (iaEntity.getDepth() == 1) {
+            iaEntity.getRoleRels().forEach(value -> {
+                roleGroupService.removeRoleGroupIARel(value);
+            });
         }
         iaRepository.delete(ia);
         return true;

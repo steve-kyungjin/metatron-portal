@@ -12,6 +12,8 @@ import {LnbService} from '../service/lnb.service';
 import {Loading} from '../../../../common/util/loading-util';
 import {MenuSearchResult} from '../menu-search/value/menu-search-result';
 import {EnvironmentUtil} from '../../../../common/util/environment-util';
+import {Utils} from "../../../../common/util/utils";
+import EscapeUtil = Utils.EscapeUtil;
 
 @Component({
 	selector: 'lnb',
@@ -94,13 +96,25 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 	/**
 	 * showSubMenu
 	 *
-	 * @param className
+	 * @param menu
 	 */
-	public showSubMenu(className: string, menu: Menu.Entity = null): void {
-		if (menu && menu.children.length < 1 && menu.id != this.layoutService.iaCodes.managementIaCode) {
+	public showSubMenu(menu: Menu.Entity): void {
+		if (menu.children.length < 1 && menu.id != this.layoutService.iaCodes.managementIaCode) {
 			return;
 		}
-		this.changeDisplayValue(className, true);
+		this.changeDisplayValue(menu.id, true);
+	}
+
+	/**
+	 * hideSubMenu
+	 *
+	 * @param menu
+	 */
+	public hideSubMenu(menu: Menu.Entity): void {
+		if (menu.children.length < 1 && menu.id != this.layoutService.iaCodes.managementIaCode) {
+			return;
+		}
+		this.changeDisplayValue(menu.id, false);
 	}
 
 	/**
@@ -108,10 +122,7 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 	 *
 	 * @param className
 	 */
-	public hideSubMenu(className: string, menu: Menu.Entity = null): void {
-		if (menu && menu.children.length < 1 && menu.id != this.layoutService.iaCodes.managementIaCode) {
-			return;
-		}
+	public hideSubMenuByClassName(className: string): void {
 		this.changeDisplayValue(className, false);
 	}
 
@@ -163,7 +174,7 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 
 		path = path.replace(environment.contextPath, '');
 
-		this.hideSubMenu('menuFirstDepth');
+		this.hideSubMenuByClassName('menuFirstDepth');
 
 		if (external && (isReportApp || isAnalysisApp)) {
 
@@ -393,6 +404,14 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 		return children;
 	}
 
+	/**
+	 * enter 문자열 변경
+	 * @param str
+	 */
+	public replaceEnterChar(str: string) {
+		return EscapeUtil.lineBreakOrTabOrSpaceCharacter(str);
+	}
+
 	/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
      | Private Method
      |-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
@@ -405,7 +424,7 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 	 */
 	private changeDisplayValue(className: string, displayFlag: boolean): void {
 
-		if (this.elementRef.nativeElement.querySelector(`.${className}`) === null) {
+		if (this.jQuery(`.${className}`) === null) {
 			return;
 		}
 

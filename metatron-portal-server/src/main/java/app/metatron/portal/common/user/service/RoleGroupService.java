@@ -437,6 +437,14 @@ public class RoleGroupService extends AbstractGenericService<RoleGroupEntity, St
     }
 
     /**
+     * 특정 권한 그룹의 IA 관계 제거
+     * @param roleGroupIARelEntity
+     */
+    public void removeRoleGroupIARel( RoleGroupIARelEntity roleGroupIARelEntity ) {
+        roleGroupIARelRepository.delete(roleGroupIARelEntity.getId());
+    }
+
+    /**
      * 특정 권한 그룹의 사용자 관계 제거
      * @param roleGroup
      */

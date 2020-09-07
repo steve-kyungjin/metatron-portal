@@ -311,6 +311,8 @@
         "ORDER.TITLE": "메뉴 순서",
         "ICON.TITLE": "메뉴 아이콘",
         "BOTTOM.MENU": "하단 메뉴 여부",
+        "COMMUNITY.TITLE": "게시판 여부",
+        "VALIDATE.COMMUNITY": "게시판 페이지일 경우 '/view/community/{slug}' 형태의 URL 이어야 합니다.",
         "NODATA": "관리할 메뉴를 선택하거나<br>2,3depth 메뉴를 추가할 수 있습니다."
       },
       "VALIDATION": {

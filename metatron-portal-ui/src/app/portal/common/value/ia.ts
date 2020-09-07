@@ -71,6 +71,8 @@ export namespace Ia {
 		icon: string;
 
 		childrenCnt: number;
+
+		isCommunity: boolean;
 	}
 
 	export class IaAndPermissionListEntity {

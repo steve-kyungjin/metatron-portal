@@ -7,12 +7,12 @@
     -->
 	<ul class="section-lnb">
 
-		<li class="menuFirstDepth" [ngClass]="menu.icon" *ngFor="let menu of menus"
+		<li class="menuFirstDepth" [ngClass]="[menu.icon, menu.id]" *ngFor="let menu of menus"
 			[class.is-selected]="lnbService.selectedMenuIaCode !== '' && lnbService.selectedMenuIaCode === menu.id"
 			[title]="menu.name"
 			[attr.aria-expanded]="false"
-			(mouseover)="showSubMenu(menu.icon, menu)"
-			(mouseleave)="hideSubMenu(menu.icon, menu)">
+			(mouseover)="showSubMenu(menu)"
+			(mouseleave)="hideSubMenu(menu)">
 
 			<a href="javascript:;"
 			   [attr.aria-label]="menu.name"
@@ -26,7 +26,7 @@
 					<h2 class="txt-title">
 						{{ menu.name }}
 					</h2>
-					<p class="txt-desc" [innerHTML]="menu.detailDesc">
+					<p class="txt-desc" [innerHTML]="replaceEnterChar(menu.detailDesc)">
 					</p>
 				</div>
 				<!-- //메뉴 정보 -->
@@ -42,9 +42,13 @@
 					<!-- 메뉴 목록 -->
 					<div class="menu-block">
 						<dl class="list-menu" *ngFor="let child of getMenuDisplayYList(menu.id)">
-							<dt>
+							<dt *ngIf="!child.link">
 								{{ child.name }}
-								<span class="info-total" [attr.title]="translateService.instant('LNB.COMMUNITY.RECENT.DESC', {name: child.name, count: child.extra})">{{ child.extra }}</span>
+							</dt>
+							<dt *ngIf="child.link">
+								<a href="javascript:;" (click)="tagging(TaggingType.LNB, TaggingAction.BTN, child.name); goPage(child.id, child.link, child.external, child.path)">
+									{{ child.name }}
+								</a>
 							</dt>
 							<dd>
 								<ul>
@@ -64,7 +68,7 @@
 
 					<!-- 퀵 버튼 -->
 					<div class="button-block">
-						<button type="button" class="btn-lnb-quick" (click)="tagging(TaggingType.LNB, TaggingAction.BTN, '시스템 운영 공지'); goPage(true, true, false, 'view/community/notice')">{{ translateService.instant('LNB.COMMUNITY.NOTICE', '시스템 운영 공지') }}</button>
+						<button type="button" class="btn-lnb-quick" (click)="tagging(TaggingType.LNB, TaggingAction.BTN, '시스템 운영 공지'); goPage(menu.id, true, false, 'view/community/notice')">{{ translateService.instant('LNB.COMMUNITY.NOTICE', '시스템 운영 공지') }}</button>
 					</div>
 					<!-- //퀵 버튼 -->
 				</div>
@@ -77,7 +81,7 @@
 				<!-- 메뉴 정보 -->
 				<div class="info-area">
 					<h2 class="txt-title">{{ translateService.instant('LNB.MANAGEMENT.TITLE', '포탈 관리') }}</h2>
-					<p class="txt-desc" [innerHTML]="translateService.instant('LNB.MANAGEMENT.DESC', '')">
+					<p class="txt-desc" [innerHTML]="replaceEnterChar(menu.detailDesc)">
 					</p>
 				</div>
 				<!-- //메뉴 정보 -->
