@@ -199,6 +199,48 @@
 									</div>
 								</div>
 							</li>
+
+							<!-- 권한 설정 추가 -->
+							<li>
+								<span class="txt-label">권한 설정</span>
+								<div class="form-attachment">
+									<ul class="list-permission">
+									<li>
+										<input type="radio" id="radio03" class="input-radio" checked>
+										<label class="label" for="radio03">전체</label>
+									</li>
+									<li>
+										<input type="radio" id="radio04" class="input-radio">
+										<label class="label" for="radio04">사용자/그룹/조직 권한설정하기</label>
+
+										<!-- 확장 영역 -->
+										<!--
+                                            [D] 확장 영역 노출 시 aria-expanded 값 true로 변경
+                                        -->
+										<ul class="permission-expand" aria-expanded="true">
+											<li>
+												<span class="txt-label">사용자</span>
+												<strong class="txt-num">1,356</strong>
+												<a href="javascript:;" class="btn-setting" aria-label="사용자 설정"></a>
+											</li>
+											<li>
+												<span class="txt-label">그룹</span>
+												<strong class="txt-num">825</strong>
+												<a href="javascript:;" class="btn-setting" aria-label="그룹 설정"></a>
+											</li>
+											<li>
+												<span class="txt-label">조직</span>
+												<strong class="txt-num">10</strong>
+												<a href="javascript:;" class="btn-setting" aria-label="조직 설정"></a>
+											</li>
+										</ul>
+										<!-- //확장 영역 -->
+									</li>
+								</ul>
+								</div>
+							</li>
+							<!-- //권한 설정 추가 -->
+
 						</ul>
 					</div>
 					<!-- //첨부파일,대표이미지 등록 -->
