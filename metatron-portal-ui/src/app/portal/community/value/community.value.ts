@@ -3,6 +3,7 @@ import {Abstract} from '../../common/value/abstract';
 import {Media} from '../../common/value/media';
 import {User} from '../../common/value/user';
 import {File} from '../../common/file-upload/value/file';
+import {Role} from "../../common/value/role";
 
 export namespace Community {
 	/**
@@ -150,6 +151,11 @@ export namespace Community {
 		public className: string;
 
 		public imageUrl: string;
+
+		/////////////////////////////////////////////////////////////////
+		// 권한
+		/////////////////////////////////////////////////////////////////
+		public roles: Array<Role>;
 	}
 
 	export class Comment extends Abstract.Entity {
