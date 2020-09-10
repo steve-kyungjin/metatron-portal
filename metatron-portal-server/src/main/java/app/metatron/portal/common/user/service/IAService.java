@@ -226,17 +226,17 @@ public class IAService extends AbstractGenericService<IAEntity, String> {
                             });
                             break;
                         case Const.IA.REPORT:
-                            reportAppTop3.forEach(app -> {
-                                depth2VO.getChildren().add(mappingReportAppToMenu(app, depth2VO.getPath(), depth1.getPermission().toString(), MenuVO.AppType.POPULAR, false));
-                            });
+//                            reportAppTop3.forEach(app -> {
+//                                depth2VO.getChildren().add(mappingReportAppToMenu(app, depth2VO.getPath(), depth1.getPermission().toString(), MenuVO.AppType.POPULAR, false));
+//                            });
                             reportAppLatest.forEach(app -> {
                                 depth2VO.getChildren().add(mappingReportAppToMenu(app, depth2VO.getPath(), depth1.getPermission().toString(), MenuVO.AppType.LATEST, false));
                             });
                             break;
                         case Const.IA.ANALYSIS:
-                            analysisAppTop3.forEach(app -> {
-                                depth2VO.getChildren().add(mappingAnalysisAppToMenu(app, depth2VO.getPath(), depth1.getPermission().toString(), MenuVO.AppType.POPULAR, false));
-                            });
+//                            analysisAppTop3.forEach(app -> {
+//                                depth2VO.getChildren().add(mappingAnalysisAppToMenu(app, depth2VO.getPath(), depth1.getPermission().toString(), MenuVO.AppType.POPULAR, false));
+//                            });
                             analysisAppLatest.forEach(app -> {
                                 depth2VO.getChildren().add(mappingAnalysisAppToMenu(app, depth2VO.getPath(), depth1.getPermission().toString(), MenuVO.AppType.LATEST, false));
                             });
