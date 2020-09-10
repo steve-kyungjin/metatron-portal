@@ -1,5 +1,9 @@
 package app.metatron.portal.portal.communication.service;
 
+import app.metatron.portal.common.user.domain.RoleGroupEntity;
+import app.metatron.portal.common.util.CommonUtil;
+import app.metatron.portal.portal.analysis.domain.AnalysisAppEntity;
+import app.metatron.portal.portal.analysis.domain.AnalysisAppRoleGroupRelEntity;
 import app.metatron.portal.portal.communication.domain.*;
 import app.metatron.portal.common.constant.Const;
 import app.metatron.portal.common.user.domain.UserEntity;
@@ -146,7 +150,19 @@ public class CommPostService extends AbstractGenericService<CommPostEntity, Stri
             post.setWorker(worker);
         }
 
-        post = postRepository.save(post);
+        // 롤 리스트
+        List<CommRoleGroupRelEntity> commRoleGroupRelEntities = new ArrayList<>();
+        // 권한 추가
+        if( postDto.getRoleIds() != null ) {
+            postDto.getRoleIds().forEach(roleGroup -> {
+                Optional.of(roleGroupService.get(roleGroup)).ifPresent( rg -> {
+                    commRoleGroupRelEntities.add(CommonUtil.getCommRoleGroupEntity(rg, post));
+                });
+            });
+            post.setRoleRel(commRoleGroupRelEntities);
+        }
+
+        postRepository.save(post);
 
         // 처리자
         if( postDto.getCoworkerIds() != null && postDto.getCoworkerIds().size() > 0 ) {
@@ -245,7 +261,21 @@ public class CommPostService extends AbstractGenericService<CommPostEntity, Stri
             post.setWorker(null);
         }
 
-        post = postRepository.save(post);
+        // 롤 리스트
+        List<CommRoleGroupRelEntity> commRoleGroupRelEntities = new ArrayList<>();
+        // 권한 추가
+        if( postDto.getRoleIds() != null ) {
+            postDto.getRoleIds().forEach(roleGroup -> {
+                Optional.of(roleGroupService.get(roleGroup)).ifPresent( rg -> {
+                    commRoleGroupRelEntities.add(CommonUtil.getCommRoleGroupEntity(rg, post));
+                });
+            });
+            post.setRoleRel(commRoleGroupRelEntities);
+        } else {
+            post.setRoleRel(null);
+        }
+
+        postRepository.save(post);
 
         // 처리자
         userRelRepository.deleteByPost_Id(post.getId());
@@ -978,5 +1008,32 @@ public class CommPostService extends AbstractGenericService<CommPostEntity, Stri
             email = true;
         }
         return email;
+    }
+
+    /**
+     * post에 대한 현재 사용자 수용여부 (권한 판단)
+     * @param postId
+     * @return
+     */
+    public boolean acceptablePost(String postId) {
+        CommPostEntity post = postRepository.findOne(postId);
+        if( post != null ) {
+            if( post.getRoleRel() == null || post.getRoleRel().size() == 0 ) {
+                return true;
+            }
+            UserEntity user = this.getCurrentUser();
+            if( user.isAdmin() ) {
+                return true;
+            }
+            List<RoleGroupEntity> myRoles = roleGroupService.getRoleGroupListByUser(user.getUserId());
+            for( RoleGroupEntity role : myRoles ) {
+                for( CommRoleGroupRelEntity rel : post.getRoleRel() ) {
+                    if( rel.getRoleGroup().getId().equals(role.getId()) ) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

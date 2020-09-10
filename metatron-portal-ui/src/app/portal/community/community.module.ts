@@ -14,11 +14,13 @@ import {UpdateSelectMenuGuard} from '../layout/guard/update-select-menu.guard';
 import {UserSelectModule} from "../management/shared/popup/user-select/user-select.module";
 import {UserService} from "../common/service/user.service";
 import {CommunityLandingComponent} from "./component/landing/community-landing.component";
+import {AuthenticationSettingsModule} from "../management/shared/authentication-settings/authentication-settings.module";
 
 @NgModule({
 	imports: [
 		SharedModule,
 		UserSelectModule,
+		AuthenticationSettingsModule,
 		RouterModule.forChild([
 			{
 				// 등록

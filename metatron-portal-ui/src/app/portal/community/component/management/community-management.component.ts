@@ -18,6 +18,8 @@ import {User} from "../../../common/value/user";
 import {UserService} from "../../../common/service/user.service";
 import {SelectValue} from "../../../../common/component/select/select.value";
 import * as _ from 'lodash';
+import {AuthenticationSettingsComponent} from "../../../management/shared/authentication-settings/component/authentication-settings.component";
+import {RoleGroup} from "../../../common/value/role-group";
 
 @Component({
 	selector: 'community-management',
@@ -28,6 +30,9 @@ export class CommunityManagementComponent extends AbstractComponent implements O
 	/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	| Private Variables
 	|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+	@ViewChild(AuthenticationSettingsComponent)
+	private authenticationSettingsComponent: AuthenticationSettingsComponent;
 
 	@ViewChild('fileUploader')
 	private fileUploader: FileFieldComponent;
@@ -546,6 +551,9 @@ export class CommunityManagementComponent extends AbstractComponent implements O
 			});
 		}
 
+		// 권한 목록
+		this.post.roleIds = this.authenticationSettingsComponent.getRoleIdList();
+
 		if (this.post.id) {
 			this.communityService.updatePost(this.slug, this.post).then(result => {
 				if (result.code === CommonConstant.CODE.RESULT_CODE.SUCCESS) {
@@ -625,6 +633,28 @@ export class CommunityManagementComponent extends AbstractComponent implements O
 			let startDate = new Date(post.dispStartDate);
 			let endDate = new Date(post.dispEndDate);
 			this.minMaxDate.selectDate([ startDate, endDate ]);
+		}
+
+		// 권한 표시
+		if ((typeof post.roles === 'undefined') === false) {
+
+			let userRoles = [];
+			let groupRoles = [];
+			let orgRoles = [];
+			post.roles.forEach(role => {
+				if (role.type == RoleGroup.RoleGroupType.PRIVATE) {
+					userRoles.push(role);
+				} else if (role.type == RoleGroup.RoleGroupType.GENERAL) {
+					groupRoles.push(role);
+				} else if (role.type == RoleGroup.RoleGroupType.ORGANIZATION) {
+					orgRoles.push(role);
+				}
+			});
+			this.authenticationSettingsComponent.privateUserList = userRoles;
+			this.authenticationSettingsComponent.groupList = groupRoles;
+			this.authenticationSettingsComponent.organizationList = orgRoles;
+			this.authenticationSettingsComponent.isRoleDefaultMode = userRoles.length === 0 && groupRoles.length === 0 && orgRoles.length === 0 ? 'true' : 'false';
+
 		}
 
 	}

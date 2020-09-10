@@ -3,6 +3,7 @@ import {Abstract} from '../../common/value/abstract';
 import {Media} from '../../common/value/media';
 import {User} from '../../common/value/user';
 import {File} from '../../common/file-upload/value/file';
+import {Role} from "../../common/value/role";
 
 export namespace Community {
 	/**
@@ -121,6 +122,7 @@ export namespace Community {
 
 		// 처리 완료 타입
 		public completeType: string;
+		public roles: Array<Role>;
 
 		/////////////////////////////////////////////////////////////////
 		// PARAM
@@ -142,6 +144,8 @@ export namespace Community {
 		public createdDateStr: string;
 		// 이동할 게시판 slug
 		public changedSlug: string;
+		// 권한 목록
+		public roleIds: Array<Object>;
 
 		/////////////////////////////////////////////////////////////////
 		// VIEW
