@@ -17,7 +17,10 @@ import {Loading} from "../../../../common/util/loading-util";
 import {User} from "../../../common/value/user";
 import {UserService} from "../../../common/service/user.service";
 import {SelectValue} from "../../../../common/component/select/select.value";
+import {AuthenticationSettingsComponent} from '../../../management/shared/authentication-settings/component/authentication-settings.component';
+
 import * as _ from 'lodash';
+import {RoleGroup} from "../../../common/value/role-group";
 
 @Component({
 	selector: 'community-management',
@@ -37,6 +40,9 @@ export class CommunityManagementComponent extends AbstractComponent implements O
 
 	@ViewChild(EditorComponent)
 	private editor: EditorComponent;
+
+	@ViewChild(AuthenticationSettingsComponent)
+	private authenticationSettingsComponent: AuthenticationSettingsComponent;
 
 	private files: Array<Object>;
 
@@ -171,6 +177,36 @@ export class CommunityManagementComponent extends AbstractComponent implements O
 									});
 								}
 
+
+
+
+								// 권한 표시
+								if ((typeof this.post.roles === 'undefined') === false) {
+
+									let userRoles = [];
+									let groupRoles = [];
+									let orgRoles = [];
+									this.post.roles.forEach(role => {
+										if (role.type == RoleGroup.RoleGroupType.PRIVATE) {
+											userRoles.push(role);
+										} else if (role.type == RoleGroup.RoleGroupType.GENERAL) {
+											groupRoles.push(role);
+										} else if (role.type == RoleGroup.RoleGroupType.ORGANIZATION) {
+											orgRoles.push(role);
+										}
+									});
+									this.authenticationSettingsComponent.privateUserList = userRoles;
+									this.authenticationSettingsComponent.groupList = groupRoles;
+									this.authenticationSettingsComponent.organizationList = orgRoles;
+									this.authenticationSettingsComponent.isRoleDefaultMode = userRoles.length === 0 && groupRoles.length === 0 && orgRoles.length === 0 ? 'true' : 'false';
+
+								}
+
+
+
+
+
+
 								if (params[ 'postId' ]) {
 									// 수정
 
@@ -231,6 +267,10 @@ export class CommunityManagementComponent extends AbstractComponent implements O
 										Loading.hide();
 									});
 								}
+
+
+
+
 
 							}
 						});
