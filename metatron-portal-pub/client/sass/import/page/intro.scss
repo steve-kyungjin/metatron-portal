@@ -473,6 +473,14 @@
 			.info-box {
 				.txt-title {
 					margin:7px 0 0;
+
+					&.type-lock:before {
+						margin:2px 2px 0 0;
+						vertical-align:top;
+						content:'';
+
+						@include get-sprite($icon_private);
+					}
 				}
 				.txt-desc {
 					margin:9px 0 0;
