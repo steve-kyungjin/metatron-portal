@@ -16,6 +16,9 @@ export class MainContent {
 	public externalUrl: string;
 
 	public categoryString = '';
+
+	// 접근 가능 여부
+	public acceptable: boolean;
 }
 
 export class MainContentList {

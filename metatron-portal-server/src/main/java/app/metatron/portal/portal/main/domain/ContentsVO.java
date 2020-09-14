@@ -50,6 +50,8 @@ public class ContentsVO implements Serializable {
      */
     private String externalUrl;
 
+    private boolean acceptable = true;
+
     public String getExternalUrl() {
         return externalUrl;
     }
@@ -112,5 +114,13 @@ public class ContentsVO implements Serializable {
 
     public void setExtra(Object extra) {
         this.extra = extra;
+    }
+
+    public boolean isAcceptable() {
+        return acceptable;
+    }
+
+    public void setAcceptable(boolean acceptable) {
+        this.acceptable = acceptable;
     }
 }

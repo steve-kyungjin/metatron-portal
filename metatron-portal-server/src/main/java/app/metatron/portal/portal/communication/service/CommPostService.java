@@ -9,6 +9,7 @@ import app.metatron.portal.common.constant.Const;
 import app.metatron.portal.common.user.domain.UserEntity;
 import app.metatron.portal.common.user.service.RoleGroupService;
 import app.metatron.portal.portal.communication.repository.CommPostUserRelRepository;
+import app.metatron.portal.portal.communication.repository.CommRoleGroupRelRepository;
 import app.metatron.portal.portal.email.domain.EmailSendEntity;
 import app.metatron.portal.portal.email.domain.EmailVO;
 import app.metatron.portal.portal.email.service.EmailService;
@@ -58,6 +59,9 @@ public class CommPostService extends AbstractGenericService<CommPostEntity, Stri
 
     @Autowired
     private CommPostUserRelRepository userRelRepository;
+
+    @Autowired
+    private CommRoleGroupRelRepository roleGroupRelRepository;
 
     @Autowired
     private CommMasterService masterService;
@@ -263,6 +267,7 @@ public class CommPostService extends AbstractGenericService<CommPostEntity, Stri
 
         // 롤 리스트
         List<CommRoleGroupRelEntity> commRoleGroupRelEntities = new ArrayList<>();
+        roleGroupRelRepository.deleteByPost_Id(post.getId());
         // 권한 추가
         if( postDto.getRoleIds() != null ) {
             postDto.getRoleIds().forEach(roleGroup -> {
@@ -884,6 +889,15 @@ public class CommPostService extends AbstractGenericService<CommPostEntity, Stri
     }
 
     /**
+     * check auth
+     * @param postId
+     * @return
+     */
+    public boolean checkPostAuth(String postId) {
+        return this.acceptablePost(postId);
+    }
+
+    /**
      * 내가 요청한 건 중 진행중
      * @return
      */
@@ -1023,6 +1037,22 @@ public class CommPostService extends AbstractGenericService<CommPostEntity, Stri
             }
             UserEntity user = this.getCurrentUser();
             if( user.isAdmin() ) {
+                return true;
+            }
+            // 작성자
+            if ( post.getCreatedBy().getUserId().equals(this.getCurrentUserId())) {
+                return true;
+            }
+            // 처리자
+            if (post.getCoworkers() != null) {
+                for( UserEntity u : post.getCoworkers()) {
+                    if (u.getUserId().equals(this.getCurrentUserId())) {
+                        return true;
+                    }
+                }
+            }
+            // 담당자
+            if (post.getWorker() != null && post.getWorker().getUserId().equals(this.getCurrentUserId())) {
                 return true;
             }
             List<RoleGroupEntity> myRoles = roleGroupService.getRoleGroupListByUser(user.getUserId());

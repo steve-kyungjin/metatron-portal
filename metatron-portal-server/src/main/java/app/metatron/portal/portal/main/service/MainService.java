@@ -134,6 +134,7 @@ public class MainService extends BaseService {
             String postLink = post.getMaster().getPrePath() +
                     "/" + post.getMaster().getSlug() + "/post/" + post.getId();
             contentsVO.setExtra(postLink);
+            contentsVO.setAcceptable(postService.acceptablePost(post.getId()));
             communications.add(contentsVO);
         });
 

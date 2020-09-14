@@ -61,7 +61,7 @@
 				<td class="align-left">
 					<a href="javascript:;" class="link-comm" [attr.title]="item.title" (click)="postClick(item); tagging(TaggingType.LIST, TaggingAction.ITEM, item.title)">
 						<span class="txt-comment" *ngIf="item.master.replyYn">[{{ item.replyCnt }}]</span>
-						<span class="txt-title">{{ item.title }}</span>
+						<span class="txt-title" [class.type-lock]="!item.acceptable">{{ item.title }}</span>
 					</a>
 				</td>
 				<td *ngIf="masterInfo.postType == PostType.WORKFLOW">

@@ -278,6 +278,9 @@ public class CommController extends AbstractController {
         }
         PostStatus status = StringUtils.isEmpty(statusStr)? null: PostStatus.valueOf(statusStr.toUpperCase());
         Page<CommPostEntity> postList = postService.getPostList(slug, status, keyword, pageable);
+        postList.getContent().stream().forEach(value -> {
+            value.setAcceptable(postService.acceptablePost(value.getId()));
+        });
 
         Map<String, Object> data = new HashMap<>();
         data.put("postList", postList);
@@ -863,6 +866,29 @@ public class CommController extends AbstractController {
         return ResponseEntity.ok(resultVO);
     }
 
+    /**
+     * check communication post auth
+     */
+    @PreAuthorize("hasAuthority('DEFAULT_USER')")
+    @ApiOperation(
+            value = "check communication post auth",
+            notes = "check communication post auth"
+    )
+    @RequestMapping(value = Path.COMMUNICATION_POSTS_DETAIL_AUTH, method = RequestMethod.GET)
+    public ResponseEntity<ResultVO> checkPostAuth(
+            @ApiParam(
+                    defaultValue="bearer ",
+                    value ="토큰"
+            )
+            @RequestHeader(name = "Authorization") String authorization,
+            @PathVariable(name = "id") String postId
+    ) {
+        boolean allow = postService.checkPostAuth(postId);
+
+        ResultVO resultVO = new ResultVO(Const.Common.RESULT_CODE.SUCCESS, "", allow);
+        return ResponseEntity.ok(resultVO);
+    }
+
     ///////////////////////////////////////////////////////////////
     //
     // Landing
@@ -923,6 +949,9 @@ public class CommController extends AbstractController {
         }
 
         Page<CommPostEntity> postList = postService.getAllPostList(filter, pageable);
+        postList.getContent().stream().forEach(value -> {
+            value.setAcceptable(postService.acceptablePost(value.getId()));
+        });
 
         Map<String, Object> data = new HashMap<>();
         data.put("postList", postList);

@@ -161,6 +161,9 @@ public class CommPostEntity extends AbstractEntity {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<CommRoleGroupRelEntity> roleRel;
 
+    @JsonProperty
+    private boolean acceptable;
+
     public List<CommPostUserRelEntity> getUserRels() {
         return userRels;
     }
@@ -440,4 +443,11 @@ public class CommPostEntity extends AbstractEntity {
         return super.getUpdatedDate();
     }
 
+    public boolean isAcceptable() {
+        return acceptable;
+    }
+
+    public void setAcceptable(boolean acceptable) {
+        this.acceptable = acceptable;
+    }
 }

@@ -242,6 +242,8 @@ public class Path {
 
     public static final String COMMUNICATION_POSTS_DETAIL = COMMUNICATION_POSTS + "/{id}";
 
+    public static final String COMMUNICATION_POSTS_DETAIL_AUTH = COMMUNICATION_POSTS_DETAIL + "/auth";
+
     public static final String COMMUNICATION_POSTS_WORKER = COMMUNICATION_POSTS_DETAIL + "/worker";
 
     public static final String COMMUNICATION_POSTS_REPLIES = COMMUNICATION_POSTS_DETAIL + "/replies";
