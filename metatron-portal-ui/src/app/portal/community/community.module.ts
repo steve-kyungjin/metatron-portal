@@ -14,7 +14,8 @@ import {UpdateSelectMenuGuard} from '../layout/guard/update-select-menu.guard';
 import {UserSelectModule} from "../management/shared/popup/user-select/user-select.module";
 import {UserService} from "../common/service/user.service";
 import {CommunityLandingComponent} from "./component/landing/community-landing.component";
-import {AuthenticationSettingsModule} from '../management/shared/authentication-settings/authentication-settings.module';
+import {AuthenticationSettingsModule} from "../management/shared/authentication-settings/authentication-settings.module";
+import {CommunityGuard} from "./service/community.guard";
 
 @NgModule({
 	imports: [
@@ -23,7 +24,7 @@ import {AuthenticationSettingsModule} from '../management/shared/authentication-
 		AuthenticationSettingsModule,
 		RouterModule.forChild([
 			{
-				// 등록
+				// 랜딩
 				path: '',
 				component: CommunityLandingComponent,
 				canActivate: [
@@ -43,7 +44,8 @@ import {AuthenticationSettingsModule} from '../management/shared/authentication-
 				path: ':slug/post/:postId',
 				component: CommunityDetailComponent,
 				canActivate: [
-					UpdateSelectMenuGuard
+					UpdateSelectMenuGuard,
+					CommunityGuard
 				]
 			},
 			{
@@ -51,7 +53,8 @@ import {AuthenticationSettingsModule} from '../management/shared/authentication-
 				path: ':slug/post/:postId/edit',
 				component: CommunityManagementComponent,
 				canActivate: [
-					UpdateSelectMenuGuard
+					UpdateSelectMenuGuard,
+					CommunityGuard
 				]
 			},
 			{
@@ -78,7 +81,8 @@ import {AuthenticationSettingsModule} from '../management/shared/authentication-
 	providers: [
 		UserService,
 		CommunityService,
-		UpdateSelectMenuGuard
+		UpdateSelectMenuGuard,
+		CommunityGuard
 	]
 })
 export class CommunityModule {

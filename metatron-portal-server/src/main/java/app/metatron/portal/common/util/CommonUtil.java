@@ -5,6 +5,8 @@ import app.metatron.portal.common.user.domain.RoleGroupEntity;
 import app.metatron.portal.portal.analysis.domain.AnalysisAppCategoryRelEntity;
 import app.metatron.portal.portal.analysis.domain.AnalysisAppEntity;
 import app.metatron.portal.portal.analysis.domain.AnalysisAppRoleGroupRelEntity;
+import app.metatron.portal.portal.communication.domain.CommPostEntity;
+import app.metatron.portal.portal.communication.domain.CommRoleGroupRelEntity;
 import app.metatron.portal.portal.report.domain.ReportAppCategoryRelEntity;
 import app.metatron.portal.portal.report.domain.ReportAppEntity;
 import app.metatron.portal.portal.report.domain.ReportAppRoleGroupRelEntity;
@@ -83,6 +85,13 @@ public class CommonUtil {
         analysisAppRoleRelEntity.setRoleGroup(rg);
         analysisAppRoleRelEntity.setApp(analysisAppEntity);
         return analysisAppRoleRelEntity;
+    }
+
+    public static CommRoleGroupRelEntity getCommRoleGroupEntity(RoleGroupEntity rg, CommPostEntity commPostEntity){
+        CommRoleGroupRelEntity commRoleGroupRelEntity = new CommRoleGroupRelEntity();
+        commRoleGroupRelEntity.setRoleGroup(rg);
+        commRoleGroupRelEntity.setPost(commPostEntity);
+        return commRoleGroupRelEntity;
     }
 
 

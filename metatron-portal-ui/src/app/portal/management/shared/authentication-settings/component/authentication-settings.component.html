@@ -1,64 +1,59 @@
 <!--suppress NsUnresolvedStyleClassReference, HtmlFormInputWithoutLabel, JSUnnecessarySemicolon -->
-<dt>
-	권한 설정
-</dt>
-<dd>
-	<ul class="list-permission">
-		<li>
-			<input type="radio"
-				   class="input-radio"
-				   value="true"
-				   [attr.id]="UUID + '-id-radio0'"
-				   [attr.name]="UUID + '-name-radio0'"
-				   [(ngModel)]="isRoleDefaultMode">
-			<label class="label"
-				   [attr.for]="UUID + '-id-radio0'">전체</label>
-		</li>
-		<li>
-			<input type="radio"
-				   class="input-radio"
-				   value="false"
-				   [attr.id]="UUID + '-id-radio1'"
-				   [attr.name]="UUID + '-name-radio1'"
-				   [(ngModel)]="isRoleDefaultMode">
-			<label class="label"
-				   [attr.for]="UUID + '-id-radio1'">사용자/그룹 권한설정하기</label>
+<ul class="list-permission">
+	<li>
+		<input type="radio"
+			   class="input-radio"
+			   value="true"
+			   [attr.id]="UUID + '-id-radio0'"
+			   [attr.name]="UUID + '-name-radio0'"
+			   [(ngModel)]="isRoleDefaultMode">
+		<label class="label"
+			   [attr.for]="UUID + '-id-radio0'">전체</label>
+	</li>
+	<li>
+		<input type="radio"
+			   class="input-radio"
+			   value="false"
+			   [attr.id]="UUID + '-id-radio1'"
+			   [attr.name]="UUID + '-name-radio1'"
+			   [(ngModel)]="isRoleDefaultMode">
+		<label class="label"
+			   [attr.for]="UUID + '-id-radio1'">사용자/그룹 권한설정하기</label>
 
-			<!-- 확장 영역 -->
-			<!--
-                [D] 확장 영역 노출 시 aria-expanded 값 true로 변경
-            -->
-			<ul class="permission-expand"
-				[attr.aria-expanded]="isRoleDefaultMode === 'false'">
-				<li>
-					<span class="txt-label">사용자</span>
-					<strong class="txt-num">{{ userList.length | number: '1.0-3' }}</strong>
-					<a href="javascript:;"
-					   class="btn-setting"
-					   aria-label="사용자 설정"
-					   (click)="popupMode = userSelectMode"></a>
-				</li>
-				<li>
-					<span class="txt-label">그룹</span>
-					<strong class="txt-num">{{ groupList.length | number: '1.0-3' }}</strong>
-					<a href="javascript:;"
-					   class="btn-setting"
-					   aria-label="그룹 설정"
-					   (click)="popupMode = groupSelectMode"></a>
-				</li>
-				<!--<li>
-					<span class="txt-label">조직</span>
-					<strong class="txt-num">{{ organizationList.length | number : '1.0-3' }}</strong>
-					<a href="javascript:;"
-					   class="btn-setting"
-					   aria-label="조직 설정"
-					   (click)="popupMode = orgSelectMode"></a>
-				</li>-->
-			</ul>
-			<!-- //확장 영역 -->
-		</li>
-	</ul>
-</dd>
+		<!-- 확장 영역 -->
+		<!--
+			[D] 확장 영역 노출 시 aria-expanded 값 true로 변경
+		-->
+		<ul class="permission-expand"
+			[attr.aria-expanded]="isRoleDefaultMode === 'false'">
+			<li>
+				<span class="txt-label">사용자</span>
+				<strong class="txt-num">{{ userList.length | number: '1.0-3' }}</strong>
+				<a href="javascript:;"
+				   class="btn-setting"
+				   aria-label="사용자 설정"
+				   (click)="popupMode = userSelectMode"></a>
+			</li>
+			<li>
+				<span class="txt-label">그룹</span>
+				<strong class="txt-num">{{ groupList.length | number: '1.0-3' }}</strong>
+				<a href="javascript:;"
+				   class="btn-setting"
+				   aria-label="그룹 설정"
+				   (click)="popupMode = groupSelectMode"></a>
+			</li>
+			<!--<li>
+				<span class="txt-label">조직</span>
+				<strong class="txt-num">{{ organizationList.length | number : '1.0-3' }}</strong>
+				<a href="javascript:;"
+				   class="btn-setting"
+				   aria-label="조직 설정"
+				   (click)="popupMode = orgSelectMode"></a>
+			</li>-->
+		</ul>
+		<!-- //확장 영역 -->
+	</li>
+</ul>
 
 <div user-select
 	 *ngIf="popupMode === userSelectMode"

@@ -96,6 +96,12 @@ public class CommDto {
         private String workerId;
 
         private List<String> coworkerIds;
+
+        /**
+         * 권한 리스트
+         */
+        @ApiModelProperty
+        private List<String> roleIds;
     }
 
     /**

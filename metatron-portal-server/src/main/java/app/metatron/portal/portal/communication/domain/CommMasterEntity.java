@@ -1,5 +1,6 @@
 package app.metatron.portal.portal.communication.domain;
 
+import app.metatron.portal.portal.analysis.domain.AnalysisAppRoleGroupRelEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import app.metatron.portal.common.domain.AbstractEntity;
 import org.hibernate.annotations.GenericGenerator;
@@ -117,6 +118,13 @@ public class CommMasterEntity extends AbstractEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "master", fetch = FetchType.LAZY)
     private List<CommMasterTemplateRelEntity> templateRels;
+
+    /**
+     * 권한 관계
+     */
+    @JsonIgnore
+    @OneToMany(mappedBy = "app", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<AnalysisAppRoleGroupRelEntity> roleRel;
 
     public String getSecondaryType() {
         return secondaryType;

@@ -639,6 +639,10 @@ export class MainContentComponent extends AbstractComponent implements OnInit, O
 		commItem.find('.txt-title').text(mainContent.title);
 		commItem.find('.txt-desc').text(mainContent.description);
 
+		if (!mainContent.acceptable) {
+			commItem.find('.txt-title').addClass('type-lock');
+		}
+
 		return commItem;
 	}
 

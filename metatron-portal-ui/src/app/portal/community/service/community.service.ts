@@ -99,6 +99,16 @@ export class CommunityService extends AbstractService {
 	}
 
 	/**
+	 * post 권한 조회
+	 * @param {string} slug
+	 * @param {string} postId
+	 * @returns {Promise<CommonResult>}
+	 */
+	public getPostAuth(slug: string, postId: string): Promise<CommonResult> {
+		return this.get(`${this.environment.apiUrl}/communication/${slug}/${postId}/auth`);
+	}
+
+	/**
 	 * 포스트 목록 조회
 	 * @param {string} slug
 	 * @param {Page} page

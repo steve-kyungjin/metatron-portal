@@ -381,6 +381,16 @@
 				display:block;
 
 				@extend %ellipsis;
+
+				&.type-lock {
+					&:before {
+						margin:0 2px 0 0;
+						vertical-align:top;
+						content:'';
+
+						@include get-sprite($icon_private);
+					}
+				}
 			}
 			.txt-comment {
 				display:block;
@@ -458,6 +468,16 @@
 				font-weight:bold;
 
 				@include ellipsisMultiline(3, 30);
+
+				&.type-lock {
+					&:before {
+						margin:6px 2px 0 0;
+						vertical-align:top;
+						content:'';
+
+						@include get-sprite($icon_private);
+					}
+				}
 			}
 			.info {
 				display:inline-block;

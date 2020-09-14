@@ -36,7 +36,7 @@
 				<a href="javascript:;" class="link-comm" (click)="postClick(item); tagging(TaggingType.LIST, TaggingAction.ITEM, item.title)">
 					<span class="bg-img" [style.background-image]="'url(' + item.imageUrl + ')'" *ngIf="item.mediaGroup"></span>
 					<dl class="card-info">
-						<dt>{{ item.title }}</dt>
+						<dt [class.type-lock]="!item.acceptable">{{ item.title }}</dt>
 						<dd>
 							<span class="info">
 								<em class="txt-date">{{ item.createdDate | date_format : 'YYYY-MM-DD' }}</em>

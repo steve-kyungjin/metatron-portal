@@ -1,5 +1,7 @@
 package app.metatron.portal.portal.communication.domain;
 
+import app.metatron.portal.common.user.domain.RoleGroupEntity;
+import app.metatron.portal.portal.analysis.domain.AnalysisAppRoleGroupRelEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import app.metatron.portal.common.domain.AbstractEntity;
@@ -9,6 +11,7 @@ import app.metatron.portal.common.user.domain.UserEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
@@ -151,6 +154,16 @@ public class CommPostEntity extends AbstractEntity {
     @OrderBy("dispOrder asc")
     private List<CommPostUserRelEntity> userRels;
 
+    /**
+     * 권한 관계
+     */
+    @JsonIgnore
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<CommRoleGroupRelEntity> roleRel;
+
+    @JsonProperty
+    private boolean acceptable;
+
     public List<CommPostUserRelEntity> getUserRels() {
         return userRels;
     }
@@ -290,6 +303,25 @@ public class CommPostEntity extends AbstractEntity {
         return 0;
     }
 
+    public List<CommRoleGroupRelEntity> getRoleRel() {
+        return roleRel;
+    }
+
+    public void setRoleRel(List<CommRoleGroupRelEntity> roleRel) {
+        this.roleRel = roleRel;
+    }
+
+    public List<RoleGroupEntity> getRoles() {
+        if(CollectionUtils.isEmpty(this.roleRel)) {
+            return null;
+        }
+        List<RoleGroupEntity> roleList = new ArrayList<>();
+        this.roleRel.forEach(rel -> {
+            roleList.add(rel.getRoleGroup());
+        });
+        return roleList;
+    }
+
     /**
      * 담당자 (요청형)
      * @return
@@ -411,4 +443,11 @@ public class CommPostEntity extends AbstractEntity {
         return super.getUpdatedDate();
     }
 
+    public boolean isAcceptable() {
+        return acceptable;
+    }
+
+    public void setAcceptable(boolean acceptable) {
+        this.acceptable = acceptable;
+    }
 }
