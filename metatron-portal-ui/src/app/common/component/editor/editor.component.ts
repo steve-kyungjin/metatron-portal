@@ -218,6 +218,7 @@ export class EditorComponent extends AbstractComponent implements OnInit, OnDest
 				lang: 'ko-KR',
 				airMode: this.isViewMode,
 				placeholder: this.placeholder,
+				// tooltip: false,
 				callbacks: {
 					// 이미지를 업로드할 경우 이벤트를 발생
 					onImageUpload: function (files) {
