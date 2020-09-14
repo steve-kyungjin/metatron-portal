@@ -122,7 +122,6 @@ export namespace Community {
 
 		// 처리 완료 타입
 		public completeType: string;
-		public roles: Array<Role>;
 
 		// 접근 가능 여부
 		public acceptable: boolean;
