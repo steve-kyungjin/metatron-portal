@@ -101,3 +101,10 @@
 .note-toolbar {
 	@extend %box-sizing;
 }
+
+.note-tooltip {
+	display:none !important;
+}
+.note-editable[contenteditable] {
+	background-color:#fff !important;
+}
