@@ -258,7 +258,7 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 	public clickMetaTronPrepMenu(): void {
 		// 메타트론 홈 화면으로 이동
 		// this.metatronService.moveToMetatron(`${environment.prepUrl}`);
-		this.metatronService.moveToMetatron('http://skt-campaignhub.koreacentral.cloudapp.azure.com:8283');
+		this.metatronService.moveToMetatron('http://prep.incross.metatron.app');
 	}
 
 	// noinspection JSMethodCanBeStatic
