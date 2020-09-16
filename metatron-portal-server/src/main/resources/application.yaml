@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev-db,exntu-dev,log,batch
+    active: incross-db,exntu-dev,log,batch
   jmx:
     enabled: false
   # HTTP
@@ -109,10 +109,9 @@ spring:
       hibernate:
         format_sql: false
         hbm2ddl:
-#          auto: create
-#          auto: update
+#         auto: create
+          auto: update
           import_files: /sql/init-oauth-spec.sql,/sql/init-mp-common.sql,/sql/init-mp-ia.sql,/sql/init-mp-user-prd.sql,/sql/init-mp-comm.sql
-
 ---
 spring:
   profiles: incross-db
@@ -144,9 +143,8 @@ spring:
         format_sql: false
         hbm2ddl:
           #          auto: create
-          #          auto: update
+          auto: update
           import_files: /sql/init-oauth-spec.sql,/sql/init-mp-common.sql,/sql/init-mp-ia.sql,/sql/init-mp-user-prd.sql,/sql/init-mp-comm.sql
-
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # Server Profile
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -245,10 +243,10 @@ config:
     url: http://localhost:8880/oauth/token
     basic-token: bWV0YXRyb24tcG9ydGFsOm1ldGF0cm9uLXBvcnRhbC1zZWNyZXQ=
   media:
-    temp: /data/enterprise/portal/tmp
+    temp: /Users/ayhwang/data/enterprise/portal/temp
   timezone: Asia/Seoul
   upload:
-    path: /data/enterprise/portal/upload
+    path: /Users/ayhwang/data/enterprise/portal/upload
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # Log Profile
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

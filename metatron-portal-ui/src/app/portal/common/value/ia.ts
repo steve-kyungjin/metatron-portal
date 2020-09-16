@@ -96,6 +96,7 @@ export namespace Ia {
 		readonly metadataIaCode: string = 'IA000005';
 		readonly managementIaCode: string = 'IA000006';
 		readonly metaTronIaCode: string = 'IA000008';
+		readonly metaTronPrepIaCode: string = 'IA000200';
 		readonly siteMapIaCode: string = 'IA000007';
 		readonly helpIaCode: string = 'IA000009';
 		readonly knimeIaCode: string = 'IA000010';

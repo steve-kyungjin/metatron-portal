@@ -107,7 +107,6 @@ export class CommunityListComponent extends AbstractComponent implements OnInit,
 	protected doSearch(isMoreView: boolean = false) {
 		Loading.show();
 		this.searchInputText = this.searchKey;
-
 		this.communityService.getPostList(this.masterInfo.slug, this.page, this.searchKey, this.searchStatus).then(result => {
 			if (result.code === CommonConstant.CODE.RESULT_CODE.SUCCESS) {
 				let postList = result.data.postList.content;
@@ -148,6 +147,22 @@ export class CommunityListComponent extends AbstractComponent implements OnInit,
 	 */
 	protected goCreate() {
 		this.router.navigate([ `view${this.masterInfo.prePath}/${this.masterInfo.slug}/post/create` ]);
+
+	}
+
+	/**
+	 * 상세 페이지 이동
+	 * @param {Community.Post} post
+	 */
+	protected goDetail2(post: Community.Post) {
+		this.router.navigate([ `view/mypage/${post.id}` ]);
+	}
+
+	/**
+	 * 등록 페이지 이동
+	 */
+	protected goCreate2() {
+		this.router.navigate([ `view/mypage/create` ]);
 	}
 
 	/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

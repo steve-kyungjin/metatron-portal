@@ -1,0 +1,102 @@
+<!-- 커뮤니케이션 -->
+<div class="page-communication">
+
+	<div class="section-list">
+		<!-- 등록,검색 -->
+		<div class="search-block">
+			<!-- 글 등록 -->
+			<a href="javascript:;" class="btn-action type-create" *ngIf="enableCreate" (click)="createClick(); tagging(TaggingType.LIST, TaggingAction.BTN, translateService.instant('COMMUNITY.LIST.NEW.POST', '새 글쓰기'))">
+				{{ translateService.instant('COMMUNITY.LIST.NEW.POST', '새 글쓰기') }}
+			</a>
+			<!-- //글 등록 -->
+			<!-- 검색 -->
+			<div class="filter">
+				<div class="filter-select" *ngIf="masterInfo.postType == PostType.WORKFLOW">
+					<span class="txt-filter">{{ translateService.instant('COMMUNITY.STATUS', '상태') }}</span>
+					<div common-select
+						 [className]="'type-filter'"
+						 [items]="statusList"
+						 [showAll]="true"
+						 (itemSelect)="statusSelect($event)">
+					</div>
+					<em class="bar"></em>
+				</div>
+				<div class="component-search">
+					<input type="text" class="input-search"
+						   [attr.placeholder]="masterInfo.postType == PostType.WORKFLOW ? translateService.instant('COMMUNITY.LIST.SEARCH.PLACEHOLDER.WORKFLOW', '제목, 내용, 등록자, 담당자로 검색') : translateService.instant('COMMUNITY.LIST.SEARCH.PLACEHOLDER', '제목, 내용, 등록자로 검색')"
+						   (keyup.enter)="searchClick()"
+						   [(ngModel)]="searchInputText"
+						   [maxlength]="255">
+					<button class="btn-search" [attr.aria-label]="translateService.instant('COMMON.SEARCH', '검색')" (click)="searchClick()"></button>
+				</div>
+			</div>
+			<!-- //검색 -->
+		</div>
+		<!-- //등록,검색 -->
+
+		<!-- 목록 -->
+		<table class="table-communication">
+			<colgroup>
+				<col width="*"/>
+				<col width="100" *ngIf="masterInfo.postType == PostType.WORKFLOW"/>
+				<col width="180"/>
+				<col width="180" *ngIf="masterInfo.postType == PostType.WORKFLOW"/>
+				<col width="180" *ngIf="masterInfo.postType == PostType.WORKFLOW"/>
+				<col width="100"/>
+				<col width="100"/>
+			</colgroup>
+			<thead>
+			<tr>
+				<th>테스트</th>
+				<th *ngIf="masterInfo.postType == PostType.WORKFLOW">{{ translateService.instant('COMMUNITY.LIST.TABLE.COL2', '상태') }}</th>
+				<th>{{ translateService.instant('COMMUNITY.LIST.TABLE.COL3', '등록자') }}</th>
+				<th *ngIf="masterInfo.postType == PostType.WORKFLOW">{{ translateService.instant('COMMUNITY.LIST.TABLE.COL4', '담당자') }}</th>
+				<th *ngIf="masterInfo.postType == PostType.WORKFLOW">{{ translateService.instant('COMMUNITY.LIST.TABLE.COL7', '처리자') }}</th>
+				<th>{{ translateService.instant('COMMUNITY.LIST.TABLE.COL5', '등록일') }}</th>
+				<th>{{ translateService.instant('COMMUNITY.LIST.TABLE.COL6', '조회') }}</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr *ngFor="let item of postList">
+				<td class="align-left">
+					<a href="javascript:;" class="link-comm" [attr.title]="item.title" (click)="postClick(item); tagging(TaggingType.LIST, TaggingAction.ITEM, item.title)">
+						<span class="txt-comment" *ngIf="item.master.replyYn">[{{ item.replyCnt }}]</span>
+						<span class="txt-title" [class.type-lock]="!item.acceptable">{{ item.title }}</span>
+					</a>
+				</td>
+				<td *ngIf="masterInfo.postType == PostType.WORKFLOW">
+					<!--
+                        [D] 상태 클래스명 정의
+                        type-a : 요청등록
+                        type-b : 요청취소
+                        type-c : 요청처리중
+                        type-d : 요청처리완료
+                        type-e : 요청완료확인
+                    -->
+					<span [ngClass]="item.className" *ngIf="item.status">
+						{{ masterInfo && masterInfo.secondaryType && item.status == Status.PROGRESS ? translateService.instant('COMMUNITY.STATUS.PROGRESS.' + masterInfo.secondaryType, '요청타입') : '' }} {{ translateService.instant('COMMUNITY.STATUS.' + item.status.toUpperCase(), '요청상태') }}
+					</span>
+				</td>
+				<td>{{ item.createdBy.userNm }}{{ item.createdBy.orgNm ? '(' + item.createdBy.orgNm + ')' : '' }}</td>
+				<td *ngIf="masterInfo.postType == PostType.WORKFLOW">{{ item.worker ? item.worker.userNm : translateService.instant('COMMUNITY.UNSPECIFIED', '(미지정)') }}{{ item.worker && item.worker.orgNm ? '(' + item.worker.orgNm + ')' : '' }}</td>
+				<td *ngIf="masterInfo.postType == PostType.WORKFLOW"><span class="txt-manager" [attr.title]="communityService.getCoworkersText(item)">{{ communityService.getCoworkersText(item) }}</span></td>
+				<td>{{ item.createdDate | date_format : 'YYYY-MM-DD' }}</td>
+				<td>{{ item.viewCnt | number : '1.0-3' }}</td>
+			</tr>
+			</tbody>
+		</table>
+		<!-- //목록 -->
+
+		<!-- No Data -->
+		<div class="nodata-communication" *ngIf="postList && !postList.length">
+			{{ translateService.instant('COMMUNITY.LIST.NODATA', '등록된 글이 없습니다.') }}
+		</div>
+		<!-- //No Data -->
+
+		<!-- Pagination -->
+		<div pagination (pageMove)="setCurrentPage($event)" [size]="page.size"></div>
+		<!-- //Pagination -->
+	</div>
+
+</div>
+<!-- //커뮤니케이션 -->

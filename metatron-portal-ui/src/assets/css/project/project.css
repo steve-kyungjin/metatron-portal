@@ -1,2 +1,4 @@
 .dtp-intro-wrap .logo:before, .dtp-login-wrap .login-area .btn-login {margin-top:30px;}
 li .option-permission dt {display:none;}
+.dtp-login-wrap .login-area {margin-top:30px;}
+.layout-lnb .link-metatron-prep>a:before {opacity:1;}

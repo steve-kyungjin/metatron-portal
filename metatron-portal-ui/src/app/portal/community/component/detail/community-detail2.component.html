@@ -1,0 +1,111 @@
+<!-- 커뮤니케이션 -->
+<div class="page-communication">
+
+	<!-- 커뮤니케이션 상세 -->
+	<div class="section-detail">
+		<div class="top-area">
+			<a href="javascript:;" class="link-list" (click)="listViewClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.LIST.VIEW', '목록보기'))">
+				{{ translateService.instant('COMMON.LIST.VIEW', '목록보기') }}
+			</a>
+			<!-- 공지 알림 -->
+			<span class="notice-block" *ngIf="post && post.bannerYn">
+				{{ translateService.instant('NOTICE.LAYER.TITLE', '공지알림') }} : {{ post.dispStartDate }} ~ {{ post.dispEndDate }}
+			</span>
+			<!-- //공지 알림 -->
+		</div>
+
+
+		<!-- 내용 상세 -->
+		<div class="detail-area">
+
+			<!-- [D] 대표이미지가 있으면 type-thumb 클래스 추가 -->
+			<div [ngClass]="{'detail-info': true, 'type-thumb': post && post.imageUrl ? true : false}">
+				<span class="bg-thumb" *ngIf="post.imageUrl" [style.background-image]="'url(' + post.imageUrl + ')'"></span>
+				<!--
+                    [D] 상태 클래스명 정의
+                    type-a : 요청등록
+                    type-b : 요청취소
+                    type-c : 요청처리중
+                    type-d : 요청처리완료
+                    type-e : 요청완료확인
+                -->
+				<div class="status-info">
+					<span [ngClass]="post.className" *ngIf="post.status">
+						{{ master.secondaryType && post.status == Status.PROGRESS ? translateService.instant('COMMUNITY.STATUS.PROGRESS.' + master.secondaryType, '요청타입') : '' }} {{ translateService.instant('COMMUNITY.STATUS.' + post.status.toUpperCase(), '요청상태') }}
+					</span>
+					<ul class="list-step" *ngIf="post.status && (post.status == Status.REVIEW || post.status == Status.PROGRESS || post.status == Status.COMPLETED)">
+						<li [attr.aria-selected]="post.status == Status.REVIEW" *ngIf="master.secondaryType == RequestType.NORMAL">{{ translateService.instant('COMMUNITY.STATUS.REVIEW', '요청 검토') }}</li>
+						<li [attr.aria-selected]="post.status == Status.PROGRESS">{{ translateService.instant('COMMUNITY.STATUS.PROGRESS.' + master.secondaryType, '요청타입') }} {{ translateService.instant('COMMUNITY.STATUS.PROGRESS', '진행') }}</li>
+						<li [attr.aria-selected]="post.status == Status.COMPLETED">{{ translateService.instant('COMMUNITY.STATUS.COMPLETED', '종결') }}</li>
+					</ul>
+				</div>
+
+				<strong class="txt-title">{{ post.title }}</strong>
+				<div class="user-info">
+					<span class="bg-img" [style.background-image]="'url(' + userService.getProfileImage(post.createdBy)  + ')'"></span>
+					<strong class="txt-name">{{ post.createdBy.userNm }}{{ post.createdBy.orgNm ? '(' + post.createdBy.orgNm + ')' : '' }}</strong>
+					<span class="txt-date">{{ post.createdDate | date_format: 'YYYY-MM-DD HH:mm:ss' }}</span>
+					<a href="javascript:;" class="btn-detail" (click)="postEditClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.MODIFY', '수정'))" *ngIf="enableEdit">
+						{{ translateService.instant('COMMON.MODIFY', '수정') }}
+					</a>
+					<a href="javascript:;" class="btn-detail" (click)="postDeleteClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.DELETE', '삭제'))" *ngIf="enableDelete">
+						{{ translateService.instant('COMMON.DELETE', '삭제') }}
+					</a>
+					<strong class="txt-views">{{ translateService.instant('COMMON.LOOKUP', '조회') }} {{ post.viewCnt }}</strong>
+				</div>
+			</div>
+
+			<!-- Editor 영역 -->
+			<div class="detail-editor">
+				<div common-editor [text]="editorText" [isViewMode]="true" (imageClick)="imageClickInEditor($event)"></div>
+			</div>
+			<!-- //Editor 영역 -->
+
+			<!-- 첨부파일 목록 -->
+			<div class="detail-attachment">
+				<file-list-view [fileGroup]="post.fileGroup" (fileDownload)="tagging(TaggingType.DETAIL, TaggingAction.DN, $event.id)"></file-list-view>
+			</div>
+			<!-- //첨부파일 목록 -->
+
+			<!-- 댓글 -->
+			<div community-comment [post]="post" *ngIf="master && master.replyYn" (postStatusChange)="postStatusChange($event)"></div>
+			<!-- //댓글 -->
+
+		</div>
+		<!-- //내용 상세 -->
+
+		<a href="javascript:;" class="link-list" (click)="listViewClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.LIST.VIEW', '목록보기'))">
+			{{ translateService.instant('COMMON.LIST.VIEW', '목록보기') }}
+		</a>
+	</div>
+	<!-- //커뮤니케이션 상세 -->
+
+</div>
+<!-- //커뮤니케이션 -->
+
+<!-- LAYER POPUP -->
+<div class="layout-popup" *ngIf="showDetailImage">
+	<div class="layer-popup">
+		<div class="popup">
+			<!-- Popup Content -->
+			<div class="popup-content type-confirm type-image">
+				<!-- 닫기 버튼 -->
+				<a href="javascript:;" class="btn-close" [attr.aria-label]="translateService.instant('COMMON.CLOSE', '닫기')" (click)="detailImageClose()"></a>
+				<!-- //닫기 버튼 -->
+
+				<!-- 팝업 내용 -->
+				<!-- [D] Image Size 300이하 일 때 type-min 클래스 추가 -->
+				<div class="section-image" [class.type-min]="detailImageTypeMin" [class.type-max]="detailImageTypeMax">
+					<div class="image-area">
+						<div class="image-block">
+							<img [attr.src]="detailImageSrc">
+						</div>
+					</div>
+				</div>
+				<!-- //팝업 내용 -->
+			</div>
+			<!-- //Popup Content -->
+		</div>
+	</div>
+</div>
+<!-- //LAYER POPUP -->

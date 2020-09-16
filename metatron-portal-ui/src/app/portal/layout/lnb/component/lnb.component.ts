@@ -252,6 +252,15 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
 		this.metatronService.moveToMetatron(this.sessionInfo.getUser().metatronUrl + `/app/v2/index.html`);
 	}
 
+	/**
+	 * 메타트론 메뉴 클릭시
+	 */
+	public clickMetaTronPrepMenu(): void {
+		// 메타트론 홈 화면으로 이동
+		// this.metatronService.moveToMetatron(`${environment.prepUrl}`);
+		this.metatronService.moveToMetatron('http://skt-campaignhub.koreacentral.cloudapp.azure.com:8283');
+	}
+
 	// noinspection JSMethodCanBeStatic
 	/**
 	 * 이미지 링크 만들기

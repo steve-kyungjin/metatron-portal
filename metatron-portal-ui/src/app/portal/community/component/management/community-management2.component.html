@@ -1,0 +1,176 @@
+<!-- 커뮤니케이션 -->
+<div class="page-communication">
+
+	<!-- 커뮤니케이션 등록 -->
+	<div class="section-create">
+		<!-- Title -->
+		<div class="title-area">
+			<h3 class="txt-title">{{ isModify ? translateService.instant('COMMUNITY.MODIFY.TITLE', '글 수정하기') : translateService.instant('COMMUNITY.CREATE.TITLE', '글 등록하기') }}</h3>
+			<div class="filter" *ngIf="menuList && menuList.length">
+				<label class="txt-label">{{ translateService.instant('COMMUNITY.CREATE.CHANGE.SLUG.TITLE', '요청 유형 변경') }}</label>
+				<div common-select
+					 [className]="'type-filter'"
+					 [items]="menuList"
+					 (itemSelect)="menuSelect($event)"
+					 (beforeItemSelect)="beforeMenuSelect($event)">
+				</div>
+			</div>
+		</div>
+		<!-- //Title -->
+
+		<!-- 글 등록 -->
+		<div class="create-area">
+			<input type="text" [ngClass]="{'input-text': true, 'is-error': !isValidateTitle}"
+				   (focus)="isValidateTitle = true" [maxlength]="100"
+				   [attr.placeholder]="translateService.instant('COMMUNITY.CREATE.TITLE.PLACEHOLDER', '제목을 입력하세요.')" [(ngModel)]="post.title">
+
+			<!-- Editor 영역 -->
+			<div class="create-editor">
+				<div common-editor [text]="editorText"></div>
+			</div>
+			<!-- //Editor 영역 -->
+		</div>
+		<!-- //글 등록 -->
+
+		<!-- 첨부파일,대표이미지 등록 -->
+		<div class="attachment-area">
+			<ul class="attachment">
+				<li [style.display]="master.postType == PostType.NOTICE ? 'block' : 'none'" [ngClass]="{'is-error': !isValidateDate}">
+					<span class="txt-label align-middle">{{ translateService.instant('COMMUNITY.CREATE.NOTICE.TITLE', '공지알림여부') }}</span>
+					<div class="create-notice">
+						<div class="notice">
+							<input type="checkbox" id="check1" class="input-checkbox" [(ngModel)]="post.bannerYn">
+							<label class="label" for="check1">
+								{{ translateService.instant('COMMUNITY.CREATE.NOTICE.SUB.TITLE', '공지알림') }}
+							</label>
+						</div>
+						<div class="component-datepicker" [attr.aria-hidden]="!post.bannerYn">
+							<div class="box-datepicker">
+								<input (focus)="isValidateDate = true" type="text" id="minMaxDate" type="text" readonly="readonly">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<span class="txt-label">{{ translateService.instant('COMMUNITY.CREATE.FILE.TITLE', '첨부문서') }}</span>
+					<div class="form-attachment">
+						<file-field [description]="translateService.instant('COMMUNITY.CREATE.FILE.DESC', '첨부문서는 최대 5개, 파일 당 30MB, csv, xls, xlsx, ppt, pptx, pdf, doc, docx, txt, jpg, jpeg, bmp, gif, png 확장자로 제한됩니다.')"
+									[accept]="['.csv', '.xls', '.xlsx', '.ppt', '.pptx', '.pdf', '.doc', '.docx', '.txt', '.jpg', '.jpeg', '.bmp', '.gif', '.png']"
+									[fileMaxLength]="5" [fileMaxSize]="31457280" (find)="tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('FILE.INPUT.LABEL', '파일 찾기'), translateService.instant('COMMUNITY.CREATE.FILE.TITLE', '첨부문서'))"
+									#fileUploader></file-field>
+					</div>
+				</li>
+				<li>
+					<span class="txt-label">{{ translateService.instant('COMMUNITY.CREATE.IMAGE.TITLE', '대표이미지') }}</span>
+
+					<div class="form-attachment">
+						<file-field [description]="translateService.instant('COMMUNITY.CREATE.IMAGE.DESC', '대표이미지 설명')"
+									[fileMaxLength]="1"  (find)="tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('FILE.INPUT.LABEL', '파일 찾기'), translateService.instant('COMMUNITY.CREATE.IMAGE.TITLE', '대표이미지'))"
+									#imageUploader></file-field>
+					</div>
+				</li>
+				<li *ngIf="isAdmin && master.postType == PostType.WORKFLOW">
+					<span class="txt-label">{{ translateService.instant('COMMON.WORKER', '담당자') }}</span>
+					<div class="form-attachment">
+						<div class="form-member">
+							<a href="javascript:;" class="btn-basic" (click)="isOpenWorkerSelectPopup = true; isUserMultipleSelectMode = false;">{{ translateService.instant('COMMON.CONFIG', '설정하기') }}</a>
+							<ul class="list-member" *ngIf="post.worker && post.worker.userId">
+								<li>
+									<span class="bg-member" [style.background-image]="'url(' + userService.getProfileImage(post.worker)  + ')'"></span>
+									<span class="txt-member">{{ post.worker.userNm }}{{ post.worker.orgNm === '' ? '' : '(' + post.worker.orgNm + ')'  }}</span>
+									<a href="javascript:;" class="btn-delete" [attr.aria-label]="translateService.instant('COMMON.DELETE', '삭제')" (click)="deleteWorker()"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li *ngIf="isAdmin && master.postType == PostType.WORKFLOW">
+					<span class="txt-label">{{ translateService.instant('COMMON.COWORKER', '처리자') }}</span>
+					<div class="form-attachment">
+						<div class="form-member">
+							<a href="javascript:;" class="btn-basic" (click)="isOpenCoworkerSelectPopup = true; isUserMultipleSelectMode = true;">{{ translateService.instant('COMMON.CONFIG', '설정하기') }}</a>
+							<ul class="list-member" *ngIf="post.coworkers">
+								<li *ngFor="let item of post.coworkers; let index = index;">
+									<span class="bg-member" [style.background-image]="'url(' + userService.getProfileImage(item)  + ')'"></span>
+									<span class="txt-member">{{ item.userNm }}{{ item.orgNm === '' ? '' : '(' + item.orgNm + ')'  }}</span>
+									<a href="javascript:;" class="btn-delete" [attr.aria-label]="translateService.instant('COMMON.DELETE', '삭제')" (click)="deleteCoworker(index)"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li *ngIf="isAdmin">
+					<span class="txt-label">{{ translateService.instant('COMMON.CREATOR', '등록자') }}</span>
+					<div class="form-attachment">
+						<div class="form-member">
+							<a href="javascript:;" class="btn-basic" (click)="isOpenUserSelectPopup = true; isUserMultipleSelectMode = false;">{{ translateService.instant('COMMON.CONFIG', '설정하기') }}</a>
+							<ul class="list-member" *ngIf="post.createdBy && post.createdBy.userId">
+								<li>
+									<span class="bg-member" [style.background-image]="'url(' + userService.getProfileImage(post.createdBy)  + ')'"></span>
+									<span class="txt-member">{{ post.createdBy.userNm }}{{ post.createdBy.orgNm === '' ? '' : '(' + post.createdBy.orgNm + ')'  }}</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li *ngIf="isAdmin">
+					<span class="txt-label align-middle">{{ translateService.instant('COMMON.CREATED.DATE', '등록일자') }}</span>
+					<div class="form-attachment">
+						<div class="component-datepicker">
+							<div class="box-datepicker">
+								<input type="text" class="type-timepicker"
+									   input-datepicker
+									   [datepicker]="{ 'useTimePicker': true, 'position': 'top left' }"
+									   [value]="post.createdDate | date_format : 'YYYY-MM-DD HH:mm'"
+									   (oSelected)="createdDateSelect($event)"
+									   readonly="readonly">
+							</div>
+						</div>
+					</div>
+				</li>
+
+				<!-- 권한 설정 추가 -->
+				<li>
+					<span class="txt-label">권한 설정</span>
+					<div class="form-attachment">
+						<div authority-settings></div>
+					</div>
+				</li>
+				<!-- //권한 설정 추가 -->
+			</ul>
+		</div>
+		<!-- //첨부파일,대표이미지 등록 -->
+
+		<!-- 버튼 영역 -->
+		<div class="button-area">
+			<div class="button-left">
+				<a href="javascript:;" class="btn-basic" (click)="cancelClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.CANCEL', '취소'))">
+					{{ translateService.instant('COMMON.CANCEL', '취소') }}
+				</a>
+				<a href="javascript:;" class="btn-basic" (click)="saveDraftClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMUNITY.CONFIRM.DRAFT.TITLE', '임시저장'))" *ngIf="!isModify">
+					{{ translateService.instant('COMMUNITY.CONFIRM.DRAFT.TITLE', '임시저장') }}
+				</a>
+				<a href="javascript:;" class="btn-action" (click)="createClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.SAVE', '저장'))">
+					{{ translateService.instant('COMMON.SAVE', '저장') }}
+				</a>
+			</div>
+			<div class="button-right" *ngIf="isModify">
+				<a href="javascript:;" class="btn-basic" (click)="deleteClick(); tagging(TaggingType.DETAIL, TaggingAction.BTN, translateService.instant('COMMON.DELETE', '삭제'))">
+					{{ translateService.instant('COMMON.DELETE', '삭제') }}
+				</a>
+			</div>
+		</div>
+		<!-- //버튼 영역 -->
+	</div>
+	<!-- //커뮤니케이션 등록 -->
+
+</div>
+<!-- //커뮤니케이션 -->
+
+<div user-select
+	 *ngIf="isOpenUserSelectPopup || isOpenWorkerSelectPopup || isOpenCoworkerSelectPopup"
+	 [isUserMultipleSelectMode]="isUserMultipleSelectMode"
+	 [defaultSelectedUserList]="isOpenCoworkerSelectPopup ? post.coworkers : []"
+	 (oDone)="doneUserSelectPopup($event)"
+	 (oClose)="closeUserSelectPopup()">
+</div>

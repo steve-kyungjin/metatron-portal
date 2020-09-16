@@ -933,6 +933,14 @@
 			   (click)="tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.metaTronIaCode).name); clickMetaTronMenu()"></a>
 		</li>
 
+		<li class="link-metatron-prep"
+			*ngIf="layoutService.getMenuByIaCode(layoutService.iaCodes.metaTronIaCode) !== null && layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.metaTronIaCode)"
+			[title]="layoutService.getMenuByIaCode(layoutService.iaCodes.metaTronIaCode).name">
+			<a href="javascript:;"
+			   aria-label="METATRON"
+			   (click)="tagging(TaggingType.LNB, TaggingAction.BTN, layoutService.getMenuByIaCode(layoutService.iaCodes.metaTronIaCode).name); clickMetaTronPrepMenu()"></a>
+		</li>
+
 		<!--<li class="link-knime"-->
 			<!--*ngIf="layoutService.getMenuByIaCode(layoutService.iaCodes.knimeIaCode) !== null && layoutService.isFirstMenuDisplayFlagTrue(layoutService.iaCodes.knimeIaCode)"-->
 			<!--[title]="layoutService.getMenuByIaCode(layoutService.iaCodes.knimeIaCode).name">-->

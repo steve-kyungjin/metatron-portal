@@ -69,7 +69,7 @@ export namespace Community {
 		// 댓글 가능 여부
 		public replyYn: boolean;
 		// url 앞 부분
-		public prePath: string;
+ 		public prePath: string;
 		// 게시글 템플릿
 		public templates: Array<Template>;
 		// 요청 타입
