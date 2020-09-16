@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev-db,exntu-dev,log,batch
+    active: incross-db,exntu-dev,log,batch
   jmx:
     enabled: false
   # HTTP
@@ -214,7 +214,7 @@ app:
     metatron-basic-token: cG9sYXJpc19jbGllbnQ6cG9sYXJpcw==
     metatron-admin-id: polaris
     metatron-admin-pw: polaris
-    metatron-url: http://discovery.incross.metatron.app
+    metatron-url: http://skt-campaignhub.koreacentral.cloudapp.azure.com:8281
 metatron:
   path:
     workbook-share-path: ${app.sso.metatron-url}/app/v2/dashboard/presentation/
