@@ -29,3 +29,6 @@ insert into mp_cm_role_group_ia_rel (id, ia_id, role_group_id, permission) value
 insert into mp_cm_role_group_ia_rel (id, ia_id, role_group_id, permission) values ('RI000017', 'IA000007', 'DEFAULT_USER', 'RO');
 insert into mp_cm_role_group_ia_rel (id, ia_id, role_group_id, permission) values ('RI000018', 'IA000008', 'DEFAULT_USER', 'RO');
 insert into mp_cm_role_group_ia_rel (id, ia_id, role_group_id, permission) values ('RI000019', 'IA000009', 'DEFAULT_USER', 'RO');
+
+-- Admin menu Create
+insert into mp_cm_role_group_user_rel (id, user_id, role_group_id) values ('RU000102', 'poj', 'SYSTEM_ADMIN');
